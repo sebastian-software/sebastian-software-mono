@@ -2,8 +2,14 @@
   "name": "sanity-template-remix-clean",
   "private": true,
   "scripts": {
+    "deploy:dev": "sst deploy --stage development",
+    "deploy:prod": "sst deploy --stage production",
     "dev": "pnpm -r dev",
-    "format": "prettier --cache --write ."
+    "distclean": "git clean -xdf",
+    "format": "prettier --cache --write .",
+    "update:latest": "ncu --deep  --upgrade --interactive",
+    "update:minor": "ncu --deep  --upgrade --interactive --target minor",
+    "update:pnpm": "corepack up"
   },
   "prettier": {
     "plugins": [
@@ -13,8 +19,9 @@
     "singleQuote": true
   },
   "devDependencies": {
+    "npm-check-updates": "^17.0.6",
     "prettier": "3.3.3",
     "prettier-plugin-packagejson": "2.5.1"
   },
-  "packageManager": "pnpm@9.5.0"
+  "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"
 }
