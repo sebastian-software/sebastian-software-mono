@@ -1,8 +1,8 @@
 import { useLoaderData, type MetaFunction } from '@remix-run/react'
-import { useQuery } from '@sanity/react-loader'
+import { QueryResponseInitial, useQuery } from '@sanity/react-loader'
 import Card from '~/components/Card'
 import { loadQuery } from '~/sanity/loader.server'
-import { POSTS_QUERY } from '~/sanity/queries'
+import { TESTIMONIALS_QUERY } from '~/sanity/queries'
 import { Post } from '~/sanity/types'
 
 export const meta: MetaFunction = () => {
@@ -10,9 +10,9 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader = async () => {
-  const initial = await loadQuery<Post[]>(POSTS_QUERY)
+  const initial = await loadQuery<Post[]>(TESTIMONIALS_QUERY)
 
-  return { initial, query: POSTS_QUERY, params: {} }
+  return { initial, query: TESTIMONIALS_QUERY, params: {} }
 }
 
 export default function Index() {

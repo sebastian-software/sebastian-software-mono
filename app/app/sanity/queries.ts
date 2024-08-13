@@ -1,6 +1,6 @@
 import groq from 'groq'
 
-export const POSTS_QUERY = groq`*[_type == "testimonial" && defined(slug.current)] | order(publishedAt desc){
+export const TESTIMONIALS_QUERY = groq`*[_type == "testimonial" && defined(slug.current)] | order(publishedAt desc){
   _id,
   slug,
   date,
@@ -17,7 +17,7 @@ export const POSTS_QUERY = groq`*[_type == "testimonial" && defined(slug.current
     name
   }
 }`
-export const POST_QUERY = groq`*[_type == "testimonial" && slug.current == $slug][0] {
+export const TESTIMONIAL_QUERY = groq`*[_type == "testimonial" && slug.current == $slug][0] {
   date,
   quote,
   author->{
