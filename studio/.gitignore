@@ -1,7 +1,0 @@
-node_modules
-
-/.cache
-/.sanity
-/build
-/public/build
-.env

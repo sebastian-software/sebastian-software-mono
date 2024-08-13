@@ -1,1 +1,8 @@
 node_modules
+
+.cache
+.sanity
+
+build/
+
+.env
