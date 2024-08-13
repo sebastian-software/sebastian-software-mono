@@ -7,6 +7,7 @@ import { urlFor } from '~/sanity/image'
 import { loadQuery } from '~/sanity/loader.server'
 import { POST_QUERY } from '~/sanity/queries'
 import { Post } from '~/sanity/types'
+import { Image } from '@unpic/react'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const initial = await loadQuery<Post>(POST_QUERY, params)
@@ -31,18 +32,15 @@ export default function PostRoute() {
 
   return (
     <section data-sanity={encodeDataAttribute('slug')} className="post">
-      <img
+      <Image
         data-sanity={encodeDataAttribute('author.headshot')}
-        className="post__cover"
         src={urlFor(data?.author.headshot).url()}
-        style={{ width: '20rem' }}
+        width={150}
       />
-      <div className="post__container">
-        <h1 className="post__title">{data?.title}</h1>
-        <p className="post__excerpt">{data?.excerpt}</p>
-        <p className="post__date">{formatDate(data.date)}</p>
-        <div className="post__content">{data.quote}</div>
-      </div>
+      <h1>{data?.title}</h1>
+      <p>{data?.excerpt}</p>
+      <p>{formatDate(data.date)}</p>
+      <div>{data.quote}</div>
     </section>
   )
 }

@@ -3,6 +3,7 @@ import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 import { formatDate } from '~/utils/formatDate'
 import { urlFor } from '~/sanity/image'
 import type { Post } from '~/sanity/types'
+import { Image } from '@unpic/react'
 
 export default function Card({
   post,
@@ -19,16 +20,13 @@ export default function Card({
           className="card__link"
           to={post.slug?.current ? `/post/${post.slug.current}` : '/'}
         >
-          <img
-            src={urlFor(post.author.headshot).url()}
-            style={{ width: '20rem' }}
-          />
+          <Image src={urlFor(post.author.headshot).url()} width={150} />
           <h3>{post.author.name}</h3>
         </Link>
         <p>
           {post.position} at {post.company.name}
         </p>
-        <p>{formatDate(post.date)}</p>
+        <p data-sanity={encodeDataAttribute('date')}>{formatDate(post.date)}</p>
       </div>
     </div>
   )
