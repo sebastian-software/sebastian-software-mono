@@ -39,16 +39,14 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div className="container">
-          <header className="header">
-            <Link className="header__title" to="/">
-              Sebastian Software GmbH
-            </Link>
+        <div>
+          <header>
+            <Link to="/">Sebastian Software GmbH</Link>
           </header>
           <main>
             <Outlet />
           </main>
-          <footer className="footer">Copyright Sebastian Software GmbH</footer>
+          <footer>Copyright Sebastian Software GmbH</footer>
         </div>
         <ScrollRestoration />
         <script

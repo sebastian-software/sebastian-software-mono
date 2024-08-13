@@ -31,14 +31,12 @@ export default function TestimonialRoute() {
   }
 
   return (
-    <section data-sanity={encodeDataAttribute('slug')} className="post">
+    <section data-sanity={encodeDataAttribute('slug')}>
       <Image
         data-sanity={encodeDataAttribute('author.headshot')}
         src={urlFor(data?.author.headshot).url()}
         width={150}
       />
-      <h1>{data?.title}</h1>
-      <p>{data?.excerpt}</p>
       <p>{formatDate(data.date)}</p>
       <div>{data.quote}</div>
     </section>

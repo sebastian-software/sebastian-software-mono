@@ -16,7 +16,6 @@ export default function Card({
     <div>
       <Link
         data-sanity={encodeDataAttribute('slug')}
-        className="card__link"
         to={post.slug?.current ? `/testimonial/${post.slug.current}` : '/'}
       >
         <Image src={urlFor(post.author.headshot).url()} width={150} />
