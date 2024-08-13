@@ -11,6 +11,7 @@ export default function Card({
   post: Post
   encodeDataAttribute: EncodeDataAttributeCallback
 }) {
+  console.log('DATA:', post)
   return (
     <div className="card">
       {post.mainImage ? (
@@ -21,20 +22,17 @@ export default function Card({
           alt=""
         />
       ) : (
-        <div className="card__cover--none" />
+        <div />
       )}
-      <div className="card__container">
+      <div>
         <Link
           data-sanity={encodeDataAttribute('slug')}
           className="card__link"
           to={post.slug?.current ? `/post/${post.slug.current}` : '/'}
         >
-          <h3 className="card__title">{post.title}</h3>
+          <h3>{post.author.name}</h3>
         </Link>
-        <p className="card__excerpt">{post.excerpt}</p>
-        {post._createdAt && (
-          <p className="card__date">{formatDate(post._createdAt)}</p>
-        )}
+        <p>{formatDate(post.date)}</p>
       </div>
     </div>
   )

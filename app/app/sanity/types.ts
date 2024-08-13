@@ -1,5 +1,5 @@
 import type { PortableTextBlock } from '@portabletext/types'
-import type { ImageAsset, Slug } from '@sanity/types'
+import type { ImageAsset, Slug, DateDefinition } from '@sanity/types'
 
 export interface Post {
   _type: 'post'
@@ -9,5 +9,6 @@ export interface Post {
   slug: Slug
   excerpt?: string
   mainImage?: ImageAsset
-  body: PortableTextBlock[]
+  date: DateDefinition
+  quote: PortableTextBlock[]
 }
