@@ -29,8 +29,6 @@ export default function PostRoute() {
     return <div>Loading...</div>
   }
 
-  console.log('POST-DATA:', data)
-
   return (
     <section data-sanity={encodeDataAttribute('slug')} className="post">
       <img

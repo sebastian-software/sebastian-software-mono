@@ -11,19 +11,8 @@ export default function Card({
   post: Post
   encodeDataAttribute: EncodeDataAttributeCallback
 }) {
-  console.log('DATA:', post)
   return (
     <div className="card">
-      {post.mainImage ? (
-        <img
-          data-sanity={encodeDataAttribute('mainImage')}
-          className="card__cover"
-          src={urlFor(post.mainImage).width(500).height(300).url()}
-          alt=""
-        />
-      ) : (
-        <div />
-      )}
       <div>
         <Link
           data-sanity={encodeDataAttribute('slug')}
@@ -35,10 +24,10 @@ export default function Card({
             style={{ width: '20rem' }}
           />
           <h3>{post.author.name}</h3>
-          <p>
-            {post.position} at {post.company.name}
-          </p>
         </Link>
+        <p>
+          {post.position} at {post.company.name}
+        </p>
         <p>{formatDate(post.date)}</p>
       </div>
     </div>
