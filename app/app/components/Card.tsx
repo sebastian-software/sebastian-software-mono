@@ -30,7 +30,14 @@ export default function Card({
           className="card__link"
           to={post.slug?.current ? `/post/${post.slug.current}` : '/'}
         >
+          <img
+            src={urlFor(post.author.headshot).url()}
+            style={{ width: '20rem' }}
+          />
           <h3>{post.author.name}</h3>
+          <p>
+            {post.position} at {post.company.name}
+          </p>
         </Link>
         <p>{formatDate(post.date)}</p>
       </div>

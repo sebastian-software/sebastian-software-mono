@@ -29,29 +29,21 @@ export default function PostRoute() {
     return <div>Loading...</div>
   }
 
+  console.log('POST-DATA:', data)
+
   return (
     <section data-sanity={encodeDataAttribute('slug')} className="post">
-      {data?.mainImage ? (
-        <img
-          data-sanity={encodeDataAttribute('mainImage')}
-          className="post__cover"
-          src={urlFor(data.mainImage).url()}
-          alt=""
-        />
-      ) : (
-        <div className="post__cover--none" />
-      )}
+      <img
+        data-sanity={encodeDataAttribute('author.headshot')}
+        className="post__cover"
+        src={urlFor(data?.author.headshot).url()}
+        style={{ width: '20rem' }}
+      />
       <div className="post__container">
         <h1 className="post__title">{data?.title}</h1>
         <p className="post__excerpt">{data?.excerpt}</p>
-        {data?._createdAt && (
-          <p className="post__date">{formatDate(data._createdAt)}</p>
-        )}
-        {data?.body && (
-          <div className="post__content">
-            <PortableText value={data.body} />
-          </div>
-        )}
+        <p className="post__date">{formatDate(data.date)}</p>
+        <div className="post__content">{data.quote}</div>
       </div>
     </section>
   )
