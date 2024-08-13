@@ -1,13 +1,12 @@
 import { useLoaderData, type MetaFunction } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 import Card from '~/components/Card'
-import Welcome from '~/components/Welcome'
 import { loadQuery } from '~/sanity/loader.server'
 import { POSTS_QUERY } from '~/sanity/queries'
 import { Post } from '~/sanity/types'
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'New Remix App' }]
+  return [{ title: 'Sebastian Software GmbH' }]
 }
 
 export const loader = async () => {
@@ -33,17 +32,14 @@ export default function Index() {
 
   return (
     <section>
-      {data?.length ? (
+      {data?.length &&
         data.map((post, i) => (
           <Card
             key={post._id}
             post={post}
             encodeDataAttribute={encodeDataAttribute.scope([i])}
           />
-        ))
-      ) : (
-        <Welcome />
-      )}
+        ))}
     </section>
   )
 }
