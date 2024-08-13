@@ -1,6 +1,5 @@
 {
-  "name": "sanity-template-remix-clean",
-  "private": true,
+  "name": "sebastian-software-mono",
   "scripts": {
     "deploy:dev": "sst deploy --stage development",
     "deploy:prod": "sst deploy --stage production",

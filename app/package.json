@@ -1,6 +1,5 @@
 {
-  "name": "sanity-template-remix-clean-app",
-  "private": true,
+  "name": "sebastian-software-homepage",
   "sideEffects": false,
   "type": "module",
   "scripts": {
