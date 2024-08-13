@@ -1,5 +1,4 @@
 import { type LinksFunction, json } from '@remix-run/node'
-import styles from './styles/index.css'
 import {
   Link,
   Links,
@@ -23,18 +22,6 @@ export const loader = () => {
       SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED,
     },
   })
-}
-
-export const links: LinksFunction = () => {
-  return [
-    { rel: 'stylesheet', href: styles },
-    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter:wght@500;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap',
-    },
-  ]
 }
 
 export default function App() {
