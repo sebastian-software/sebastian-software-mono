@@ -6,14 +6,31 @@ import { Image } from '@unpic/react'
 import { formatDate } from '~/utils/formatDate'
 import { urlFor } from '~/sanity/image'
 import { loadQuery } from '~/sanity/loader.server'
-import { TESTIMONIAL_QUERY } from '~/sanity/queries'
 import { Post } from '~/sanity/types'
+import groq from 'groq'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const initial = await loadQuery<Post>(TESTIMONIAL_QUERY, params)
-
   return { initial, query: TESTIMONIAL_QUERY, params }
 }
+
+export const TESTIMONIAL_QUERY = groq`*[_type == "testimonial" && slug.current == $slug][0] {
+  date,
+  language,
+  quote,
+  author->{
+    name,
+    headshot,
+    position,
+    company->{
+      name
+    }
+  },
+  position,
+  company->{
+    name
+  }
+}`
 
 export default function TestimonialRoute() {
   const { initial, query, params } = useLoaderData<typeof loader>()

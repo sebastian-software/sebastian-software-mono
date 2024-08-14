@@ -37,6 +37,12 @@ export const testimonialType = defineType({
     }),
 
     defineField({
+      name: 'project',
+      type: 'reference',
+      to: [{ type: 'project' }],
+    }),
+
+    defineField({
       name: 'quote',
       type: 'text',
     }),
@@ -63,7 +69,7 @@ export const testimonialType = defineType({
           }
 
           // Combine title and author name to create a unique slug
-          return `${author.name}-${doc.date}`
+          return `${author.name}-${doc.date}-${doc.language}`
         },
       },
     }),
@@ -95,6 +101,14 @@ export const testimonialType = defineType({
       title: 'author.name',
       subtitle: 'company.name',
       media: 'author.headshot',
+      language: 'language',
+    },
+    prepare(selection) {
+      return {
+        title: `${selection.title} ${selection.language ? `(${selection.language})` : ''}`,
+        subtitle: selection.subtitle,
+        media: selection.media,
+      }
     },
   },
 })
