@@ -7,7 +7,7 @@ import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 import { formatDate } from '~/utils/formatDate'
 import { urlFor } from '~/sanity/image'
 import { Image } from '@unpic/react'
-import groq from 'groq'
+import { defineQuery } from 'groq'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Sebastian Software GmbH' }]
@@ -21,27 +21,29 @@ export const loader = async () => {
   return { initial, query: TESTIMONIALS_QUERY, params: {} }
 }
 
-export const TESTIMONIALS_QUERY = groq`*[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){
-  _id,
-  slug,
-  date,
-  language,
-  author->{
-    name,
-    headshot,
+export const TESTIMONIALS_QUERY =
+  defineQuery(`*[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){
+    _id,
+    slug,
+    date,
+    language,
+    author->{
+      name,
+      headshot,
+      position,
+      company->{
+        name
+      }
+    },
+    project->{
+      name
+    },
     position,
     company->{
       name
     }
-  },
-  project->{
-    name
-  },
-  position,
-  company->{
-    name
   }
-}`
+`)
 
 export function Testimonial({
   post,
