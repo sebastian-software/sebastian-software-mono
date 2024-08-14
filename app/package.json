@@ -5,6 +5,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
+    "gen:sanity": "../studio/node_modules/.bin/sanity typegen generate",
     "start": "remix-serve build",
     "typecheck": "tsc"
   },
