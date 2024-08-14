@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const consultantType = defineType({
   name: 'consultant',
@@ -23,7 +23,7 @@ export const consultantType = defineType({
     defineField({
       name: 'address',
       type: 'reference',
-      to: [{type: 'address'}],
+      to: [{ type: 'address' }],
     }),
   ],
 })

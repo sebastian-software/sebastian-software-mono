@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const companyType = defineType({
   name: 'company',
@@ -18,7 +18,7 @@ export const companyType = defineType({
     defineField({
       name: 'address',
       type: 'reference',
-      to: [{type: 'address'}],
+      to: [{ type: 'address' }],
     }),
 
     defineField({

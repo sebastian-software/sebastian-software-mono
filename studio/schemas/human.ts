@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const humanType = defineType({
   name: 'human',
@@ -23,7 +23,7 @@ export const humanType = defineType({
     defineField({
       name: 'company',
       type: 'reference',
-      to: [{type: 'company'}],
+      to: [{ type: 'company' }],
     }),
   ],
 })
