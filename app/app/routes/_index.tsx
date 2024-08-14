@@ -1,7 +1,7 @@
 import { useLoaderData, type MetaFunction } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 import { loadQuery } from '~/sanity/loader.server'
-import { Post } from '~/sanity/types'
+import { TestimonialData } from '~/sanity/types'
 import { Link } from '@remix-run/react'
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 import { formatDate } from '~/utils/formatDate'
@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader = async () => {
-  const initial = await loadQuery<Post[]>(TESTIMONIALS_QUERY, {
+  const initial = await loadQuery<TestimonialData[]>(TESTIMONIALS_QUERY, {
     language: 'de',
   })
 
@@ -47,7 +47,7 @@ export function Testimonial({
   post,
   encodeDataAttribute,
 }: {
-  post: Post
+  post: TestimonialData
   encodeDataAttribute: EncodeDataAttributeCallback
 }) {
   return (

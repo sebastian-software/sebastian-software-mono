@@ -6,11 +6,11 @@ import { Image } from '@unpic/react'
 import { formatDate } from '~/utils/formatDate'
 import { urlFor } from '~/sanity/image'
 import { loadQuery } from '~/sanity/loader.server'
-import { Post } from '~/sanity/types'
+import { TestimonialData } from '~/sanity/types'
 import groq from 'groq'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const initial = await loadQuery<Post>(TESTIMONIAL_QUERY, params)
+  const initial = await loadQuery<TestimonialData>(TESTIMONIAL_QUERY, params)
   return { initial, query: TESTIMONIAL_QUERY, params }
 }
 
