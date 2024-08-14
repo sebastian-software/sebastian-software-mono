@@ -1,24 +1,16 @@
 import { useLoaderData, type MetaFunction } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 import { loadQuery } from '~/sanity/loader.server'
-import { TestimonialData } from '~/sanity/types'
 import { Link } from '@remix-run/react'
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 import { formatDate } from '~/utils/formatDate'
 import { urlFor } from '~/sanity/image'
 import { Image } from '@unpic/react'
 import { defineQuery } from 'groq'
+import { TESTIMONIALS_QUERYResult } from 'sanity.types'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Sebastian Software GmbH' }]
-}
-
-export const loader = async () => {
-  const initial = await loadQuery<TestimonialData[]>(TESTIMONIALS_QUERY, {
-    language: 'de',
-  })
-
-  return { initial, query: TESTIMONIALS_QUERY, params: {} }
 }
 
 export const TESTIMONIALS_QUERY =
@@ -45,52 +37,60 @@ export const TESTIMONIALS_QUERY =
   }
 `)
 
-export function Testimonial({
-  post,
-  encodeDataAttribute,
-}: {
-  post: TestimonialData
+export const loader = async () => {
+  const initial = await loadQuery<TESTIMONIALS_QUERYResult>(
+    TESTIMONIALS_QUERY,
+    {
+      language: 'de',
+    },
+  )
+
+  return { initial, query: TESTIMONIALS_QUERY, params: {} }
+}
+
+export interface TestimonialProps {
+  data: TESTIMONIALS_QUERYResult[number]
   encodeDataAttribute: EncodeDataAttributeCallback
-}) {
+}
+
+export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
   return (
     <div>
       <Link
         data-sanity={encodeDataAttribute('slug')}
-        to={post.slug?.current ? `/testimonial/${post.slug.current}` : '/'}
+        to={data.slug?.current ? `/testimonial/${data.slug.current}` : '/'}
       >
-        <Image src={urlFor(post.author.headshot).url()} width={150} />
-        <h3>{post.author.name}</h3>
+        {data.author?.headshot && (
+          <Image src={urlFor(data.author?.headshot).url()} width={150} />
+        )}
+        <h3>{data.author?.name}</h3>
       </Link>
       <p>
-        {post.position} at {post.company.name} for {post.project?.name}
+        {data.position} at {data.company?.name} for {data.project?.name}
       </p>
-      <p data-sanity={encodeDataAttribute('date')}>{formatDate(post.date)}</p>
+      {data.date && (
+        <p data-sanity={encodeDataAttribute('date')}>{formatDate(data.date)}</p>
+      )}
     </div>
   )
 }
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data, loading, error, encodeDataAttribute } = useQuery<
-    typeof initial.data
-  >(query, params, {
-    // @ts-expect-error -- TODO fix the typing here
-    initial,
-  })
-
-  if (error) {
-    throw error
-  } else if (loading && !data) {
-    return <div>Loading...</div>
-  }
+  const { data, encodeDataAttribute } = useQuery<TESTIMONIALS_QUERYResult>(
+    query,
+    params,
+    // @ts-expect-error -- TODO fix the typing here -- that's a Sanity issue right now
+    { initial },
+  )
 
   return (
     <section>
       {data?.length &&
-        data.map((post, i) => (
+        data.map((item, i) => (
           <Testimonial
-            key={post._id}
-            post={post}
+            key={item._id}
+            data={item}
             encodeDataAttribute={encodeDataAttribute.scope([i])}
           />
         ))}
