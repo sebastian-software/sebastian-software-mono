@@ -3,6 +3,7 @@
   "scripts": {
     "build": "sanity build",
     "dev": "sanity dev",
+    "schema": "sanity schema extract",
     "start": "sanity start"
   },
   "dependencies": {
