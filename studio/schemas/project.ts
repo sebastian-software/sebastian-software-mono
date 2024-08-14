@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const projectType = defineType({
   name: 'project',
@@ -8,7 +8,14 @@ export const projectType = defineType({
     defineField({
       name: 'consultant',
       type: 'reference',
-      to: [{type: 'consultant'}],
+      to: [{ type: 'consultant' }],
+    }),
+
+    defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
     }),
 
     defineField({
@@ -29,7 +36,7 @@ export const projectType = defineType({
     defineField({
       name: 'customer',
       type: 'reference',
-      to: [{type: 'company'}],
+      to: [{ type: 'company' }],
     }),
 
     defineField({
@@ -45,19 +52,19 @@ export const projectType = defineType({
     defineField({
       name: 'description',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{ type: 'block' }],
     }),
 
     defineField({
       name: 'technologies',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
     }),
 
     defineField({
       name: 'testimonials',
       type: 'array',
-      of: [{type: 'testimonial'}],
+      of: [{ type: 'testimonial' }],
     }),
   ],
   preview: {

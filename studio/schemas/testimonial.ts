@@ -1,4 +1,4 @@
-import {defineField, defineType, SanityDocument} from 'sanity'
+import { defineField, defineType, SanityDocument } from 'sanity'
 
 function getCurrentDate() {
   const today = new Date()
@@ -8,7 +8,7 @@ function getCurrentDate() {
   return `${year}-${month}-${day}`
 }
 
-const clientOptions = {apiVersion: getCurrentDate()}
+const clientOptions = { apiVersion: getCurrentDate() }
 
 // Minimal type definition for a testimonial document
 // for correctly supporting the custom `source` function
@@ -24,9 +24,16 @@ export const testimonialType = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+
+    defineField({
       name: 'consultant',
       type: 'reference',
-      to: [{type: 'consultant'}],
+      to: [{ type: 'consultant' }],
     }),
 
     defineField({
@@ -47,7 +54,9 @@ export const testimonialType = defineType({
 
           // Fetch the referenced author document
           const client = context.getClient(clientOptions)
-          const author = await client.fetch(`*[_id == $id][0]`, {id: authorId})
+          const author = await client.fetch(`*[_id == $id][0]`, {
+            id: authorId,
+          })
 
           if (!author) {
             throw new Error('Referenced author not found')
@@ -67,7 +76,7 @@ export const testimonialType = defineType({
     defineField({
       name: 'author',
       type: 'reference',
-      to: [{type: 'human'}],
+      to: [{ type: 'human' }],
     }),
 
     defineField({
@@ -78,7 +87,7 @@ export const testimonialType = defineType({
     defineField({
       name: 'company',
       type: 'reference',
-      to: [{type: 'company'}],
+      to: [{ type: 'company' }],
     }),
   ],
   preview: {
