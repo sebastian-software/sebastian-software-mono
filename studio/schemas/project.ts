@@ -19,13 +19,16 @@ export const projectType = defineType({
     }),
 
     defineField({
-      name: 'name',
+      name: 'title',
       type: 'string',
     }),
 
     defineField({
-      name: 'title',
-      type: 'string',
+      name: 'slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+      },
     }),
 
     defineField({
@@ -69,8 +72,8 @@ export const projectType = defineType({
   ],
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'title',
+      title: 'title',
+      subtitle: 'customer.name',
     },
   },
 })
