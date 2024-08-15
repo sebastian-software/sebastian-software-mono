@@ -80,8 +80,9 @@ export default function Index() {
   const { data, encodeDataAttribute } = useQuery<TESTIMONIALS_QUERYResult>(
     query,
     params,
-    // @ts-expect-error -- TODO fix the typing here -- that's a Sanity issue right now
-    { initial },
+    // Note: There is a typing issue in Sanity with sourcemap content types
+    // This Required<> cast is a workaround until the issue is fixed.
+    { initial: initial as Required<typeof initial> },
   )
 
   return (

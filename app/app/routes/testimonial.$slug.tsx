@@ -42,10 +42,9 @@ export default function TestimonialRoute() {
   const { data, encodeDataAttribute } = useQuery<typeof initial.data>(
     query,
     params,
-    {
-      // @ts-expect-error -- TODO fix the typing here
-      initial,
-    },
+    // Note: There is a typing issue in Sanity with sourcemap content types
+    // This Required<> cast is a workaround until the issue is fixed.
+    { initial: initial as Required<typeof initial> },
   )
 
   if (!data) {
