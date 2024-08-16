@@ -1,26 +1,38 @@
 import { useLoaderData, type MetaFunction } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 import { loadQuery } from '~/sanity/loader.server'
-import { Link } from '@remix-run/react'
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
-import { formatDate } from '~/utils/formatDate'
-import { urlFor } from '~/sanity/image'
-import { Image } from '@unpic/react'
 import { defineQuery } from 'groq'
-import { PROJECTS_QUERYResult, TESTIMONIALS_QUERYResult } from 'sanity.types'
+import { PROJECTS_QUERYResult } from 'sanity.types'
+import { ProjectList } from '~/components/profile'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Sebastian Software GmbH' }]
 }
 
-export const PROJECTS_QUERY =
-  defineQuery(`*[_type == "project" && language == $language] | order(date desc){
-    _id,
-    slug,
-    language,
-    title
-  }
-`)
+export const PROJECTS_QUERY = defineQuery(`
+    *[_type == "project" && language == $language && defined(consultant)]
+    {
+      _id,
+      title,
+      description,
+      contractStart,
+      contractEnd,
+      customer->{
+        name,
+        location,
+        industry,
+        logo},
+      role,
+      technologies,
+      testimonials[]->{
+        author,
+        position,
+        company,
+        text
+      }
+    } | order(contractStart desc)
+  `)
 
 export const loader = async () => {
   const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, {
@@ -35,17 +47,6 @@ export interface ProjectDetailsProps {
   encodeDataAttribute: EncodeDataAttributeCallback
 }
 
-export function ProjectDetails({
-  data,
-  encodeDataAttribute,
-}: ProjectDetailsProps) {
-  return (
-    <div>
-      <h2>{data.title}</h2>
-    </div>
-  )
-}
-
 export default function ProfileWerner() {
   const { initial, query, params } = useLoaderData<typeof loader>()
   const { data, encodeDataAttribute } = useQuery<PROJECTS_QUERYResult>(
@@ -56,19 +57,12 @@ export default function ProfileWerner() {
     { initial: initial as Required<typeof initial> },
   )
 
-  console.log('DATA:', data)
+  console.log('PROFILE DATA:', data)
 
   return (
     <section>
       <h1>Sebastian Werner</h1>
-      {data?.length &&
-        data.map((item, i) => (
-          <ProjectDetails
-            key={item._id}
-            data={item}
-            encodeDataAttribute={encodeDataAttribute.scope([i])}
-          />
-        ))}
+      <ProjectList data={data} encodeDataAttribute={encodeDataAttribute} />
     </section>
   )
 }
