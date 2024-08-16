@@ -474,7 +474,7 @@ declare module "@sanity/client" {
   }
 }// Source: ./app/routes/werner.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && language == $language && defined(slug.current)] | order(date desc){    _id,    slug,    language,    title  }
+// Query: *[_type == "project" && language == $language] | order(date desc){    _id,    slug,    language,    title  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   slug: null
@@ -484,6 +484,6 @@ export type PROJECTS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"project\" && language == $language && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    language,\n    title\n  }\n": PROJECTS_QUERYResult;
+    "*[_type == \"project\" && language == $language] | order(date desc){\n    _id,\n    slug,\n    language,\n    title\n  }\n": PROJECTS_QUERYResult;
   }
 }
