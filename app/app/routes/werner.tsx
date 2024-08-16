@@ -4,7 +4,7 @@ import { loadQuery } from "~/sanity/loader.server"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import { defineQuery } from "groq"
 import { PROJECTS_QUERYResult } from "sanity.types"
-import { ProjectList } from "~/components/profile"
+import { ProfileHead, ProjectList } from "~/components/profile"
 
 export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
@@ -35,11 +35,12 @@ export const PROJECTS_QUERY = defineQuery(`
   `)
 
 export const loader = async () => {
-  const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, {
+  const params = {
     language: "de"
-  })
+  }
+  const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, params)
 
-  return { initial, query: PROJECTS_QUERY, params: {} }
+  return { initial, query: PROJECTS_QUERY, params }
 }
 
 export interface ProjectDetailsProps {
@@ -59,7 +60,7 @@ export default function ProfileWerner() {
 
   return (
     <section>
-      <h1>Sebastian Werner</h1>
+      <ProfileHead name="Sebastian Werner"/>
       <ProjectList data={data} encodeDataAttribute={encodeDataAttribute} />
     </section>
   )

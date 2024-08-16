@@ -1,7 +1,10 @@
+import { ProfileHead, ProjectList } from "~/components/profile";
+
 export default function ProfileFastner() {
   return (
     <section>
-      <h1>Sebastian Fastner</h1>
+      <ProfileHead name="Sebastian Fastner"/>
+      <ProjectList data={data} encodeDataAttribute={encodeDataAttribute} />
     </section>
   )
 }
