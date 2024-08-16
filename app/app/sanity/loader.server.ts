@@ -1,5 +1,5 @@
-import { setServerClient, loadQuery } from '@sanity/react-loader'
-import { client } from '~/sanity/client'
+import { setServerClient, loadQuery } from "@sanity/react-loader"
+import { client } from "~/sanity/client"
 
 export { loadQuery }
 

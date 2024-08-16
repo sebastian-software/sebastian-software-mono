@@ -5,9 +5,9 @@ import {
   navigationItem,
   navigationList,
   root,
-  spacer,
-} from './Header.css'
-import logoDark from './logo-dark.svg'
+  spacer
+} from "./Header.css"
+import logoDark from "./logo-dark.svg"
 
 export function Header() {
   return (

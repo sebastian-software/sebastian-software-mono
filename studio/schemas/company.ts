@@ -1,44 +1,44 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from "sanity"
 
 export const companyType = defineType({
-  name: 'company',
-  title: 'Company',
-  type: 'document',
+  name: "company",
+  title: "Company",
+  type: "document",
   fields: [
     defineField({
-      name: 'logo',
-      type: 'image',
+      name: "logo",
+      type: "image"
     }),
 
     defineField({
-      name: 'name',
-      type: 'string',
+      name: "name",
+      type: "string"
     }),
 
     defineField({
-      name: 'address',
-      type: 'reference',
-      to: [{ type: 'address' }],
+      name: "address",
+      type: "reference",
+      to: [{ type: "address" }]
     }),
 
     defineField({
-      name: 'industry',
-      type: 'string',
+      name: "industry",
+      type: "string"
     }),
 
     defineField({
-      name: 'slug',
-      type: 'slug',
+      name: "slug",
+      type: "slug",
       options: {
-        source: 'name',
-      },
-    }),
+        source: "name"
+      }
+    })
   ],
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'address.city',
-      media: 'logo',
-    },
-  },
+      title: "name",
+      subtitle: "address.city",
+      media: "logo"
+    }
+  }
 })

@@ -1,29 +1,29 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from "sanity"
 
 export const consultantType = defineType({
-  name: 'consultant',
-  title: 'Consultant',
-  type: 'document',
+  name: "consultant",
+  title: "Consultant",
+  type: "document",
   fields: [
     defineField({
-      name: 'headshot',
-      type: 'image',
+      name: "headshot",
+      type: "image"
     }),
 
     defineField({
-      name: 'name',
-      type: 'string',
+      name: "name",
+      type: "string"
     }),
 
     defineField({
-      name: 'birthday',
-      type: 'date',
+      name: "birthday",
+      type: "date"
     }),
 
     defineField({
-      name: 'address',
-      type: 'reference',
-      to: [{ type: 'address' }],
-    }),
-  ],
+      name: "address",
+      type: "reference",
+      to: [{ type: "address" }]
+    })
+  ]
 })

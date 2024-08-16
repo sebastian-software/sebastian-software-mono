@@ -1,18 +1,18 @@
-import { type LoaderFunctionArgs } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { useQuery } from '@sanity/react-loader'
-import { Image } from '@unpic/react'
+import { type LoaderFunctionArgs } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
+import { useQuery } from "@sanity/react-loader"
+import { Image } from "@unpic/react"
 
-import { formatDate } from '~/utils/formatDate'
-import { urlFor } from '~/sanity/image'
-import { loadQuery } from '~/sanity/loader.server'
-import { defineQuery } from 'groq'
-import { TESTIMONIAL_QUERYResult } from 'sanity.types'
+import { formatDate } from "~/utils/formatDate"
+import { urlFor } from "~/sanity/image"
+import { loadQuery } from "~/sanity/loader.server"
+import { defineQuery } from "groq"
+import { TESTIMONIAL_QUERYResult } from "sanity.types"
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const initial = await loadQuery<TESTIMONIAL_QUERYResult>(
     TESTIMONIAL_QUERY,
-    params,
+    params
   )
   return { initial, query: TESTIMONIAL_QUERY, params }
 }
@@ -44,7 +44,7 @@ export default function TestimonialRoute() {
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types
     // This Required<> cast is a workaround until the issue is fixed.
-    { initial: initial as Required<typeof initial> },
+    { initial: initial as Required<typeof initial> }
   )
 
   if (!data) {
@@ -52,10 +52,10 @@ export default function TestimonialRoute() {
   }
 
   return (
-    <section data-sanity={encodeDataAttribute('slug')}>
+    <section data-sanity={encodeDataAttribute("slug")}>
       {data.author?.headshot && (
         <Image
-          data-sanity={encodeDataAttribute('author.headshot')}
+          data-sanity={encodeDataAttribute("author.headshot")}
           src={urlFor(data.author?.headshot).url()}
           width={150}
         />

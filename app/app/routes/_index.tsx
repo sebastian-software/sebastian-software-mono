@@ -1,23 +1,23 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { MetaFunction } from "@remix-run/node"
 
-import { Button } from '~/components/button/Button'
+import { Button } from "~/components/button/Button"
 import {
   Card,
   CardContainer,
   CardContent,
   CardFooter,
-  CardTitle,
-} from '~/components/card/Card'
-import { Banner, CustomersList, TechList } from '~/components/home'
-import { IndustryList } from '~/components/home/industry-list'
+  CardTitle
+} from "~/components/card/Card"
+import { Banner, CustomersList, TechList } from "~/components/home"
+import { IndustryList } from "~/components/home/industry-list"
 
 export const meta: MetaFunction = () => [
-  { title: 'Sebastian Software' },
+  { title: "Sebastian Software" },
   {
-    name: 'description',
+    name: "description",
     content:
-      'Ein Team von Spezialisten für React-Entwicklung mit Fokus auf nachhaltige, innovative Lösungen mit über 20 Jahre Erfahrung.',
-  },
+      "Ein Team von Spezialisten für React-Entwicklung mit Fokus auf nachhaltige, innovative Lösungen mit über 20 Jahre Erfahrung."
+  }
 ]
 
 export default function Index() {

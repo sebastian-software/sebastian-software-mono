@@ -1,13 +1,13 @@
-import { useLoaderData, type MetaFunction } from '@remix-run/react'
-import { useQuery } from '@sanity/react-loader'
-import { loadQuery } from '~/sanity/loader.server'
-import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
-import { defineQuery } from 'groq'
-import { PROJECTS_QUERYResult } from 'sanity.types'
-import { ProjectList } from '~/components/profile'
+import { useLoaderData, type MetaFunction } from "@remix-run/react"
+import { useQuery } from "@sanity/react-loader"
+import { loadQuery } from "~/sanity/loader.server"
+import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
+import { defineQuery } from "groq"
+import { PROJECTS_QUERYResult } from "sanity.types"
+import { ProjectList } from "~/components/profile"
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Sebastian Software GmbH' }]
+  return [{ title: "Sebastian Software GmbH" }]
 }
 
 export const PROJECTS_QUERY = defineQuery(`
@@ -36,7 +36,7 @@ export const PROJECTS_QUERY = defineQuery(`
 
 export const loader = async () => {
   const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, {
-    language: 'de',
+    language: "de"
   })
 
   return { initial, query: PROJECTS_QUERY, params: {} }
@@ -54,7 +54,7 @@ export default function ProfileWerner() {
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types
     // This Required<> cast is a workaround until the issue is fixed.
-    { initial: initial as Required<typeof initial> },
+    { initial: initial as Required<typeof initial> }
   )
 
   return (

@@ -1,11 +1,11 @@
-import { PortableText } from '@portabletext/react'
+import { PortableText } from "@portabletext/react"
 
-import { Tag, TagList } from '~/components/tag/Tag'
-import { urlFor } from '~/sanity/image'
+import { Tag, TagList } from "~/components/tag/Tag"
+import { urlFor } from "~/sanity/image"
 
-import { Neutral } from '../../neutral'
-import { RichText } from '../../richtext/RichText'
-import { TestimonialBlock } from '../testimonial'
+import { Neutral } from "../../neutral"
+import { RichText } from "../../richtext/RichText"
+import { TestimonialBlock } from "../testimonial"
 import {
   customer,
   description,
@@ -17,9 +17,9 @@ import {
   root,
   technologies,
   testimonials,
-  title,
-} from './ProjectList.css'
-import { EncodeDataAttributeCallback } from '@sanity/react-loader'
+  title
+} from "./ProjectList.css"
+import { EncodeDataAttributeCallback } from "@sanity/react-loader"
 
 export interface ProjectListProps {
   readonly data: unknown[]
@@ -44,16 +44,16 @@ export interface ProjectProps {
   // readonly data: ProjectData
 }
 
-const DEFAULT_LOCALE = 'de-DE'
+const DEFAULT_LOCALE = "de-DE"
 
 export function formatPeriod(start: string, end: string) {
   const startDate = new Date(start).toLocaleDateString(DEFAULT_LOCALE, {
-    year: 'numeric',
-    month: 'numeric',
+    year: "numeric",
+    month: "numeric"
   })
   const endDate = new Date(end).toLocaleDateString(DEFAULT_LOCALE, {
-    year: 'numeric',
-    month: 'numeric',
+    year: "numeric",
+    month: "numeric"
   })
 
   return `${startDate} - ${endDate}`

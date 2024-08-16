@@ -1,5 +1,6 @@
 {
   "name": "sebastian-software-mono",
+  "type": "module",
   "scripts": {
     "deploy:dev": "sst deploy --stage development",
     "deploy:prod": "sst deploy --stage production",
@@ -9,13 +10,6 @@
     "update:latest": "ncu --deep  --upgrade --interactive",
     "update:minor": "ncu --deep  --upgrade --interactive --target minor",
     "update:pnpm": "corepack up"
-  },
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-packagejson"
-    ],
-    "semi": false,
-    "singleQuote": true
   },
   "devDependencies": {
     "npm-check-updates": "^17.0.6",
