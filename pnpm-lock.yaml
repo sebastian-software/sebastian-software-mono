@@ -23,6 +23,9 @@ importers:
       '@effective/color':
         specifier: ^1.0.1
         version: 1.0.1
+      '@effective/css-reset':
+        specifier: ^3.1.0
+        version: 3.1.0
       '@effective/shadow':
         specifier: ^1.1.0
         version: 1.1.0
@@ -880,6 +883,9 @@ packages:
 
   '@effective/color@1.0.1':
     resolution: {integrity: sha512-hC+O0FZsNuYk1XcX+P5wa7tmGxj/C+MBTLhz/b/viTeSFoTpBHxRQTEI30PypY6qy5/gedd3/RELbWaXVyDv7A==}
+
+  '@effective/css-reset@3.1.0':
+    resolution: {integrity: sha512-7GsGhkFBuvVb2QXKcNrW/ejaQ+xR2Aojck8+qjgYpVhnlswf1trCG73+X2cpQqwjAqi+5OKeZHSgWaq0+vXZ0Q==}
 
   '@effective/shadow@1.1.0':
     resolution: {integrity: sha512-7mbq1BvY2Snoto4+5gHDPBYolkkyEdUm0BMjtZJiBBA4rcCcE0K4I5X6f4JwxnkqAkr/RRtk9xqkOyDUV+DMkA==}
@@ -7067,6 +7073,8 @@ snapshots:
   '@effective/color@1.0.1':
     dependencies:
       culori: 4.0.1
+
+  '@effective/css-reset@3.1.0': {}
 
   '@effective/shadow@1.1.0':
     dependencies:

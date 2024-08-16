@@ -1,4 +1,6 @@
-import { type LinksFunction, json } from '@remix-run/node'
+import '@effective/css-reset'
+
+import { json } from '@remix-run/node'
 import {
   Links,
   Meta,
@@ -8,7 +10,7 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import { Suspense, lazy } from 'react'
-import { Favicon, Footer, Header, Main } from './components/page'
+import { Body, Favicon, Footer, Header, Main } from './components/page'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -49,7 +51,7 @@ export default function App() {
           href="https://sebastian-software.de/rss.xml"
         />
       </head>
-      <body>
+      <Body>
         <div>
           <Header />
           <Main>
@@ -69,7 +71,7 @@ export default function App() {
           </Suspense>
         ) : null}
         <Scripts />
-      </body>
+      </Body>
     </html>
   )
 }
