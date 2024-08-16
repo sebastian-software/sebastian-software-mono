@@ -10,6 +10,7 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import { Suspense, lazy } from 'react'
+import { Favicon } from './components/page'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -31,12 +32,24 @@ export default function App() {
   const { ENV } = useLoaderData<typeof loader>()
 
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <Favicon />
+        <script
+          defer
+          data-domain="sebastian-software.de"
+          src="https://t.sebastian-software.de/js/script.js"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="RSS"
+          href="https://sebastian-software.de/rss.xml"
+        />
       </head>
       <body>
         <div>
