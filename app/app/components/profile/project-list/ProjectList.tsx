@@ -29,7 +29,7 @@ export interface ProjectListProps {
 export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
   return (
     <div className={root}>
-      {data.map((project) => (
+      {data.map((project, i) => (
         <Project
           key={project._id}
           data={project}
@@ -60,8 +60,6 @@ export function formatPeriod(start: string, end: string) {
 }
 
 export function Project({ data }: ProjectProps) {
-  console.log('PROJECT:', data)
-
   const customerLogoUrl = urlFor(data.customer?.logo).url()
 
   return (

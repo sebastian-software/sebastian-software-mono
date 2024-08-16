@@ -57,8 +57,6 @@ export default function ProfileWerner() {
     { initial: initial as Required<typeof initial> },
   )
 
-  console.log('PROFILE DATA:', data)
-
   return (
     <section>
       <h1>Sebastian Werner</h1>
