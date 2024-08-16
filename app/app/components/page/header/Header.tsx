@@ -5,9 +5,9 @@ import {
   navigationItem,
   navigationList,
   root,
-  spacer
-} from "./Header.css"
-import logoDark from "./logo-dark.svg"
+  spacer,
+} from './Header.css'
+import logoDark from './logo-dark.svg'
 
 export function Header() {
   return (
@@ -18,11 +18,11 @@ export function Header() {
       <div className={spacer} />
       <nav className={navigation}>
         <ul className={navigationList}>
-          <li>
+          {/* <li>
             <a className={navigationItem} href="/blog">
               Blog
             </a>
-          </li>
+          </li> */}
           <li>
             <a className={navigationItem} href="/mission">
               Mission
@@ -36,6 +36,11 @@ export function Header() {
           <li>
             <a className={navigationItem} href="/consulting">
               Consulting
+            </a>
+          </li>
+          <li>
+            <a className={navigationItem} href="/testimonials">
+              Testimonials
             </a>
           </li>
         </ul>
