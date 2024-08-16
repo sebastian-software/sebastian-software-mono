@@ -10,7 +10,7 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import { Suspense, lazy } from 'react'
-import { Favicon } from './components/page'
+import { Favicon, Footer, Header, Main } from './components/page'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -53,13 +53,11 @@ export default function App() {
       </head>
       <body>
         <div>
-          <header>
-            <Link to="/">Sebastian Software GmbH</Link>
-          </header>
-          <main>
+          <Header />
+          <Main>
             <Outlet />
-          </main>
-          <footer>Copyright Sebastian Software GmbH</footer>
+          </Main>
+          <Footer />
         </div>
         <ScrollRestoration />
         <script
