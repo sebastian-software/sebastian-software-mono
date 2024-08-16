@@ -18,18 +18,26 @@ export const PROJECTS_QUERY = defineQuery(`
       description,
       contractStart,
       contractEnd,
-      customer->{
+      customer->
+      {
         name,
         location,
         industry,
-        logo},
+        logo
+      },
       role,
       technologies,
-      testimonials[]->{
-        author,
+      testimonials[]->
+      {
+        _id,
+        quote,
         position,
-        company,
-        text
+        author->{
+          name
+        },
+        company->{
+          name
+        }
       }
     } | order(contractStart desc)
   `)
@@ -38,7 +46,9 @@ export const loader = async () => {
   const params = {
     language: "de"
   }
+
   const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, params)
+  // console.log("Inital Profile", initial.data)
 
   return { initial, query: PROJECTS_QUERY, params }
 }
@@ -60,7 +70,7 @@ export default function ProfileWerner() {
 
   return (
     <section>
-      <ProfileHead name="Sebastian Werner"/>
+      <ProfileHead name="Sebastian Werner" />
       <ProjectList data={data} encodeDataAttribute={encodeDataAttribute} />
     </section>
   )

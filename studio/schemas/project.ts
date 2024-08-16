@@ -67,7 +67,7 @@ export const projectType = defineType({
     defineField({
       name: "testimonials",
       type: "array",
-      of: [{ type: "testimonial" }]
+      of: [{ type: "reference", to: [{ type: "testimonial" }] }]
     })
   ],
   preview: {

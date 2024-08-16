@@ -20,6 +20,7 @@ import {
   title
 } from "./ProjectList.css"
 import { EncodeDataAttributeCallback } from "@sanity/react-loader"
+import { PROJECTS_QUERYResult } from "sanity.types"
 
 export interface ProjectListProps {
   readonly data: unknown[]
@@ -40,10 +41,6 @@ export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
   )
 }
 
-export interface ProjectProps {
-  // readonly data: ProjectData
-}
-
 const DEFAULT_LOCALE = "de-DE"
 
 export function formatPeriod(start: string, end: string) {
@@ -57,6 +54,10 @@ export function formatPeriod(start: string, end: string) {
   })
 
   return `${startDate} - ${endDate}`
+}
+
+export interface ProjectProps {
+  readonly data: PROJECTS_QUERYResult[number]
 }
 
 export function Project({ data }: ProjectProps) {
@@ -108,11 +109,11 @@ export function Project({ data }: ProjectProps) {
       <ul className={testimonials}>
         {data.testimonials?.map((entry) => (
           <TestimonialBlock
-            key={entry.author}
-            author={entry.author}
+            key={entry._id}
+            author={entry.author.name}
             position={entry.position}
-            company={entry.company}
-            text={entry.text}
+            company={entry.company.name}
+            text={entry.quote}
           />
         ))}
       </ul>
