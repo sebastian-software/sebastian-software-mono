@@ -3,8 +3,8 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "build": "remix vite:build",
+    "dev": "remix vite:dev",
     "gen:sanity": "../studio/node_modules/.bin/sanity typegen generate",
     "start": "remix-serve build",
     "typecheck": "tsc"
@@ -13,30 +13,36 @@
     "@effective/color": "^1.0.1",
     "@effective/shadow": "^1.1.0",
     "@portabletext/react": "^3.1.0",
-    "@remix-run/node": "^2.11.1",
-    "@remix-run/react": "^2.11.1",
-    "@remix-run/serve": "^2.11.1",
-    "@sanity/client": "^6.21.2",
+    "@remix-run/node": "^2.11.2",
+    "@remix-run/react": "^2.11.2",
+    "@remix-run/serve": "^2.11.2",
+    "@sanity/client": "^6.21.3",
     "@sanity/image-url": "^1.0.2",
     "@sanity/react-loader": "^1.10.6",
     "@sanity/visual-editing": "^2.1.9",
     "@unpic/react": "^0.1.14",
     "@vanilla-extract/css": "^1.15.3",
+    "@vanilla-extract/vite-plugin": "^4.0.13",
+    "@vercel/remix": "^2.11.2",
     "clsx": "^2.1.1",
-    "groq": "^3.53.0",
-    "isbot": "^5.1.14",
+    "groq": "^3.54.0",
+    "isbot": "^5.1.16",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.1",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
     "@portabletext/types": "^2.0.13",
-    "@remix-run/dev": "^2.11.1",
-    "@remix-run/eslint-config": "^2.11.1",
-    "@sanity/types": "^3.53.0",
+    "@remix-run/dev": "^2.11.2",
+    "@sanity/types": "^3.54.0",
     "@types/node": "^20.14.15",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.57.0",
     "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

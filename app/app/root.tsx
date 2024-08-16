@@ -1,8 +1,6 @@
 import { type LinksFunction, json } from '@remix-run/node'
 import {
-  Link,
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -71,7 +69,6 @@ export default function App() {
           </Suspense>
         ) : null}
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   )
