@@ -1,19 +1,16 @@
-import type { ProjectType } from "~/data/data.types"
-
-import { ColorFilter } from "../../color-filter"
-import { CompanyLogo, hasLogo } from "../../company-logo/CompanyLogo"
+import { ColorFilter } from '../../color-filter'
 import {
   itemClass,
   listClass,
   logoClass,
   rootClass,
-  titleClass
-} from "./CustomersList.css"
+  titleClass,
+} from './CustomersList.css'
 
 export function CustomersList({
-  data
+  data,
 }: {
-  readonly data: Array<ProjectType["customer"]>
+  readonly data: Array<ProjectType['customer']>
 }) {
   return (
     <div className={rootClass}>
@@ -25,7 +22,7 @@ export function CustomersList({
         end="#ded9dd"
         start="#3F2B3D"
       />
-      <ul className={listClass} style={{ filter: "url(#company-logo-mono)" }}>
+      <ul className={listClass} style={{ filter: 'url(#company-logo-mono)' }}>
         {data.map(
           (customer) =>
             customer.logo &&
@@ -37,7 +34,7 @@ export function CustomersList({
                   className={logoClass}
                 />
               </li>
-            )
+            ),
         )}
       </ul>
     </div>
