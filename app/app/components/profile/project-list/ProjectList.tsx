@@ -2,7 +2,6 @@ import { PortableText } from '@portabletext/react'
 
 import { Tag, TagList } from '~/components/tag/Tag'
 import { urlFor } from '~/sanity/image'
-import type { ProjectData } from '~/types'
 
 import { Neutral } from '../../neutral'
 import { RichText } from '../../richtext/RichText'
@@ -23,7 +22,7 @@ import {
 import { EncodeDataAttributeCallback } from '@sanity/react-loader'
 
 export interface ProjectListProps {
-  readonly data: ProjectData[]
+  readonly data: unknown[]
   encodeDataAttribute: EncodeDataAttributeCallback
 }
 
