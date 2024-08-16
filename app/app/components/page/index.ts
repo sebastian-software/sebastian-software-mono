@@ -1,0 +1,5 @@
+export * from "./body"
+export * from "./favicon"
+export * from "./footer"
+export * from "./header"
+export * from "./main"
