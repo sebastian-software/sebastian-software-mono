@@ -17,7 +17,7 @@ export const humanType = defineType({
 
     defineField({
       name: "position",
-      type: "string"
+      type: "localeString"
     }),
 
     defineField({
