@@ -8,6 +8,8 @@ import { urlFor } from "~/sanity/image"
 import { loadQuery } from "~/sanity/loader.server"
 import { defineQuery } from "groq"
 import { TESTIMONIAL_QUERYResult } from "sanity.types"
+import { RichText } from "~/components/richtext/RichText"
+import { PortableText } from "@portabletext/react"
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const initial = await loadQuery<TESTIMONIAL_QUERYResult>(
@@ -61,7 +63,8 @@ export default function TestimonialRoute() {
         />
       )}
       <p>{formatDate(data.date)}</p>
-      <div>{data.quote}</div>
+      {console.log("QUOTE:", data.quote)}
+      <PortableText value={data.quote} />
     </section>
   )
 }

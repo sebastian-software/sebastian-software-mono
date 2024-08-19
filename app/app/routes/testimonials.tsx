@@ -14,11 +14,10 @@ export const meta: MetaFunction = () => {
 }
 
 export const TESTIMONIALS_QUERY =
-  defineQuery(`*[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){
+  defineQuery(`*[_type == "testimonial" && defined(slug.current)] | order(date desc){
     _id,
     slug,
     date,
-    language,
     author->{
       name,
       headshot,
@@ -26,9 +25,6 @@ export const TESTIMONIALS_QUERY =
       company->{
         name
       }
-    },
-    project->{
-      name
     },
     position,
     company->{
@@ -38,12 +34,7 @@ export const TESTIMONIALS_QUERY =
 `)
 
 export const loader = async () => {
-  const initial = await loadQuery<TESTIMONIALS_QUERYResult>(
-    TESTIMONIALS_QUERY,
-    {
-      language: "de"
-    }
-  )
+  const initial = await loadQuery<TESTIMONIALS_QUERYResult>(TESTIMONIALS_QUERY)
 
   return { initial, query: TESTIMONIALS_QUERY, params: {} }
 }
@@ -66,7 +57,7 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
         <h3>{data.author?.name}</h3>
       </Link>
       <p>
-        {data.position} at {data.company?.name} for {data.project?.name}
+        {data.position?.de} at {data.company?.name}
       </p>
       {data.date && (
         <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>

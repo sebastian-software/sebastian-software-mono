@@ -126,6 +126,38 @@ export type Human = {
   }
 }
 
+export type Project = {
+  _id: string
+  _type: "project"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  consultant?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "consultant"
+  }
+  title?: string
+  slug?: Slug
+  role?: string
+  customer?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "company"
+  }
+  contractStart?: string
+  contractEnd?: string
+  testimonials?: Array<{
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: "testimonial"
+  }>
+}
+
 export type Company = {
   _id: string
   _type: "company"
@@ -155,25 +187,6 @@ export type Company = {
     | "Belgium"
   industry?: string
   slug?: Slug
-}
-
-export type Project = {
-  _id: string
-  _type: "project"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  consultant?: {
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: "consultant"
-  }
-  title?: string
-  slug?: Slug
-  role?: string
-  contractStart?: string
-  contractEnd?: string
 }
 
 export type Picture = {
@@ -340,8 +353,8 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Testimonial
   | Human
-  | Company
   | Project
+  | Company
   | Picture
   | Slug
   | Consultant
@@ -389,12 +402,11 @@ export type TESTIMONIAL_QUERYResult = {
 
 // Source: ./app/routes/testimonials.tsx
 // Variable: TESTIMONIALS_QUERY
-// Query: *[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){    _id,    slug,    date,    language,    author->{      name,      headshot,      position,      company->{        name      }    },    project->{      name    },    position,    company->{      name    }  }
+// Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
 export type TESTIMONIALS_QUERYResult = Array<{
   _id: string
   slug: Slug | null
   date: string | null
-  language: string | null
   author: {
     name: string | null
     headshot: {
@@ -413,7 +425,6 @@ export type TESTIMONIALS_QUERYResult = Array<{
       name: string | null
     } | null
   } | null
-  project: null
   position: LocaleString | null
   company: {
     name: string | null
@@ -429,10 +440,44 @@ export type PROJECTS_QUERYResult = Array<{
   description: null
   contractStart: string | null
   contractEnd: string | null
-  customer: null
+  customer: {
+    name: string | null
+    city: LocaleString | null
+    country:
+      | "Austria"
+      | "Belgium"
+      | "France"
+      | "Germany"
+      | "Luxembourg"
+      | "Netherlands"
+      | "Switzerland"
+      | null
+    industry: string | null
+    logo: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+  } | null
   role: string | null
   technologies: null
-  testimonials: null
+  testimonials: Array<{
+    _id: string
+    quote: LocaleText | null
+    position: LocaleString | null
+    author: {
+      name: string | null
+    } | null
+    company: {
+      name: string | null
+    } | null
+  }> | null
 }>
 
 // Query TypeMap
@@ -440,7 +485,7 @@ import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
-    '*[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    language,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    project->{\n      name\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
+    '*[_type == "testimonial" && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '\n    *[_type == "project" && language == $language && defined(consultant)]\n    {\n      _id,\n      title,\n      description,\n      contractStart,\n      contractEnd,\n      customer->\n      {\n        name,\n        city,\n        country,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        quote,\n        position,\n        author->{\n          name\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
   }
 }

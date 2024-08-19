@@ -29,11 +29,11 @@ export const projectType = defineType({
       type: "string"
     }),
 
-    // defineField({
-    //   name: "customer",
-    //   type: "reference",
-    //   to: [{ type: "company" }]
-    // }),
+    defineField({
+      name: "customer",
+      type: "reference",
+      to: [{ type: "company" }]
+    }),
 
     defineField({
       name: "contractStart",
@@ -43,7 +43,7 @@ export const projectType = defineType({
     defineField({
       name: "contractEnd",
       type: "date"
-    })
+    }),
 
     // defineField({
     //   name: "description",
@@ -51,11 +51,11 @@ export const projectType = defineType({
     //   of: [{ type: "block" }]
     // })
 
-    // defineField({
-    //   name: "testimonials",
-    //   type: "array",
-    //   of: [{ type: "reference", to: [{ type: "testimonial" }] }]
-    // })
+    defineField({
+      name: "testimonials",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "testimonial" }] }]
+    })
   ],
   preview: {
     select: {
