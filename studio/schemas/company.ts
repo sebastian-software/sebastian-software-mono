@@ -16,9 +16,27 @@ export const companyType = defineType({
     }),
 
     defineField({
-      name: "address",
-      type: "reference",
-      to: [{ type: "address" }]
+      name: "city",
+      type: "localeString",
+      validation: (Rule) => Rule.required()
+    }),
+
+    defineField({
+      name: "country",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      initialValue: "Germany",
+      options: {
+        list: [
+          "Germany",
+          "Switzerland",
+          "Austria",
+          "Luxembourg",
+          "France",
+          "Netherlands",
+          "Belgium"
+        ]
+      }
     }),
 
     defineField({
