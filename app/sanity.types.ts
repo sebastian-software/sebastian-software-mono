@@ -85,7 +85,7 @@ export type Picture = {
     crop?: SanityImageCrop
     _type: "image"
   }
-  alt?: string
+  alt?: LocaleString
   date?: string
   slug?: Slug
 }
@@ -176,7 +176,7 @@ export type Human = {
     _type: "image"
   }
   name?: string
-  position?: string
+  position?: LocaleString
   company?: {
     _ref: string
     _type: "reference"
@@ -198,8 +198,8 @@ export type Project = {
     [internalGroqTypeReferenceTo]?: "consultant"
   }
   language?: string
-  name?: string
   title?: string
+  slug?: Slug
   role?: string
   customer?: {
     _ref: string
@@ -227,7 +227,6 @@ export type Project = {
     _type: "block"
     _key: string
   }>
-  technologies?: Array<string>
   testimonials?: Array<{
     _ref: string
     _type: "reference"
@@ -255,14 +254,23 @@ export type Company = {
     _type: "image"
   }
   name?: string
-  address?: {
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: "address"
-  }
+  city?: LocaleString
+  country?:
+    | "Germany"
+    | "Switzerland"
+    | "Austria"
+    | "Luxembourg"
+    | "France"
+    | "Netherlands"
+    | "Belgium"
   industry?: string
   slug?: Slug
+}
+
+export type LocaleString = {
+  _type: "localeString"
+  en?: string
+  de?: string
 }
 
 export type Slug = {
@@ -309,7 +317,14 @@ export type Address = {
   houseNumber?: string
   zipCode?: number
   city?: string
-  country?: string
+  country?:
+    | "Germany"
+    | "Switzerland"
+    | "Austria"
+    | "Luxembourg"
+    | "France"
+    | "Netherlands"
+    | "Belgium"
 }
 
 export type SanityImageCrop = {
@@ -375,6 +390,17 @@ export type InternationalizedArrayReference = Array<
   } & InternationalizedArrayReferenceValue
 >
 
+export type InternationalizedArrayStringValue = {
+  _type: "internationalizedArrayStringValue"
+  value?: string
+}
+
+export type InternationalizedArrayString = Array<
+  {
+    _key: string
+  } & InternationalizedArrayStringValue
+>
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -388,6 +414,7 @@ export type AllSanitySchemaTypes =
   | Human
   | Project
   | Company
+  | LocaleString
   | Slug
   | Consultant
   | Address
@@ -397,6 +424,8 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | InternationalizedArrayReference
+  | InternationalizedArrayStringValue
+  | InternationalizedArrayString
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./app/routes/testimonial.$slug.tsx
 // Variable: TESTIMONIAL_QUERY
@@ -418,7 +447,7 @@ export type TESTIMONIAL_QUERYResult = {
       crop?: SanityImageCrop
       _type: "image"
     } | null
-    position: string | null
+    position: LocaleString | null
     company: {
       name: string | null
     } | null
@@ -450,13 +479,13 @@ export type TESTIMONIALS_QUERYResult = Array<{
       crop?: SanityImageCrop
       _type: "image"
     } | null
-    position: string | null
+    position: LocaleString | null
     company: {
       name: string | null
     } | null
   } | null
   project: {
-    name: string | null
+    name: null
   } | null
   position: string | null
   company: {
@@ -466,7 +495,7 @@ export type TESTIMONIALS_QUERYResult = Array<{
 
 // Source: ./app/routes/werner.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && language == $language && defined(consultant)]    {      _id,      title,      description,      contractStart,      contractEnd,      customer->      {        name,        location,        industry,        logo      },      role,      technologies,      testimonials[]->      {        quote,        position,        author->{          name        },        company->{          name        }      }    } | order(contractStart desc)
+// Query: *[_type == "project" && language == $language && defined(consultant)]    {      _id,      title,      description,      contractStart,      contractEnd,      customer->      {        name,        location,        industry,        logo      },      role,      technologies,      testimonials[]->      {        _id,        quote,        position,        author->{          name        },        company->{          name,          city        }      }    } | order(contractStart desc)
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   title: string | null
@@ -507,8 +536,9 @@ export type PROJECTS_QUERYResult = Array<{
     } | null
   } | null
   role: string | null
-  technologies: Array<string> | null
+  technologies: null
   testimonials: Array<{
+    _id: string
     quote: string | null
     position: string | null
     author: {
@@ -516,6 +546,7 @@ export type PROJECTS_QUERYResult = Array<{
     } | null
     company: {
       name: string | null
+      city: LocaleString | null
     } | null
   }> | null
 }>
@@ -526,6 +557,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '*[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    language,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    project->{\n      name\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
-    '\n    *[_type == "project" && language == $language && defined(consultant)]\n    {\n      _id,\n      title,\n      description,\n      contractStart,\n      contractEnd,\n      customer->\n      {\n        name,\n        location,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        quote,\n        position,\n        author->{\n          name\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
+    '\n    *[_type == "project" && language == $language && defined(consultant)]\n    {\n      _id,\n      title,\n      description,\n      contractStart,\n      contractEnd,\n      customer->\n      {\n        name,\n        location,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        quote,\n        position,\n        author->{\n          name\n        },\n        company->{\n          name,\n          city\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
   }
 }
