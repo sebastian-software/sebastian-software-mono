@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+import { defaultLanguage } from "./localeStringType"
 
 export const pictureType = defineType({
   name: "picture",
@@ -12,7 +13,7 @@ export const pictureType = defineType({
 
     defineField({
       name: "alt",
-      type: "string"
+      type: "localeString"
     }),
 
     defineField({
@@ -24,15 +25,23 @@ export const pictureType = defineType({
       name: "slug",
       type: "slug",
       options: {
-        source: (doc) => `${doc.alt} - ${doc.date}`
+        source: (doc) => `${doc.date}-${doc.alt[defaultLanguage]}`,
+        maxLength: 80
       }
     })
   ],
   preview: {
     select: {
-      title: "alt",
+      title: "alt." + defaultLanguage,
       subtitle: "date",
       media: "image"
     }
-  }
+  },
+  orderings: [
+    {
+      title: "Alt Description",
+      name: "alt",
+      by: [{ field: "alt.en", direction: "asc" }]
+    }
+  ]
 })
