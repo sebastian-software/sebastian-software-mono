@@ -78,7 +78,9 @@ export function Project({ data }: ProjectProps) {
           <br />
           {data.customer?.name}
           <br />
-          {data.customer?.location}
+          {data.customer?.city?.de}
+          <br />
+          {data.customer?.country}
           <br />
           {data.customer?.industry}
         </p>

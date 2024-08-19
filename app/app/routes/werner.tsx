@@ -21,7 +21,8 @@ export const PROJECTS_QUERY = defineQuery(`
       customer->
       {
         name,
-        location,
+        city,
+        country,
         industry,
         logo
       },
