@@ -28,14 +28,14 @@ export default defineConfig({
       ],
       defaultLanguages: ["de"],
       fieldTypes: ["string"]
-    }),
-    documentInternationalization({
-      supportedLanguages: [
-        { id: "en", title: "English" },
-        { id: "de", title: "Deutsch" }
-      ],
-      schemaTypes: ["project", "testimonial"]
     })
+    // documentInternationalization({
+    //   supportedLanguages: [
+    //     { id: "en", title: "English" },
+    //     { id: "de", title: "Deutsch" }
+    //   ],
+    //   schemaTypes: []
+    // })
   ],
   schema: {
     types: schemaTypes
