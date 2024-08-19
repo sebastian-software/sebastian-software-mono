@@ -68,59 +68,6 @@ export type Geopoint = {
   alt?: number
 }
 
-export type Picture = {
-  _id: string
-  _type: "picture"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  image?: {
-    asset?: {
-      _ref: string
-      _type: "reference"
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: "image"
-  }
-  alt?: LocaleString
-  date?: string
-  slug?: Slug
-}
-
-export type TranslationMetadata = {
-  _id: string
-  _type: "translation.metadata"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  translations?: Array<
-    {
-      _key: string
-    } & InternationalizedArrayReferenceValue
-  >
-  schemaTypes?: Array<string>
-}
-
-export type InternationalizedArrayReferenceValue = {
-  _type: "internationalizedArrayReferenceValue"
-  value?:
-    | {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "project"
-      }
-    | {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "testimonial"
-      }
-}
-
 export type Testimonial = {
   _id: string
   _type: "testimonial"
@@ -134,14 +81,6 @@ export type Testimonial = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "consultant"
   }
-  project?: {
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: "project"
-  }
-  quote?: string
-  slug?: Slug
   date?: string
   author?: {
     _ref: string
@@ -149,13 +88,15 @@ export type Testimonial = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "human"
   }
-  position?: string
+  position?: LocaleString
   company?: {
     _ref: string
     _type: "reference"
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "company"
   }
+  quote?: LocaleText
+  slug?: Slug
 }
 
 export type Human = {
@@ -183,57 +124,6 @@ export type Human = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "company"
   }
-}
-
-export type Project = {
-  _id: string
-  _type: "project"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  consultant?: {
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: "consultant"
-  }
-  language?: string
-  title?: string
-  slug?: Slug
-  role?: string
-  customer?: {
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: "company"
-  }
-  contractStart?: string
-  contractEnd?: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      href?: string
-      _type: "link"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
-  testimonials?: Array<{
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: "testimonial"
-  }>
 }
 
 export type Company = {
@@ -267,10 +157,45 @@ export type Company = {
   slug?: Slug
 }
 
-export type LocaleString = {
-  _type: "localeString"
-  en?: string
-  de?: string
+export type Project = {
+  _id: string
+  _type: "project"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  consultant?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "consultant"
+  }
+  title?: string
+  slug?: Slug
+  role?: string
+  contractStart?: string
+  contractEnd?: string
+}
+
+export type Picture = {
+  _id: string
+  _type: "picture"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  image?: {
+    asset?: {
+      _ref: string
+      _type: "reference"
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: "image"
+  }
+  alt?: LocaleString
+  date?: string
+  slug?: Slug
 }
 
 export type Slug = {
@@ -304,27 +229,6 @@ export type Consultant = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "address"
   }
-}
-
-export type Address = {
-  _id: string
-  _type: "address"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  street?: string
-  houseNumber?: string
-  zipCode?: number
-  city?: string
-  country?:
-    | "Germany"
-    | "Switzerland"
-    | "Austria"
-    | "Luxembourg"
-    | "France"
-    | "Netherlands"
-    | "Belgium"
 }
 
 export type SanityImageCrop = {
@@ -384,11 +288,38 @@ export type SanityImageMetadata = {
   isOpaque?: boolean
 }
 
-export type InternationalizedArrayReference = Array<
-  {
-    _key: string
-  } & InternationalizedArrayReferenceValue
->
+export type Address = {
+  _id: string
+  _type: "address"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  street?: string
+  houseNumber?: string
+  zipCode?: number
+  city?: string
+  country?:
+    | "Germany"
+    | "Switzerland"
+    | "Austria"
+    | "Luxembourg"
+    | "France"
+    | "Netherlands"
+    | "Belgium"
+}
+
+export type LocaleText = {
+  _type: "localeText"
+  en?: string
+  de?: string
+}
+
+export type LocaleString = {
+  _type: "localeString"
+  en?: string
+  de?: string
+}
 
 export type InternationalizedArrayStringValue = {
   _type: "internationalizedArrayStringValue"
@@ -407,23 +338,21 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | Picture
-  | TranslationMetadata
-  | InternationalizedArrayReferenceValue
   | Testimonial
   | Human
-  | Project
   | Company
-  | LocaleString
+  | Project
+  | Picture
   | Slug
   | Consultant
-  | Address
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
-  | InternationalizedArrayReference
+  | Address
+  | LocaleText
+  | LocaleString
   | InternationalizedArrayStringValue
   | InternationalizedArrayString
 export declare const internalGroqTypeReferenceTo: unique symbol
@@ -433,7 +362,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol
 export type TESTIMONIAL_QUERYResult = {
   date: string | null
   language: string | null
-  quote: string | null
+  quote: LocaleText | null
   author: {
     name: string | null
     headshot: {
@@ -452,7 +381,7 @@ export type TESTIMONIAL_QUERYResult = {
       name: string | null
     } | null
   } | null
-  position: string | null
+  position: LocaleString | null
   company: {
     name: string | null
   } | null
@@ -484,10 +413,8 @@ export type TESTIMONIALS_QUERYResult = Array<{
       name: string | null
     } | null
   } | null
-  project: {
-    name: null
-  } | null
-  position: string | null
+  project: null
+  position: LocaleString | null
   company: {
     name: string | null
   } | null
@@ -495,60 +422,17 @@ export type TESTIMONIALS_QUERYResult = Array<{
 
 // Source: ./app/routes/werner.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && language == $language && defined(consultant)]    {      _id,      title,      description,      contractStart,      contractEnd,      customer->      {        name,        location,        industry,        logo      },      role,      technologies,      testimonials[]->      {        _id,        quote,        position,        author->{          name        },        company->{          name,          city        }      }    } | order(contractStart desc)
+// Query: *[_type == "project" && language == $language && defined(consultant)]    {      _id,      title,      description,      contractStart,      contractEnd,      customer->      {        name,        city,        country,        industry,        logo      },      role,      technologies,      testimonials[]->      {        _id,        quote,        position,        author->{          name        },        company->{          name        }      }    } | order(contractStart desc)
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   title: string | null
-  description: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      href?: string
-      _type: "link"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }> | null
+  description: null
   contractStart: string | null
   contractEnd: string | null
-  customer: {
-    name: string | null
-    location: null
-    industry: string | null
-    logo: {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: "image"
-    } | null
-  } | null
+  customer: null
   role: string | null
   technologies: null
-  testimonials: Array<{
-    _id: string
-    quote: string | null
-    position: string | null
-    author: {
-      name: string | null
-    } | null
-    company: {
-      name: string | null
-      city: LocaleString | null
-    } | null
-  }> | null
+  testimonials: null
 }>
 
 // Query TypeMap
@@ -557,6 +441,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '*[_type == "testimonial" && language == $language && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    language,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    project->{\n      name\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
-    '\n    *[_type == "project" && language == $language && defined(consultant)]\n    {\n      _id,\n      title,\n      description,\n      contractStart,\n      contractEnd,\n      customer->\n      {\n        name,\n        location,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        quote,\n        position,\n        author->{\n          name\n        },\n        company->{\n          name,\n          city\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
+    '\n    *[_type == "project" && language == $language && defined(consultant)]\n    {\n      _id,\n      title,\n      description,\n      contractStart,\n      contractEnd,\n      customer->\n      {\n        name,\n        city,\n        country,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        quote,\n        position,\n        author->{\n          name\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
   }
 }
