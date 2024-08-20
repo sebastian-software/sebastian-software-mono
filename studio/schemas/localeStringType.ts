@@ -31,3 +31,15 @@ export const localeText = defineType({
     type: "text"
   }))
 })
+
+export const localeBlockContent = defineType({
+  title: "Localized block content",
+  name: "localeBlockContent",
+  type: "object",
+  fields: supportedLanguages.map((lang) => ({
+    title: lang.title,
+    name: lang.id,
+    type: "array",
+    of: [{ type: "block" }]
+  }))
+})
