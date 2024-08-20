@@ -77,9 +77,14 @@ export const testimonialType = defineType({
     defineField({
       name: "slug",
       type: "slug",
+      validation: (Rule) => Rule.required(),
       options: {
         source: async (doc: TestimonialDoc, context) => {
           const client = context.getClient(clientOptions)
+
+          if (!doc.date) {
+            throw new Error("Date is missing")
+          }
 
           const authorId = doc.author?._ref
           const consultantId = doc.consultant?._ref

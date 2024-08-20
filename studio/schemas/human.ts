@@ -16,6 +16,18 @@ export const humanType = defineType({
     }),
 
     defineField({
+      name: "status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Freelancer", value: "freelancer" },
+          { title: "Business Owner", value: "owner" },
+          { title: "Employee", value: "employee" }
+        ]
+      }
+    }),
+
+    defineField({
       name: "position",
       type: "localeString"
     }),

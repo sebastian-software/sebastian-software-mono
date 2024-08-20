@@ -21,6 +21,7 @@ export const TESTIMONIALS_QUERY =
     author->{
       name,
       headshot,
+      status,
       position,
       company->{
         name
@@ -57,7 +58,11 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
         <h3>{data.author?.name}</h3>
       </Link>
       <p>
-        {data.position?.de} at {data.company?.name}
+        {data.author?.status}
+        <br />
+        {data.position?.de}
+        <br />
+        {data.company?.name}
       </p>
       {data.date && (
         <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>
