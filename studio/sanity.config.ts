@@ -27,7 +27,7 @@ export default defineConfig({
         { id: "de", title: "Deutsch" }
       ],
       defaultLanguages: ["de"],
-      fieldTypes: ["string"]
+      fieldTypes: ["string", "text"]
     })
     // documentInternationalization({
     //   supportedLanguages: [

@@ -59,6 +59,17 @@ export const testimonialType = defineType({
     }),
 
     defineField({
+      name: "quoteLanguage",
+      type: "string",
+      options: {
+        list: [
+          { title: "English", value: "en" },
+          { title: "Deutsch", value: "de" }
+        ]
+      }
+    }),
+
+    defineField({
       name: "quote",
       type: "localeText"
     }),
@@ -68,14 +79,20 @@ export const testimonialType = defineType({
       type: "slug",
       options: {
         source: async (doc: TestimonialDoc, context) => {
+          const client = context.getClient(clientOptions)
+
           const authorId = doc.author?._ref
+          const consultantId = doc.consultant?._ref
 
           if (!authorId) {
             throw new Error("Author reference is missing")
           }
 
+          if (!consultantId) {
+            throw new Error("Consultant reference is missing")
+          }
+
           // Fetch the referenced author document
-          const client = context.getClient(clientOptions)
           const author = await client.fetch(`*[_id == $id][0]`, {
             id: authorId
           })
@@ -84,8 +101,17 @@ export const testimonialType = defineType({
             throw new Error("Referenced author not found")
           }
 
-          // Combine title and author name to create a unique slug
-          return `${author.name}-${doc.date}`
+          // Fetch the referenced author document
+          const consultant = await client.fetch(`*[_id == $id][0]`, {
+            id: consultantId
+          })
+
+          if (!consultant) {
+            throw new Error("Referenced consultant not found")
+          }
+
+          // Combine title, author and consultant name to create a unique slug
+          return `${author.name}-${doc.date}-${consultant.name}`
         }
       }
     })

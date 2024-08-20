@@ -62,9 +62,8 @@ export default function TestimonialRoute() {
           width={150}
         />
       )}
-      <p>{formatDate(data.date)}</p>
-      {console.log("QUOTE:", data.quote)}
-      <PortableText value={data.quote} />
+      <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>
+      <p style={{ whiteSpace: "pre-line" }}>{data.quote.de}</p>
     </section>
   )
 }
