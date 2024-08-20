@@ -55,13 +55,15 @@ export default function TestimonialRoute() {
 
   return (
     <section data-sanity={encodeDataAttribute("slug")}>
-      {data.author?.headshot && (
-        <Image
-          data-sanity={encodeDataAttribute("author.headshot")}
-          src={urlFor(data.author?.headshot).url()}
-          width={150}
-        />
-      )}
+      <div style={{ background: "grey" }}>
+        {data.author?.headshot && (
+          <Image
+            data-sanity={encodeDataAttribute("author.headshot")}
+            src={urlFor(data.author?.headshot).url()}
+            width={150}
+          />
+        )}
+      </div>
       <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>
       <p style={{ whiteSpace: "pre-line" }}>{data.quote.de}</p>
     </section>

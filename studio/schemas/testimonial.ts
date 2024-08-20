@@ -70,6 +70,18 @@ export const testimonialType = defineType({
     }),
 
     defineField({
+      name: "source",
+      type: "string",
+      options: {
+        list: [
+          { title: "LinkedIn", value: "linkedin" },
+          { title: "Email", value: "email" },
+          { title: "Other", value: "other" }
+        ]
+      }
+    }),
+
+    defineField({
       name: "quote",
       type: "localeText"
     }),
@@ -126,6 +138,13 @@ export const testimonialType = defineType({
       title: "author.name",
       subtitle: "company.name",
       media: "author.headshot"
+    },
+    prepare(selection) {
+      return {
+        title: selection.title,
+        subtitle: selection.subtitle || "-",
+        media: selection.media
+      }
     }
   }
 })
