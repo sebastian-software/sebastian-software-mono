@@ -47,12 +47,12 @@ export interface TestimonialProps {
 
 export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ width: "20rem" }}>
       <Link
         data-sanity={encodeDataAttribute("slug")}
         to={data.slug?.current ? `/testimonial/${data.slug.current}` : "/"}
       >
-        <div
+        <span
           style={{
             background: "linear-gradient(#dff, #4dd)",
             border: "1px solid #666",
@@ -62,7 +62,7 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
           {data.author?.headshot && (
             <Image src={urlFor(data.author?.headshot).url()} width={150} />
           )}
-        </div>
+        </span>
         <h3>{data.author?.name}</h3>
       </Link>
       <p>
@@ -90,7 +90,14 @@ export default function Index() {
   )
 
   return (
-    <section>
+    <section
+      style={{
+        padding: "20px",
+        display: "grid",
+        border: "1px solid red",
+        gridTemplateColumns: "repeat(5, 1fr)"
+      }}
+    >
       {data?.length &&
         data.map((item, i) => (
           <Testimonial

@@ -25,23 +25,57 @@ export const companyType = defineType({
       name: "country",
       type: "string",
       validation: (Rule) => Rule.required(),
-      initialValue: "Germany",
+      initialValue: "de",
       options: {
         list: [
-          "Germany",
-          "Switzerland",
-          "Austria",
-          "Luxembourg",
-          "France",
-          "Netherlands",
-          "Belgium"
+          { title: "Germany", value: "de" },
+          { title: "Switzerland", value: "ch" },
+          { title: "Austria", value: "at" },
+          { title: "Luxembourg", value: "lu" },
+          { title: "France", value: "fr" },
+          { title: "Netherlands", value: "nl" },
+          { title: "Belgium", value: "be" },
+          { title: "United States", value: "us" }
         ]
       }
     }),
 
     defineField({
       name: "industry",
-      type: "string"
+      type: "string",
+      options: {
+        list: [
+          { title: "Informationstechnologie", value: "IT" },
+          { title: "Basiskonsumgüter", value: "Staples" },
+          { title: "Nicht-Basiskonsumgüter", value: "Consumer" },
+          { title: "Gesundheitswesen", value: "Healthcare" },
+          { title: "Finanzen", value: "Financials" },
+          { title: "Industrie", value: "Industrials" },
+          { title: "Energie", value: "Energy" },
+          { title: "Materialien", value: "Materials" },
+          { title: "Versorgungsunternehmen", value: "Utilities" },
+          { title: "Immobilien", value: "RealEstate" },
+          { title: "Telekommunikation", value: "Telecom" },
+          { title: "Medien", value: "Media" },
+          { title: "Einzelhandel", value: "Retail" },
+          { title: "Transport", value: "Transportation" },
+          { title: "Automobile", value: "Automobiles" },
+          { title: "Pharma", value: "Pharma" },
+          { title: "Versicherungen", value: "Insurance" },
+          { title: "Investitionsgüter", value: "CapitalGoods" },
+          { title: "Lebensmittel", value: "Food" },
+          { title: "Chemie", value: "Chemicals" },
+          { title: "Software", value: "Software" },
+          { title: "Hardware", value: "Hardware" },
+          { title: "Hotels", value: "Hotels" },
+          { title: "Textilien", value: "Textiles" },
+          { title: "Haushaltsprodukte", value: "Household" },
+          { title: "Bau", value: "Construction" },
+          { title: "Luft- und Raumfahrt", value: "Aerospace" },
+          { title: "Metalle", value: "Metals" },
+          { title: "Bildung", value: "Education" }
+        ]
+      }
     }),
 
     defineField({
