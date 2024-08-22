@@ -1,6 +1,8 @@
 import { globalStyle, style } from "@vanilla-extract/css"
 
-export const root = style({})
+export const root = style({
+  whiteSpace: "pre-line"
+})
 
 globalStyle(`${root} h1`, {
   fontWeight: "normal",

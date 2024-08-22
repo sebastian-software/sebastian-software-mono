@@ -21,6 +21,7 @@ import {
 } from "./ProjectList.css"
 import { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import { PROJECTS_QUERYResult } from "sanity.types"
+import { stegaClean } from "@sanity/client/stega"
 
 export interface ProjectListProps {
   readonly data: unknown[]
@@ -41,16 +42,14 @@ export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
   )
 }
 
-const DEFAULT_LOCALE = "de-DE"
-
-export function formatPeriod(start: string, end: string) {
-  const startDate = new Date(start).toLocaleDateString(DEFAULT_LOCALE, {
+export function formatPeriod(start: string, end: string, language: string) {
+  const startDate = new Date(start).toLocaleDateString(language, {
     year: "numeric",
-    month: "numeric"
+    month: "2-digit"
   })
-  const endDate = new Date(end).toLocaleDateString(DEFAULT_LOCALE, {
+  const endDate = new Date(end).toLocaleDateString(language, {
     year: "numeric",
-    month: "numeric"
+    month: "2-digit"
   })
 
   return `${startDate} - ${endDate}`
@@ -60,8 +59,101 @@ export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
 }
 
+const countries = {
+  en: {
+    de: "Germany",
+    ch: "Switzerland",
+    at: "Austria",
+    lu: "Luxembourg",
+    fr: "France",
+    nl: "Netherlands",
+    be: "Belgium",
+    us: "United States",
+    cn: "China",
+    ca: "Canada"
+  },
+  de: {
+    de: "Deutschland",
+    ch: "Schweiz",
+    at: "Österreich",
+    lu: "Luxemburg",
+    fr: "Frankreich",
+    nl: "Niederlande",
+    be: "Belgien",
+    us: "Vereinigte Staaten",
+    cn: "China",
+    ca: "Kanada"
+  }
+}
+
+const industries = {
+  de: {
+    IT: "Informationstechnologie",
+    Consumer: "Nicht-Basiskonsumgüter",
+    Staples: "Basiskonsumgüter",
+    Healthcare: "Gesundheitswesen",
+    Financials: "Finanzdienstleistungen",
+    Industrials: "Industrie",
+    Energy: "Energie",
+    Materials: "Materialien",
+    Utilities: "Versorgungsunternehmen",
+    RealEstate: "Immobilien",
+    Telecom: "Telekommunikation",
+    Media: "Medien und Unterhaltung",
+    Retail: "Einzelhandel",
+    Transportation: "Transport",
+    Automobiles: "Automobile und Komponenten",
+    Pharma: "Pharmazeutika und Biotechnologie",
+    Insurance: "Versicherungen",
+    CapitalGoods: "Investitionsgüter",
+    Food: "Lebensmittel, Getränke & Tabak",
+    Chemicals: "Chemikalien",
+    Software: "Software & Dienstleistungen",
+    Hardware: "Hardware & Ausrüstung",
+    Semiconductors: "Halbleiter",
+    Hotels: "Hotels, Restaurants & Freizeit",
+    Textiles: "Textilien, Bekleidung & Luxusgüter",
+    Household: "Haushalts- & Körperpflegeprodukte",
+    Construction: "Bau & Ingenieurwesen",
+    Aerospace: "Luft- und Raumfahrt & Verteidigung",
+    Metals: "Metalle & Bergbau"
+  },
+  en: {
+    IT: "Information Technology",
+    Consumer: "Consumer Discretionary",
+    Staples: "Consumer Staples",
+    Healthcare: "Healthcare",
+    Financials: "Financials",
+    Industrials: "Industrials",
+    Energy: "Energy",
+    Materials: "Materials",
+    Utilities: "Utilities",
+    RealEstate: "Real Estate",
+    Telecom: "Telecommunication Services",
+    Media: "Media and Entertainment",
+    Retail: "Retail",
+    Transportation: "Transportation",
+    Automobiles: "Automobiles and Components",
+    Pharma: "Pharmaceuticals and Biotechnology",
+    Insurance: "Insurance",
+    CapitalGoods: "Capital Goods",
+    Food: "Food, Beverage & Tobacco",
+    Chemicals: "Chemicals",
+    Software: "Software & Services",
+    Hardware: "Hardware & Equipment",
+    Semiconductors: "Semiconductors",
+    Hotels: "Hotels, Restaurants & Leisure",
+    Textiles: "Textiles, Apparel & Luxury Goods",
+    Household: "Household & Personal Products",
+    Construction: "Construction & Engineering",
+    Aerospace: "Aerospace & Defense",
+    Metals: "Metals & Mining"
+  }
+}
+
 export function Project({ data }: ProjectProps) {
   const customerLogoUrl = urlFor(data.customer?.logo).url()
+  const language = "de"
 
   return (
     <div className={project}>
@@ -72,21 +164,22 @@ export function Project({ data }: ProjectProps) {
 
       <img src={customerLogoUrl} alt={data.customer?.name} className={logo} />
 
+      {console.log("XXX:", data.customer?.country, countries[language])}
+
       <div className={meta}>
         <p className={customer}>
           Kunde:
           <br />
           {data.customer?.name}
           <br />
-          {data.customer?.city?.de}
+          {data.customer?.city},{" "}
+          {countries[language][stegaClean(data.customer?.country)]}
           <br />
-          {data.customer?.country}
-          <br />
-          {data.customer?.industry}
+          {industries[language][stegaClean(data.customer?.industry)]}
         </p>
         <p className={period}>
           Zeitraum:
-          <br /> {formatPeriod(data.contractStart, data.contractEnd)}
+          <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
         {/* <p className={period}>
           Auftraggeber:
@@ -104,9 +197,7 @@ export function Project({ data }: ProjectProps) {
         )}
       </div>
 
-      <RichText className={description}>
-        <PortableText value={data.description} />
-      </RichText>
+      <RichText className={description}>{data.description}</RichText>
 
       <ul className={testimonials}>
         {data.testimonials?.map((entry) => (

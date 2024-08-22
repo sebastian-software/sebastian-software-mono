@@ -11,17 +11,20 @@ export const meta: MetaFunction = () => {
 }
 
 export const PROJECTS_QUERY = defineQuery(`
-    *[_type == "project" && language == $language && defined(consultant)]
+    *[_type == "project" && consultant->name == $name]
     {
       _id,
       title,
-      description,
+      "description": description[$language],
       contractStart,
       contractEnd,
+      consultant->{
+        name,
+      },
       customer->
       {
         name,
-        city,
+        "city": city[$language],
         country,
         industry,
         logo
@@ -31,7 +34,7 @@ export const PROJECTS_QUERY = defineQuery(`
       testimonials[]->
       {
         _id,
-        quote,
+        "quote": quote[$language],
         position,
         author->{
           name
@@ -45,12 +48,11 @@ export const PROJECTS_QUERY = defineQuery(`
 
 export const loader = async () => {
   const params = {
+    name: "Sebastian Werner",
     language: "de"
   }
 
   const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, params)
-  // console.log("Inital Profile", initial.data)
-
   return { initial, query: PROJECTS_QUERY, params }
 }
 
@@ -68,6 +70,8 @@ export default function ProfileWerner() {
     // This Required<> cast is a workaround until the issue is fixed.
     { initial: initial as Required<typeof initial> }
   )
+
+  console.log("Profile Werner", data)
 
   return (
     <section>

@@ -7,11 +7,8 @@ export const rootClass = style({
 })
 
 export const nameClass = style({
-  fontSize: "7.5vw",
+  fontSize: "5vw",
   textAlign: "center",
-  letterSpacing: "0.1em",
-  whiteSpace: "balance",
   textTransform: "uppercase",
-  textDecoration: "underline",
   marginBottom: "2rem"
 })

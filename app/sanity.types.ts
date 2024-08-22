@@ -473,16 +473,27 @@ export type TESTIMONIALS_QUERYResult = Array<{
 
 // Source: ./app/routes/werner.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && language == $language && defined(consultant)]    {      _id,      title,      description,      contractStart,      contractEnd,      customer->      {        name,        city,        country,        industry,        logo      },      role,      technologies,      testimonials[]->      {        _id,        quote,        position,        author->{          name        },        company->{          name        }      }    } | order(contractStart desc)
+// Query: *[_type == "project" && consultant->name == $name]    {      _id,      title,      "description": description[$language],      contractStart,      contractEnd,      consultant->{        name,      },      customer->      {        name,        "city": city[$language],        country,        industry,        logo      },      role,      technologies,      testimonials[]->      {        _id,        "quote": quote[$language],        position,        author->{          name        },        company->{          name        }      }    } | order(contractStart desc)
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   title: string | null
-  description: LocaleText | null
+  description: Array<{
+    _type: "localeText"
+    en?: string
+    de?: string
+  }> | null
   contractStart: string | null
   contractEnd: string | null
+  consultant: {
+    name: string | null
+  } | null
   customer: {
     name: string | null
-    city: LocaleString | null
+    city: Array<{
+      _type: "localeString"
+      en?: string
+      de?: string
+    }> | null
     country:
       | "at"
       | "be"
@@ -542,7 +553,11 @@ export type PROJECTS_QUERYResult = Array<{
   technologies: null
   testimonials: Array<{
     _id: string
-    quote: LocaleText | null
+    quote: Array<{
+      _type: "localeText"
+      en?: string
+      de?: string
+    }> | null
     position: LocaleString | null
     author: {
       name: string | null
@@ -559,6 +574,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '*[_type == "testimonial" && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    author->{\n      name,\n      headshot,\n      status,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
-    '\n    *[_type == "project" && language == $language && defined(consultant)]\n    {\n      _id,\n      title,\n      description,\n      contractStart,\n      contractEnd,\n      customer->\n      {\n        name,\n        city,\n        country,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        quote,\n        position,\n        author->{\n          name\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
+    '\n    *[_type == "project" && consultant->name == $name]\n    {\n      _id,\n      title,\n      "description": description[$language],\n      contractStart,\n      contractEnd,\n      consultant->{\n        name,\n      },\n      customer->\n      {\n        name,\n        "city": city[$language],\n        country,\n        industry,\n        logo\n      },\n      role,\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        "quote": quote[$language],\n        position,\n        author->{\n          name\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
   }
 }
