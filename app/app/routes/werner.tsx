@@ -35,7 +35,7 @@ export const PROJECTS_QUERY = defineQuery(`
       {
         _id,
         "quote": quote[$language],
-        position,
+        "position": position[$language],
         author->{
           name
         },
@@ -70,8 +70,6 @@ export default function ProfileWerner() {
     // This Required<> cast is a workaround until the issue is fixed.
     { initial: initial as Required<typeof initial> }
   )
-
-  console.log("Profile Werner", data)
 
   return (
     <section>

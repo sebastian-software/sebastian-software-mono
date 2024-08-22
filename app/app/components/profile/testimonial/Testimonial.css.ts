@@ -4,6 +4,7 @@ export const root = style({})
 
 export const quote = style({
   quotes: '"»" "«"',
+  whiteSpace: "pre-line",
 
   selectors: {
     "&::before": {

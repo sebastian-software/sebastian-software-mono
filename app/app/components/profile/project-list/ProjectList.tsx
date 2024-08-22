@@ -169,8 +169,6 @@ export function Project({ data }: ProjectProps) {
         className={logoClass}
       />
 
-      {console.log("XXX:", data.customer?.country, countries[language])}
-
       <div className={metaClass}>
         <p className={customerClass}>
           Kunde:
@@ -181,7 +179,8 @@ export function Project({ data }: ProjectProps) {
           {countries[language][stegaClean(data.customer?.country)]}
         </p>
         <p className={industryClass}>
-          {industries[language][stegaClean(data.customer?.industry)]}
+          Branche:
+          <br /> {industries[language][stegaClean(data.customer?.industry)]}
         </p>
         <p className={periodClass}>
           Zeitraum:
@@ -211,7 +210,7 @@ export function Project({ data }: ProjectProps) {
             key={entry._id}
             author={entry.author.name}
             position={entry.position}
-            company={entry.company.name}
+            company={entry.company?.name}
             text={entry.quote}
           />
         ))}
