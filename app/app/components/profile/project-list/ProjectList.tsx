@@ -117,7 +117,8 @@ const industries = {
     Household: "Haushalts- & Körperpflegeprodukte",
     Construction: "Bau & Ingenieurwesen",
     Aerospace: "Luft- und Raumfahrt & Verteidigung",
-    Metals: "Metalle & Bergbau"
+    Metals: "Metalle & Bergbau",
+    Education: "Bildung"
   },
   en: {
     IT: "Information Technology",
@@ -148,7 +149,8 @@ const industries = {
     Household: "Household & Personal Products",
     Construction: "Construction & Engineering",
     Aerospace: "Aerospace & Defense",
-    Metals: "Metals & Mining"
+    Metals: "Metals & Mining",
+    Education: "Education"
   }
 }
 
