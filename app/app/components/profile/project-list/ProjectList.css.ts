@@ -1,12 +1,12 @@
 import { style } from "@vanilla-extract/css"
 
-export const root = style({
+export const rootClass = style({
   display: "flex",
   flexDirection: "column",
   gap: "4rem"
 })
 
-export const project = style({
+export const projectClass = style({
   display: "grid",
   maxWidth: "max-content",
   marginInline: "auto",
@@ -45,7 +45,7 @@ export const project = style({
   }
 })
 
-export const title = style({
+export const titleClass = style({
   gridArea: "title",
   fontSize: "2.5rem",
   fontWeight: "bold",
@@ -55,7 +55,7 @@ export const title = style({
   color: "#222"
 })
 
-export const role = style({
+export const roleClass = style({
   fontWeight: "normal",
   display: "block",
   fontSize: "1rem",
@@ -68,33 +68,32 @@ export const role = style({
   marginBottom: "0.5rem"
 })
 
-export const logo = style({
+export const logoClass = style({
   gridArea: "logo",
   maxHeight: "4rem",
   maxWidth: "12rem"
 })
 
-export const meta = style({
+export const metaClass = style({
   gridArea: "meta",
   display: "flex",
   flexDirection: "column",
   gap: "1lh"
 })
 
-export const period = style({})
+export const periodClass = style({})
+export const customerClass = style({})
+export const industryClass = style({})
+export const technologiesClass = style({})
 
-export const customer = style({})
-
-export const technologies = style({})
-
-export const description = style({
+export const descriptionClass = style({
   gridArea: "description",
   maxWidth: "60ch",
   hyphens: "auto",
   hyphenateLimitChars: "12 5 5"
 })
 
-export const testimonials = style({
+export const testimonialsClass = style({
   gridArea: "testimonials",
   display: "flex",
   flexDirection: "column",

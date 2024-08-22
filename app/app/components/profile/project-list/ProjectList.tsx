@@ -7,17 +7,18 @@ import { Neutral } from "../../neutral"
 import { RichText } from "../../richtext/RichText"
 import { TestimonialBlock } from "../testimonial"
 import {
-  customer,
-  description,
-  logo,
-  meta,
-  period,
-  project,
-  role,
-  root,
-  technologies,
-  testimonials,
-  title
+  customerClass,
+  descriptionClass,
+  industryClass,
+  logoClass,
+  metaClass,
+  periodClass,
+  projectClass,
+  roleClass,
+  rootClass,
+  technologiesClass,
+  testimonialsClass,
+  titleClass
 } from "./ProjectList.css"
 import { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import { PROJECTS_QUERYResult } from "sanity.types"
@@ -30,7 +31,7 @@ export interface ProjectListProps {
 
 export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
   return (
-    <div className={root}>
+    <div className={rootClass}>
       {data.map((project, i) => (
         <Project
           key={project._id}
@@ -156,28 +157,33 @@ export function Project({ data }: ProjectProps) {
   const language = "de"
 
   return (
-    <div className={project}>
-      <Neutral as="h2" className={title}>
-        <span className={role}>{data.role}</span>
+    <div className={projectClass}>
+      <Neutral as="h2" className={titleClass}>
+        <span className={roleClass}>{data.role}</span>
         {data.title}
       </Neutral>
 
-      <img src={customerLogoUrl} alt={data.customer?.name} className={logo} />
+      <img
+        src={customerLogoUrl}
+        alt={data.customer?.name}
+        className={logoClass}
+      />
 
       {console.log("XXX:", data.customer?.country, countries[language])}
 
-      <div className={meta}>
-        <p className={customer}>
+      <div className={metaClass}>
+        <p className={customerClass}>
           Kunde:
           <br />
           {data.customer?.name}
           <br />
           {data.customer?.city},{" "}
           {countries[language][stegaClean(data.customer?.country)]}
-          <br />
+        </p>
+        <p className={industryClass}>
           {industries[language][stegaClean(data.customer?.industry)]}
         </p>
-        <p className={period}>
+        <p className={periodClass}>
           Zeitraum:
           <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
@@ -188,7 +194,7 @@ export function Project({ data }: ProjectProps) {
 
         {data.technologies && (
           <Neutral>
-            <TagList className={technologies}>
+            <TagList className={technologiesClass}>
               {data.technologies.map((text) => (
                 <Tag key={text}>{text}</Tag>
               ))}
@@ -197,9 +203,9 @@ export function Project({ data }: ProjectProps) {
         )}
       </div>
 
-      <RichText className={description}>{data.description}</RichText>
+      <RichText className={descriptionClass}>{data.description}</RichText>
 
-      <ul className={testimonials}>
+      <ul className={testimonialsClass}>
         {data.testimonials?.map((entry) => (
           <TestimonialBlock
             key={entry._id}
