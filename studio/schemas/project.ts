@@ -13,12 +13,14 @@ export const projectType = defineType({
 
     defineField({
       name: "title",
-      type: "string"
+      type: "string",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "slug",
       type: "slug",
+      validation: (Rule) => Rule.required(),
       options: {
         source: "title"
       }
@@ -26,7 +28,8 @@ export const projectType = defineType({
 
     defineField({
       name: "role",
-      type: "string"
+      type: "string",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
@@ -37,19 +40,21 @@ export const projectType = defineType({
 
     defineField({
       name: "contractStart",
-      type: "date"
+      type: "date",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "contractEnd",
-      type: "date"
+      type: "date",
+      validation: (Rule) => Rule.required()
     }),
 
-    // defineField({
-    //   name: "description",
-    //   type: "array",
-    //   of: [{ type: "block" }]
-    // })
+    defineField({
+      name: "description",
+      type: "localeText",
+      validation: (Rule) => Rule.required()
+    }),
 
     defineField({
       name: "testimonials",
