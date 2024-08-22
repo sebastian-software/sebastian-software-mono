@@ -35,7 +35,9 @@ export const companyType = defineType({
           { title: "France", value: "fr" },
           { title: "Netherlands", value: "nl" },
           { title: "Belgium", value: "be" },
-          { title: "United States", value: "us" }
+          { title: "United States", value: "us" },
+          { title: "China", value: "cn" },
+          { title: "Canada", value: "ca" }
         ]
       }
     }),

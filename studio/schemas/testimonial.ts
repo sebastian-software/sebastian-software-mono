@@ -75,6 +75,7 @@ export const testimonialType = defineType({
       options: {
         list: [
           { title: "LinkedIn", value: "linkedin" },
+          { title: "Xing", value: "xing" },
           { title: "Email", value: "email" },
           { title: "Other", value: "other" }
         ]
@@ -146,5 +147,22 @@ export const testimonialType = defineType({
         media: selection.media
       }
     }
-  }
+  },
+  orderings: [
+    {
+      title: "Author",
+      name: "author",
+      by: [{ field: "author.name", direction: "asc" }]
+    },
+    {
+      title: "Date (oldest)",
+      name: "date-asc",
+      by: [{ field: "date", direction: "asc" }]
+    },
+    {
+      title: "Date (newest)",
+      name: "date-desc",
+      by: [{ field: "date", direction: "desc" }]
+    }
+  ]
 })
