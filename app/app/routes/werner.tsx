@@ -29,7 +29,7 @@ export const PROJECTS_QUERY = defineQuery(`
         industry,
         logo
       },
-      role,
+      "role": role[$language],
       technologies,
       testimonials[]->
       {

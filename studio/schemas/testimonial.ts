@@ -13,7 +13,13 @@ const clientOptions = { apiVersion: getCurrentDate() }
 // Minimal type definition for a testimonial document
 // for correctly supporting the custom `source` function
 interface TestimonialDoc extends SanityDocument {
+  date?: string
+
   author?: {
+    _ref: string
+  }
+
+  consultant?: {
     _ref: string
   }
 }
