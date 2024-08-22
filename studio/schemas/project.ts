@@ -33,8 +33,20 @@ export const projectType = defineType({
 
     defineField({
       name: "title",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required()
+    }),
+
+    defineField({
+      name: "role",
+      type: "localeString",
+      validation: (Rule) => Rule.required()
+    }),
+
+    defineField({
+      name: "customer",
+      type: "reference",
+      to: [{ type: "company" }]
     }),
 
     defineField({
@@ -49,7 +61,7 @@ export const projectType = defineType({
           const customerId = doc.customer?._ref
 
           if (!customerId) {
-            throw new Error("Author reference is missing")
+            throw new Error("Customer reference is missing")
           }
 
           // Fetch the referenced customer document
@@ -62,21 +74,9 @@ export const projectType = defineType({
           }
 
           // Combine title, author and consultant name to create a unique slug
-          return `${customer.name}-${doc.title}`
+          return `${customer.name}-${doc.title.en}`
         }
       }
-    }),
-
-    defineField({
-      name: "role",
-      type: "localeString",
-      validation: (Rule) => Rule.required()
-    }),
-
-    defineField({
-      name: "customer",
-      type: "reference",
-      to: [{ type: "company" }]
     }),
 
     defineField({
@@ -105,7 +105,7 @@ export const projectType = defineType({
   ],
   preview: {
     select: {
-      title: "title",
+      title: "title.de",
       subtitle: "customer.name",
       media: "customer.logo"
     }

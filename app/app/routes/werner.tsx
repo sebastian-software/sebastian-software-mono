@@ -14,7 +14,7 @@ export const PROJECTS_QUERY = defineQuery(`
     *[_type == "project" && consultant->name == $name]
     {
       _id,
-      title,
+      "title": title[$language],
       "description": description[$language],
       contractStart,
       contractEnd,
