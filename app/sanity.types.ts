@@ -96,6 +96,7 @@ export type Testimonial = {
     [internalGroqTypeReferenceTo]?: "company"
   }
   quoteLanguage?: "en" | "de"
+  source?: "linkedin" | "xing" | "email" | "other"
   quote?: LocaleText
   slug?: Slug
 }
@@ -151,6 +152,7 @@ export type Project = {
   }
   contractStart?: string
   contractEnd?: string
+  description?: LocaleText
   testimonials?: Array<{
     _ref: string
     _type: "reference"
@@ -179,15 +181,37 @@ export type Company = {
   }
   name?: string
   city?: LocaleString
-  country?:
-    | "Germany"
-    | "Switzerland"
-    | "Austria"
-    | "Luxembourg"
-    | "France"
-    | "Netherlands"
-    | "Belgium"
-  industry?: string
+  country?: "de" | "ch" | "at" | "lu" | "fr" | "nl" | "be" | "us" | "cn" | "ca"
+  industry?:
+    | "IT"
+    | "Staples"
+    | "Consumer"
+    | "Healthcare"
+    | "Financials"
+    | "Industrials"
+    | "Energy"
+    | "Materials"
+    | "Utilities"
+    | "RealEstate"
+    | "Telecom"
+    | "Media"
+    | "Retail"
+    | "Transportation"
+    | "Automobiles"
+    | "Pharma"
+    | "Insurance"
+    | "CapitalGoods"
+    | "Food"
+    | "Chemicals"
+    | "Software"
+    | "Hardware"
+    | "Hotels"
+    | "Textiles"
+    | "Household"
+    | "Construction"
+    | "Aerospace"
+    | "Metals"
+    | "Education"
   slug?: Slug
 }
 
@@ -453,22 +477,55 @@ export type TESTIMONIALS_QUERYResult = Array<{
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   title: string | null
-  description: null
+  description: LocaleText | null
   contractStart: string | null
   contractEnd: string | null
   customer: {
     name: string | null
     city: LocaleString | null
     country:
-      | "Austria"
-      | "Belgium"
-      | "France"
-      | "Germany"
-      | "Luxembourg"
-      | "Netherlands"
-      | "Switzerland"
+      | "at"
+      | "be"
+      | "ca"
+      | "ch"
+      | "cn"
+      | "de"
+      | "fr"
+      | "lu"
+      | "nl"
+      | "us"
       | null
-    industry: string | null
+    industry:
+      | "Aerospace"
+      | "Automobiles"
+      | "CapitalGoods"
+      | "Chemicals"
+      | "Construction"
+      | "Consumer"
+      | "Education"
+      | "Energy"
+      | "Financials"
+      | "Food"
+      | "Hardware"
+      | "Healthcare"
+      | "Hotels"
+      | "Household"
+      | "Industrials"
+      | "Insurance"
+      | "IT"
+      | "Materials"
+      | "Media"
+      | "Metals"
+      | "Pharma"
+      | "RealEstate"
+      | "Retail"
+      | "Software"
+      | "Staples"
+      | "Telecom"
+      | "Textiles"
+      | "Transportation"
+      | "Utilities"
+      | null
     logo: {
       asset?: {
         _ref: string

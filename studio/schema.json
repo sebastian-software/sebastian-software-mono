@@ -489,6 +489,31 @@
         },
         "optional": true
       },
+      "source": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "linkedin"
+            },
+            {
+              "type": "string",
+              "value": "xing"
+            },
+            {
+              "type": "string",
+              "value": "email"
+            },
+            {
+              "type": "string",
+              "value": "other"
+            }
+          ]
+        },
+        "optional": true
+      },
       "quote": {
         "type": "objectAttribute",
         "value": {
@@ -803,6 +828,14 @@
         },
         "optional": true
       },
+      "description": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeText"
+        },
+        "optional": true
+      },
       "testimonials": {
         "type": "objectAttribute",
         "value": {
@@ -968,31 +1001,43 @@
           "of": [
             {
               "type": "string",
-              "value": "Germany"
+              "value": "de"
             },
             {
               "type": "string",
-              "value": "Switzerland"
+              "value": "ch"
             },
             {
               "type": "string",
-              "value": "Austria"
+              "value": "at"
             },
             {
               "type": "string",
-              "value": "Luxembourg"
+              "value": "lu"
             },
             {
               "type": "string",
-              "value": "France"
+              "value": "fr"
             },
             {
               "type": "string",
-              "value": "Netherlands"
+              "value": "nl"
             },
             {
               "type": "string",
-              "value": "Belgium"
+              "value": "be"
+            },
+            {
+              "type": "string",
+              "value": "us"
+            },
+            {
+              "type": "string",
+              "value": "cn"
+            },
+            {
+              "type": "string",
+              "value": "ca"
             }
           ]
         },
@@ -1001,7 +1046,125 @@
       "industry": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "IT"
+            },
+            {
+              "type": "string",
+              "value": "Staples"
+            },
+            {
+              "type": "string",
+              "value": "Consumer"
+            },
+            {
+              "type": "string",
+              "value": "Healthcare"
+            },
+            {
+              "type": "string",
+              "value": "Financials"
+            },
+            {
+              "type": "string",
+              "value": "Industrials"
+            },
+            {
+              "type": "string",
+              "value": "Energy"
+            },
+            {
+              "type": "string",
+              "value": "Materials"
+            },
+            {
+              "type": "string",
+              "value": "Utilities"
+            },
+            {
+              "type": "string",
+              "value": "RealEstate"
+            },
+            {
+              "type": "string",
+              "value": "Telecom"
+            },
+            {
+              "type": "string",
+              "value": "Media"
+            },
+            {
+              "type": "string",
+              "value": "Retail"
+            },
+            {
+              "type": "string",
+              "value": "Transportation"
+            },
+            {
+              "type": "string",
+              "value": "Automobiles"
+            },
+            {
+              "type": "string",
+              "value": "Pharma"
+            },
+            {
+              "type": "string",
+              "value": "Insurance"
+            },
+            {
+              "type": "string",
+              "value": "CapitalGoods"
+            },
+            {
+              "type": "string",
+              "value": "Food"
+            },
+            {
+              "type": "string",
+              "value": "Chemicals"
+            },
+            {
+              "type": "string",
+              "value": "Software"
+            },
+            {
+              "type": "string",
+              "value": "Hardware"
+            },
+            {
+              "type": "string",
+              "value": "Hotels"
+            },
+            {
+              "type": "string",
+              "value": "Textiles"
+            },
+            {
+              "type": "string",
+              "value": "Household"
+            },
+            {
+              "type": "string",
+              "value": "Construction"
+            },
+            {
+              "type": "string",
+              "value": "Aerospace"
+            },
+            {
+              "type": "string",
+              "value": "Metals"
+            },
+            {
+              "type": "string",
+              "value": "Education"
+            }
+          ]
         },
         "optional": true
       },
