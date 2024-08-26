@@ -210,6 +210,7 @@ export function Project({ data }: ProjectProps) {
         {data.testimonials?.map((entry) => (
           <TestimonialBlock
             key={entry._id}
+            headshot={entry.author.headshot}
             author={entry.author.name}
             position={entry.position}
             company={entry.company?.name}

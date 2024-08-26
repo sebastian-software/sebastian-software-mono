@@ -37,7 +37,8 @@ export const PROJECTS_QUERY = defineQuery(`
         "quote": quote[$language],
         "position": position[$language],
         author->{
-          name
+          name,
+          headshot
         },
         company->{
           name

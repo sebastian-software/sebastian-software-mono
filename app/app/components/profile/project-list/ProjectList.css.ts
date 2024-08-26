@@ -98,7 +98,7 @@ export const testimonialsClass = style({
   display: "flex",
   flexDirection: "column",
   color: "#532447",
-  gap: "1rem",
+  gap: "2rem",
   fontSize: "0.875rem",
   width: "45ch",
   hyphens: "auto",

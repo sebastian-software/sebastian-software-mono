@@ -1,8 +1,8 @@
 import { style } from "@vanilla-extract/css"
 
-export const root = style({})
+export const rootClass = style({})
 
-export const quote = style({
+export const quoteClass = style({
   quotes: '"»" "«"',
   whiteSpace: "pre-line",
 
@@ -18,6 +18,20 @@ export const quote = style({
   }
 })
 
-export const caption = style({
+export const captionClass = style({
   fontWeight: "bold"
+})
+
+export const imageClass = style({
+  backgroundColor: "#ddd",
+  border: "1px solid #aaa",
+  borderRadius: "50%",
+  filter: "grayscale(1)",
+  marginBottom: "0.5rem",
+
+  selectors: {
+    "&:hover": {
+      filter: "none"
+    }
+  }
 })
