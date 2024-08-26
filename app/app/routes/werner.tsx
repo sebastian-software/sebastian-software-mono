@@ -2,50 +2,14 @@ import { useLoaderData, type MetaFunction } from "@remix-run/react"
 import { useQuery } from "@sanity/react-loader"
 import { loadQuery } from "~/sanity/loader.server"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
-import { defineQuery } from "groq"
+
 import { PROJECTS_QUERYResult } from "sanity.types"
 import { ProfileHead, ProjectList } from "~/components/profile"
+import { PROJECTS_QUERY } from "~/queries/projects"
 
 export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
 }
-
-export const PROJECTS_QUERY = defineQuery(`
-    *[_type == "project" && consultant->name == $name]
-    {
-      _id,
-      "title": title[$language],
-      "description": description[$language],
-      contractStart,
-      contractEnd,
-      consultant->{
-        name,
-      },
-      customer->
-      {
-        name,
-        "city": city[$language],
-        country,
-        industry,
-        logo
-      },
-      "role": role[$language],
-      technologies,
-      testimonials[]->
-      {
-        _id,
-        "quote": quote[$language],
-        "position": position[$language],
-        author->{
-          name,
-          headshot
-        },
-        company->{
-          name
-        }
-      }
-    } | order(contractStart desc)
-  `)
 
 export const loader = async () => {
   const params = {
