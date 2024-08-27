@@ -7,7 +7,7 @@
     "dev": "pnpm -r dev",
     "distclean": "git clean -xdf",
     "format": "prettier --write .",
-    "opt:svg": "svgo --folder app --recursive",
+    "opt:svg": "svgo --folder app --recursive --multipass && svgo --folder assets --recursive --multipass",
     "test:format": "prettier --check .",
     "update:latest": "ncu --deep  --upgrade --interactive",
     "update:minor": "ncu --deep  --upgrade --interactive --target minor",
@@ -25,5 +25,10 @@
   "packageManager": "pnpm@9.9.0",
   "engines": {
     "node": ">=20.0.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "svgo": "patches/svgo.patch"
+    }
   }
 }
