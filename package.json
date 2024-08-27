@@ -25,10 +25,5 @@
   "packageManager": "pnpm@9.9.0",
   "engines": {
     "node": ">=20.0.0"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "svgo": "patches/svgo.patch"
-    }
   }
 }
