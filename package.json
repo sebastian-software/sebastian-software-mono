@@ -6,15 +6,23 @@
     "deploy:prod": "sst deploy --stage production",
     "dev": "pnpm -r dev",
     "distclean": "git clean -xdf",
-    "format": "prettier --cache --write .",
+    "format": "prettier --write .",
+    "opt:svg": "svgo --folder app --recursive",
+    "test:format": "prettier --check .",
     "update:latest": "ncu --deep  --upgrade --interactive",
     "update:minor": "ncu --deep  --upgrade --interactive --target minor",
     "update:pnpm": "corepack up"
   },
   "devDependencies": {
-    "npm-check-updates": "^17.0.6",
-    "prettier": "3.3.3",
-    "prettier-plugin-packagejson": "2.5.1"
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "npm-check-updates": "^17.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-packagejson": "^2.5.2",
+    "sst": "ion"
   },
-  "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
