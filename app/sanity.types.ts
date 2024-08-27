@@ -408,72 +408,9 @@ export type AllSanitySchemaTypes =
   | InternationalizedArrayText
   | InternationalizedArrayString
 export declare const internalGroqTypeReferenceTo: unique symbol
-// Source: ./app/routes/testimonial.$slug.tsx
-// Variable: TESTIMONIAL_QUERY
-// Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
-export type TESTIMONIAL_QUERYResult = {
-  date: string | null
-  language: string | null
-  quote: LocaleText | null
-  author: {
-    name: string | null
-    headshot: {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: "image"
-    } | null
-    position: LocaleString | null
-    company: {
-      name: string | null
-    } | null
-  } | null
-  position: LocaleString | null
-  company: {
-    name: string | null
-  } | null
-} | null
-
-// Source: ./app/routes/testimonials.tsx
-// Variable: TESTIMONIALS_QUERY
-// Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
-export type TESTIMONIALS_QUERYResult = Array<{
-  _id: string
-  slug: Slug | null
-  date: string | null
-  author: {
-    name: string | null
-    headshot: {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: "image"
-    } | null
-    status: "employee" | "freelancer" | "owner" | null
-    position: LocaleString | null
-    company: {
-      name: string | null
-    } | null
-  } | null
-  position: LocaleString | null
-  company: {
-    name: string | null
-  } | null
-}>
-
-// Source: ./app/routes/werner.tsx
+// Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && consultant->name == $name]    {      _id,      "title": title[$language],      "description": description[$language],      contractStart,      contractEnd,      consultant->{        name,      },      customer->      {        name,        "city": city[$language],        country,        industry,        logo      },      "role": role[$language],      technologies,      testimonials[]->      {        _id,        "quote": quote[$language],        "position": position[$language],        author->{          name        },        company->{          name        }      }    } | order(contractStart desc)
+// Query: *[_type == "project" && consultant->name == $name]  {    _id,    "title": title[$language],    "description": description[$language],    contractStart,    contractEnd,    consultant->{      name,    },    customer->    {      name,      "city": city[$language],      country,      industry,      logo    },    "role": role[$language],    technologies,    testimonials[]->    {      _id,      "quote": quote[$language],      "position": position[$language],      author->{        name,        headshot      },      company->{        name      }    }  } | order(contractStart desc)
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   title: Array<{
@@ -573,6 +510,17 @@ export type PROJECTS_QUERYResult = Array<{
     }> | null
     author: {
       name: string | null
+      headshot: {
+        asset?: {
+          _ref: string
+          _type: "reference"
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: "image"
+      } | null
     } | null
     company: {
       name: string | null
@@ -580,12 +528,75 @@ export type PROJECTS_QUERYResult = Array<{
   }> | null
 }>
 
+// Source: ./app/routes/testimonial.$slug.tsx
+// Variable: TESTIMONIAL_QUERY
+// Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
+export type TESTIMONIAL_QUERYResult = {
+  date: string | null
+  language: string | null
+  quote: LocaleText | null
+  author: {
+    name: string | null
+    headshot: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+    position: LocaleString | null
+    company: {
+      name: string | null
+    } | null
+  } | null
+  position: LocaleString | null
+  company: {
+    name: string | null
+  } | null
+} | null
+
+// Source: ./app/routes/testimonials.tsx
+// Variable: TESTIMONIALS_QUERY
+// Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
+export type TESTIMONIALS_QUERYResult = Array<{
+  _id: string
+  slug: Slug | null
+  date: string | null
+  author: {
+    name: string | null
+    headshot: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+    status: "employee" | "freelancer" | "owner" | null
+    position: LocaleString | null
+    company: {
+      name: string | null
+    } | null
+  } | null
+  position: LocaleString | null
+  company: {
+    name: string | null
+  } | null
+}>
+
 // Query TypeMap
 import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
+    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[$language],\n    "description": description[$language],\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      "city": city[$language],\n      country,\n      industry,\n      logo\n    },\n    "role": role[$language],\n    technologies,\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[$language],\n      "position": position[$language],\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '*[_type == "testimonial" && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    author->{\n      name,\n      headshot,\n      status,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
-    '\n    *[_type == "project" && consultant->name == $name]\n    {\n      _id,\n      "title": title[$language],\n      "description": description[$language],\n      contractStart,\n      contractEnd,\n      consultant->{\n        name,\n      },\n      customer->\n      {\n        name,\n        "city": city[$language],\n        country,\n        industry,\n        logo\n      },\n      "role": role[$language],\n      technologies,\n      testimonials[]->\n      {\n        _id,\n        "quote": quote[$language],\n        "position": position[$language],\n        author->{\n          name\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  ': PROJECTS_QUERYResult
   }
 }
