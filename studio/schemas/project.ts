@@ -1,18 +1,11 @@
-import { defineField, defineType, SanityDocument } from "sanity"
+import type { SanityDocument } from "sanity"
+import { defineField, defineType } from "sanity"
 
-function getCurrentDate() {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = String(today.getMonth() + 1).padStart(2, "0")
-  const day = String(today.getDate()).padStart(2, "0")
-  return `${year}-${month}-${day}`
-}
-
-const clientOptions = { apiVersion: getCurrentDate() }
+import { clientOptions } from "./utils"
 
 // Minimal type definition for a testimonial document
 // for correctly supporting the custom `source` function
-interface ProjectDoc extends SanityDocument {
+interface ProjectDocument extends SanityDocument {
   title?: string
 
   customer?: {
@@ -55,10 +48,10 @@ export const projectType = defineType({
       validation: (Rule) => Rule.required(),
       options: {
         maxLength: 80,
-        source: async (doc: ProjectDoc, context) => {
+        async source(document: ProjectDocument, context) {
           const client = context.getClient(clientOptions)
 
-          const customerId = doc.customer?._ref
+          const customerId = document.customer?._ref
 
           if (!customerId) {
             throw new Error("Customer reference is missing")
@@ -74,7 +67,7 @@ export const projectType = defineType({
           }
 
           // Combine title, author and consultant name to create a unique slug
-          return `${customer.name}-${doc.title.en}`
+          return `${customer.slug.current}-${document.title.en}`
         }
       }
     }),
