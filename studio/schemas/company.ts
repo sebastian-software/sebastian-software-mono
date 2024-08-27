@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
 
+import { removeCompanySuffixes } from "./utils"
+
 export const companyType = defineType({
   name: "company",
   title: "Company",
@@ -84,7 +86,7 @@ export const companyType = defineType({
       name: "slug",
       type: "slug",
       options: {
-        source: "name"
+        source: (document) => removeCompanySuffixes(document.name)
       }
     })
   ],
