@@ -4,7 +4,8 @@
     "build": "sanity build",
     "dev": "sanity dev",
     "schema": "sanity schema extract",
-    "start": "sanity start"
+    "start": "sanity start",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@sanity/assist": "^3.0.6",
