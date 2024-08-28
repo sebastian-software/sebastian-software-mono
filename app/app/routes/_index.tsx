@@ -1,3 +1,4 @@
+import { i18n } from "@lingui/core"
 import type { MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { loadQuery, useQuery } from "@sanity/react-loader"
@@ -24,7 +25,7 @@ export const meta: MetaFunction = () => [
 
 export const loader = async () => {
   const params = {
-    language: "de"
+    language: i18n.locale
   }
 
   const initial = await loadQuery<CUSTOMERS_QUERYResult>(

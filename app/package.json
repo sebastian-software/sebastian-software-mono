@@ -13,6 +13,8 @@
     "@effective/color": "^1.0.1",
     "@effective/css-reset": "^3.1.0",
     "@effective/shadow": "^1.1.0",
+    "@lingui/core": "^4.11.3",
+    "@lingui/react": "^4.11.3",
     "@portabletext/react": "^3.1.0",
     "@remix-run/node": "^2.11.2",
     "@remix-run/react": "^2.11.2",

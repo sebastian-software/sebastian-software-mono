@@ -1,5 +1,7 @@
 import "@effective/css-reset"
 
+import { i18n } from "@lingui/core"
+import { I18nProvider } from "@lingui/react"
 import type { LoaderFunction } from "@remix-run/node"
 import { json, redirect } from "@remix-run/node"
 import {
@@ -22,24 +24,28 @@ const LiveVisualEditing = lazy(
 
 export const DEFAULT_LANGUAGE = "en"
 
-export const loader: LoaderFunction = async ({ request }) => {
+async function getAppLanguage(request) {
   const headers = request.headers
   const languages = acceptLanguage.parse(
     headers.get("Accept-Language") ?? DEFAULT_LANGUAGE
   )
 
   const browserLanguage = languages[0].code
-  console.log("LANG: BROWSER:", browserLanguage)
+  const cookieLanguage = await languageCookie.parse(headers.get("Cookie"))
 
-  const cookie = await languageCookie.parse(headers.get("Cookie"))
-  console.log("LANG: COOKIE:", cookie)
+  console.log("LANG: BROWSER:", browserLanguage, languages)
+  console.log("LANG: COOKIE:", cookieLanguage)
 
+  return cookieLanguage.language || browserLanguage
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
   // Note: This follows the recommendation of Remix to not inject
   // env at built time, but instead at runtime from the server.
   // https://remix.run/docs/en/main/guides/envvars#browser-environment-variables
   return json({
     ENV: {
-      APP_LANGUAGE: cookie.language,
+      APP_LANGUAGE: await getAppLanguage(request),
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
@@ -73,48 +79,51 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function App() {
   const { ENV } = useLoaderData<typeof loader>()
 
+  i18n.activate(ENV.APP_LANGUAGE)
+
   return (
-    <html lang="de">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-        <Favicon />
-        <script
-          defer
-          data-domain="sebastian-software.de"
-          src="https://t.sebastian-software.de/js/script.js"
-        />
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="RSS"
-          href="https://sebastian-software.de/rss.xml"
-        />
-      </head>
-      <Body>
-        <div>
-          <Header />
-          <p>LANG:{ENV.APP_LANGUAGE}</p>
-          <Main>
-            <Outlet />
-          </Main>
-          <Footer />
-        </div>
-        <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(ENV)}`
-          }}
-        />
-        {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
-          <Suspense>
-            <LiveVisualEditing />
-          </Suspense>
-        ) : null}
-        <Scripts />
-      </Body>
-    </html>
+    <I18nProvider i18n={i18n}>
+      <html lang={i18n.locale}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+          <Favicon />
+          <script
+            defer
+            data-domain="sebastian-software.de"
+            src="https://t.sebastian-software.de/js/script.js"
+          />
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS"
+            href="https://sebastian-software.de/rss.xml"
+          />
+        </head>
+        <Body>
+          <div>
+            <Header />
+            <Main>
+              <Outlet />
+            </Main>
+            <Footer />
+          </div>
+          <ScrollRestoration />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify(ENV)}`
+            }}
+          />
+          {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
+            <Suspense>
+              <LiveVisualEditing />
+            </Suspense>
+          ) : null}
+          <Scripts />
+        </Body>
+      </html>
+    </I18nProvider>
   )
 }
