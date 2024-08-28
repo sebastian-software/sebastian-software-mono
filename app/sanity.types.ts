@@ -13,7 +13,7 @@
  */
 
 // Source: schema.json
-export type SanityImagePaletteSwatch = {
+export interface SanityImagePaletteSwatch {
   _type: "sanity.imagePaletteSwatch"
   background?: string
   foreground?: string
@@ -21,7 +21,7 @@ export type SanityImagePaletteSwatch = {
   title?: string
 }
 
-export type SanityImagePalette = {
+export interface SanityImagePalette {
   _type: "sanity.imagePalette"
   darkMuted?: SanityImagePaletteSwatch
   lightVibrant?: SanityImagePaletteSwatch
@@ -32,14 +32,14 @@ export type SanityImagePalette = {
   muted?: SanityImagePaletteSwatch
 }
 
-export type SanityImageDimensions = {
+export interface SanityImageDimensions {
   _type: "sanity.imageDimensions"
   height?: number
   width?: number
   aspectRatio?: number
 }
 
-export type SanityFileAsset = {
+export interface SanityFileAsset {
   _id: string
   _type: "sanity.fileAsset"
   _createdAt: string
@@ -61,14 +61,14 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData
 }
 
-export type Geopoint = {
+export interface Geopoint {
   _type: "geopoint"
   lat?: number
   lng?: number
   alt?: number
 }
 
-export type Testimonial = {
+export interface Testimonial {
   _id: string
   _type: "testimonial"
   _createdAt: string
@@ -101,7 +101,7 @@ export type Testimonial = {
   slug?: Slug
 }
 
-export type Human = {
+export interface Human {
   _id: string
   _type: "human"
   _createdAt: string
@@ -129,7 +129,7 @@ export type Human = {
   }
 }
 
-export type Project = {
+export interface Project {
   _id: string
   _type: "project"
   _createdAt: string
@@ -162,7 +162,7 @@ export type Project = {
   }>
 }
 
-export type Company = {
+export interface Company {
   _id: string
   _type: "company"
   _createdAt: string
@@ -215,7 +215,7 @@ export type Company = {
   slug?: Slug
 }
 
-export type Picture = {
+export interface Picture {
   _id: string
   _type: "picture"
   _createdAt: string
@@ -237,13 +237,13 @@ export type Picture = {
   slug?: Slug
 }
 
-export type Slug = {
+export interface Slug {
   _type: "slug"
   current?: string
   source?: string
 }
 
-export type Consultant = {
+export interface Consultant {
   _id: string
   _type: "consultant"
   _createdAt: string
@@ -270,7 +270,7 @@ export type Consultant = {
   }
 }
 
-export type SanityImageCrop = {
+export interface SanityImageCrop {
   _type: "sanity.imageCrop"
   top?: number
   bottom?: number
@@ -278,7 +278,7 @@ export type SanityImageCrop = {
   right?: number
 }
 
-export type SanityImageHotspot = {
+export interface SanityImageHotspot {
   _type: "sanity.imageHotspot"
   x?: number
   y?: number
@@ -286,7 +286,7 @@ export type SanityImageHotspot = {
   width?: number
 }
 
-export type SanityImageAsset = {
+export interface SanityImageAsset {
   _id: string
   _type: "sanity.imageAsset"
   _createdAt: string
@@ -309,14 +309,14 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData
 }
 
-export type SanityAssetSourceData = {
+export interface SanityAssetSourceData {
   _type: "sanity.assetSourceData"
   name?: string
   id?: string
   url?: string
 }
 
-export type SanityImageMetadata = {
+export interface SanityImageMetadata {
   _type: "sanity.imageMetadata"
   location?: Geopoint
   dimensions?: SanityImageDimensions
@@ -327,7 +327,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean
 }
 
-export type Address = {
+export interface Address {
   _id: string
   _type: "address"
   _createdAt: string
@@ -348,24 +348,24 @@ export type Address = {
     | "Belgium"
 }
 
-export type LocaleText = {
+export interface LocaleText {
   _type: "localeText"
   en?: string
   de?: string
 }
 
-export type LocaleString = {
+export interface LocaleString {
   _type: "localeString"
   en?: string
   de?: string
 }
 
-export type InternationalizedArrayTextValue = {
+export interface InternationalizedArrayTextValue {
   _type: "internationalizedArrayTextValue"
   value?: string
 }
 
-export type InternationalizedArrayStringValue = {
+export interface InternationalizedArrayStringValue {
   _type: "internationalizedArrayStringValue"
   value?: string
 }
@@ -417,24 +417,24 @@ export type PROJECTS_QUERYResult = Array<{
     _type: "localeString"
     en?: string
     de?: string
-  }> | null
+  }> | undefined
   description: Array<{
     _type: "localeText"
     en?: string
     de?: string
-  }> | null
-  contractStart: string | null
-  contractEnd: string | null
+  }> | undefined
+  contractStart: string | undefined
+  contractEnd: string | undefined
   consultant: {
-    name: string | null
-  } | null
+    name: string | undefined
+  } | undefined
   customer: {
-    name: string | null
+    name: string | undefined
     city: Array<{
       _type: "localeString"
       en?: string
       de?: string
-    }> | null
+    }> | undefined
     country:
       | "at"
       | "be"
@@ -446,7 +446,7 @@ export type PROJECTS_QUERYResult = Array<{
       | "lu"
       | "nl"
       | "us"
-      | null
+      | undefined
     industry:
       | "Aerospace"
       | "Automobiles"
@@ -477,7 +477,7 @@ export type PROJECTS_QUERYResult = Array<{
       | "Textiles"
       | "Transportation"
       | "Utilities"
-      | null
+      | undefined
     logo: {
       asset?: {
         _ref: string
@@ -488,28 +488,28 @@ export type PROJECTS_QUERYResult = Array<{
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: "image"
-    } | null
-  } | null
+    } | undefined
+  } | undefined
   role: Array<{
     _type: "localeString"
     en?: string
     de?: string
-  }> | null
-  technologies: null
+  }> | undefined
+  technologies: undefined
   testimonials: Array<{
     _id: string
     quote: Array<{
       _type: "localeText"
       en?: string
       de?: string
-    }> | null
+    }> | undefined
     position: Array<{
       _type: "localeString"
       en?: string
       de?: string
-    }> | null
+    }> | undefined
     author: {
-      name: string | null
+      name: string | undefined
       headshot: {
         asset?: {
           _ref: string
@@ -520,23 +520,23 @@ export type PROJECTS_QUERYResult = Array<{
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: "image"
-      } | null
-    } | null
+      } | undefined
+    } | undefined
     company: {
-      name: string | null
-    } | null
-  }> | null
+      name: string | undefined
+    } | undefined
+  }> | undefined
 }>
 
 // Source: ./app/routes/testimonial.$slug.tsx
 // Variable: TESTIMONIAL_QUERY
 // Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
 export type TESTIMONIAL_QUERYResult = {
-  date: string | null
-  language: string | null
-  quote: LocaleText | null
+  date: string | undefined
+  language: string | undefined
+  quote: LocaleText | undefined
   author: {
-    name: string | null
+    name: string | undefined
     headshot: {
       asset?: {
         _ref: string
@@ -547,27 +547,27 @@ export type TESTIMONIAL_QUERYResult = {
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: "image"
-    } | null
-    position: LocaleString | null
+    } | undefined
+    position: LocaleString | undefined
     company: {
-      name: string | null
-    } | null
-  } | null
-  position: LocaleString | null
+      name: string | undefined
+    } | undefined
+  } | undefined
+  position: LocaleString | undefined
   company: {
-    name: string | null
-  } | null
-} | null
+    name: string | undefined
+  } | undefined
+} | undefined
 
 // Source: ./app/routes/testimonials.tsx
 // Variable: TESTIMONIALS_QUERY
 // Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
 export type TESTIMONIALS_QUERYResult = Array<{
   _id: string
-  slug: Slug | null
-  date: string | null
+  slug: Slug | undefined
+  date: string | undefined
   author: {
-    name: string | null
+    name: string | undefined
     headshot: {
       asset?: {
         _ref: string
@@ -578,17 +578,17 @@ export type TESTIMONIALS_QUERYResult = Array<{
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: "image"
-    } | null
-    status: "employee" | "freelancer" | "owner" | null
-    position: LocaleString | null
+    } | undefined
+    status: "employee" | "freelancer" | "owner" | undefined
+    position: LocaleString | undefined
     company: {
-      name: string | null
-    } | null
-  } | null
-  position: LocaleString | null
+      name: string | undefined
+    } | undefined
+  } | undefined
+  position: LocaleString | undefined
   company: {
-    name: string | null
-  } | null
+    name: string | undefined
+  } | undefined
 }>
 
 // Query TypeMap

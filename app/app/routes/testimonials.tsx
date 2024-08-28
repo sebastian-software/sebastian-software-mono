@@ -1,13 +1,14 @@
-import { useLoaderData, type MetaFunction } from "@remix-run/react"
-import { useQuery } from "@sanity/react-loader"
-import { loadQuery } from "~/sanity/loader.server"
+import { type MetaFunction,useLoaderData } from "@remix-run/react"
 import { Link } from "@remix-run/react"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
-import { formatDate } from "~/utils/formatDate"
-import { urlFor } from "~/sanity/image"
+import { useQuery } from "@sanity/react-loader"
 import { Image } from "@unpic/react"
 import { defineQuery } from "groq"
-import { TESTIMONIALS_QUERYResult } from "sanity.types"
+import type { TESTIMONIALS_QUERYResult } from "sanity.types"
+
+import { urlFor } from "~/sanity/image"
+import { loadQuery } from "~/sanity/loader.server"
+import { formatDate } from "~/utils/formatDate"
 
 export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
@@ -41,8 +42,8 @@ export const loader = async () => {
 }
 
 export interface TestimonialProps {
-  data: TESTIMONIALS_QUERYResult[number]
-  encodeDataAttribute: EncodeDataAttributeCallback
+  readonly data: TESTIMONIALS_QUERYResult[number]
+  readonly encodeDataAttribute: EncodeDataAttributeCallback
 }
 
 export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
@@ -88,7 +89,7 @@ export default function Index() {
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types
     // This Required<> cast is a workaround until the issue is fixed.
-    { initial: initial as Required<typeof initial> }
+    { initial }
   )
 
   return (

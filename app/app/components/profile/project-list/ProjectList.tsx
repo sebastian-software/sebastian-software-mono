@@ -1,4 +1,7 @@
-import { PortableText } from "@portabletext/react"
+
+import { stegaClean } from "@sanity/client/stega"
+import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
+import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { Tag, TagList } from "~/components/tag/Tag"
 import { urlFor } from "~/sanity/image"
@@ -20,13 +23,10 @@ import {
   testimonialsClass,
   titleClass
 } from "./ProjectList.css"
-import { EncodeDataAttributeCallback } from "@sanity/react-loader"
-import { PROJECTS_QUERYResult } from "sanity.types"
-import { stegaClean } from "@sanity/client/stega"
 
 export interface ProjectListProps {
   readonly data: unknown[]
-  encodeDataAttribute: EncodeDataAttributeCallback
+  readonly encodeDataAttribute: EncodeDataAttributeCallback
 }
 
 export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {

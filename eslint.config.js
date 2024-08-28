@@ -2,9 +2,21 @@ import { main } from "@effective/eslint-config"
 
 export default [
   {
-    ignores: [".*/**/*", "build/**/*", "public/**/*", "sst-env.d.ts"]
+    ignores: [
+      ".*/**/*",
+      "build/**/*",
+      "public/**/*",
+      "sst-env.d.ts",
+      "sanity.types.ts"
+    ]
   },
-  main,
+  {
+    ...main,
+    rules: {
+      ...main.rules,
+      "unicorn/prevent-abbreviations": "off"
+    }
+  },
   {
     files: ["**/*.css.ts"],
     rules: {

@@ -1,11 +1,13 @@
+import { Image } from "@unpic/react"
+
 import { urlFor } from "~/sanity/image"
+
 import {
   captionClass,
   imageClass,
   quoteClass,
   rootClass
 } from "./Testimonial.css"
-import { Image } from "@unpic/react"
 
 // Define an interface for the testimonial props
 interface TestimonialBlockProps {

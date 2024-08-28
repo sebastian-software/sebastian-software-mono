@@ -8,8 +8,7 @@ import {
   CardFooter,
   CardTitle
 } from "~/components/card/Card"
-import { Banner, CustomersList, TechList } from "~/components/home"
-import { IndustryList } from "~/components/home/industry-list"
+import { Banner } from "~/components/home"
 
 export const meta: MetaFunction = () => [
   { title: "Sebastian Software" },

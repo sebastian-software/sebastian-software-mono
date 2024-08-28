@@ -9,10 +9,11 @@ import {
   ScrollRestoration,
   useLoaderData
 } from "@remix-run/react"
-import { Suspense, lazy } from "react"
+import { lazy,Suspense } from "react"
+
 import { Body, Favicon, Footer, Header, Main } from "./components/page"
 
-const LiveVisualEditing = lazy(() => import("~/components/LiveVisualEditing"))
+const LiveVisualEditing = lazy(async () => import("~/components/LiveVisualEditing"))
 
 export const loader = () => {
   // Note: This follows the recommendation of Remix to not inject

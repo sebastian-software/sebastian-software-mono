@@ -7,12 +7,14 @@
     "dev": "pnpm -r dev",
     "distclean": "git clean -xdf",
     "format": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "opt:svg": "svgo --folder app --recursive --multipass && svgo --folder assets --recursive --multipass",
+    "prepare": "husky",
     "test:format": "prettier --check .",
     "update:latest": "ncu --deep  --upgrade --interactive",
     "update:minor": "ncu --deep  --upgrade --interactive --target minor",
-    "update:pnpm": "corepack up",
-    "prepare": "husky"
+    "update:pnpm": "corepack up"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",

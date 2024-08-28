@@ -2,14 +2,12 @@ import { type LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useQuery } from "@sanity/react-loader"
 import { Image } from "@unpic/react"
+import { defineQuery } from "groq"
+import type { TESTIMONIAL_QUERYResult } from "sanity.types"
 
-import { formatDate } from "~/utils/formatDate"
 import { urlFor } from "~/sanity/image"
 import { loadQuery } from "~/sanity/loader.server"
-import { defineQuery } from "groq"
-import { TESTIMONIAL_QUERYResult } from "sanity.types"
-import { RichText } from "~/components/richtext/RichText"
-import { PortableText } from "@portabletext/react"
+import { formatDate } from "~/utils/formatDate"
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const initial = await loadQuery<TESTIMONIAL_QUERYResult>(
@@ -46,7 +44,7 @@ export default function TestimonialRoute() {
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types
     // This Required<> cast is a workaround until the issue is fixed.
-    { initial: initial as Required<typeof initial> }
+    { initial }
   )
 
   if (!data) {

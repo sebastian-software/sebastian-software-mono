@@ -1,4 +1,5 @@
-import { defineField, defineType, SanityDocument } from "sanity"
+import type { SanityDocument } from "sanity";
+import { defineField, defineType } from "sanity"
 
 function getCurrentDate() {
   const today = new Date()
@@ -98,7 +99,7 @@ export const testimonialType = defineType({
       type: "slug",
       validation: (Rule) => Rule.required(),
       options: {
-        source: async (doc: TestimonialDoc, context) => {
+        async source(doc: TestimonialDoc, context) {
           const client = context.getClient(clientOptions)
 
           if (!doc.date) {
