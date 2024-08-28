@@ -1,17 +1,4 @@
-import type { SanityDocument } from "sanity"
 import { defineField, defineType } from "sanity"
-
-import { clientOptions } from "./utils"
-
-// Minimal type definition for a testimonial document
-// for correctly supporting the custom `source` function
-interface ProjectDocument extends SanityDocument {
-  title?: string
-
-  customer?: {
-    _ref: string
-  }
-}
 
 export const projectType = defineType({
   name: "project",
@@ -44,32 +31,7 @@ export const projectType = defineType({
 
     defineField({
       name: "slug",
-      type: "slug",
-      validation: (Rule) => Rule.required(),
-      options: {
-        maxLength: 80,
-        async source(document: ProjectDocument, context) {
-          const client = context.getClient(clientOptions)
-
-          const customerId = document.customer?._ref
-
-          if (!customerId) {
-            throw new Error("Customer reference is missing")
-          }
-
-          // Fetch the referenced customer document
-          const customer = await client.fetch(`*[_id == $id][0]`, {
-            id: customerId
-          })
-
-          if (!customer) {
-            throw new Error("Referenced customer not found")
-          }
-
-          // Combine title, author and consultant name to create a unique slug
-          return `${customer.slug.current}-${document.title.en}`
-        }
-      }
+      type: "localeString"
     }),
 
     defineField({
@@ -102,5 +64,12 @@ export const projectType = defineType({
       subtitle: "customer.name",
       media: "customer.logo"
     }
-  }
+  },
+  orderings: [
+    {
+      title: "Customer",
+      name: "customer",
+      by: [{ field: "customer.name", direction: "asc" }]
+    }
+  ]
 })
