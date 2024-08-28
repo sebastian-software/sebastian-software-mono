@@ -33,10 +33,13 @@ async function getAppLanguage(request) {
   const browserLanguage = languages[0].code
   const cookieLanguage = await languageCookie.parse(headers.get("Cookie"))
 
-  console.log("LANG: BROWSER:", browserLanguage, languages)
+  console.log("LANG: BROWSER:", browserLanguage)
   console.log("LANG: COOKIE:", cookieLanguage)
 
-  return cookieLanguage?.language || browserLanguage
+  const appLanguage = cookieLanguage?.language ?? browserLanguage
+  console.log("LANG: APP:", appLanguage)
+
+  return appLanguage
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
