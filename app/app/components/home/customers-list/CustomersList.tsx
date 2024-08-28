@@ -9,7 +9,16 @@ import {
   titleClass
 } from "./CustomersList.css"
 
-export function CustomersList({ data }) {
+export interface Customer {
+  name: string
+  logo: string
+}
+
+export interface CustomersListProps {
+  readonly data: Customer[]
+}
+
+export function CustomersList({ data }: CustomersListProps) {
   return (
     <div className={rootClass}>
       <h1 className={titleClass}>Unsere Kunden</h1>

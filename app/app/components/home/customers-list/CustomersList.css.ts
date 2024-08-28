@@ -55,7 +55,7 @@ export const itemClass = style({
 })
 
 export const logoClass = style({
-  maxHeight: "3rem",
+  maxHeight: "5rem",
   width: "100%",
   objectFit: "contain",
   objectPosition: "center"
