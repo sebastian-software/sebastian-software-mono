@@ -1,4 +1,4 @@
-import type { SanityDocument } from "sanity";
+import type { SanityDocument } from "sanity"
 import { defineField, defineType } from "sanity"
 
 function getCurrentDate() {

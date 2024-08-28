@@ -1,4 +1,3 @@
-
 import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"

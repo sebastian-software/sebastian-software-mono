@@ -1,4 +1,4 @@
-import { type MetaFunction,useLoaderData } from "@remix-run/react"
+import { type MetaFunction, useLoaderData } from "@remix-run/react"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import { useQuery } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
