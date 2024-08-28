@@ -11,6 +11,8 @@ export function Footer() {
         <Link to="/imprint">Impressum</Link>
       </span>
       <Spacer />
+      <a href="?lang=de">Deutsch</a> | <a href="?lang=en">English</a>
+      <Spacer />
       <span>Gemacht mit ♥ in Mainz und Heidelberg</span>
     </footer>
   )
