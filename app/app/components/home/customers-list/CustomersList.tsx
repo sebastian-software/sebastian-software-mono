@@ -4,6 +4,7 @@ import { ColorFilter } from "../../color-filter"
 import {
   itemClass,
   listClass,
+  logoClass,
   rootClass,
   titleClass
 } from "./CustomersList.css"
@@ -24,6 +25,7 @@ export function CustomersList({ data }) {
         {data.map((customer) => (
           <li key={customer.name} className={itemClass}>
             <img
+              className={logoClass}
               src={urlFor(customer.logo).url()}
               width={150}
               alt={customer.name}
