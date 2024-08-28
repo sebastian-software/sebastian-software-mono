@@ -14,6 +14,7 @@ export default [
     ...main,
     rules: {
       ...main.rules,
+      "unicorn/no-null": "off",
       "unicorn/prevent-abbreviations": "off"
     }
   },
