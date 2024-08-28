@@ -1,10 +1,11 @@
+import { assist } from "@sanity/assist"
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
-import { structureTool } from "sanity/structure"
-import { schemaTypes } from "./schemas"
 import { presentationTool } from "sanity/presentation"
-import { documentInternationalization } from "@sanity/document-internationalization"
+import { structureTool } from "sanity/structure"
 import { internationalizedArray } from "sanity-plugin-internationalized-array"
+
+import { schemaTypes } from "./schemas"
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
 export const dataset = process.env.SANITY_STUDIO_DATASET!
@@ -15,6 +16,7 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [
+    assist({}),
     structureTool(),
     presentationTool({
       previewUrl:
