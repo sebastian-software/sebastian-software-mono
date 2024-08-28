@@ -1,4 +1,6 @@
 import type { MetaFunction } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
+import { loadQuery, useQuery } from "@sanity/react-loader"
 
 import { Button } from "~/components/button/Button"
 import {
@@ -8,7 +10,8 @@ import {
   CardFooter,
   CardTitle
 } from "~/components/card/Card"
-import { Banner } from "~/components/home"
+import { Banner, CustomersList } from "~/components/home"
+import { CUSTOMERS_QUERY } from "~/queries/customers"
 
 export const meta: MetaFunction = () => [
   { title: "Sebastian Software" },
@@ -19,7 +22,30 @@ export const meta: MetaFunction = () => [
   }
 ]
 
+export const loader = async () => {
+  const params = {
+    language: "de"
+  }
+
+  const initial = await loadQuery<CUSTOMERS_QUERYResult>(
+    CUSTOMERS_QUERY,
+    params
+  )
+  return { initial, query: CUSTOMERS_QUERY, params }
+}
+
 export default function Index() {
+  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { data, encodeDataAttribute } = useQuery<CUSTOMERS_QUERYResult>(
+    query,
+    params,
+    // Note: There is a typing issue in Sanity with sourcemap content types
+    // This Required<> cast is a workaround until the issue is fixed.
+    { initial }
+  )
+
+  const customers = data
+
   return (
     <>
       <Banner alt="Gründer der Sebastian Software GmbH">
@@ -78,6 +104,7 @@ export default function Index() {
           </CardFooter>
         </Card>
       </CardContainer>
+      <CustomersList data={customers} />
 
       {/* <CustomersList data={customers} />
       <TechList data={technologies} />
