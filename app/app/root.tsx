@@ -36,7 +36,7 @@ async function getAppLanguage(request) {
   console.log("LANG: BROWSER:", browserLanguage, languages)
   console.log("LANG: COOKIE:", cookieLanguage)
 
-  return cookieLanguage.language || browserLanguage
+  return cookieLanguage?.language || browserLanguage
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
