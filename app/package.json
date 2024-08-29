@@ -3,7 +3,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "lingui:extract && remix vite:build",
+    "build": "npm run lingui:extract && remix vite:build",
     "dev": "remix vite:dev",
     "gen:sanity": "../studio/node_modules/.bin/sanity typegen generate",
     "lingui:extract": "lingui extract --clean",
