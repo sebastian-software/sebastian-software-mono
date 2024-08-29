@@ -15,7 +15,7 @@ import {
 import { lazy, Suspense } from "react"
 
 import { Body, Favicon, Footer, Header, Main } from "./components/page"
-import { getAppLanguage, languageCookie } from "./language.server"
+import { getAppLanguage, getMessages, languageCookie } from "./language.server"
 
 const LiveVisualEditing = lazy(
   async () => import("~/components/LiveVisualEditing")
@@ -23,12 +23,14 @@ const LiveVisualEditing = lazy(
 
 export const loader: LoaderFunction = async ({ request }) => {
   const appLanguage = await getAppLanguage(request)
+  const appMessages = await getMessages(appLanguage)
 
   // Note: This follows the recommendation of Remix to not inject
   // env at built time, but instead at runtime from the server.
   // https://remix.run/docs/en/main/guides/envvars#browser-environment-variables
   return json({
     ENV: {
+      APP_MESSAGES: appMessages,
       APP_LANGUAGE: appLanguage,
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
@@ -56,7 +58,12 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function App() {
   const { ENV } = useLoaderData<typeof loader>()
-  const i18n = setupI18n({ locale: ENV.APP_LANGUAGE })
+  const locale = ENV.APP_LANGUAGE
+
+  // We do not support dynamic language switching in the client
+  // therefore it is safe to only initialize with the current locale and
+  // the SSR pre-loaded messages.
+  const i18n = setupI18n({ locale, messages: { [locale]: ENV.APP_MESSAGES } })
 
   return (
     <I18nProvider i18n={i18n}>
