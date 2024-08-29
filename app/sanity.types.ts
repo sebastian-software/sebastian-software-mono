@@ -13,7 +13,7 @@
  */
 
 // Source: schema.json
-export interface SanityImagePaletteSwatch {
+export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch"
   background?: string
   foreground?: string
@@ -21,7 +21,7 @@ export interface SanityImagePaletteSwatch {
   title?: string
 }
 
-export interface SanityImagePalette {
+export type SanityImagePalette = {
   _type: "sanity.imagePalette"
   darkMuted?: SanityImagePaletteSwatch
   lightVibrant?: SanityImagePaletteSwatch
@@ -32,14 +32,14 @@ export interface SanityImagePalette {
   muted?: SanityImagePaletteSwatch
 }
 
-export interface SanityImageDimensions {
+export type SanityImageDimensions = {
   _type: "sanity.imageDimensions"
   height?: number
   width?: number
   aspectRatio?: number
 }
 
-export interface SanityFileAsset {
+export type SanityFileAsset = {
   _id: string
   _type: "sanity.fileAsset"
   _createdAt: string
@@ -61,14 +61,14 @@ export interface SanityFileAsset {
   source?: SanityAssetSourceData
 }
 
-export interface Geopoint {
+export type Geopoint = {
   _type: "geopoint"
   lat?: number
   lng?: number
   alt?: number
 }
 
-export interface Testimonial {
+export type Testimonial = {
   _id: string
   _type: "testimonial"
   _createdAt: string
@@ -101,7 +101,7 @@ export interface Testimonial {
   slug?: Slug
 }
 
-export interface Human {
+export type Human = {
   _id: string
   _type: "human"
   _createdAt: string
@@ -129,7 +129,7 @@ export interface Human {
   }
 }
 
-export interface Project {
+export type Project = {
   _id: string
   _type: "project"
   _createdAt: string
@@ -149,7 +149,7 @@ export interface Project {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "company"
   }
-  slug?: Slug
+  slug?: LocaleString
   contractStart?: string
   contractEnd?: string
   description?: LocaleText
@@ -162,7 +162,7 @@ export interface Project {
   }>
 }
 
-export interface Company {
+export type Company = {
   _id: string
   _type: "company"
   _createdAt: string
@@ -215,7 +215,7 @@ export interface Company {
   slug?: Slug
 }
 
-export interface Picture {
+export type Picture = {
   _id: string
   _type: "picture"
   _createdAt: string
@@ -237,13 +237,13 @@ export interface Picture {
   slug?: Slug
 }
 
-export interface Slug {
+export type Slug = {
   _type: "slug"
   current?: string
   source?: string
 }
 
-export interface Consultant {
+export type Consultant = {
   _id: string
   _type: "consultant"
   _createdAt: string
@@ -270,7 +270,7 @@ export interface Consultant {
   }
 }
 
-export interface SanityImageCrop {
+export type SanityImageCrop = {
   _type: "sanity.imageCrop"
   top?: number
   bottom?: number
@@ -278,7 +278,7 @@ export interface SanityImageCrop {
   right?: number
 }
 
-export interface SanityImageHotspot {
+export type SanityImageHotspot = {
   _type: "sanity.imageHotspot"
   x?: number
   y?: number
@@ -286,7 +286,7 @@ export interface SanityImageHotspot {
   width?: number
 }
 
-export interface SanityImageAsset {
+export type SanityImageAsset = {
   _id: string
   _type: "sanity.imageAsset"
   _createdAt: string
@@ -309,14 +309,14 @@ export interface SanityImageAsset {
   source?: SanityAssetSourceData
 }
 
-export interface SanityAssetSourceData {
+export type SanityAssetSourceData = {
   _type: "sanity.assetSourceData"
   name?: string
   id?: string
   url?: string
 }
 
-export interface SanityImageMetadata {
+export type SanityImageMetadata = {
   _type: "sanity.imageMetadata"
   location?: Geopoint
   dimensions?: SanityImageDimensions
@@ -327,7 +327,7 @@ export interface SanityImageMetadata {
   isOpaque?: boolean
 }
 
-export interface Address {
+export type Address = {
   _id: string
   _type: "address"
   _createdAt: string
@@ -348,24 +348,64 @@ export interface Address {
     | "Belgium"
 }
 
-export interface LocaleText {
+export type LocaleBlockContent = {
+  _type: "localeBlockContent"
+  en?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      href?: string
+      _type: "link"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+  de?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      href?: string
+      _type: "link"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+}
+
+export type LocaleText = {
   _type: "localeText"
   en?: string
   de?: string
 }
 
-export interface LocaleString {
+export type LocaleString = {
   _type: "localeString"
   en?: string
   de?: string
 }
 
-export interface InternationalizedArrayTextValue {
+export type InternationalizedArrayTextValue = {
   _type: "internationalizedArrayTextValue"
   value?: string
 }
 
-export interface InternationalizedArrayStringValue {
+export type InternationalizedArrayStringValue = {
   _type: "internationalizedArrayStringValue"
   value?: string
 }
@@ -381,6 +421,141 @@ export type InternationalizedArrayString = Array<
     _key: string
   } & InternationalizedArrayStringValue
 >
+
+export type SanityAssistInstructionTask = {
+  _type: "sanity.assist.instructionTask"
+  path?: string
+  instructionKey?: string
+  started?: string
+  updated?: string
+  info?: string
+}
+
+export type SanityAssistTaskStatus = {
+  _type: "sanity.assist.task.status"
+  tasks?: Array<
+    {
+      _key: string
+    } & SanityAssistInstructionTask
+  >
+}
+
+export type SanityAssistSchemaTypeAnnotations = {
+  _type: "sanity.assist.schemaType.annotations"
+  title?: string
+  fields?: Array<
+    {
+      _key: string
+    } & SanityAssistSchemaTypeField
+  >
+}
+
+export type SanityAssistOutputType = {
+  _type: "sanity.assist.output.type"
+  type?: string
+}
+
+export type SanityAssistOutputField = {
+  _type: "sanity.assist.output.field"
+  path?: string
+}
+
+export type SanityAssistInstructionContext = {
+  _type: "sanity.assist.instruction.context"
+  reference?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "assist.instruction.context"
+  }
+}
+
+export type AssistInstructionContext = {
+  _id: string
+  _type: "assist.instruction.context"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  context?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal"
+    listItem?: never
+    markDefs?: null
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+}
+
+export type SanityAssistInstructionUserInput = {
+  _type: "sanity.assist.instruction.userInput"
+  message?: string
+  description?: string
+}
+
+export type SanityAssistInstructionPrompt = Array<{
+  children?: Array<
+    | {
+        marks?: Array<string>
+        text?: string
+        _type: "span"
+        _key: string
+      }
+    | ({
+        _key: string
+      } & SanityAssistInstructionFieldRef)
+    | ({
+        _key: string
+      } & SanityAssistInstructionContext)
+    | ({
+        _key: string
+      } & SanityAssistInstructionUserInput)
+  >
+  style?: "normal"
+  listItem?: never
+  markDefs?: null
+  level?: number
+  _type: "block"
+  _key: string
+}>
+
+export type SanityAssistInstructionFieldRef = {
+  _type: "sanity.assist.instruction.fieldRef"
+  path?: string
+}
+
+export type SanityAssistInstruction = {
+  _type: "sanity.assist.instruction"
+  prompt?: SanityAssistInstructionPrompt
+  icon?: string
+  title?: string
+  userId?: string
+  createdById?: string
+  output?: Array<
+    | ({
+        _key: string
+      } & SanityAssistOutputField)
+    | ({
+        _key: string
+      } & SanityAssistOutputType)
+  >
+}
+
+export type SanityAssistSchemaTypeField = {
+  _type: "sanity.assist.schemaType.field"
+  path?: string
+  instructions?: Array<
+    {
+      _key: string
+    } & SanityAssistInstruction
+  >
+}
 
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
@@ -401,13 +576,190 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | Address
+  | LocaleBlockContent
   | LocaleText
   | LocaleString
   | InternationalizedArrayTextValue
   | InternationalizedArrayStringValue
   | InternationalizedArrayText
   | InternationalizedArrayString
+  | SanityAssistInstructionTask
+  | SanityAssistTaskStatus
+  | SanityAssistSchemaTypeAnnotations
+  | SanityAssistOutputType
+  | SanityAssistOutputField
+  | SanityAssistInstructionContext
+  | AssistInstructionContext
+  | SanityAssistInstructionUserInput
+  | SanityAssistInstructionPrompt
+  | SanityAssistInstructionFieldRef
+  | SanityAssistInstruction
+  | SanityAssistSchemaTypeField
 export declare const internalGroqTypeReferenceTo: unique symbol
+// Source: ./app/routes/testimonial.$slug.tsx
+// Variable: TESTIMONIAL_QUERY
+// Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
+export type TESTIMONIAL_QUERYResult = {
+  date: string | null
+  language: string | null
+  quote: LocaleText | null
+  author: {
+    name: string | null
+    headshot: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+    position: LocaleString | null
+    company: {
+      name: string | null
+    } | null
+  } | null
+  position: LocaleString | null
+  company: {
+    name: string | null
+  } | null
+} | null
+
+// Source: ./app/routes/testimonials.tsx
+// Variable: TESTIMONIALS_QUERY
+// Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
+export type TESTIMONIALS_QUERYResult = Array<{
+  _id: string
+  slug: Slug | null
+  date: string | null
+  author: {
+    name: string | null
+    headshot: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+    status: "employee" | "freelancer" | "owner" | null
+    position: LocaleString | null
+    company: {
+      name: string | null
+    } | null
+  } | null
+  position: LocaleString | null
+  company: {
+    name: string | null
+  } | null
+}>
+
+// Source: ./app/queries/customers.ts
+// Variable: CUSTOMERS_QUERY
+// Query: *[_id in array::unique(*[_type == "project"].customer->_id)]{    _id,    name,    "city": city[$language],    country,    industry,    logo  } | order(name asc)
+export type CUSTOMERS_QUERYResult = Array<
+  | {
+      _id: string
+      name: null
+      city: null
+      country: null
+      industry: null
+      logo: null
+    }
+  | {
+      _id: string
+      name: string | null
+      city: null
+      country: null
+      industry: null
+      logo: null
+    }
+  | {
+      _id: string
+      name: string | null
+      city: Array<{
+        _type: "localeString"
+        en?: string
+        de?: string
+      }> | null
+      country:
+        | "at"
+        | "be"
+        | "ca"
+        | "ch"
+        | "cn"
+        | "de"
+        | "fr"
+        | "lu"
+        | "nl"
+        | "us"
+        | null
+      industry:
+        | "Aerospace"
+        | "Automobiles"
+        | "CapitalGoods"
+        | "Chemicals"
+        | "Construction"
+        | "Consumer"
+        | "Education"
+        | "Energy"
+        | "Financials"
+        | "Food"
+        | "Hardware"
+        | "Healthcare"
+        | "Hotels"
+        | "Household"
+        | "Industrials"
+        | "Insurance"
+        | "IT"
+        | "Materials"
+        | "Media"
+        | "Metals"
+        | "Pharma"
+        | "RealEstate"
+        | "Retail"
+        | "Software"
+        | "Staples"
+        | "Telecom"
+        | "Textiles"
+        | "Transportation"
+        | "Utilities"
+        | null
+      logo: {
+        asset?: {
+          _ref: string
+          _type: "reference"
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: "image"
+      } | null
+    }
+  | {
+      _id: string
+      name: string | null
+      city: Array<string> | null
+      country:
+        | "Austria"
+        | "Belgium"
+        | "France"
+        | "Germany"
+        | "Luxembourg"
+        | "Netherlands"
+        | "Switzerland"
+        | null
+      industry: null
+      logo: null
+    }
+>
+
 // Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
 // Query: *[_type == "project" && consultant->name == $name]  {    _id,    "title": title[$language],    "description": description[$language],    contractStart,    contractEnd,    consultant->{      name,    },    customer->    {      name,      "city": city[$language],      country,      industry,      logo    },    "role": role[$language],    technologies,    testimonials[]->    {      _id,      "quote": quote[$language],      "position": position[$language],      author->{        name,        headshot      },      company->{        name      }    }  } | order(contractStart desc)
@@ -417,24 +769,24 @@ export type PROJECTS_QUERYResult = Array<{
     _type: "localeString"
     en?: string
     de?: string
-  }> | undefined
+  }> | null
   description: Array<{
     _type: "localeText"
     en?: string
     de?: string
-  }> | undefined
-  contractStart: string | undefined
-  contractEnd: string | undefined
+  }> | null
+  contractStart: string | null
+  contractEnd: string | null
   consultant: {
-    name: string | undefined
-  } | undefined
+    name: string | null
+  } | null
   customer: {
-    name: string | undefined
+    name: string | null
     city: Array<{
       _type: "localeString"
       en?: string
       de?: string
-    }> | undefined
+    }> | null
     country:
       | "at"
       | "be"
@@ -446,7 +798,7 @@ export type PROJECTS_QUERYResult = Array<{
       | "lu"
       | "nl"
       | "us"
-      | undefined
+      | null
     industry:
       | "Aerospace"
       | "Automobiles"
@@ -477,7 +829,7 @@ export type PROJECTS_QUERYResult = Array<{
       | "Textiles"
       | "Transportation"
       | "Utilities"
-      | undefined
+      | null
     logo: {
       asset?: {
         _ref: string
@@ -488,28 +840,28 @@ export type PROJECTS_QUERYResult = Array<{
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: "image"
-    } | undefined
-  } | undefined
+    } | null
+  } | null
   role: Array<{
     _type: "localeString"
     en?: string
     de?: string
-  }> | undefined
-  technologies: undefined
+  }> | null
+  technologies: null
   testimonials: Array<{
     _id: string
     quote: Array<{
       _type: "localeText"
       en?: string
       de?: string
-    }> | undefined
+    }> | null
     position: Array<{
       _type: "localeString"
       en?: string
       de?: string
-    }> | undefined
+    }> | null
     author: {
-      name: string | undefined
+      name: string | null
       headshot: {
         asset?: {
           _ref: string
@@ -520,83 +872,21 @@ export type PROJECTS_QUERYResult = Array<{
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: "image"
-      } | undefined
-    } | undefined
+      } | null
+    } | null
     company: {
-      name: string | undefined
-    } | undefined
-  }> | undefined
-}>
-
-// Source: ./app/routes/testimonial.$slug.tsx
-// Variable: TESTIMONIAL_QUERY
-// Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
-export type TESTIMONIAL_QUERYResult = {
-  date: string | undefined
-  language: string | undefined
-  quote: LocaleText | undefined
-  author: {
-    name: string | undefined
-    headshot: {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: "image"
-    } | undefined
-    position: LocaleString | undefined
-    company: {
-      name: string | undefined
-    } | undefined
-  } | undefined
-  position: LocaleString | undefined
-  company: {
-    name: string | undefined
-  } | undefined
-} | undefined
-
-// Source: ./app/routes/testimonials.tsx
-// Variable: TESTIMONIALS_QUERY
-// Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
-export type TESTIMONIALS_QUERYResult = Array<{
-  _id: string
-  slug: Slug | undefined
-  date: string | undefined
-  author: {
-    name: string | undefined
-    headshot: {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: "image"
-    } | undefined
-    status: "employee" | "freelancer" | "owner" | undefined
-    position: LocaleString | undefined
-    company: {
-      name: string | undefined
-    } | undefined
-  } | undefined
-  position: LocaleString | undefined
-  company: {
-    name: string | undefined
-  } | undefined
+      name: string | null
+    } | null
+  }> | null
 }>
 
 // Query TypeMap
 import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[$language],\n    "description": description[$language],\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      "city": city[$language],\n      country,\n      industry,\n      logo\n    },\n    "role": role[$language],\n    technologies,\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[$language],\n      "position": position[$language],\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '*[_type == "testimonial" && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    author->{\n      name,\n      headshot,\n      status,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
+    '\n  *[_id in array::unique(*[_type == "project"].customer->_id)]{\n    _id,\n    name,\n    "city": city[$language],\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CUSTOMERS_QUERYResult
+    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[$language],\n    "description": description[$language],\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      "city": city[$language],\n      country,\n      industry,\n      logo\n    },\n    "role": role[$language],\n    technologies,\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[$language],\n      "position": position[$language],\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
   }
 }
