@@ -24,6 +24,8 @@ export const meta: MetaFunction = () => [
 ]
 
 export const loader = async () => {
+  console.log("LOADER: _index")
+
   const params = {
     language: i18n.locale
   }

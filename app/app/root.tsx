@@ -43,12 +43,17 @@ async function getAppLanguage(request) {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
+  console.log("LOADER: root")
+
+  const appLanguage = await getAppLanguage(request)
+  i18n.activate(appLanguage)
+
   // Note: This follows the recommendation of Remix to not inject
   // env at built time, but instead at runtime from the server.
   // https://remix.run/docs/en/main/guides/envvars#browser-environment-variables
   return json({
     ENV: {
-      APP_LANGUAGE: await getAppLanguage(request),
+      APP_LANGUAGE: appLanguage,
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,

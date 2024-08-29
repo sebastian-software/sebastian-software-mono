@@ -13,6 +13,8 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader = async () => {
+  console.log("LOADER: fastner")
+
   const params = {
     name: "Sebastian Fastner",
     language: i18n.locale
