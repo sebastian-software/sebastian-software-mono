@@ -4,6 +4,7 @@ import { useQuery } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { ProfileHead, ProjectList } from "~/components/profile"
+import { getAppLanguage } from "~/language.server"
 import { PROJECTS_QUERY } from "~/queries/projects"
 import { loadQuery } from "~/sanity/loader.server"
 
