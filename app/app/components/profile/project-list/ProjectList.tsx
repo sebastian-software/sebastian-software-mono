@@ -175,7 +175,7 @@ export function Project({ data }: ProjectProps) {
 
       <div className={metaClass}>
         <p className={customerClass}>
-          <Trans>Kunde:</Trans>
+          <Trans>Customer:</Trans>
           <br />
           {data.customer?.name}
           <br />
@@ -183,11 +183,11 @@ export function Project({ data }: ProjectProps) {
           {countries[language][stegaClean(data.customer?.country)]}
         </p>
         <p className={industryClass}>
-          <Trans>Branche:</Trans>
+          <Trans>Industry:</Trans>
           <br /> {industries[language][stegaClean(data.customer?.industry)]}
         </p>
         <p className={periodClass}>
-          <Trans>Zeitraum:</Trans>
+          <Trans>Period:</Trans>
           <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
         {/* <p className={period}>
