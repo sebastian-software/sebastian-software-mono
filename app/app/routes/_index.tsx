@@ -42,7 +42,8 @@ export default function Index() {
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types
     // This Required<> cast is a workaround until the issue is fixed.
-    { initial }
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    { initial: initial as Required<typeof initial> }
   )
 
   const customers = data

@@ -8,7 +8,8 @@
     "gen:sanity": "../studio/node_modules/.bin/sanity typegen generate",
     "lingui:extract": "lingui extract --clean",
     "start": "remix-serve build",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "typecheck:watch": "tsc --watch"
   },
   "dependencies": {
     "@effective/color": "^1.0.1",

@@ -2,7 +2,11 @@ import "@effective/css-reset"
 
 import { setupI18n } from "@lingui/core"
 import { I18nProvider } from "@lingui/react"
-import type { LoaderFunction } from "@remix-run/node"
+import type {
+  ActionFunctionArgs,
+  LoaderFunction,
+  LoaderFunctionArgs
+} from "@remix-run/node"
 import { json, redirect } from "@remix-run/node"
 import {
   Links,
@@ -21,7 +25,9 @@ const LiveVisualEditing = lazy(
   async () => import("~/components/LiveVisualEditing")
 )
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({
+  request
+}: LoaderFunctionArgs) => {
   const appLanguage = await getAppLanguage(request)
   const appMessages = await getMessages(appLanguage)
 
