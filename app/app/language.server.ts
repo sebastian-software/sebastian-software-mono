@@ -19,7 +19,7 @@ export async function getAppLanguage(request) {
 // specific file.
 const messages = import.meta.glob("./locales/*.po", { eager: true })
 
-export function getMessages(locale) {
+export function getMessages(locale: string) {
   // Glob imports use the path name as the key to the module
   const mod = messages[`./locales/${locale}.po`]
   return mod.messages

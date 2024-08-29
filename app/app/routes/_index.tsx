@@ -1,6 +1,7 @@
-import type { MetaFunction } from "@remix-run/node"
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { loadQuery, useQuery } from "@sanity/react-loader"
+import type { CUSTOMERS_QUERYResult } from "sanity.types"
 
 import { Button } from "~/components/button/Button"
 import {
@@ -23,7 +24,7 @@ export const meta: MetaFunction = () => [
   }
 ]
 
-export const loader = async ({ request }) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
     language: await getAppLanguage(request)
   }
