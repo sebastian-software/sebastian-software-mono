@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro"
 import { useLingui } from "@lingui/react"
 import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
@@ -174,7 +175,7 @@ export function Project({ data }: ProjectProps) {
 
       <div className={metaClass}>
         <p className={customerClass}>
-          Kunde:
+          <Trans>Kunde:</Trans>
           <br />
           {data.customer?.name}
           <br />
@@ -182,15 +183,15 @@ export function Project({ data }: ProjectProps) {
           {countries[language][stegaClean(data.customer?.country)]}
         </p>
         <p className={industryClass}>
-          Branche:
+          <Trans>Branche:</Trans>
           <br /> {industries[language][stegaClean(data.customer?.industry)]}
         </p>
         <p className={periodClass}>
-          Zeitraum:
+          <Trans>Zeitraum:</Trans>
           <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
         {/* <p className={period}>
-          Auftraggeber:
+          <Trans>Auftraggeber:</Trans>
           <br /> {data.contractor}
         </p> */}
 
