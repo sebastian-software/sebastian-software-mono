@@ -1,4 +1,4 @@
-import { i18n } from "@lingui/core"
+import { useLingui } from "@lingui/react"
 import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
@@ -155,6 +155,7 @@ const industries = {
 }
 
 export function Project({ data }: ProjectProps) {
+  const { i18n } = useLingui()
   const customerLogoUrl = urlFor(data.customer?.logo).url()
   const language = i18n.locale
 
