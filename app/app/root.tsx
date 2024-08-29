@@ -56,10 +56,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function App() {
   const { ENV } = useLoaderData<typeof loader>()
-
-  // i18n.activate(ENV.APP_LANGUAGE)
-
-  console.log("LANG LINGUI:", ENV.APP_LANGUAGE)
   const i18n = setupI18n({ locale: ENV.APP_LANGUAGE })
 
   return (
