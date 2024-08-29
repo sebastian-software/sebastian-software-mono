@@ -1,4 +1,3 @@
-import { i18n } from "@lingui/core"
 import { type MetaFunction, useLoaderData } from "@remix-run/react"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import { useQuery } from "@sanity/react-loader"
@@ -12,12 +11,10 @@ export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
 }
 
-export const loader = async () => {
-  console.log("LOADER: fastner")
-
+export const loader = async ({ request }) => {
   const params = {
     name: "Sebastian Fastner",
-    language: i18n.locale
+    language: await getAppLanguage(request)
   }
 
   const initial = await loadQuery<PROJECTS_QUERYResult>(PROJECTS_QUERY, params)

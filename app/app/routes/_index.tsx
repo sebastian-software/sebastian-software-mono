@@ -1,4 +1,3 @@
-import { i18n } from "@lingui/core"
 import type { MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { loadQuery, useQuery } from "@sanity/react-loader"
@@ -12,6 +11,7 @@ import {
   CardTitle
 } from "~/components/card/Card"
 import { Banner, CustomersList } from "~/components/home"
+import { getAppLanguage } from "~/language.server"
 import { CUSTOMERS_QUERY } from "~/queries/customers"
 
 export const meta: MetaFunction = () => [
@@ -23,11 +23,9 @@ export const meta: MetaFunction = () => [
   }
 ]
 
-export const loader = async () => {
-  console.log("LOADER: _index")
-
+export const loader = async ({ request }) => {
   const params = {
-    language: i18n.locale
+    language: await getAppLanguage(request)
   }
 
   const initial = await loadQuery<CUSTOMERS_QUERYResult>(

@@ -1,6 +1,6 @@
 import "@effective/css-reset"
 
-import { i18n } from "@lingui/core"
+import { setupI18n } from "@lingui/core"
 import { I18nProvider } from "@lingui/react"
 import type { LoaderFunction } from "@remix-run/node"
 import { json, redirect } from "@remix-run/node"
@@ -12,41 +12,17 @@ import {
   ScrollRestoration,
   useLoaderData
 } from "@remix-run/react"
-import acceptLanguage from "accept-language-parser"
 import { lazy, Suspense } from "react"
 
 import { Body, Favicon, Footer, Header, Main } from "./components/page"
-import { languageCookie } from "./cookies.server"
+import { getAppLanguage, languageCookie } from "./language.server"
 
 const LiveVisualEditing = lazy(
   async () => import("~/components/LiveVisualEditing")
 )
 
-export const DEFAULT_LANGUAGE = "en"
-
-async function getAppLanguage(request) {
-  const headers = request.headers
-  const languages = acceptLanguage.parse(
-    headers.get("Accept-Language") ?? DEFAULT_LANGUAGE
-  )
-
-  const browserLanguage = languages[0].code
-  const cookieLanguage = await languageCookie.parse(headers.get("Cookie"))
-
-  console.log("LANG: BROWSER:", browserLanguage)
-  console.log("LANG: COOKIE:", cookieLanguage)
-
-  const appLanguage = cookieLanguage?.language ?? browserLanguage
-  console.log("LANG: APP:", appLanguage)
-
-  return appLanguage
-}
-
 export const loader: LoaderFunction = async ({ request }) => {
-  console.log("LOADER: root")
-
   const appLanguage = await getAppLanguage(request)
-  i18n.activate(appLanguage)
 
   // Note: This follows the recommendation of Remix to not inject
   // env at built time, but instead at runtime from the server.
@@ -63,20 +39,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const cookieHeader = request.headers.get("Cookie")
-  const cookie = (await languageCookie.parse(cookieHeader)) || {}
+  const referer = request.headers.get("Referer") ?? "/"
   const bodyParams = await request.formData()
-
-  console.log("ACTION cookie:", cookie)
-  console.log("ACTION bodyParams:", bodyParams)
-
   const paramLanguage = bodyParams.get("language")
-  if (paramLanguage) {
-    cookie.language = paramLanguage
 
-    return redirect("/", {
+  if (paramLanguage) {
+    return redirect(referer, {
       headers: {
-        "Set-Cookie": await languageCookie.serialize(cookie)
+        "Set-Cookie": await languageCookie.serialize(paramLanguage)
       }
     })
   }
@@ -87,7 +57,10 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function App() {
   const { ENV } = useLoaderData<typeof loader>()
 
-  i18n.activate(ENV.APP_LANGUAGE)
+  // i18n.activate(ENV.APP_LANGUAGE)
+
+  console.log("LANG LINGUI:", ENV.APP_LANGUAGE)
+  const i18n = setupI18n({ locale: ENV.APP_LANGUAGE })
 
   return (
     <I18nProvider i18n={i18n}>
