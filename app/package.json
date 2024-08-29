@@ -13,8 +13,11 @@
     "@effective/color": "^1.0.1",
     "@effective/css-reset": "^3.1.0",
     "@effective/shadow": "^1.1.0",
+    "@lingui/conf": "^4.11.3",
     "@lingui/core": "^4.11.3",
+    "@lingui/macro": "^4.11.3",
     "@lingui/react": "^4.11.3",
+    "@lingui/vite-plugin": "^4.11.3",
     "@portabletext/react": "^3.1.0",
     "@remix-run/node": "^2.11.2",
     "@remix-run/react": "^2.11.2",
@@ -35,6 +38,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "^5.4.2",
+    "vite-plugin-babel-macros": "^1.0.6",
     "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
