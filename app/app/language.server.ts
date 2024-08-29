@@ -7,9 +7,9 @@ export async function getAppLanguage(request) {
   const headers = request.headers
   const languages = acceptLanguage.parse(headers.get("Accept-Language"))
 
-  const browserLanguage = languages[0].code
+  const browserLanguage = languages[0]?.code
   const cookieLanguage = await languageCookie.parse(headers.get("Cookie"))
-  const appLanguage = cookieLanguage ?? browserLanguage
+  const appLanguage = cookieLanguage ?? browserLanguage ?? "en"
 
   return appLanguage
 }
