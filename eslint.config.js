@@ -15,7 +15,10 @@ export default [
     rules: {
       ...main.rules,
       "unicorn/no-null": "off",
-      "unicorn/prevent-abbreviations": "off"
+      "unicorn/prevent-abbreviations": "off",
+
+      // Sanity uses "null" for empty values
+      "@typescript-eslint/ban-types": "off"
     }
   },
   {
