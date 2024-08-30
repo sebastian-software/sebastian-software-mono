@@ -4,7 +4,7 @@ export const PROJECTS_QUERY = defineQuery(`
   {
     _id,
     "title": title[$language],
-    "description": description[$language],
+    "description": description[_key == $language][0].value,
     contractStart,
     contractEnd,
     consultant->{

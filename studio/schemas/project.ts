@@ -48,7 +48,7 @@ export const projectType = defineType({
 
     defineField({
       name: "description",
-      type: "localeText",
+      type: "internationalizedArrayText",
       validation: (Rule) => Rule.required()
     }),
 
