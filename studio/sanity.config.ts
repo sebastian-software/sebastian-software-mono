@@ -25,8 +25,8 @@ export default defineConfig({
     visionTool(),
     internationalizedArray({
       languages: [
-        { id: "en", title: "English" },
-        { id: "de", title: "Deutsch" }
+        { id: "de", title: "Deutsch" },
+        { id: "en", title: "English" }
       ],
       defaultLanguages: ["de"],
       fieldTypes: ["string", "text"]
