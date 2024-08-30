@@ -98,7 +98,7 @@ export type Testimonial = {
   quoteLanguage?: "en" | "de"
   source?: "linkedin" | "xing" | "email" | "other"
   quote?: LocaleText
-  slug?: Slug
+  slug: Slug
 }
 
 export type Human = {
@@ -141,8 +141,8 @@ export type Project = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "consultant"
   }
-  title?: LocaleString
-  role?: LocaleString
+  title: LocaleString
+  role: LocaleString
   customer?: {
     _ref: string
     _type: "reference"
@@ -150,9 +150,9 @@ export type Project = {
     [internalGroqTypeReferenceTo]?: "company"
   }
   slug?: LocaleString
-  contractStart?: string
-  contractEnd?: string
-  description?: Array<
+  contractStart: string
+  contractEnd: string
+  description: Array<
     {
       _key: string
     } & InternationalizedArrayTextValue
@@ -184,8 +184,8 @@ export type Company = {
     _type: "image"
   }
   name?: string
-  city?: LocaleString
-  country?: "de" | "ch" | "at" | "lu" | "fr" | "nl" | "be" | "us" | "cn" | "ca"
+  city: LocaleString
+  country: "de" | "ch" | "at" | "lu" | "fr" | "nl" | "be" | "us" | "cn" | "ca"
   industry?:
     | "IT"
     | "Staples"
@@ -243,7 +243,7 @@ export type Picture = {
 
 export type Slug = {
   _type: "slug"
-  current?: string
+  current: string
   source?: string
 }
 
@@ -337,12 +337,12 @@ export type Address = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  name?: string
+  name: string
   street?: string
   houseNumber?: string
   zipCode?: number
-  city?: string
-  country?:
+  city: string
+  country:
     | "Germany"
     | "Switzerland"
     | "Austria"
@@ -466,7 +466,7 @@ export type SanityAssistOutputField = {
 
 export type SanityAssistInstructionContext = {
   _type: "sanity.assist.instruction.context"
-  reference?: {
+  reference: {
     _ref: string
     _type: "reference"
     _weak?: boolean
@@ -499,7 +499,7 @@ export type AssistInstructionContext = {
 
 export type SanityAssistInstructionUserInput = {
   _type: "sanity.assist.instruction.userInput"
-  message?: string
+  message: string
   description?: string
 }
 
@@ -606,28 +606,12 @@ export declare const internalGroqTypeReferenceTo: unique symbol
 export type CUSTOMERS_QUERYResult = Array<
   | {
       _id: string
-      name: null
-      city: null
-      country: null
-      industry: null
-      logo: null
-    }
-  | {
-      _id: string
-      name: string | null
-      city: null
-      country: null
-      industry: null
-      logo: null
-    }
-  | {
-      _id: string
       name: string | null
       city: Array<{
         _type: "localeString"
         en?: string
         de?: string
-      }> | null
+      }>
       country:
         | "at"
         | "be"
@@ -639,7 +623,6 @@ export type CUSTOMERS_QUERYResult = Array<
         | "lu"
         | "nl"
         | "us"
-        | null
       industry:
         | "Aerospace"
         | "Automobiles"
@@ -685,8 +668,8 @@ export type CUSTOMERS_QUERYResult = Array<
     }
   | {
       _id: string
-      name: string | null
-      city: Array<string> | null
+      name: string
+      city: Array<string>
       country:
         | "Austria"
         | "Belgium"
@@ -695,7 +678,22 @@ export type CUSTOMERS_QUERYResult = Array<
         | "Luxembourg"
         | "Netherlands"
         | "Switzerland"
-        | null
+      industry: null
+      logo: null
+    }
+  | {
+      _id: string
+      name: null
+      city: null
+      country: null
+      industry: null
+      logo: null
+    }
+  | {
+      _id: string
+      name: string | null
+      city: null
+      country: null
       industry: null
       logo: null
     }
@@ -710,10 +708,10 @@ export type PROJECTS_QUERYResult = Array<{
     _type: "localeString"
     en?: string
     de?: string
-  }> | null
+  }>
   description: string | null
-  contractStart: string | null
-  contractEnd: string | null
+  contractStart: string
+  contractEnd: string
   consultant: {
     name: string | null
   } | null
@@ -723,19 +721,8 @@ export type PROJECTS_QUERYResult = Array<{
       _type: "localeString"
       en?: string
       de?: string
-    }> | null
-    country:
-      | "at"
-      | "be"
-      | "ca"
-      | "ch"
-      | "cn"
-      | "de"
-      | "fr"
-      | "lu"
-      | "nl"
-      | "us"
-      | null
+    }>
+    country: "at" | "be" | "ca" | "ch" | "cn" | "de" | "fr" | "lu" | "nl" | "us"
     industry:
       | "Aerospace"
       | "Automobiles"
@@ -783,7 +770,7 @@ export type PROJECTS_QUERYResult = Array<{
     _type: "localeString"
     en?: string
     de?: string
-  }> | null
+  }>
   technologies: null
   testimonials: Array<{
     _id: string
@@ -853,7 +840,7 @@ export type TESTIMONIAL_QUERYResult = {
 // Query: *[_type == "testimonial" && defined(slug.current)] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
 export type TESTIMONIALS_QUERYResult = Array<{
   _id: string
-  slug: Slug | null
+  slug: Slug
   date: string | null
   author: {
     name: string | null

@@ -528,7 +528,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -768,7 +768,7 @@
           "type": "inline",
           "name": "localeString"
         },
-        "optional": true
+        "optional": false
       },
       "role": {
         "type": "objectAttribute",
@@ -776,7 +776,7 @@
           "type": "inline",
           "name": "localeString"
         },
-        "optional": true
+        "optional": false
       },
       "customer": {
         "type": "objectAttribute",
@@ -821,14 +821,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "contractEnd": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "description": {
         "type": "objectAttribute",
@@ -850,7 +850,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "testimonials": {
         "type": "objectAttribute",
@@ -1008,7 +1008,7 @@
           "type": "inline",
           "name": "localeString"
         },
-        "optional": true
+        "optional": false
       },
       "country": {
         "type": "objectAttribute",
@@ -1057,7 +1057,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "industry": {
         "type": "objectAttribute",
@@ -1334,7 +1334,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",
@@ -1866,7 +1866,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "street": {
         "type": "objectAttribute",
@@ -1894,7 +1894,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "country": {
         "type": "objectAttribute",
@@ -1931,7 +1931,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -2680,7 +2680,7 @@
             },
             "dereferencesTo": "assist.instruction.context"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -2859,7 +2859,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "description": {
           "type": "objectAttribute",
