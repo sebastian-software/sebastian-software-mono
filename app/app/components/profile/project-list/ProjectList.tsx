@@ -4,7 +4,6 @@ import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
-import { Tag, TagList } from "~/components/tag/Tag"
 import { urlFor } from "~/sanity/image"
 
 import { Neutral } from "../../neutral"
@@ -20,7 +19,6 @@ import {
   projectClass,
   roleClass,
   rootClass,
-  technologiesClass,
   testimonialsClass,
   titleClass
 } from "./ProjectList.css"
@@ -61,7 +59,7 @@ export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
 }
 
-const countries = {
+const countries: Record<string, Record<string, string>> = {
   en: {
     de: "Germany",
     ch: "Switzerland",
@@ -88,7 +86,7 @@ const countries = {
   }
 }
 
-const industries = {
+const industries: Record<string, Record<string, string>> = {
   de: {
     IT: "Informationstechnologie",
     Consumer: "Nicht-Basiskonsumgüter",
@@ -194,8 +192,7 @@ export function Project({ data }: ProjectProps) {
           <Trans>Auftraggeber:</Trans>
           <br /> {data.contractor}
         </p> */}
-
-        {data.technologies && (
+        {/* {data.technologies && (
           <Neutral>
             <TagList className={technologiesClass}>
               {data.technologies.map((text) => (
@@ -203,7 +200,7 @@ export function Project({ data }: ProjectProps) {
               ))}
             </TagList>
           </Neutral>
-        )}
+        )} */}
       </div>
 
       <RichText className={descriptionClass}>{data.description}</RichText>
