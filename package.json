@@ -11,6 +11,7 @@
     "lint:fix": "pnpm run --recursive --parallel lint:fix",
     "opt:svg": "svgo --folder app --recursive --multipass && svgo --folder assets --recursive --multipass",
     "prepare": "husky",
+    "prepare:env": "cp app/.env.example app/.env && cp studio/.env.example studio/.env",
     "test:format": "prettier --check .",
     "update:latest": "ncu --deep  --upgrade --interactive",
     "update:minor": "ncu --deep  --upgrade --interactive --target minor",
