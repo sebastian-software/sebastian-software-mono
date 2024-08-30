@@ -12,7 +12,8 @@ export const humanType = defineType({
 
     defineField({
       name: "name",
-      type: "string"
+      type: "string",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({

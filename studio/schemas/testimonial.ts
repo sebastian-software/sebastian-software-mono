@@ -31,27 +31,23 @@ export const testimonialType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true
-    }),
-
-    defineField({
       name: "consultant",
       type: "reference",
-      to: [{ type: "consultant" }]
+      to: [{ type: "consultant" }],
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "date",
-      type: "date"
+      type: "date",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "author",
       type: "reference",
-      to: [{ type: "human" }]
+      to: [{ type: "human" }],
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
@@ -68,6 +64,7 @@ export const testimonialType = defineType({
     defineField({
       name: "quoteLanguage",
       type: "string",
+      validation: (Rule) => Rule.required(),
       options: {
         list: [
           { title: "English", value: "en" },

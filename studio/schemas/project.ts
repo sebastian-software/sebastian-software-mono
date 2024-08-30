@@ -8,7 +8,8 @@ export const projectType = defineType({
     defineField({
       name: "consultant",
       type: "reference",
-      to: [{ type: "consultant" }]
+      to: [{ type: "consultant" }],
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
@@ -26,12 +27,14 @@ export const projectType = defineType({
     defineField({
       name: "customer",
       type: "reference",
-      to: [{ type: "company" }]
+      to: [{ type: "company" }],
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "slug",
-      type: "localeString"
+      type: "localeString",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({

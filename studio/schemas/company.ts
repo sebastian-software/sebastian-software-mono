@@ -14,7 +14,8 @@ export const companyType = defineType({
 
     defineField({
       name: "name",
-      type: "string"
+      type: "string",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
@@ -47,6 +48,7 @@ export const companyType = defineType({
     defineField({
       name: "industry",
       type: "string",
+      validation: (Rule) => Rule.required(),
       options: {
         list: [
           { title: "Informationstechnologie", value: "IT" },
@@ -85,6 +87,7 @@ export const companyType = defineType({
     defineField({
       name: "slug",
       type: "slug",
+      validation: (Rule) => Rule.required(),
       options: {
         source: (document) => removeCompanySuffixes(document.name)
       }

@@ -9,17 +9,20 @@ export const pictureType = defineType({
   fields: [
     defineField({
       name: "image",
-      type: "image"
+      type: "image",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "alt",
-      type: "localeString"
+      type: "localeString",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
       name: "date",
-      type: "date"
+      type: "date",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({
@@ -28,7 +31,8 @@ export const pictureType = defineType({
       options: {
         source: (doc) => `${doc.date}-${doc.alt[defaultLanguage]}`,
         maxLength: 80
-      }
+      },
+      validation: (Rule) => Rule.required()
     })
   ],
   preview: {

@@ -74,15 +74,14 @@ export type Testimonial = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  language?: string
-  consultant?: {
+  consultant: {
     _ref: string
     _type: "reference"
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "consultant"
   }
-  date?: string
-  author?: {
+  date: string
+  author: {
     _ref: string
     _type: "reference"
     _weak?: boolean
@@ -95,7 +94,7 @@ export type Testimonial = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "company"
   }
-  quoteLanguage?: "en" | "de"
+  quoteLanguage: "en" | "de"
   source?: "linkedin" | "xing" | "email" | "other"
   quote?: LocaleText
   slug: Slug
@@ -118,7 +117,7 @@ export type Human = {
     crop?: SanityImageCrop
     _type: "image"
   }
-  name?: string
+  name: string
   status?: "freelancer" | "owner" | "employee"
   position?: LocaleString
   company?: {
@@ -135,7 +134,7 @@ export type Project = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  consultant?: {
+  consultant: {
     _ref: string
     _type: "reference"
     _weak?: boolean
@@ -143,13 +142,13 @@ export type Project = {
   }
   title: LocaleString
   role: LocaleString
-  customer?: {
+  customer: {
     _ref: string
     _type: "reference"
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "company"
   }
-  slug?: LocaleString
+  slug: LocaleString
   contractStart: string
   contractEnd: string
   description: Array<
@@ -183,10 +182,10 @@ export type Company = {
     crop?: SanityImageCrop
     _type: "image"
   }
-  name?: string
+  name: string
   city: LocaleString
   country: "de" | "ch" | "at" | "lu" | "fr" | "nl" | "be" | "us" | "cn" | "ca"
-  industry?:
+  industry:
     | "IT"
     | "Staples"
     | "Consumer"
@@ -216,7 +215,7 @@ export type Company = {
     | "Aerospace"
     | "Metals"
     | "Education"
-  slug?: Slug
+  slug: Slug
 }
 
 export type Picture = {
@@ -225,7 +224,7 @@ export type Picture = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  image?: {
+  image: {
     asset?: {
       _ref: string
       _type: "reference"
@@ -236,9 +235,9 @@ export type Picture = {
     crop?: SanityImageCrop
     _type: "image"
   }
-  alt?: LocaleString
-  date?: string
-  slug?: Slug
+  alt: LocaleString
+  date: string
+  slug: Slug
 }
 
 export type Slug = {
@@ -253,7 +252,7 @@ export type Consultant = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  headshot?: {
+  headshot: {
     asset?: {
       _ref: string
       _type: "reference"
@@ -264,8 +263,8 @@ export type Consultant = {
     crop?: SanityImageCrop
     _type: "image"
   }
-  name?: string
-  birthday?: string
+  name: string
+  birthday: string
   address?: {
     _ref: string
     _type: "reference"
@@ -606,7 +605,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol
 export type CUSTOMERS_QUERYResult = Array<
   | {
       _id: string
-      name: string | null
+      name: string
       city: Array<{
         _type: "localeString"
         en?: string
@@ -653,7 +652,6 @@ export type CUSTOMERS_QUERYResult = Array<
         | "Textiles"
         | "Transportation"
         | "Utilities"
-        | null
       logo: {
         asset?: {
           _ref: string
@@ -691,7 +689,7 @@ export type CUSTOMERS_QUERYResult = Array<
     }
   | {
       _id: string
-      name: string | null
+      name: string
       city: null
       country: null
       industry: null
@@ -713,10 +711,10 @@ export type PROJECTS_QUERYResult = Array<{
   contractStart: string
   contractEnd: string
   consultant: {
-    name: string | null
-  } | null
+    name: string
+  }
   customer: {
-    name: string | null
+    name: string
     city: Array<{
       _type: "localeString"
       en?: string
@@ -753,7 +751,6 @@ export type PROJECTS_QUERYResult = Array<{
       | "Textiles"
       | "Transportation"
       | "Utilities"
-      | null
     logo: {
       asset?: {
         _ref: string
@@ -765,7 +762,7 @@ export type PROJECTS_QUERYResult = Array<{
       crop?: SanityImageCrop
       _type: "image"
     } | null
-  } | null
+  }
   role: Array<{
     _type: "localeString"
     en?: string
@@ -785,7 +782,7 @@ export type PROJECTS_QUERYResult = Array<{
       de?: string
     }> | null
     author: {
-      name: string | null
+      name: string
       headshot: {
         asset?: {
           _ref: string
@@ -797,9 +794,9 @@ export type PROJECTS_QUERYResult = Array<{
         crop?: SanityImageCrop
         _type: "image"
       } | null
-    } | null
+    }
     company: {
-      name: string | null
+      name: string
     } | null
   }> | null
 }>
@@ -808,11 +805,11 @@ export type PROJECTS_QUERYResult = Array<{
 // Variable: TESTIMONIAL_QUERY
 // Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
 export type TESTIMONIAL_QUERYResult = {
-  date: string | null
-  language: string | null
+  date: string
+  language: null
   quote: LocaleText | null
   author: {
-    name: string | null
+    name: string
     headshot: {
       asset?: {
         _ref: string
@@ -826,12 +823,12 @@ export type TESTIMONIAL_QUERYResult = {
     } | null
     position: LocaleString | null
     company: {
-      name: string | null
+      name: string
     } | null
-  } | null
+  }
   position: LocaleString | null
   company: {
-    name: string | null
+    name: string
   } | null
 } | null
 
@@ -841,9 +838,9 @@ export type TESTIMONIAL_QUERYResult = {
 export type TESTIMONIALS_QUERYResult = Array<{
   _id: string
   slug: Slug
-  date: string | null
+  date: string
   author: {
-    name: string | null
+    name: string
     headshot: {
       asset?: {
         _ref: string
@@ -858,12 +855,12 @@ export type TESTIMONIALS_QUERYResult = Array<{
     status: "employee" | "freelancer" | "owner" | null
     position: LocaleString | null
     company: {
-      name: string | null
+      name: string
     } | null
-  } | null
+  }
   position: LocaleString | null
   company: {
-    name: string | null
+    name: string
   } | null
 }>
 

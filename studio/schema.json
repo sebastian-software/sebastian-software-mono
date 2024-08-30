@@ -360,13 +360,6 @@
           "type": "string"
         }
       },
-      "language": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "consultant": {
         "type": "objectAttribute",
         "value": {
@@ -395,14 +388,14 @@
           },
           "dereferencesTo": "consultant"
         },
-        "optional": true
+        "optional": false
       },
       "date": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "author": {
         "type": "objectAttribute",
@@ -432,7 +425,7 @@
           },
           "dereferencesTo": "human"
         },
-        "optional": true
+        "optional": false
       },
       "position": {
         "type": "objectAttribute",
@@ -487,7 +480,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "source": {
         "type": "objectAttribute",
@@ -634,7 +627,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "status": {
         "type": "objectAttribute",
@@ -760,7 +753,7 @@
           },
           "dereferencesTo": "consultant"
         },
-        "optional": true
+        "optional": false
       },
       "title": {
         "type": "objectAttribute",
@@ -806,7 +799,7 @@
           },
           "dereferencesTo": "company"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -814,7 +807,7 @@
           "type": "inline",
           "name": "localeString"
         },
-        "optional": true
+        "optional": false
       },
       "contractStart": {
         "type": "objectAttribute",
@@ -1000,7 +993,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "city": {
         "type": "objectAttribute",
@@ -1182,7 +1175,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -1190,7 +1183,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -1289,7 +1282,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "alt": {
         "type": "objectAttribute",
@@ -1297,14 +1290,14 @@
           "type": "inline",
           "name": "localeString"
         },
-        "optional": true
+        "optional": false
       },
       "date": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -1312,7 +1305,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -1441,21 +1434,21 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "name": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "birthday": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "address": {
         "type": "objectAttribute",
