@@ -11,7 +11,7 @@ import {
 
 export interface Customer {
   name: string
-  logo: string
+  logo?: string
 }
 
 export interface CustomersListProps {
@@ -31,16 +31,19 @@ export function CustomersList({ data }: CustomersListProps) {
       />
 
       <ul className={listClass} style={{ filter: "url(#company-logo-mono)" }}>
-        {data.map((customer) => (
-          <li key={customer.name} className={itemClass}>
-            <img
-              className={logoClass}
-              src={urlFor(customer.logo).url()}
-              width={150}
-              alt={customer.name}
-            />
-          </li>
-        ))}
+        {data.map(
+          (customer) =>
+            customer.logo && (
+              <li key={customer.name} className={itemClass}>
+                <img
+                  className={logoClass}
+                  src={urlFor(customer.logo).url()}
+                  width={150}
+                  alt={customer.name}
+                />
+              </li>
+            )
+        )}
       </ul>
     </div>
   )
