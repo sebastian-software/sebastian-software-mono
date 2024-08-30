@@ -11,16 +11,16 @@
   "dependencies": {
     "@sanity/assist": "^3.0.6",
     "@sanity/document-internationalization": "^3.0.1",
-    "@sanity/vision": "^3.55.0",
+    "@sanity/vision": "^3.56.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sanity": "^3.55.0",
+    "sanity": "^3.56.0",
     "sanity-plugin-internationalized-array": "^3.0.0",
     "styled-components": "^6.1"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^4.0.0",
-    "@types/node": "^20.16.1",
+    "@types/node": "^20.16.2",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.57.0",

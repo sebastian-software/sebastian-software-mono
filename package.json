@@ -17,10 +17,10 @@
     "update:pnpm": "corepack up"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-conventional": "^19.4.1",
     "@effective/eslint-config": "^5.4.7",
-    "commitlint": "^19.4.0",
+    "commitlint": "^19.4.1",
     "eslint": "^8.57.0",
     "husky": "^9.1.5",
     "npm-check-updates": "^17.1.0",
