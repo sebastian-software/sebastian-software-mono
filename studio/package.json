@@ -1,5 +1,7 @@
 {
   "name": "sebastian-software-cms",
+  "sideEffects": false,
+  "type": "module",
   "scripts": {
     "build": "sanity build",
     "dev": "sanity dev",
