@@ -1,5 +1,11 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "sanity.types.ts"],
+  "include": [
+    "remix.env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "sanity.types.ts",
+    "eslint.config.js"
+  ],
   "compilerOptions": {
     "module": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ES2019"],

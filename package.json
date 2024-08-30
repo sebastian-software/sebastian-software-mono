@@ -7,6 +7,8 @@
     "dev": "pnpm -r dev",
     "distclean": "git clean -xdf",
     "format": "prettier --write .",
+    "lint": "pnpm run --recursive --parallel lint",
+    "lint:fix": "pnpm run --recursive --parallel lint:fix",
     "opt:svg": "svgo --folder app --recursive --multipass && svgo --folder assets --recursive --multipass",
     "prepare": "husky",
     "test:format": "prettier --check .",
