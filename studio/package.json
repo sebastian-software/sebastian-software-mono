@@ -3,6 +3,8 @@
   "scripts": {
     "build": "sanity build",
     "dev": "sanity dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "schema": "sanity schema extract",
     "start": "sanity start",
     "typecheck": "tsc",
@@ -19,6 +21,7 @@
     "styled-components": "^6.1"
   },
   "devDependencies": {
+    "@effective/eslint-config": "^5.4.7",
     "@sanity/eslint-config-studio": "^4.0.0",
     "@types/node": "^20.16.2",
     "@types/react": "^18.3.4",
