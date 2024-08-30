@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
 
+const PREVIEW_LANGUAGE = "de"
+
 export const projectType = defineType({
   name: "project",
   title: "Project",
@@ -13,18 +15,6 @@ export const projectType = defineType({
     }),
 
     defineField({
-      name: "title",
-      type: "localeString",
-      validation: (Rule) => Rule.required()
-    }),
-
-    defineField({
-      name: "role",
-      type: "localeString",
-      validation: (Rule) => Rule.required()
-    }),
-
-    defineField({
       name: "customer",
       type: "reference",
       to: [{ type: "company" }],
@@ -32,8 +22,8 @@ export const projectType = defineType({
     }),
 
     defineField({
-      name: "slug",
-      type: "localeString",
+      name: "title",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required()
     }),
 
@@ -46,6 +36,12 @@ export const projectType = defineType({
     defineField({
       name: "contractEnd",
       type: "date",
+      validation: (Rule) => Rule.required()
+    }),
+
+    defineField({
+      name: "role",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required()
     }),
 
@@ -63,9 +59,21 @@ export const projectType = defineType({
   ],
   preview: {
     select: {
-      title: "title.de",
+      title: `title`,
       subtitle: "customer.name",
       media: "customer.logo"
+    },
+    prepare({ title, subtitle, media }) {
+      const translatedTitle = title?.find(
+        (variant: { _key: string; value: string }) =>
+          variant._key === PREVIEW_LANGUAGE
+      )?.value
+
+      return {
+        title: translatedTitle,
+        subtitle,
+        media
+      }
     }
   },
   orderings: [

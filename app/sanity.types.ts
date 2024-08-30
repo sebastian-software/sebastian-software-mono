@@ -140,17 +140,24 @@ export type Project = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "consultant"
   }
-  title: LocaleString
-  role: LocaleString
   customer: {
     _ref: string
     _type: "reference"
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "company"
   }
-  slug: LocaleString
+  title: Array<
+    {
+      _key: string
+    } & InternationalizedArrayStringValue
+  >
   contractStart: string
   contractEnd: string
+  role: Array<
+    {
+      _key: string
+    } & InternationalizedArrayStringValue
+  >
   description: Array<
     {
       _key: string
@@ -699,15 +706,12 @@ export type CUSTOMERS_QUERYResult = Array<
 
 // Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && consultant->name == $name]  {    _id,    "title": title[$language],    "description": description[_key == $language][0].value,    contractStart,    contractEnd,    consultant->{      name,    },    customer->    {      name,      "city": city[$language],      country,      industry,      logo    },    "role": role[$language],    technologies,    testimonials[]->    {      _id,      "quote": quote[$language],      "position": position[$language],      author->{        name,        headshot      },      company->{        name      }    }  } | order(contractStart desc)
+// Query: *[_type == "project" && consultant->name == $name]  {    _id,    "title": title[_key == $language][0].value,    "description": description[_key == $language][0].value,    "role": role[_key == $language][0].value,    contractStart,    contractEnd,    consultant->{      name,    },    customer->    {      name,      "city": city[$language],      country,      industry,      logo    },    testimonials[]->    {      _id,      "quote": quote[$language],      "position": position[$language],      author->{        name,        headshot      },      company->{        name      }    }  } | order(contractStart desc)
 export type PROJECTS_QUERYResult = Array<{
   _id: string
-  title: Array<{
-    _type: "localeString"
-    en?: string
-    de?: string
-  }>
+  title: string | null
   description: string | null
+  role: string | null
   contractStart: string
   contractEnd: string
   consultant: {
@@ -763,12 +767,6 @@ export type PROJECTS_QUERYResult = Array<{
       _type: "image"
     } | null
   }
-  role: Array<{
-    _type: "localeString"
-    en?: string
-    de?: string
-  }>
-  technologies: null
   testimonials: Array<{
     _id: string
     quote: Array<{
@@ -869,7 +867,7 @@ import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_id in array::unique(*[_type == "project"].customer->_id)]{\n    _id,\n    name,\n    "city": city[$language],\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CUSTOMERS_QUERYResult
-    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[$language],\n    "description": description[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      "city": city[$language],\n      country,\n      industry,\n      logo\n    },\n    "role": role[$language],\n    technologies,\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[$language],\n      "position": position[$language],\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
+    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      "city": city[$language],\n      country,\n      industry,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[$language],\n      "position": position[$language],\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '*[_type == "testimonial" && defined(slug.current)] | order(date desc){\n    _id,\n    slug,\n    date,\n    author->{\n      name,\n      headshot,\n      status,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
   }
