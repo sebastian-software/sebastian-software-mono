@@ -20,26 +20,3 @@ export const localeString = defineType({
     type: "string"
   }))
 })
-
-export const localeText = defineType({
-  title: "Localized text",
-  name: "localeText",
-  type: "object",
-  fields: supportedLanguages.map((lang) => ({
-    title: lang.title,
-    name: lang.id,
-    type: "text"
-  }))
-})
-
-export const localeBlockContent = defineType({
-  title: "Localized block content",
-  name: "localeBlockContent",
-  type: "object",
-  fields: supportedLanguages.map((lang) => ({
-    title: lang.title,
-    name: lang.id,
-    type: "array",
-    of: [{ type: "block" }]
-  }))
-})
