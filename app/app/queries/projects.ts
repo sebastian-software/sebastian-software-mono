@@ -22,7 +22,7 @@ export const PROJECTS_QUERY = defineQuery(`
     testimonials[]->
     {
       _id,
-      "quote": quote[$language],
+      "quote": quote[_key == $language][0].value,
       "position": position[$language],
       author->{
         name,
