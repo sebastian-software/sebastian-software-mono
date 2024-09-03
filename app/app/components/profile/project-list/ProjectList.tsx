@@ -1,10 +1,9 @@
 import { Trans } from "@lingui/macro"
 import { useLingui } from "@lingui/react"
-import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
-import { CountryName } from "~/components/i18n"
+import { CountryName, IndustryName } from "~/components/i18n"
 import { urlFor } from "~/sanity/image"
 
 import { Neutral } from "../../neutral"
@@ -60,73 +59,6 @@ export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
 }
 
-const industries: Record<string, Record<string, string>> = {
-  de: {
-    IT: "Informationstechnologie",
-    Consumer: "Nicht-Basiskonsumgüter",
-    Staples: "Basiskonsumgüter",
-    Healthcare: "Gesundheitswesen",
-    Financials: "Finanzdienstleistungen",
-    Industrials: "Industrie",
-    Energy: "Energie",
-    Materials: "Materialien",
-    Utilities: "Versorgungsunternehmen",
-    RealEstate: "Immobilien",
-    Telecom: "Telekommunikation",
-    Media: "Medien und Unterhaltung",
-    Retail: "Einzelhandel",
-    Transportation: "Transport",
-    Automobiles: "Automobile und Komponenten",
-    Pharma: "Pharmazeutika und Biotechnologie",
-    Insurance: "Versicherungen",
-    CapitalGoods: "Investitionsgüter",
-    Food: "Lebensmittel, Getränke & Tabak",
-    Chemicals: "Chemikalien",
-    Software: "Software & Dienstleistungen",
-    Hardware: "Hardware & Ausrüstung",
-    Semiconductors: "Halbleiter",
-    Hotels: "Hotels, Restaurants & Freizeit",
-    Textiles: "Textilien, Bekleidung & Luxusgüter",
-    Household: "Haushalts- & Körperpflegeprodukte",
-    Construction: "Bau & Ingenieurwesen",
-    Aerospace: "Luft- und Raumfahrt & Verteidigung",
-    Metals: "Metalle & Bergbau",
-    Education: "Bildung"
-  },
-  en: {
-    IT: "Information Technology",
-    Consumer: "Consumer Discretionary",
-    Staples: "Consumer Staples",
-    Healthcare: "Healthcare",
-    Financials: "Financials",
-    Industrials: "Industrials",
-    Energy: "Energy",
-    Materials: "Materials",
-    Utilities: "Utilities",
-    RealEstate: "Real Estate",
-    Telecom: "Telecommunication Services",
-    Media: "Media and Entertainment",
-    Retail: "Retail",
-    Transportation: "Transportation",
-    Automobiles: "Automobiles and Components",
-    Pharma: "Pharmaceuticals and Biotechnology",
-    Insurance: "Insurance",
-    CapitalGoods: "Capital Goods",
-    Food: "Food, Beverage & Tobacco",
-    Chemicals: "Chemicals",
-    Software: "Software & Services",
-    Hardware: "Hardware & Equipment",
-    Semiconductors: "Semiconductors",
-    Hotels: "Hotels, Restaurants & Leisure",
-    Textiles: "Textiles, Apparel & Luxury Goods",
-    Household: "Household & Personal Products",
-    Construction: "Construction & Engineering",
-    Aerospace: "Aerospace & Defense",
-    Metals: "Metals & Mining",
-    Education: "Education"
-  }
-}
-
 export function Project({ data }: ProjectProps) {
   const { i18n } = useLingui()
   const customerLogoUrl = urlFor(data.customer.logo).url()
@@ -155,7 +87,8 @@ export function Project({ data }: ProjectProps) {
         </p>
         <p className={industryClass}>
           <Trans context="label">Industry:</Trans>
-          <br /> {industries[language][stegaClean(data.customer.industry)]}
+          <br />
+          <IndustryName code={data.customer.industry} />
         </p>
         <p className={periodClass}>
           <Trans context="label">Period:</Trans>

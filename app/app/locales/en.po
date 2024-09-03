@@ -13,9 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: app/components/i18n/IndustryName.tsx:33
+msgid "Aerospace & Defense"
+msgstr "Aerospace & Defense"
+
 #: app/components/i18n/CountryName.tsx:8
 msgid "Austria"
 msgstr "Austria"
+
+#: app/components/i18n/IndustryName.tsx:20
+msgid "Automobiles and Components"
+msgstr "Automobiles and Components"
 
 #: app/components/i18n/CountryName.tsx:12
 msgid "Belgium"
@@ -25,14 +33,50 @@ msgstr "Belgium"
 msgid "Canada"
 msgstr "Canada"
 
+#: app/components/i18n/IndustryName.tsx:24
+msgid "Capital Goods"
+msgstr "Capital Goods"
+
+#: app/components/i18n/IndustryName.tsx:26
+msgid "Chemicals"
+msgstr "Chemicals"
+
 #: app/components/i18n/CountryName.tsx:14
 msgid "China"
 msgstr "China"
 
-#: app/components/profile/project-list/ProjectList.tsx:150
+#: app/components/i18n/IndustryName.tsx:32
+msgid "Construction & Engineering"
+msgstr "Construction & Engineering"
+
+#: app/components/i18n/IndustryName.tsx:7
+msgid "Consumer Discretionary"
+msgstr "Consumer Discretionary"
+
+#: app/components/i18n/IndustryName.tsx:8
+msgid "Consumer Staples"
+msgstr "Consumer Staples"
+
+#: app/components/profile/project-list/ProjectList.tsx:82
 msgctxt "label"
 msgid "Customer:"
 msgstr "Kunde:"
+
+#: app/components/i18n/IndustryName.tsx:35
+msgid "Education"
+msgstr "Education"
+
+#: app/components/i18n/IndustryName.tsx:12
+msgid "Energy"
+msgstr "Energy"
+
+#: app/components/i18n/IndustryName.tsx:10
+msgid "Financials"
+msgstr "Financials"
+
+#: app/components/i18n/IndustryName.tsx:25
+msgid "Food, Beverage & Tobacco"
+msgstr "Food, Beverage & Tobacco"
 
 #: app/components/i18n/CountryName.tsx:10
 msgid "France"
@@ -42,28 +86,104 @@ msgstr "France"
 msgid "Germany"
 msgstr "Germany"
 
-#: app/components/profile/project-list/ProjectList.tsx:157
+#: app/components/i18n/IndustryName.tsx:23
+msgid "Hardware & Equipment"
+msgstr "Hardware & Equipment"
+
+#: app/components/i18n/IndustryName.tsx:9
+msgid "Healthcare"
+msgstr "Healthcare"
+
+#: app/components/i18n/IndustryName.tsx:29
+msgid "Hotels, Restaurants & Leisure"
+msgstr "Hotels, Restaurants & Leisure"
+
+#: app/components/i18n/IndustryName.tsx:31
+msgid "Household & Personal Products"
+msgstr "Household & Personal Products"
+
+#: app/components/i18n/IndustryName.tsx:11
+msgid "Industrials"
+msgstr "Industrials"
+
+#: app/components/profile/project-list/ProjectList.tsx:89
 msgctxt "label"
 msgid "Industry:"
 msgstr "Branche:"
+
+#: app/components/i18n/IndustryName.tsx:6
+msgid "Information Technology"
+msgstr "Information Technology"
+
+#: app/components/i18n/IndustryName.tsx:22
+msgid "Insurance"
+msgstr "Insurance"
 
 #: app/components/i18n/CountryName.tsx:9
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
+#: app/components/i18n/IndustryName.tsx:13
+msgid "Materials"
+msgstr "Materials"
+
+#: app/components/i18n/IndustryName.tsx:17
+msgid "Media and Entertainment"
+msgstr "Media and Entertainment"
+
+#: app/components/i18n/IndustryName.tsx:34
+msgid "Metals & Mining"
+msgstr "Metals & Mining"
+
 #: app/components/i18n/CountryName.tsx:11
 msgid "Netherlands"
 msgstr "Netherlands"
 
-#: app/components/profile/project-list/ProjectList.tsx:161
+#: app/components/profile/project-list/ProjectList.tsx:94
 msgctxt "label"
 msgid "Period:"
 msgstr "Zeitraum:"
+
+#: app/components/i18n/IndustryName.tsx:21
+msgid "Pharmaceuticals and Biotechnology"
+msgstr "Pharmaceuticals and Biotechnology"
+
+#: app/components/i18n/IndustryName.tsx:15
+msgid "Real Estate"
+msgstr "Real Estate"
+
+#: app/components/i18n/IndustryName.tsx:18
+msgid "Retail"
+msgstr "Retail"
+
+#: app/components/i18n/IndustryName.tsx:28
+msgid "Semiconductors"
+msgstr "Semiconductors"
+
+#: app/components/i18n/IndustryName.tsx:27
+msgid "Software & Services"
+msgstr "Software & Services"
 
 #: app/components/i18n/CountryName.tsx:7
 msgid "Switzerland"
 msgstr "Switzerland"
 
+#: app/components/i18n/IndustryName.tsx:16
+msgid "Telecommunication Services"
+msgstr "Telecommunication Services"
+
+#: app/components/i18n/IndustryName.tsx:30
+msgid "Textiles, Apparel & Luxury Goods"
+msgstr "Textiles, Apparel & Luxury Goods"
+
+#: app/components/i18n/IndustryName.tsx:19
+msgid "Transportation"
+msgstr "Transportation"
+
 #: app/components/i18n/CountryName.tsx:13
 msgid "United States"
 msgstr "United States"
+
+#: app/components/i18n/IndustryName.tsx:14
+msgid "Utilities"
+msgstr "Utilities"
