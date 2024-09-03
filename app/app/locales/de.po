@@ -13,54 +13,57 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: app/components/profile/project-list/ProjectList.tsx:65
+#: app/components/i18n/CountryName.tsx:8
 msgid "Austria"
 msgstr "Östereich"
 
-#: app/components/profile/project-list/ProjectList.tsx:69
+#: app/components/i18n/CountryName.tsx:12
 msgid "Belgium"
 msgstr "Belgien"
 
-#: app/components/profile/project-list/ProjectList.tsx:72
+#: app/components/i18n/CountryName.tsx:15
 msgid "Canada"
 msgstr "Kanada"
 
-#: app/components/profile/project-list/ProjectList.tsx:71
+#: app/components/i18n/CountryName.tsx:14
 msgid "China"
 msgstr "China"
 
-#: app/components/profile/project-list/ProjectList.tsx:164
+#: app/components/profile/project-list/ProjectList.tsx:150
+msgctxt "label"
 msgid "Customer:"
-msgstr "Kunde:"
+msgstr "Customer:"
 
-#: app/components/profile/project-list/ProjectList.tsx:67
+#: app/components/i18n/CountryName.tsx:10
 msgid "France"
 msgstr "Frankreich"
 
-#: app/components/profile/project-list/ProjectList.tsx:63
+#: app/components/i18n/CountryName.tsx:6
 msgid "Germany"
 msgstr "Deutschland"
 
-#: app/components/profile/project-list/ProjectList.tsx:172
+#: app/components/profile/project-list/ProjectList.tsx:157
+msgctxt "label"
 msgid "Industry:"
-msgstr "Branche:"
+msgstr "Industry:"
 
-#: app/components/profile/project-list/ProjectList.tsx:66
+#: app/components/i18n/CountryName.tsx:9
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: app/components/profile/project-list/ProjectList.tsx:68
+#: app/components/i18n/CountryName.tsx:11
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: app/components/profile/project-list/ProjectList.tsx:176
+#: app/components/profile/project-list/ProjectList.tsx:161
+msgctxt "label"
 msgid "Period:"
-msgstr "Zeitraum:"
+msgstr "Period:"
 
-#: app/components/profile/project-list/ProjectList.tsx:64
+#: app/components/i18n/CountryName.tsx:7
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: app/components/profile/project-list/ProjectList.tsx:70
+#: app/components/i18n/CountryName.tsx:13
 msgid "United States"
 msgstr "Vereinigte Staaten"

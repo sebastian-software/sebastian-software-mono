@@ -13,54 +13,57 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: app/components/profile/project-list/ProjectList.tsx:65
+#: app/components/i18n/CountryName.tsx:8
 msgid "Austria"
 msgstr "Austria"
 
-#: app/components/profile/project-list/ProjectList.tsx:69
+#: app/components/i18n/CountryName.tsx:12
 msgid "Belgium"
 msgstr "Belgium"
 
-#: app/components/profile/project-list/ProjectList.tsx:72
+#: app/components/i18n/CountryName.tsx:15
 msgid "Canada"
 msgstr "Canada"
 
-#: app/components/profile/project-list/ProjectList.tsx:71
+#: app/components/i18n/CountryName.tsx:14
 msgid "China"
 msgstr "China"
 
-#: app/components/profile/project-list/ProjectList.tsx:164
+#: app/components/profile/project-list/ProjectList.tsx:150
+msgctxt "label"
 msgid "Customer:"
-msgstr "Customer:"
+msgstr "Kunde:"
 
-#: app/components/profile/project-list/ProjectList.tsx:67
+#: app/components/i18n/CountryName.tsx:10
 msgid "France"
 msgstr "France"
 
-#: app/components/profile/project-list/ProjectList.tsx:63
+#: app/components/i18n/CountryName.tsx:6
 msgid "Germany"
 msgstr "Germany"
 
-#: app/components/profile/project-list/ProjectList.tsx:172
+#: app/components/profile/project-list/ProjectList.tsx:157
+msgctxt "label"
 msgid "Industry:"
-msgstr "Industry:"
+msgstr "Branche:"
 
-#: app/components/profile/project-list/ProjectList.tsx:66
+#: app/components/i18n/CountryName.tsx:9
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
-#: app/components/profile/project-list/ProjectList.tsx:68
+#: app/components/i18n/CountryName.tsx:11
 msgid "Netherlands"
 msgstr "Netherlands"
 
-#: app/components/profile/project-list/ProjectList.tsx:176
+#: app/components/profile/project-list/ProjectList.tsx:161
+msgctxt "label"
 msgid "Period:"
-msgstr "Period:"
+msgstr "Zeitraum:"
 
-#: app/components/profile/project-list/ProjectList.tsx:64
+#: app/components/i18n/CountryName.tsx:7
 msgid "Switzerland"
 msgstr "Switzerland"
 
-#: app/components/profile/project-list/ProjectList.tsx:70
+#: app/components/i18n/CountryName.tsx:13
 msgid "United States"
 msgstr "United States"
