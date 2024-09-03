@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro"
+import { msg, Trans } from "@lingui/macro"
 import { useLingui } from "@lingui/react"
 import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
@@ -59,32 +59,20 @@ export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
 }
 
-const countries: Record<string, Record<string, string>> = {
-  en: {
-    de: "Germany",
-    ch: "Switzerland",
-    at: "Austria",
-    lu: "Luxembourg",
-    fr: "France",
-    nl: "Netherlands",
-    be: "Belgium",
-    us: "United States",
-    cn: "China",
-    ca: "Canada"
-  },
-  de: {
-    de: "Deutschland",
-    ch: "Schweiz",
-    at: "Österreich",
-    lu: "Luxemburg",
-    fr: "Frankreich",
-    nl: "Niederlande",
-    be: "Belgien",
-    us: "Vereinigte Staaten",
-    cn: "China",
-    ca: "Kanada"
-  }
+const countries = {
+  de: msg`Germany`,
+  ch: msg`Switzerland`,
+  at: msg`Austria`,
+  lu: msg`Luxembourg`,
+  fr: msg`France`,
+  nl: msg`Netherlands`,
+  be: msg`Belgium`,
+  us: msg`United States`,
+  cn: msg`China`,
+  ca: msg`Canada`
 }
+
+console.log("Countries", countries)
 
 const industries: Record<string, Record<string, string>> = {
   de: {
@@ -155,7 +143,7 @@ const industries: Record<string, Record<string, string>> = {
 
 export function Project({ data }: ProjectProps) {
   const { i18n } = useLingui()
-  const customerLogoUrl = urlFor(data.customer?.logo).url()
+  const customerLogoUrl = urlFor(data.customer.logo).url()
   const language = i18n.locale
 
   return (
@@ -167,7 +155,7 @@ export function Project({ data }: ProjectProps) {
 
       <img
         src={customerLogoUrl}
-        alt={data.customer?.name}
+        alt={data.customer.name}
         className={logoClass}
       />
 
@@ -175,14 +163,14 @@ export function Project({ data }: ProjectProps) {
         <p className={customerClass}>
           <Trans>Customer:</Trans>
           <br />
-          {data.customer?.name}
+          {data.customer.name}
           <br />
-          {data.customer?.city},{" "}
-          {countries[language][stegaClean(data.customer?.country)]}
+          {data.customer.city},{" "}
+          {i18n._(countries[stegaClean(data.customer.country)])}
         </p>
         <p className={industryClass}>
           <Trans>Industry:</Trans>
-          <br /> {industries[language][stegaClean(data.customer?.industry)]}
+          <br /> {industries[language][stegaClean(data.customer.industry)]}
         </p>
         <p className={periodClass}>
           <Trans>Period:</Trans>

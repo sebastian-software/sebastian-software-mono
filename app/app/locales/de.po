@@ -13,14 +13,54 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: app/components/profile/project-list/ProjectList.tsx:178
+#: app/components/profile/project-list/ProjectList.tsx:65
+msgid "Austria"
+msgstr "Östereich"
+
+#: app/components/profile/project-list/ProjectList.tsx:69
+msgid "Belgium"
+msgstr "Belgien"
+
+#: app/components/profile/project-list/ProjectList.tsx:72
+msgid "Canada"
+msgstr "Kanada"
+
+#: app/components/profile/project-list/ProjectList.tsx:71
+msgid "China"
+msgstr "China"
+
+#: app/components/profile/project-list/ProjectList.tsx:164
 msgid "Customer:"
 msgstr "Kunde:"
 
-#: app/components/profile/project-list/ProjectList.tsx:186
+#: app/components/profile/project-list/ProjectList.tsx:67
+msgid "France"
+msgstr "Frankreich"
+
+#: app/components/profile/project-list/ProjectList.tsx:63
+msgid "Germany"
+msgstr "Deutschland"
+
+#: app/components/profile/project-list/ProjectList.tsx:172
 msgid "Industry:"
 msgstr "Branche:"
 
-#: app/components/profile/project-list/ProjectList.tsx:190
+#: app/components/profile/project-list/ProjectList.tsx:66
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: app/components/profile/project-list/ProjectList.tsx:68
+msgid "Netherlands"
+msgstr "Niederlande"
+
+#: app/components/profile/project-list/ProjectList.tsx:176
 msgid "Period:"
 msgstr "Zeitraum:"
+
+#: app/components/profile/project-list/ProjectList.tsx:64
+msgid "Switzerland"
+msgstr "Schweiz"
+
+#: app/components/profile/project-list/ProjectList.tsx:70
+msgid "United States"
+msgstr "Vereinigte Staaten"
