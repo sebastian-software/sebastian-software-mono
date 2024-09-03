@@ -1,3 +1,4 @@
+import type { SanityDocument } from "sanity"
 import { defineField, defineType } from "sanity"
 
 import { removeCompanySuffixes } from "./utils"
@@ -20,7 +21,7 @@ export const companyType = defineType({
 
     defineField({
       name: "city",
-      type: "localeString",
+      type: "string",
       validation: (Rule) => Rule.required()
     }),
 
@@ -89,7 +90,8 @@ export const companyType = defineType({
       type: "slug",
       validation: (Rule) => Rule.required(),
       options: {
-        source: (document) => removeCompanySuffixes(document.name)
+        source: (doc: SanityDocument) =>
+          removeCompanySuffixes(doc.name as string)
       }
     })
   ],
