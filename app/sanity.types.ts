@@ -236,6 +236,12 @@ export type Company = {
   slug: Slug
 }
 
+export type Slug = {
+  _type: "slug"
+  current: string
+  source?: string
+}
+
 export type Picture = {
   _id: string
   _type: "picture"
@@ -253,15 +259,12 @@ export type Picture = {
     crop?: SanityImageCrop
     _type: "image"
   }
-  alt: LocaleString
+  alt: Array<
+    {
+      _key: string
+    } & InternationalizedArrayStringValue
+  >
   date: string
-  slug: Slug
-}
-
-export type Slug = {
-  _type: "slug"
-  current: string
-  source?: string
 }
 
 export type Consultant = {
@@ -367,12 +370,6 @@ export type Address = {
     | "France"
     | "Netherlands"
     | "Belgium"
-}
-
-export type LocaleString = {
-  _type: "localeString"
-  en?: string
-  de?: string
 }
 
 export type InternationalizedArrayTextValue = {
@@ -542,8 +539,8 @@ export type AllSanitySchemaTypes =
   | Human
   | Project
   | Company
-  | Picture
   | Slug
+  | Picture
   | Consultant
   | SanityImageCrop
   | SanityImageHotspot
@@ -551,7 +548,6 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | Address
-  | LocaleString
   | InternationalizedArrayTextValue
   | InternationalizedArrayStringValue
   | InternationalizedArrayText
@@ -569,49 +565,6 @@ export type AllSanitySchemaTypes =
   | SanityAssistInstruction
   | SanityAssistSchemaTypeField
 export declare const internalGroqTypeReferenceTo: unique symbol
-// Source: ./app/routes/testimonial.$slug.tsx
-// Variable: TESTIMONIAL_QUERY
-// Query: *[_type == "testimonial" && slug.current == $slug][0] {    date,    language,    quote,    author->{      name,      headshot,      position,      company->{        name      }    },    position,    company->{      name    }  }
-export type TESTIMONIAL_QUERYResult = {
-  date: string
-  language: null
-  quote: Array<
-    {
-      _key: string
-    } & InternationalizedArrayTextValue
-  > | null
-  author: {
-    name: string
-    headshot: {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: "image"
-    } | null
-    position: Array<
-      {
-        _key: string
-      } & InternationalizedArrayStringValue
-    > | null
-    company: {
-      name: string
-    } | null
-  }
-  position: Array<
-    {
-      _key: string
-    } & InternationalizedArrayStringValue
-  > | null
-  company: {
-    name: string
-  } | null
-} | null
-
 // Source: ./app/queries/customers.ts
 // Variable: CUSTOMERS_QUERY
 // Query: *[_id in array::unique(*[_type == "project"].customer->_id)]{    _id,    name,    city,    country,    industry,    logo  } | order(name asc)
@@ -791,11 +744,13 @@ export type PROJECTS_QUERYResult = Array<{
 
 // Source: ./app/queries/testimonials.ts
 // Variable: TESTIMONIALS_QUERY
-// Query: *[_type == "testimonial"] | order(date desc){    _id,    slug,    date,    author->{      name,      headshot,      status,      position,      company->{        name      }    },    position,    company->{      name    }  }
+// Query: *[_type == "testimonial"] | order(date desc){    _id,    date,    consultant->{      name    },    author->{      name,      headshot    },    "position": position[_key == $language][0].value,    company->{      name    }  }
 export type TESTIMONIALS_QUERYResult = Array<{
   _id: string
-  slug: null
   date: string
+  consultant: {
+    name: string
+  }
   author: {
     name: string
     headshot: {
@@ -809,33 +764,48 @@ export type TESTIMONIALS_QUERYResult = Array<{
       crop?: SanityImageCrop
       _type: "image"
     } | null
-    status: "employee" | "freelancer" | "owner" | null
-    position: Array<
-      {
-        _key: string
-      } & InternationalizedArrayStringValue
-    > | null
-    company: {
-      name: string
-    } | null
   }
-  position: Array<
-    {
-      _key: string
-    } & InternationalizedArrayStringValue
-  > | null
+  position: string | null
   company: {
     name: string
   } | null
 }>
+// Variable: TESTIMONIAL_QUERY
+// Query: *[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {    date,    consultant->{      name    },    author->{      name,      headshot,    },    language,    "quote": quote[_key == $language][0].value,    "position": position[_key == $language][0].value,    company->{      name    }  }
+export type TESTIMONIAL_QUERYResult = {
+  date: string
+  consultant: {
+    name: string
+  }
+  author: {
+    name: string
+    headshot: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+  }
+  language: null
+  quote: string | null
+  position: string | null
+  company: {
+    name: string
+  } | null
+} | null
 
 // Query TypeMap
 import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "testimonial" && slug.current == $slug][0] {\n    date,\n    language,\n    quote,\n    author->{\n      name,\n      headshot,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
     '\n  *[_id in array::unique(*[_type == "project"].customer->_id)]{\n    _id,\n    name,\n    city,\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CUSTOMERS_QUERYResult
     '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
-    '*[_type == "testimonial"] | order(date desc){\n    _id,\n    slug,\n    date,\n    author->{\n      name,\n      headshot,\n      status,\n      position,\n      company->{\n        name\n      }\n    },\n    position,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
+    '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
+    '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
   }
 }

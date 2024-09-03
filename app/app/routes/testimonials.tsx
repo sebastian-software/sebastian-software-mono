@@ -11,6 +11,7 @@ import { TESTIMONIALS_QUERY } from "~/queries/testimonials"
 import { urlFor } from "~/sanity/image"
 import { loadQuery } from "~/sanity/loader.server"
 import { formatDate } from "~/utils/formatDate"
+import { buildReadableUrl, encodeFirstUuidSegment } from "~/utils/urlHelper"
 
 export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
@@ -36,14 +37,18 @@ export interface TestimonialProps {
 }
 
 export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
-  const shortId = data._id.split("-")[0]
-  console.log(data)
+  const shortId = encodeFirstUuidSegment(data._id)
+  const readableUrl = buildReadableUrl([
+    data.author.name,
+    ".",
+    data.consultant.name
+  ])
 
   return (
     <div style={{ width: "15rem" }}>
       <Link
         data-sanity={encodeDataAttribute("slug")}
-        to={`/testimonial/${shortId}`}
+        to={`/testimonial/${readableUrl}${shortId}`}
       >
         <span
           style={{

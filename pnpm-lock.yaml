@@ -31,7 +31,7 @@ importers:
         version: 2.5.2(prettier@3.3.3)
       sst:
         specifier: ion
-        version: 3.0.75
+        version: 3.0.97
       svgo:
         specifier: ^3.3.2
         version: 3.3.2
@@ -80,6 +80,9 @@ importers:
       '@sanity/visual-editing':
         specifier: ^2.1.9
         version: 2.1.9(@remix-run/react@2.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4))(@sanity/client@6.21.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@sindresorhus/slugify':
+        specifier: ^2.2.1
+        version: 2.2.1
       '@unpic/react':
         specifier: ^0.1.14
         version: 0.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2502,6 +2505,14 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
+  '@sindresorhus/slugify@2.2.1':
+    resolution: {integrity: sha512-MkngSCRZ8JdSOCHRaYd+D01XhvU3Hjy6MGl06zhOk614hp9EOAp5gIkBeQg7wtmxpitU6eAL4kdiRMcJa2dlrw==}
+    engines: {node: '>=12'}
+
+  '@sindresorhus/transliterate@1.6.0':
+    resolution: {integrity: sha512-doH1gimEu3A46VX6aVxpHTeHrytJAG6HgdxntYnCFiIFHEM/ZGpG8KiZGBChchjQmG0XFIBL552kBTjVcMZXwQ==}
+    engines: {node: '>=12'}
+
   '@smithy/abort-controller@2.2.0':
     resolution: {integrity: sha512-wRlta7GuLWpTqtFfGo+nZyOO1vEvewdNR1R4rTxpC8XU6vG/NDyrFBhwLZsqg1NUoR1noVaXJPC/7ZK47QCySw==}
     engines: {node: '>=14.0.0'}
@@ -4007,6 +4018,10 @@ packages:
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+
+  escape-string-regexp@5.0.0:
+    resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
+    engines: {node: '>=12'}
 
   eslint-compat-utils@0.5.1:
     resolution: {integrity: sha512-3z3vFexKIEnjHE3zCMRo6fn/e44U7T1khUjg+Hp0ZQMCigh28rALD0nPFBcGZuiLC5rLZa2ubQHDRln09JfU2Q==}
@@ -6673,33 +6688,33 @@ packages:
     resolution: {integrity: sha512-MGrFH9Z4NP9Iyhqn16sDtBpRRNJ0Y2hNa6D65h736fVSaPCHr4DM4sWUNvVaSuC+0OBGhwsrydQwmgfg5LncqQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  sst-darwin-arm64@3.0.75:
-    resolution: {integrity: sha512-mzE8t5e12Sc2ca7NO55zr6wybYAnFHdNeCIRpzxx9lrpzFczwAYMtXGn2xPgPfw9OY9jbNp7RYw5eYuP0ylQtg==}
+  sst-darwin-arm64@3.0.97:
+    resolution: {integrity: sha512-71fK+JXChzHCsS/nBG4WVIg8pZvqAdimYRK85AtWmjPcNFyGYIQszGa0KBrMk4cFihdnqbU+ZTRArsQIvkzDZA==}
     cpu: [arm64]
     os: [darwin]
 
-  sst-darwin-x64@3.0.75:
-    resolution: {integrity: sha512-Qbi4yQWb/zFlg4uL88gfazkoq+WHWKeGZ0/Q6/0adeMlFp7vThEyktPS8MK0MiQuLoESLON++cIcmyXHoDBRnQ==}
+  sst-darwin-x64@3.0.97:
+    resolution: {integrity: sha512-x17UjUDClAf5R5RrONu8V9T1pGgAotdGY5KIHBd7fgUPt5oeFdlbeqQVgt89V5ZSExzATQue8oR9hH+UGhTsNg==}
     cpu: [x64]
     os: [darwin]
 
-  sst-linux-arm64@3.0.75:
-    resolution: {integrity: sha512-ah51s1Vcn5DJM94iyTh8sn6pvshnFqSPzhVamWY454RvGDY3/3HsHwlqYHkHyo2gMvMEg8GLAxroeXWNf32hmQ==}
+  sst-linux-arm64@3.0.97:
+    resolution: {integrity: sha512-3tYqLA/b3hjgA5pbACBXrNyRen2+PFRwOgHKmr5lkVbBYb4UKuB9GFN9QecWGKod8P/9mSTlE3pgwpXiecSa7w==}
     cpu: [arm64]
     os: [linux]
 
-  sst-linux-x64@3.0.75:
-    resolution: {integrity: sha512-IZtcMYo0xugiXs5n0ZvydRq/S6Vs1wiT1EL4QKt+/EGIzor3VUsbaMRVzThzJ7PZ9eJA/8LuzpKTvvh/JBLGUw==}
+  sst-linux-x64@3.0.97:
+    resolution: {integrity: sha512-VDlzw/V6qXLSCPOymY+O8Xoth3B4VnTv+11HiLobP8SuLOnUULE3szF+v+rzA9mPTL1/0OMknGa/kUUau95tFA==}
     cpu: [x64]
     os: [linux]
 
-  sst-linux-x86@3.0.75:
-    resolution: {integrity: sha512-uRMCkG0zmTeFIt92PtTUQS8HZ1qVha76mg/9B1vvTIuUDha3PIIP2OhODzWGLz+bye6toBDMYjnb+Oo73LH/Lg==}
+  sst-linux-x86@3.0.97:
+    resolution: {integrity: sha512-eRRno4gjkZ4hjARm0pTr3vgKjZM0pTct5tJyV7pXnSljlLIRtVKUJYxRNRo2VUi2BnarM1MYoVh1nS2sLQ3Pbw==}
     cpu: [x86]
     os: [linux]
 
-  sst@3.0.75:
-    resolution: {integrity: sha512-6LAic47T2CnsoXOqBCrj5RgDDH2Y+z7oqpGbopcvdVHDTBzi6n7NbQpwtfCwuSvd2ym+royXq9SPfLwpr1jOXA==}
+  sst@3.0.97:
+    resolution: {integrity: sha512-0MyOKaFwDGuCjQAOwtjxe/kCOSAmX1M2sbaxAzP5Qzd5RguYLrGLm9m1DzmompITyGjs2cOiHRmLS9Pip+RQng==}
     hasBin: true
     peerDependencies:
       hono: 4.x
@@ -10407,6 +10422,15 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
+  '@sindresorhus/slugify@2.2.1':
+    dependencies:
+      '@sindresorhus/transliterate': 1.6.0
+      escape-string-regexp: 5.0.0
+
+  '@sindresorhus/transliterate@1.6.0':
+    dependencies:
+      escape-string-regexp: 5.0.0
+
   '@smithy/abort-controller@2.2.0':
     dependencies:
       '@smithy/types': 2.12.0
@@ -12360,6 +12384,8 @@ snapshots:
   escape-string-regexp@1.0.5: {}
 
   escape-string-regexp@4.0.0: {}
+
+  escape-string-regexp@5.0.0: {}
 
   eslint-compat-utils@0.5.1(eslint@8.57.0):
     dependencies:
@@ -15512,33 +15538,33 @@ snapshots:
     dependencies:
       minipass: 7.1.2
 
-  sst-darwin-arm64@3.0.75:
+  sst-darwin-arm64@3.0.97:
     optional: true
 
-  sst-darwin-x64@3.0.75:
+  sst-darwin-x64@3.0.97:
     optional: true
 
-  sst-linux-arm64@3.0.75:
+  sst-linux-arm64@3.0.97:
     optional: true
 
-  sst-linux-x64@3.0.75:
+  sst-linux-x64@3.0.97:
     optional: true
 
-  sst-linux-x86@3.0.75:
+  sst-linux-x86@3.0.97:
     optional: true
 
-  sst@3.0.75:
+  sst@3.0.97:
     dependencies:
       '@aws-sdk/client-lambda': 3.478.0
       aws4fetch: 1.0.20
       jose: 5.2.3
       openid-client: 5.6.4
     optionalDependencies:
-      sst-darwin-arm64: 3.0.75
-      sst-darwin-x64: 3.0.75
-      sst-linux-arm64: 3.0.75
-      sst-linux-x64: 3.0.75
-      sst-linux-x86: 3.0.75
+      sst-darwin-arm64: 3.0.97
+      sst-darwin-x64: 3.0.97
+      sst-linux-arm64: 3.0.97
+      sst-linux-x64: 3.0.97
+      sst-linux-x86: 3.0.97
     transitivePeerDependencies:
       - aws-crt
 

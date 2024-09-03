@@ -2,40 +2,29 @@ import { type LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useQuery } from "@sanity/react-loader"
 import { Image } from "@unpic/react"
-import { defineQuery } from "groq"
 import type { TESTIMONIAL_QUERYResult } from "sanity.types"
 
+import { getAppLanguage } from "~/language.server"
+import { TESTIMONIAL_QUERY } from "~/queries/testimonials"
 import { urlFor } from "~/sanity/image"
 import { loadQuery } from "~/sanity/loader.server"
 import { formatDate } from "~/utils/formatDate"
+import { extractFirstUuidSegment } from "~/utils/urlHelper"
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  console.log("Loader Params Slug:", params.slug)
+  const shortId = extractFirstUuidSegment(params.slug)
+  const queryParams = {
+    language: await getAppLanguage(request),
+    shortId
+  }
+
   const initial = await loadQuery<TESTIMONIAL_QUERYResult>(
     TESTIMONIAL_QUERY,
-    params
+    queryParams
   )
-  return { initial, query: TESTIMONIAL_QUERY, params }
+  return { initial, query: TESTIMONIAL_QUERY, params: queryParams }
 }
-
-export const TESTIMONIAL_QUERY =
-  defineQuery(`*[_type == "testimonial" && slug.current == $slug][0] {
-    date,
-    language,
-    quote,
-    author->{
-      name,
-      headshot,
-      position,
-      company->{
-        name
-      }
-    },
-    position,
-    company->{
-      name
-    }
-  }
-`)
 
 export default function TestimonialRoute() {
   const { initial, query, params } = useLoaderData<typeof loader>()
@@ -55,16 +44,22 @@ export default function TestimonialRoute() {
   return (
     <section data-sanity={encodeDataAttribute("slug")}>
       <div style={{ background: "grey" }}>
-        {data.author?.headshot && (
+        {data.author.headshot && (
           <Image
             data-sanity={encodeDataAttribute("author.headshot")}
-            src={urlFor(data.author?.headshot).url()}
-            width={150}
+            src={urlFor(data.author.headshot).url()}
+            width={120}
+            height={150}
           />
         )}
       </div>
       <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>
-      <p style={{ whiteSpace: "pre-line" }}>{data.quote.de}</p>
+      <p style={{ whiteSpace: "pre-line" }}>{data.quote}</p>
+      <p>
+        {data.position}
+        <br />
+        {data.company?.name}
+      </p>
     </section>
   )
 }
