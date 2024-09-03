@@ -3,9 +3,9 @@ import { Link } from "@remix-run/react"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import { useQuery } from "@sanity/react-loader"
 import { Image } from "@unpic/react"
-import { defineQuery } from "groq"
 import type { TESTIMONIALS_QUERYResult } from "sanity.types"
 
+import { TESTIMONIALS_QUERY } from "~/queries/testimonials"
 import { urlFor } from "~/sanity/image"
 import { loadQuery } from "~/sanity/loader.server"
 import { formatDate } from "~/utils/formatDate"
@@ -13,27 +13,6 @@ import { formatDate } from "~/utils/formatDate"
 export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
 }
-
-export const TESTIMONIALS_QUERY =
-  defineQuery(`*[_type == "testimonial" && defined(slug.current)] | order(date desc){
-    _id,
-    slug,
-    date,
-    author->{
-      name,
-      headshot,
-      status,
-      position,
-      company->{
-        name
-      }
-    },
-    position,
-    company->{
-      name
-    }
-  }
-`)
 
 export const loader = async () => {
   const initial = await loadQuery<TESTIMONIALS_QUERYResult>(TESTIMONIALS_QUERY)
@@ -60,15 +39,15 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
             display: "inline-block"
           }}
         >
-          {data.author?.headshot && (
+          {data.author.headshot && (
             <Image
-              src={urlFor(data.author?.headshot).url()}
+              src={urlFor(data.author.headshot).url()}
               width={120}
               height={150}
             />
           )}
         </span>
-        <h3>{data.author?.name}</h3>
+        <h3>{data.author.name}</h3>
       </Link>
       <p>
         {data.position?.de}
@@ -101,7 +80,7 @@ export default function Index() {
         flexWrap: "wrap"
       }}
     >
-      {data?.length &&
+      {data.length &&
         data.map((item, i) => (
           <Testimonial
             key={item._id}
