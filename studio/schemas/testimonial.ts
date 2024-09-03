@@ -52,18 +52,22 @@ export const testimonialType = defineType({
 
     defineField({
       name: "position",
+      description: "The position the author holds at the time of the quote.",
       type: "internationalizedArrayString"
     }),
 
     defineField({
       name: "company",
       type: "reference",
+      description:
+        "The company the author worked for at the time of the quote.",
       to: [{ type: "company" }]
     }),
 
     defineField({
       name: "quoteLanguage",
       type: "string",
+      description: "The original language of the quote",
       validation: (Rule) => Rule.required(),
       options: {
         list: [
