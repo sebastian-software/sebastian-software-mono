@@ -30,7 +30,7 @@ export const humanType = defineType({
 
     defineField({
       name: "position",
-      type: "localeString"
+      type: "internationalizedArrayString"
     }),
 
     defineField({
