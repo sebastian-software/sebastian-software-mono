@@ -69,7 +69,8 @@ export const testimonialType = defineType({
         list: [
           { title: "English", value: "en" },
           { title: "Deutsch", value: "de" }
-        ]
+        ],
+        layout: "radio"
       }
     }),
 
@@ -82,7 +83,8 @@ export const testimonialType = defineType({
           { title: "Xing", value: "xing" },
           { title: "Email", value: "email" },
           { title: "Other", value: "other" }
-        ]
+        ],
+        layout: "radio"
       }
     }),
 
