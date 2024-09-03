@@ -14,7 +14,7 @@ export const PROJECTS_QUERY = defineQuery(`
     customer->
     {
       name,
-      "city": city[$language],
+      city,
       country,
       industry,
       logo
@@ -23,7 +23,7 @@ export const PROJECTS_QUERY = defineQuery(`
     {
       _id,
       "quote": quote[_key == $language][0].value,
-      "position": position[$language],
+      "position": position[_key == $language][0].value,
       author->{
         name,
         headshot

@@ -430,8 +430,22 @@
       "position": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "localeString"
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
         },
         "optional": true
       },
@@ -659,8 +673,22 @@
       "position": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "localeString"
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
         },
         "optional": true
       },
@@ -1024,8 +1052,7 @@
       "city": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "localeString"
+          "type": "string"
         },
         "optional": false
       },
