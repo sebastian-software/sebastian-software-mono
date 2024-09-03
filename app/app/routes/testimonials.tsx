@@ -1,3 +1,4 @@
+import type { LoaderFunctionArgs } from "@remix-run/node"
 import { type MetaFunction, useLoaderData } from "@remix-run/react"
 import { Link } from "@remix-run/react"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
@@ -5,6 +6,7 @@ import { useQuery } from "@sanity/react-loader"
 import { Image } from "@unpic/react"
 import type { TESTIMONIALS_QUERYResult } from "sanity.types"
 
+import { getAppLanguage } from "~/language.server"
 import { TESTIMONIALS_QUERY } from "~/queries/testimonials"
 import { urlFor } from "~/sanity/image"
 import { loadQuery } from "~/sanity/loader.server"
@@ -14,10 +16,18 @@ export const meta: MetaFunction = () => {
   return [{ title: "Sebastian Software GmbH" }]
 }
 
-export const loader = async () => {
-  const initial = await loadQuery<TESTIMONIALS_QUERYResult>(TESTIMONIALS_QUERY)
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const params = {
+    name: "Sebastian Werner",
+    language: await getAppLanguage(request)
+  }
 
-  return { initial, query: TESTIMONIALS_QUERY, params: {} }
+  const initial = await loadQuery<TESTIMONIALS_QUERYResult>(
+    TESTIMONIALS_QUERY,
+    params
+  )
+
+  return { initial, query: TESTIMONIALS_QUERY, params }
 }
 
 export interface TestimonialProps {
@@ -26,11 +36,14 @@ export interface TestimonialProps {
 }
 
 export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
+  const shortId = data._id.split("-")[0]
+  console.log(data)
+
   return (
     <div style={{ width: "15rem" }}>
       <Link
         data-sanity={encodeDataAttribute("slug")}
-        to={data.slug?.current ? `/testimonial/${data.slug.current}` : "/"}
+        to={`/testimonial/${shortId}`}
       >
         <span
           style={{
@@ -50,7 +63,7 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
         <h3>{data.author.name}</h3>
       </Link>
       <p>
-        {data.position?.de}
+        {data.position}
         <br />
         {data.company?.name}
       </p>

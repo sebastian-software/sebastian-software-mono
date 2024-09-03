@@ -8,13 +8,9 @@ export const TESTIMONIALS_QUERY =
     author->{
       name,
       headshot,
-      status,
-      position,
-      company->{
-        name
-      }
+      status
     },
-    position,
+    "position": position[_key == $language][0].value,
     company->{
       name
     }
