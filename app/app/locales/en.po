@@ -60,7 +60,7 @@ msgstr "Consumer Staples"
 #: app/components/profile/project-list/ProjectList.tsx:82
 msgctxt "label"
 msgid "Customer:"
-msgstr "Kunde:"
+msgstr "Customer:"
 
 #: app/components/i18n/IndustryName.tsx:35
 msgid "Education"
@@ -109,7 +109,7 @@ msgstr "Industrials"
 #: app/components/profile/project-list/ProjectList.tsx:89
 msgctxt "label"
 msgid "Industry:"
-msgstr "Branche:"
+msgstr "Industry:"
 
 #: app/components/i18n/IndustryName.tsx:6
 msgid "Information Technology"
@@ -142,7 +142,7 @@ msgstr "Netherlands"
 #: app/components/profile/project-list/ProjectList.tsx:94
 msgctxt "label"
 msgid "Period:"
-msgstr "Zeitraum:"
+msgstr "Period:"
 
 #: app/components/i18n/IndustryName.tsx:21
 msgid "Pharmaceuticals and Biotechnology"
