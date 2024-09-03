@@ -1,9 +1,10 @@
-import { msg, Trans } from "@lingui/macro"
+import { Trans } from "@lingui/macro"
 import { useLingui } from "@lingui/react"
 import { stegaClean } from "@sanity/client/stega"
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
+import { CountryName } from "~/components/i18n"
 import { urlFor } from "~/sanity/image"
 
 import { Neutral } from "../../neutral"
@@ -58,21 +59,6 @@ export function formatPeriod(start: string, end: string, language: string) {
 export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
 }
-
-const countries = {
-  de: msg`Germany`,
-  ch: msg`Switzerland`,
-  at: msg`Austria`,
-  lu: msg`Luxembourg`,
-  fr: msg`France`,
-  nl: msg`Netherlands`,
-  be: msg`Belgium`,
-  us: msg`United States`,
-  cn: msg`China`,
-  ca: msg`Canada`
-}
-
-console.log("Countries", countries)
 
 const industries: Record<string, Record<string, string>> = {
   de: {
@@ -165,8 +151,7 @@ export function Project({ data }: ProjectProps) {
           <br />
           {data.customer.name}
           <br />
-          {data.customer.city},{" "}
-          {i18n._(countries[stegaClean(data.customer.country)])}
+          {data.customer.city}, <CountryName code={data.customer.country} />
         </p>
         <p className={industryClass}>
           <Trans>Industry:</Trans>
