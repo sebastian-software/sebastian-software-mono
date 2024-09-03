@@ -24,17 +24,20 @@ export const humanType = defineType({
           { title: "Freelancer", value: "freelancer" },
           { title: "Business Owner", value: "owner" },
           { title: "Employee", value: "employee" }
-        ]
+        ],
+        layout: "radio"
       }
     }),
 
     defineField({
       name: "position",
+      description: "Last known position",
       type: "internationalizedArrayString"
     }),
 
     defineField({
       name: "company",
+      description: "Last known company",
       type: "reference",
       to: [{ type: "company" }]
     })
