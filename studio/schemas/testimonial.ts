@@ -52,7 +52,7 @@ export const testimonialType = defineType({
 
     defineField({
       name: "position",
-      type: "localeString"
+      type: "internationalizedArrayString"
     }),
 
     defineField({
