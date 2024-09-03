@@ -15,7 +15,7 @@ export const pictureType = defineType({
 
     defineField({
       name: "alt",
-      type: "localeString",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required()
     }),
 
