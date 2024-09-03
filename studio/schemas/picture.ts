@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity"
 
-import { defaultLanguage } from "./localeStringType"
+import { PREVIEW_LANGUAGE } from "./utils"
 
 export const pictureType = defineType({
   name: "picture",
@@ -23,23 +23,25 @@ export const pictureType = defineType({
       name: "date",
       type: "date",
       validation: (Rule) => Rule.required()
-    }),
-
-    defineField({
-      name: "slug",
-      type: "slug",
-      options: {
-        source: (doc) => `${doc.date}-${doc.alt[defaultLanguage]}`,
-        maxLength: 80
-      },
-      validation: (Rule) => Rule.required()
     })
   ],
   preview: {
     select: {
-      title: "alt." + defaultLanguage,
+      title: "alt",
       subtitle: "date",
       media: "image"
+    },
+    prepare({ title, subtitle, media }) {
+      const translatedTitle = title?.find(
+        (variant: { _key: string; value: string }) =>
+          variant._key === PREVIEW_LANGUAGE
+      )?.value
+
+      return {
+        title: translatedTitle,
+        subtitle,
+        media
+      }
     }
   },
   orderings: [

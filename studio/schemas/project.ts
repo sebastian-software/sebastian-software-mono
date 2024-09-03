@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity"
 
-const PREVIEW_LANGUAGE = "de"
+import { PREVIEW_LANGUAGE } from "./utils"
 
 export const projectType = defineType({
   name: "project",

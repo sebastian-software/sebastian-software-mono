@@ -49,3 +49,5 @@ export function getCurrentDate() {
 }
 
 export const clientOptions = { apiVersion: getCurrentDate() }
+
+export const PREVIEW_LANGUAGE = "de"
