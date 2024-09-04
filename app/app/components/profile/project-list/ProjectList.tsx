@@ -1,6 +1,9 @@
 import { Trans } from "@lingui/macro"
 import { useLingui } from "@lingui/react"
-import type { EncodeDataAttributeCallback } from "@sanity/react-loader"
+import type {
+  EncodeDataAttributeCallback,
+  useEncodeDataAttribute
+} from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { CountryName, IndustryName } from "~/components/i18n"
@@ -26,7 +29,7 @@ import {
 
 export interface ProjectListProps {
   readonly data: PROJECTS_QUERYResult
-  readonly encodeDataAttribute: EncodeDataAttributeCallback
+  readonly encodeDataAttribute: ReturnType<typeof useEncodeDataAttribute>
 }
 
 export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
