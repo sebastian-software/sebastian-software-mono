@@ -37,7 +37,7 @@ export function CustomersList({ data }: CustomersListProps) {
               <li key={customer.name} className={itemClass}>
                 <img
                   className={logoClass}
-                  src={urlFor(customer.logo).url()}
+                  src={urlFor(customer.logo)?.url()}
                   width={150}
                   alt={customer.name}
                 />

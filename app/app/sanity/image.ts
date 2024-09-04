@@ -5,6 +5,6 @@ import { dataset, projectId } from "~/sanity/env"
 
 const builder = imageUrlBuilder({ projectId, dataset })
 
-export function urlFor(source: SanityImageSource | null) {
+export function urlFor(source?: SanityImageSource | null) {
   return source ? builder.image(source) : null
 }

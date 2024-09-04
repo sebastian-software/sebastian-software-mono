@@ -26,11 +26,12 @@ export function TestimonialBlock({
   company,
   text
 }: TestimonialBlockProps) {
+  const headShotImage = urlFor(headshot)?.url()
   return (
     <article className={rootClass}>
-      {headshot && (
+      {headShotImage && (
         <Image
-          src={urlFor(headshot).url()}
+          src={headShotImage}
           width={80}
           height={80}
           className={imageClass}
