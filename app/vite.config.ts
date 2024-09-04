@@ -7,7 +7,14 @@ import macrosPlugin from "vite-plugin-babel-macros"
 import tsconfigPaths from "vite-tsconfig-paths"
 
 // SST is 1 if SST is used for deployment
-const presets = process.env.SST === "1" ? [] : [vercelPreset()]
+const IS_SST = process.env.SST === "1"
+const IS_STORYBOOK = process.env.STORYBOOK === "1"
+
+const remixPresets = []
+
+if (!IS_SST) {
+  remixPresets.push(vercelPreset())
+}
 
 export default defineConfig({
   build: {
@@ -20,10 +27,10 @@ export default defineConfig({
     }
   },
   plugins: [
-    remix({ presets }),
+    !IS_STORYBOOK && remix({ presets: remixPresets }),
     macrosPlugin(),
     lingui(),
     tsconfigPaths(),
     vanillaExtractPlugin()
-  ]
+  ].filter(Boolean)
 })
