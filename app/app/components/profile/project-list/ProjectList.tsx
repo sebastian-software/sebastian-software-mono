@@ -62,9 +62,9 @@ export interface ProjectProps {
 
 export function Project({ data }: ProjectProps) {
   const { i18n } = useLingui()
-  const clientLogoUrl = urlFor(data.client.logo).url()
+  const clientLogoUrl = urlFor(data.client.logo)?.url()
   const agentLogoUrl = data.agent?.logo
-    ? urlFor(data.agent.logo).url()
+    ? urlFor(data.agent.logo)?.url()
     : undefined
   const language = i18n.locale
 
