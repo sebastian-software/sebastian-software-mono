@@ -12,9 +12,9 @@ import {
 // Define an interface for the testimonial props
 interface TestimonialBlockProps {
   readonly author: string
-  readonly headshot?: string
-  readonly position?: string
-  readonly company?: string
+  readonly headshot?: string | null
+  readonly position?: string | null
+  readonly company?: string | null
   readonly text: string
 }
 
