@@ -10,7 +10,11 @@ import slugify from "@sindresorhus/slugify"
 /**
  * Extract the first UUID segment from a prepared URL
  */
-export function extractFirstUuidSegment(url: string): string | null {
+export function extractFirstUuidSegment(url?: string | null): string | null {
+  if (!url) {
+    return null
+  }
+
   // Regular expression to match a UUID pattern after a tilde (~) followed by a word boundary
   const regex = /~([\da-f]{8})\b/i
 

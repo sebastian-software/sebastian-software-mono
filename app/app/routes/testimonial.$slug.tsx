@@ -40,13 +40,15 @@ export default function TestimonialRoute() {
     return null
   }
 
+  const headshotImage = urlFor(data.author.headshot)?.url()
+
   return (
     <section data-sanity={encodeDataAttribute("slug")}>
       <div style={{ background: "grey" }}>
-        {data.author.headshot && (
+        {headshotImage && (
           <Image
             data-sanity={encodeDataAttribute("author.headshot")}
-            src={urlFor(data.author.headshot).url()}
+            src={headshotImage}
             width={120}
             height={150}
           />
