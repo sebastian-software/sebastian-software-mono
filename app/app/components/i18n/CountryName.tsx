@@ -12,7 +12,8 @@ const countries = {
   be: msg`Belgium`,
   us: msg`United States`,
   cn: msg`China`,
-  ca: msg`Canada`
+  ca: msg`Canada`,
+  gb: msg`United Kingdom`
 }
 
 export function CountryName({

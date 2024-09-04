@@ -184,6 +184,10 @@ msgstr "Textiles, Apparel & Luxury Goods"
 msgid "Transportation"
 msgstr "Transportation"
 
+#: app/components/i18n/CountryName.tsx:16
+msgid "United Kingdom"
+msgstr "United Kingdom"
+
 #: app/components/i18n/CountryName.tsx:13
 msgid "United States"
 msgstr "United States"
