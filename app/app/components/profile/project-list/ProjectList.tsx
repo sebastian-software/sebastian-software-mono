@@ -25,7 +25,7 @@ import {
 } from "./ProjectList.css"
 
 export interface ProjectListProps {
-  readonly data: unknown[]
+  readonly data: PROJECTS_QUERYResult
   readonly encodeDataAttribute: EncodeDataAttributeCallback
 }
 
@@ -58,9 +58,10 @@ export function formatPeriod(start: string, end: string, language: string) {
 
 export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
+  readonly encodeDataAttribute: EncodeDataAttributeCallback
 }
 
-export function Project({ data }: ProjectProps) {
+export function Project({ data, encodeDataAttribute }: ProjectProps) {
   const { i18n } = useLingui()
   const clientLogoUrl = urlFor(data.client.logo)?.url()
   const agentLogoUrl = data.agent?.logo
@@ -85,12 +86,18 @@ export function Project({ data }: ProjectProps) {
           <br />
           {data.client.city}, <CountryName code={data.client.country} />
         </p>
-        <p className={industryClass}>
+        <p
+          className={industryClass}
+          data-sanity={encodeDataAttribute("client.industry")}
+        >
           <Trans context="label">Industry:</Trans>
           <br />
           <IndustryName code={data.client.industry} />
         </p>
-        <p className={periodClass}>
+        <p
+          className={periodClass}
+          data-sanity={encodeDataAttribute("contractStart")}
+        >
           <Trans context="label">Period:</Trans>
           <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>

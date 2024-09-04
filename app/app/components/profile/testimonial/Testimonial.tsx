@@ -1,3 +1,4 @@
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types"
 import { Image } from "@unpic/react"
 
 import { urlFor } from "~/sanity/image"
@@ -12,7 +13,7 @@ import {
 // Define an interface for the testimonial props
 interface TestimonialBlockProps {
   readonly author: string
-  readonly headshot?: string | null
+  readonly headshot?: SanityImageSource | null
   readonly position?: string | null
   readonly company?: string | null
   readonly text?: string | null
