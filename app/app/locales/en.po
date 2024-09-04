@@ -156,6 +156,10 @@ msgstr "Pharmaceuticals and Biotechnology"
 msgid "Real Estate"
 msgstr "Real Estate"
 
+#: app/components/i18n/IndustryName.tsx:36
+msgid "Recruitment"
+msgstr "Recruitment"
+
 #: app/components/i18n/IndustryName.tsx:28
 msgid "Retail"
 msgstr "Retail"

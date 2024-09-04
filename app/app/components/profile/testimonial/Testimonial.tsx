@@ -15,7 +15,7 @@ interface TestimonialBlockProps {
   readonly headshot?: string | null
   readonly position?: string | null
   readonly company?: string | null
-  readonly text: string
+  readonly text?: string | null
 }
 
 // The Testimonial component using a named function and explicit return type

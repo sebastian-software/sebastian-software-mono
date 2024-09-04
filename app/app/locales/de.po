@@ -156,6 +156,10 @@ msgstr "Pharmazeutika und Biotechnologie"
 msgid "Real Estate"
 msgstr "Immobilien"
 
+#: app/components/i18n/IndustryName.tsx:36
+msgid "Recruitment"
+msgstr "Personalvermittlung"
+
 #: app/components/i18n/IndustryName.tsx:28
 msgid "Retail"
 msgstr "Einzelhandel"

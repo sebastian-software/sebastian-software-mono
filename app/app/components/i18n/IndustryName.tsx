@@ -32,7 +32,8 @@ const industries = {
   Telecom: msg`Telecommunication Services`,
   Textiles: msg`Textiles, Apparel & Luxury Goods`,
   Transportation: msg`Transportation`,
-  Utilities: msg`Utilities`
+  Utilities: msg`Utilities`,
+  Recruitement: msg`Recruitment`
 }
 
 export function IndustryName({

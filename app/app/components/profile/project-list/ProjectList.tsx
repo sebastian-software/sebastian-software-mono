@@ -102,7 +102,7 @@ export function Project({ data }: ProjectProps) {
               alt={data.agent.name}
               className={logoClass}
             />
-            <br /> {data.agent?.name}
+            <br /> {data.agent.name}
           </p>
         )}
         {/* {data.technologies && (
