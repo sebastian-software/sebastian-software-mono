@@ -789,7 +789,7 @@
         },
         "optional": false
       },
-      "customer": {
+      "client": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -818,6 +818,36 @@
           "dereferencesTo": "company"
         },
         "optional": false
+      },
+      "agent": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "_ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              }
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "reference"
+              }
+            },
+            "_weak": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
+            }
+          },
+          "dereferencesTo": "company"
+        },
+        "optional": true
       },
       "title": {
         "type": "objectAttribute",
@@ -1100,6 +1130,10 @@
             {
               "type": "string",
               "value": "ca"
+            },
+            {
+              "type": "string",
+              "value": "gb"
             }
           ]
         },
@@ -1225,6 +1259,10 @@
             {
               "type": "string",
               "value": "Education"
+            },
+            {
+              "type": "string",
+              "value": "Recruitement"
             }
           ]
         },

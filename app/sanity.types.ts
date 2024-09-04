@@ -151,7 +151,13 @@ export type Project = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: "consultant"
   }
-  customer: {
+  client: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "company"
+  }
+  agent?: {
     _ref: string
     _type: "reference"
     _weak?: boolean
@@ -202,7 +208,18 @@ export type Company = {
   }
   name: string
   city: string
-  country: "de" | "ch" | "at" | "lu" | "fr" | "nl" | "be" | "us" | "cn" | "ca"
+  country:
+    | "de"
+    | "ch"
+    | "at"
+    | "lu"
+    | "fr"
+    | "nl"
+    | "be"
+    | "us"
+    | "cn"
+    | "ca"
+    | "gb"
   industry:
     | "IT"
     | "Staples"
@@ -233,6 +250,7 @@ export type Company = {
     | "Aerospace"
     | "Metals"
     | "Education"
+    | "Recruitement"
   slug: Slug
 }
 
@@ -597,6 +615,7 @@ export type CUSTOMERS_QUERYResult = Array<
         | "cn"
         | "de"
         | "fr"
+        | "gb"
         | "lu"
         | "nl"
         | "us"
@@ -623,6 +642,7 @@ export type CUSTOMERS_QUERYResult = Array<
         | "Metals"
         | "Pharma"
         | "RealEstate"
+        | "Recruitement"
         | "Retail"
         | "Software"
         | "Staples"
@@ -661,7 +681,7 @@ export type CUSTOMERS_QUERYResult = Array<
 
 // Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && consultant->name == $name]  {    _id,    "title": title[_key == $language][0].value,    "description": description[_key == $language][0].value,    "role": role[_key == $language][0].value,    contractStart,    contractEnd,    consultant->{      name,    },    customer->    {      name,      city,      country,      industry,      logo    },    testimonials[]->    {      _id,      "quote": quote[_key == $language][0].value,      "position": position[_key == $language][0].value,      author->{        name,        headshot      },      company->{        name      }    }  } | order(contractStart desc)
+// Query: *[_type == "project" && consultant->name == $name]  {    _id,    "title": title[_key == $language][0].value,    "description": description[_key == $language][0].value,    "role": role[_key == $language][0].value,    contractStart,    contractEnd,    consultant->{      name,    },    client->    {      name,      city,      country,      industry,      logo    },    agent->    {      name,      city,      country,      logo    },    testimonials[]->    {      _id,      "quote": quote[_key == $language][0].value,      "position": position[_key == $language][0].value,      author->{        name,        headshot      },      company->{        name      }    }  } | order(contractStart desc)
 export type PROJECTS_QUERYResult = Array<{
   _id: string
   title: string | null
@@ -672,10 +692,21 @@ export type PROJECTS_QUERYResult = Array<{
   consultant: {
     name: string
   }
-  customer: {
+  client: {
     name: string
     city: string
-    country: "at" | "be" | "ca" | "ch" | "cn" | "de" | "fr" | "lu" | "nl" | "us"
+    country:
+      | "at"
+      | "be"
+      | "ca"
+      | "ch"
+      | "cn"
+      | "de"
+      | "fr"
+      | "gb"
+      | "lu"
+      | "nl"
+      | "us"
     industry:
       | "Aerospace"
       | "Automobiles"
@@ -699,6 +730,7 @@ export type PROJECTS_QUERYResult = Array<{
       | "Metals"
       | "Pharma"
       | "RealEstate"
+      | "Recruitement"
       | "Retail"
       | "Software"
       | "Staples"
@@ -718,6 +750,33 @@ export type PROJECTS_QUERYResult = Array<{
       _type: "image"
     } | null
   }
+  agent: {
+    name: string
+    city: string
+    country:
+      | "at"
+      | "be"
+      | "ca"
+      | "ch"
+      | "cn"
+      | "de"
+      | "fr"
+      | "gb"
+      | "lu"
+      | "nl"
+      | "us"
+    logo: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    } | null
+  } | null
   testimonials: Array<{
     _id: string
     quote: string | null
@@ -804,7 +863,7 @@ import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_id in array::unique(*[_type == "project"].customer->_id)]{\n    _id,\n    name,\n    city,\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CUSTOMERS_QUERYResult
-    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    customer->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
+    '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    client->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    agent->\n    {\n      name,\n      city,\n      country,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
   }
