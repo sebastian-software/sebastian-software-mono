@@ -12,7 +12,10 @@ import { formatDate } from "~/utils/formatDate"
 import { extractFirstUuidSegment } from "~/utils/urlHelper"
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  console.log("Loader Params Slug:", params.slug)
+  if (!params.slug) {
+    return null
+  }
+
   const shortId = extractFirstUuidSegment(params.slug)
   const queryParams = {
     language: await getAppLanguage(request),
