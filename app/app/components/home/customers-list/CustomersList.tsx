@@ -1,3 +1,5 @@
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types"
+
 import { urlFor } from "~/sanity/image"
 
 import { ColorFilter } from "../../color-filter"
@@ -10,8 +12,8 @@ import {
 } from "./CustomersList.css"
 
 export interface Customer {
-  name: string
-  logo?: string
+  name?: string | null
+  logo?: SanityImageSource | null
 }
 
 export interface CustomersListProps {
@@ -39,7 +41,7 @@ export function CustomersList({ data }: CustomersListProps) {
                   className={logoClass}
                   src={urlFor(customer.logo)?.url()}
                   width={150}
-                  alt={customer.name}
+                  alt={customer.name ?? ""}
                 />
               </li>
             )

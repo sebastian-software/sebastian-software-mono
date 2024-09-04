@@ -44,6 +44,8 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
     data.consultant.name
   ])
 
+  const headshotImage = urlFor(data.author.headshot)?.url()
+
   return (
     <div style={{ width: "15rem" }}>
       <Link
@@ -57,12 +59,8 @@ export function Testimonial({ data, encodeDataAttribute }: TestimonialProps) {
             display: "inline-block"
           }}
         >
-          {data.author.headshot && (
-            <Image
-              src={urlFor(data.author.headshot).url()}
-              width={120}
-              height={150}
-            />
+          {headshotImage && (
+            <Image src={headshotImage} width={120} height={150} />
           )}
         </span>
         <h3>{data.author.name}</h3>
