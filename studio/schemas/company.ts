@@ -41,7 +41,8 @@ export const companyType = defineType({
           { title: "Belgium", value: "be" },
           { title: "United States", value: "us" },
           { title: "China", value: "cn" },
-          { title: "Canada", value: "ca" }
+          { title: "Canada", value: "ca" },
+          { title: "United Kingdom", value: "gb" }
         ]
       }
     }),
@@ -80,7 +81,8 @@ export const companyType = defineType({
           { title: "Bau", value: "Construction" },
           { title: "Luft- und Raumfahrt", value: "Aerospace" },
           { title: "Metalle", value: "Metals" },
-          { title: "Bildung", value: "Education" }
+          { title: "Bildung", value: "Education" },
+          { title: "Personalberatung", value: "Recruitement" }
         ]
       }
     }),

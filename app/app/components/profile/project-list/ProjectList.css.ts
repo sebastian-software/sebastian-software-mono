@@ -82,6 +82,7 @@ export const metaClass = style({
 })
 
 export const periodClass = style({})
+export const agentClass = style({})
 export const customerClass = style({})
 export const industryClass = style({})
 export const technologiesClass = style({})

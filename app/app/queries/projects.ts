@@ -11,12 +11,19 @@ export const PROJECTS_QUERY = defineQuery(`
     consultant->{
       name,
     },
-    customer->
+    client->
     {
       name,
       city,
       country,
       industry,
+      logo
+    },
+    agent->
+    {
+      name,
+      city,
+      country,
       logo
     },
     testimonials[]->

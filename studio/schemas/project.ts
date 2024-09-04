@@ -15,10 +15,16 @@ export const projectType = defineType({
     }),
 
     defineField({
-      name: "customer",
+      name: "client",
       type: "reference",
       to: [{ type: "company" }],
       validation: (Rule) => Rule.required()
+    }),
+
+    defineField({
+      name: "agent",
+      type: "reference",
+      to: [{ type: "company" }]
     }),
 
     defineField({
@@ -60,8 +66,8 @@ export const projectType = defineType({
   preview: {
     select: {
       title: `title`,
-      subtitle: "customer.name",
-      media: "customer.logo"
+      subtitle: "client.name",
+      media: "client.logo"
     },
     prepare({ title, subtitle, media }) {
       const translatedTitle = title?.find(
@@ -78,9 +84,9 @@ export const projectType = defineType({
   },
   orderings: [
     {
-      title: "Customer",
-      name: "customer",
-      by: [{ field: "customer.name", direction: "asc" }]
+      title: "Client",
+      name: "client",
+      by: [{ field: "client.name", direction: "asc" }]
     }
   ]
 })

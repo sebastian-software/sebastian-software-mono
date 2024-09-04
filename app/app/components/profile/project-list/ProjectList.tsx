@@ -10,6 +10,7 @@ import { Neutral } from "../../neutral"
 import { RichText } from "../../richtext/RichText"
 import { TestimonialBlock } from "../testimonial"
 import {
+  agentClass,
   customerClass,
   descriptionClass,
   industryClass,
@@ -61,7 +62,10 @@ export interface ProjectProps {
 
 export function Project({ data }: ProjectProps) {
   const { i18n } = useLingui()
-  const customerLogoUrl = urlFor(data.customer.logo).url()
+  const clientLogoUrl = urlFor(data.client.logo).url()
+  const agentLogoUrl = data.agent?.logo
+    ? urlFor(data.agent.logo).url()
+    : undefined
   const language = i18n.locale
 
   return (
@@ -71,33 +75,36 @@ export function Project({ data }: ProjectProps) {
         {data.title}
       </Neutral>
 
-      <img
-        src={customerLogoUrl}
-        alt={data.customer.name}
-        className={logoClass}
-      />
+      <img src={clientLogoUrl} alt={data.client.name} className={logoClass} />
 
       <div className={metaClass}>
         <p className={customerClass}>
           <Trans context="label">Customer:</Trans>
           <br />
-          {data.customer.name}
+          {data.client.name}
           <br />
-          {data.customer.city}, <CountryName code={data.customer.country} />
+          {data.client.city}, <CountryName code={data.client.country} />
         </p>
         <p className={industryClass}>
           <Trans context="label">Industry:</Trans>
           <br />
-          <IndustryName code={data.customer.industry} />
+          <IndustryName code={data.client.industry} />
         </p>
         <p className={periodClass}>
           <Trans context="label">Period:</Trans>
           <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
-        {/* <p className={period}>
-          <Trans>Auftraggeber:</Trans>
-          <br /> {data.contractor}
-        </p> */}
+        {data.agent && (
+          <p className={agentClass}>
+            <Trans>Agent:</Trans>
+            <img
+              src={agentLogoUrl}
+              alt={data.agent.name}
+              className={logoClass}
+            />
+            <br /> {data.agent?.name}
+          </p>
+        )}
         {/* {data.technologies && (
           <Neutral>
             <TagList className={technologiesClass}>
