@@ -13,6 +13,7 @@
     "prepare": "husky",
     "prepare:env": "cp app/.env.example app/.env && cp studio/.env.example studio/.env",
     "test:format": "prettier --check .",
+    "typecheck": "pnpm run --recursive --parallel typecheck",
     "update:latest": "ncu --deep  --upgrade --interactive",
     "update:minor": "ncu --deep  --upgrade --interactive --target minor",
     "update:pnpm": "corepack up"
