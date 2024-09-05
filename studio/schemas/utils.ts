@@ -41,10 +41,12 @@ export function removeCompanySuffixes(input: string): string {
 }
 
 export function getCurrentDate() {
+  const pad = 2
   const today = new Date()
   const year = today.getFullYear()
-  const month = String(today.getMonth() + 1).padStart(2, "0")
-  const day = String(today.getDate()).padStart(2, "0")
+  const month = String(today.getMonth() + 1).padStart(pad, "0")
+  const day = String(today.getDate()).padStart(pad, "0")
+
   return `${year}-${month}-${day}`
 }
 

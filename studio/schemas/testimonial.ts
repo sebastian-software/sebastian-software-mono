@@ -1,29 +1,4 @@
-import type { SanityDocument } from "sanity"
 import { defineField, defineType } from "sanity"
-
-function getCurrentDate() {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = String(today.getMonth() + 1).padStart(2, "0")
-  const day = String(today.getDate()).padStart(2, "0")
-  return `${year}-${month}-${day}`
-}
-
-const clientOptions = { apiVersion: getCurrentDate() }
-
-// Minimal type definition for a testimonial document
-// for correctly supporting the custom `source` function
-interface TestimonialDoc extends SanityDocument {
-  date?: string
-
-  author?: {
-    _ref: string
-  }
-
-  consultant?: {
-    _ref: string
-  }
-}
 
 export const testimonialType = defineType({
   name: "testimonial",
