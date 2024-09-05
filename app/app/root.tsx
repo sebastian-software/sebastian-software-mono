@@ -35,6 +35,7 @@ export const loader: LoaderFunction = async ({
   // env at built time, but instead at runtime from the server.
   // https://remix.run/docs/en/main/guides/envvars#browser-environment-variables
   return json({
+    /* eslint-disable @typescript-eslint/naming-convention */
     ENV: {
       APP_MESSAGES: appMessages,
       APP_LANGUAGE: appLanguage,
@@ -43,6 +44,7 @@ export const loader: LoaderFunction = async ({
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
       SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED
     }
+    /* eslint-enable @typescript-eslint/naming-convention */
   })
 }
 

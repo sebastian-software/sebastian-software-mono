@@ -19,6 +19,7 @@ const industries = {
   Hotels: msg`Hotels, Restaurants & Leisure`,
   Industrials: msg`Industrials`,
   Insurance: msg`Insurance`,
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   IT: msg`Information Technology`,
   Materials: msg`Materials`,
   Media: msg`Media and Entertainment`,

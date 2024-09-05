@@ -16,6 +16,7 @@ export default [
       ...main.rules,
       "unicorn/no-null": "off",
       "unicorn/prevent-abbreviations": "off",
+      "no-warning-comments": "off",
 
       // Sanity uses "null" for empty values
       "@typescript-eslint/ban-types": "off"

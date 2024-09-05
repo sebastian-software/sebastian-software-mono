@@ -3,7 +3,7 @@ import acceptLanguage from "accept-language-parser"
 
 export const languageCookie = createCookie("language", {})
 
-export async function getAppLanguage(request: Request) {
+export async function getAppLanguage(request: Request): Promise<string> {
   const headers = request.headers
   const acceptLangHeader = headers.get("Accept-Language")
   const languages = acceptLangHeader
@@ -11,9 +11,11 @@ export async function getAppLanguage(request: Request) {
     : []
 
   const browserLanguage = languages[0]?.code
-  const cookieLanguage = await languageCookie.parse(headers.get("Cookie"))
-  const appLanguage = cookieLanguage ?? browserLanguage ?? "en"
+  const cookieLanguage = (await languageCookie.parse(
+    headers.get("Cookie")
+  )) as string
 
+  const appLanguage = cookieLanguage || browserLanguage || "en"
   return appLanguage
 }
 
