@@ -2,11 +2,7 @@ import "@effective/css-reset"
 
 import { setupI18n } from "@lingui/core"
 import { I18nProvider } from "@lingui/react"
-import type {
-  ActionFunctionArgs,
-  LoaderFunction,
-  LoaderFunctionArgs
-} from "@remix-run/node"
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node"
 import { json, redirect } from "@remix-run/node"
 import {
   Links,
@@ -25,11 +21,9 @@ const LiveVisualEditing = lazy(
   async () => import("~/components/LiveVisualEditing")
 )
 
-export const loader: LoaderFunction = async ({
-  request
-}: LoaderFunctionArgs) => {
+export async function loader({ request }: LoaderFunctionArgs) {
   const appLanguage = await getAppLanguage(request)
-  const appMessages = await getMessages(appLanguage)
+  const appMessages = getMessages(appLanguage)
 
   // Note: This follows the recommendation of Remix to not inject
   // env at built time, but instead at runtime from the server.
@@ -65,6 +59,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function App() {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { ENV } = useLoaderData<typeof loader>()
   const locale = ENV.APP_LANGUAGE
 
@@ -104,6 +99,7 @@ export default function App() {
           </div>
           <ScrollRestoration />
           <script
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: `window.ENV = ${JSON.stringify(ENV)}`
             }}
