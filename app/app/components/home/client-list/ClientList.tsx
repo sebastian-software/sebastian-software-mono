@@ -9,18 +9,18 @@ import {
   logoClass,
   rootClass,
   titleClass
-} from "./CustomersList.css"
+} from "./ClientList.css"
 
 export interface Customer {
   name?: string | null
   logo?: SanityImageSource | null
 }
 
-export interface CustomersListProps {
+export interface ClientListProps {
   readonly data: Customer[]
 }
 
-export function CustomersList({ data }: CustomersListProps) {
+export function ClientList({ data }: ClientListProps) {
   return (
     <div className={rootClass}>
       <h1 className={titleClass}>Unsere Kunden</h1>

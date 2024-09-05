@@ -1,6 +1,6 @@
 import { defineQuery } from "groq"
-export const CUSTOMERS_QUERY = defineQuery(`
-  *[_id in array::unique(*[_type == "project"].customer->_id)]{
+export const CLIENTS_QUERY = defineQuery(`
+  *[_id in array::unique(*[_type == "project"].client->_id)]{
     _id,
     name,
     city,

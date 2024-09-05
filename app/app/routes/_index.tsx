@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { loadQuery, useQuery } from "@sanity/react-loader"
-import type { CUSTOMERS_QUERYResult } from "sanity.types"
+import type { CLIENTS_QUERYResult } from "sanity.types"
 
 import { Button } from "~/components/button/Button"
 import {
@@ -11,9 +11,9 @@ import {
   CardFooter,
   CardTitle
 } from "~/components/card/Card"
-import { Banner, CustomersList } from "~/components/home"
+import { Banner, ClientList } from "~/components/home"
 import { getAppLanguage } from "~/language.server"
-import { CUSTOMERS_QUERY } from "~/queries/customers"
+import { CLIENTS_QUERY } from "~/queries/clients"
 
 export const meta: MetaFunction = () => [
   { title: "Sebastian Software" },
@@ -29,16 +29,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     language: await getAppLanguage(request)
   }
 
-  const initial = await loadQuery<CUSTOMERS_QUERYResult>(
-    CUSTOMERS_QUERY,
-    params
-  )
-  return { initial, query: CUSTOMERS_QUERY, params }
+  const initial = await loadQuery<CLIENTS_QUERYResult>(CLIENTS_QUERY, params)
+  return { initial, query: CLIENTS_QUERY, params }
 }
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data } = useQuery<CUSTOMERS_QUERYResult>(
+  const { data } = useQuery<CLIENTS_QUERYResult>(
     query,
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types
@@ -47,7 +44,7 @@ export default function Index() {
     { initial: initial as Required<typeof initial> }
   )
 
-  const customers = data
+  const clients = data
 
   return (
     <>
@@ -107,9 +104,9 @@ export default function Index() {
           </CardFooter>
         </Card>
       </CardContainer>
-      <CustomersList data={customers} />
+      <ClientList data={clients} />
 
-      {/* <CustomersList data={customers} />
+      {/*
       <TechList data={technologies} />
       <IndustryList data={industries} /> */}
     </>

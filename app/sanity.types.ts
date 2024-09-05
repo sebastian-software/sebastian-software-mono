@@ -583,10 +583,10 @@ export type AllSanitySchemaTypes =
   | SanityAssistInstruction
   | SanityAssistSchemaTypeField
 export declare const internalGroqTypeReferenceTo: unique symbol
-// Source: ./app/queries/customers.ts
-// Variable: CUSTOMERS_QUERY
-// Query: *[_id in array::unique(*[_type == "project"].customer->_id)]{    _id,    name,    city,    country,    industry,    logo  } | order(name asc)
-export type CUSTOMERS_QUERYResult = Array<
+// Source: ./app/queries/clients.ts
+// Variable: CLIENTS_QUERY
+// Query: *[_id in array::unique(*[_type == "project"].client->_id)]{    _id,    name,    city,    country,    industry,    logo  } | order(name asc)
+export type CLIENTS_QUERYResult = Array<
   | {
       _id: string
       name: null
@@ -862,7 +862,7 @@ export type TESTIMONIAL_QUERYResult = {
 import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_id in array::unique(*[_type == "project"].customer->_id)]{\n    _id,\n    name,\n    city,\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CUSTOMERS_QUERYResult
+    '\n  *[_id in array::unique(*[_type == "project"].client->_id)]{\n    _id,\n    name,\n    city,\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CLIENTS_QUERYResult
     '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    client->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    agent->\n    {\n      name,\n      city,\n      country,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
