@@ -1,10 +1,10 @@
 {
   "include": [
     "remix.env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
     "sanity.types.ts",
-    "eslint.config.js"
+    "eslint.config.js",
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "compilerOptions": {
     "module": "ESNext",

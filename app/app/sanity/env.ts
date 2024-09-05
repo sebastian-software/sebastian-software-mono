@@ -1,13 +1,5 @@
-declare global {
-  interface Window {
-    ENV: {
-      SANITY_STUDIO_PROJECT_ID: string
-      SANITY_STUDIO_DATASET: string
-      SANITY_STUDIO_URL: string
-      SANITY_STUDIO_STEGA_ENABLED: string
-    }
-  }
-}
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/naming-convention */
 
 const {
   SANITY_STUDIO_PROJECT_ID,

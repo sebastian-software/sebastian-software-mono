@@ -38,7 +38,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data, encodeDataAttribute } = useQuery<CUSTOMERS_QUERYResult>(
+  const { data } = useQuery<CUSTOMERS_QUERYResult>(
     query,
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types

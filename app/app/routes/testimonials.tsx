@@ -96,14 +96,13 @@ export default function Index() {
         flexWrap: "wrap"
       }}
     >
-      {data.length &&
-        data.map((item, i) => (
-          <Testimonial
-            key={item._id}
-            data={item}
-            encodeDataAttribute={encodeDataAttribute.scope([i])}
-          />
-        ))}
+      {data.map((item, i) => (
+        <Testimonial
+          key={item._id}
+          data={item}
+          encodeDataAttribute={encodeDataAttribute.scope([i])}
+        />
+      ))}
     </section>
   )
 }
