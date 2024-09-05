@@ -7,7 +7,7 @@
     "dev": "sanity dev",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "schema": "sanity schema extract --enforce-required-fields",
+    "schema": "sanity schema extract --enforce-required-fields && sanity typegen generate",
     "start": "sanity start",
     "typecheck": "tsc",
     "typecheck:watch": "tsc --watch"
