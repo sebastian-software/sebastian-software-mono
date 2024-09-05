@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity"
 
+import type { Project } from "../sanity.types"
 import { PREVIEW_LANGUAGE } from "./utils"
 
 export const projectType = defineType({
@@ -69,16 +70,12 @@ export const projectType = defineType({
       subtitle: "client.name",
       media: "client.logo"
     },
-    prepare({ title, subtitle, media }) {
-      const translatedTitle = title?.find(
-        (variant: { _key: string; value: string }) =>
-          variant._key === PREVIEW_LANGUAGE
-      )?.value
+    prepare(selection) {
+      const title = selection.title as Project["title"]
 
       return {
-        title: translatedTitle,
-        subtitle,
-        media
+        ...selection,
+        title: title.find((variant) => variant._key === PREVIEW_LANGUAGE)?.value
       }
     }
   },

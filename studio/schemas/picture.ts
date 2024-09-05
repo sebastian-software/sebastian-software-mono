@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity"
 
+import type { Picture } from "../sanity.types"
 import { PREVIEW_LANGUAGE } from "./utils"
 
 export const pictureType = defineType({
@@ -31,24 +32,13 @@ export const pictureType = defineType({
       subtitle: "date",
       media: "image"
     },
-    prepare({ title, subtitle, media }) {
-      const translatedTitle = title?.find(
-        (variant: { _key: string; value: string }) =>
-          variant._key === PREVIEW_LANGUAGE
-      )?.value
+    prepare(selection) {
+      const title = selection.title as Picture["alt"]
 
       return {
-        title: translatedTitle,
-        subtitle,
-        media
+        ...selection,
+        title: title.find((variant) => variant._key === PREVIEW_LANGUAGE)?.value
       }
     }
-  },
-  orderings: [
-    {
-      title: "Alt Description",
-      name: "alt",
-      by: [{ field: "alt.en", direction: "asc" }]
-    }
-  ]
+  }
 })

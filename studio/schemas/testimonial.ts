@@ -104,10 +104,10 @@ export const testimonialType = defineType({
       media: "author.headshot"
     },
     prepare(selection) {
+      const subtitle = selection.subtitle as string
       return {
-        title: selection.title,
-        subtitle: selection.subtitle || "-",
-        media: selection.media
+        ...selection,
+        subtitle: subtitle || "-"
       }
     }
   },
