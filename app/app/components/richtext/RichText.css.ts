@@ -36,7 +36,8 @@ export const root = style({
 
 globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
   position: "relative",
-  overflowX: "hidden"
+  overflowX: "hidden",
+  marginBottom: "var(--space-s)"
 })
 
 // globalStyle(
@@ -63,4 +64,19 @@ globalStyle(`${root} h2`, {
 
 globalStyle(`${root} h1+h2`, {
   marginTop: "calc(var(--space-s) * -1)"
+})
+
+globalStyle(`${root} ul`, {
+  listStyle: "disc",
+  paddingLeft: "var(--space-m)"
+})
+
+globalStyle(`${root} ol`, {
+  listStyle: "decimal",
+  paddingLeft: "var(--space-m)"
+})
+
+globalStyle(`${root} li`, {
+  listStyle: "decimal",
+  marginBottom: "var(--space-s)"
 })
