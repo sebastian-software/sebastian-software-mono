@@ -1,3 +1,4 @@
+import type { GlobalStyleRule } from "@vanilla-extract/css"
 import { globalStyle, style } from "@vanilla-extract/css"
 
 import { elenaWebfont } from "../fonts"
@@ -9,18 +10,19 @@ import { elenaWebfont } from "../fonts"
 // mobile:
 // - main body text: 30-50 (https://blog.designary.com/p/the-optimal-text-line-length-for-readability)
 
-// function generateVerticalLine(column: string, color: string): GlobalStyleRule {
-//   return {
-//     content: "",
-//     position: "absolute",
-//     left: column /* Position the line at the 40 character width */,
-//     top: 0,
-//     bottom: 0,
-//     width: "2px" /* Line width */,
-//     backgroundColor: color,
-//     zIndex: 1 /* Ensure the line appears above the text */
-//   }
-// }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function generateVerticalLine(column: string, color: string): GlobalStyleRule {
+  return {
+    content: "",
+    position: "absolute",
+    left: column /* Position the line at the 40 character width */,
+    top: 0,
+    bottom: 0,
+    width: "2px" /* Line width */,
+    backgroundColor: color,
+    zIndex: 1 /* Ensure the line appears above the text */
+  }
+}
 
 export const root = style({
   fontSize: "var(--step-0)",
@@ -41,8 +43,13 @@ globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
 })
 
 globalStyle(`${root} :where(p, ul, ol)`, {
-  marginBottom: "var(--space-s)"
+  marginBottom: "var(--space-s)",
+
+  // Limit max width on landscape to keep legibility
+  maxWidth: "65ch"
 })
+
+// // Mobile
 
 // globalStyle(
 //   `${root} :where(h1, h2)::before`,
@@ -52,6 +59,23 @@ globalStyle(`${root} :where(p, ul, ol)`, {
 // globalStyle(
 //   `${root} :where(p, ul, ol)::before`,
 //   generateVerticalLine("30ch", "red")
+// )
+
+// Desktop
+
+// globalStyle(
+//   `${root} :where(h1, h2)::before`,
+//   generateVerticalLine("50ch", "red")
+// )
+
+// globalStyle(
+//   `${root} :where(p, ul, ol)::before`,
+//   generateVerticalLine("50ch", "green")
+// )
+
+// globalStyle(
+//   `${root} :where(p, ul, ol)::after`,
+//   generateVerticalLine("75ch", "red")
 // )
 
 globalStyle(`${root} h1`, {
