@@ -31,8 +31,5 @@ export const [themeClass, variables] = createTheme({
     darkGold,
     gold,
     teal
-  },
-  font: {
-    body: "arial"
   }
 })
