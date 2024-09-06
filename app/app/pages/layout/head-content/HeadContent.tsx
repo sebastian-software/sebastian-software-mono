@@ -1,8 +1,12 @@
+import "@effective/css-reset"
+
 import { Favicon } from "../favicon"
+import { Utopia } from "../utopia/Utopia"
 
 export function HeadContent() {
   return (
     <>
+      <Utopia />
       <Favicon />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <script

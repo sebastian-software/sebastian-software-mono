@@ -1,0 +1,57 @@
+/*
+We are extending Utopia's Fluid CSS system by dividing it into Landscape and Portrait orientations.
+This approach benefits smaller desktop devices and tablets by starting with smaller font sizes
+and spacing.
+
+Since the CSS orientation property is also applied by desktop browsers when the
+aspect ratio of the window is portrait, we add an additional check for the available width.
+The Portrait design will only be activated for viewports up to 960px in width.
+The Desktop design will be applied from 960px onwards, regardless of the CSS orientation.
+*/
+
+@media (orientation: portrait) and (max-width: 959px) {
+  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,520,22,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  /**
+   * Mobile:
+   * - Min: 320px at 16px base + 1.2 type scale
+   * - Max: 520px at 20px base + 1.333 type scale
+   */
+  :root {
+    --debug-color: red;
+    --step--2: clamp(0.6944rem, 0.5674rem + 0.635vw, 0.7738rem);
+    --step--1: clamp(0.8333rem, 0.5163rem + 1.5854vw, 1.0315rem);
+    --step-0: clamp(1rem, 0.4rem + 3vw, 1.375rem);
+    --step-1: clamp(1.2rem, 0.1874rem + 5.063vw, 1.8329rem);
+    --step-2: clamp(1.44rem, -0.1652rem + 8.0258vw, 2.4432rem);
+    --step-3: clamp(1.728rem, -0.7181rem + 12.2305vw, 3.2568rem);
+    --step-4: clamp(2.0736rem, -1.5548rem + 18.1419vw, 4.3413rem);
+    --step-5: clamp(2.4883rem, -2.7896rem + 26.3894vw, 5.787rem);
+  }
+}
+
+@media (orientation: landscape) or (min-width: 960px) {
+  /* @link https://utopia.fyi/type/calculator?c=1080,16,1.25,1920,20,1.5,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  /**
+   * Desktop:
+   * - Min: 1080px at 16px base + 1.25 type scale
+   * - Max: 1920px at 20px base + 1.5 type scale
+   */
+  :root {
+    --debug-color: blue;
+    --step--2: clamp(0.5556rem, 0.7486rem + -0.1608vw, 0.64rem);
+    --step--1: clamp(0.8rem, 0.7571rem + 0.0635vw, 0.8333rem);
+    --step-0: clamp(1rem, 0.6786rem + 0.4762vw, 1.25rem);
+    --step-1: clamp(1.25rem, 0.4464rem + 1.1905vw, 1.875rem);
+    --step-2: clamp(1.5625rem, -0.0446rem + 2.381vw, 2.8125rem);
+    --step-3: clamp(1.9531rem, -0.9598rem + 4.3155vw, 4.2188rem);
+    --step-4: clamp(2.4414rem, -2.5558rem + 7.4033vw, 6.3281rem);
+    --step-5: clamp(3.0518rem, -5.2288rem + 12.2675vw, 9.4922rem);
+  }
+}
+
+body {
+  border-top: 4px solid var(--debug-color);
+  font-size: var(--step-0);
+}

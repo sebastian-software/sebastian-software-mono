@@ -1,5 +1,3 @@
-import "@effective/css-reset"
-
 import { setupI18n } from "@lingui/core"
 import { I18nProvider } from "@lingui/react"
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node"
