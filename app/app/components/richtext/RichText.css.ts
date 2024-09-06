@@ -66,10 +66,6 @@ globalStyle(`${root} h2`, {
   marginTop: "var(--space-m)"
 })
 
-globalStyle(`${root} h1+h2`, {
-  marginTop: "calc(var(--space-s) * -1)"
-})
-
 globalStyle(`${root} ul`, {
   listStyle: "disc",
   paddingLeft: "var(--space-m)"
@@ -83,4 +79,9 @@ globalStyle(`${root} ol`, {
 globalStyle(`${root} li`, {
   listStyle: "decimal",
   marginBottom: "var(--space-s)"
+})
+
+// Compensate margin of h1 for context-specific follow up elements
+globalStyle(`${root} h1+:where(h2, p, ol, ul)`, {
+  marginTop: "calc(var(--space-s) * -1)"
 })
