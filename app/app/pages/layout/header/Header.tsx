@@ -9,9 +9,6 @@ export function Header() {
       <nav>
         <ul>
           <li>
-            <a href="/blog">Blog</a>
-          </li>
-          <li>
             <a href="/mission">Mission</a>
           </li>
           <li>
