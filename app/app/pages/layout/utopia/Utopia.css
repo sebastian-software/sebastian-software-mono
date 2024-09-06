@@ -10,8 +10,6 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
 */
 
 @media (orientation: portrait) and (max-width: 959px) {
-  /* @link https://utopia.fyi/type/calculator?c=360,16,1.333,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-
   /**
    * Mobile:
    * - Min: 360px at 16px base (Samsung S21/S22) (font-size: 16px)
@@ -28,6 +26,9 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     *   influence the legibility of head lines as the number of characters is getting smaller than on smaller devices.
     * - Our solution: Keep the type scale at 1.333 and let the base font size increase.
     */
+
+  /* @link https://utopia.fyi/type/calculator?c=360,16,1.333,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
   :root {
     --step--2: clamp(0.5628rem, 0.1407rem + 1.8759vw, 0.7035rem);
     --step--1: clamp(0.7502rem, 0.1875rem + 2.5006vw, 0.9377rem);
@@ -37,6 +38,30 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --step-3: clamp(2.3686rem, 0.5921rem + 7.8953vw, 2.9607rem);
     --step-4: clamp(3.1573rem, 0.7893rem + 10.5244vw, 3.9467rem);
     --step-5: clamp(4.2087rem, 1.0522rem + 14.0291vw, 5.2609rem);
+  }
+
+  /* @link https://utopia.fyi/space/calculator?c=360,16,1.333,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12 */
+
+  :root {
+    --space-3xs: clamp(0.25rem, 0.0625rem + 0.8333vw, 0.3125rem);
+    --space-2xs: clamp(0.5rem, 0.125rem + 1.6667vw, 0.625rem);
+    --space-xs: clamp(0.75rem, 0.1875rem + 2.5vw, 0.9375rem);
+    --space-s: clamp(1rem, 0.25rem + 3.3333vw, 1.25rem);
+    --space-m: clamp(1.5rem, 0.375rem + 5vw, 1.875rem);
+    --space-l: clamp(2rem, 0.5rem + 6.6667vw, 2.5rem);
+    --space-xl: clamp(3rem, 0.75rem + 10vw, 3.75rem);
+    --space-2xl: clamp(4rem, 1rem + 13.3333vw, 5rem);
+    --space-3xl: clamp(6rem, 1.5rem + 20vw, 7.5rem);
+
+    /* One-up pairs */
+    --space-3xs-2xs: clamp(0.25rem, -0.875rem + 5vw, 0.625rem);
+    --space-2xs-xs: clamp(0.5rem, -0.8125rem + 5.8333vw, 0.9375rem);
+    --space-xs-s: clamp(0.75rem, -0.75rem + 6.6667vw, 1.25rem);
+    --space-s-m: clamp(1rem, -1.625rem + 11.6667vw, 1.875rem);
+    --space-m-l: clamp(1.5rem, -1.5rem + 13.3333vw, 2.5rem);
+    --space-l-xl: clamp(2rem, -3.25rem + 23.3333vw, 3.75rem);
+    --space-xl-2xl: clamp(3rem, -3rem + 26.6667vw, 5rem);
+    --space-2xl-3xl: clamp(4rem, -6.5rem + 46.6667vw, 7.5rem);
   }
 }
 
