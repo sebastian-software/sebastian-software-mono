@@ -13,7 +13,8 @@ import {
 } from "@remix-run/react"
 
 import { getAppLanguage, getMessages, languageCookie } from "./language.server"
-import { Body, Favicon, Root } from "./pages/layout"
+import { Body, Root } from "./pages/layout"
+import { HeadContent } from "./pages/layout/head-content"
 
 // const LiveVisualEditing = lazy(
 //   async () => import("~/components/LiveVisualEditing")
@@ -71,21 +72,9 @@ export default function App() {
       <html lang={i18n.locale}>
         <head>
           <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <Meta />
           <Links />
-          <Favicon />
-          <script
-            defer
-            data-domain="sebastian-software.de"
-            src="https://t.sebastian-software.de/js/script.js"
-          />
-          <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="RSS"
-            href="https://sebastian-software.de/rss.xml"
-          />
+          <HeadContent />
         </head>
         <Body>
           <Root />
