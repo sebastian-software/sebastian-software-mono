@@ -7,15 +7,13 @@ import { json, redirect } from "@remix-run/node"
 import {
   Links,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData
 } from "@remix-run/react"
-import { lazy, Suspense } from "react"
 
 import { getAppLanguage, getMessages, languageCookie } from "./language.server"
-import { Body, Favicon, Footer, Header, Main } from "./pages/layout"
+import { Body, Favicon, Root } from "./pages/layout"
 
 // const LiveVisualEditing = lazy(
 //   async () => import("~/components/LiveVisualEditing")
@@ -90,13 +88,7 @@ export default function App() {
           />
         </head>
         <Body>
-          <div>
-            <Header />
-            <Main>
-              <Outlet />
-            </Main>
-            <Footer />
-          </div>
+          <Root />
           <ScrollRestoration />
           <script
             // eslint-disable-next-line react/no-danger
