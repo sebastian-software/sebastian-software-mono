@@ -29,7 +29,6 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     * - Our solution: Keep the type scale at 1.333 and let the base font size increase.
     */
   :root {
-    --debug-color: red;
     --step--2: clamp(0.5628rem, 0.1407rem + 1.8759vw, 0.7035rem);
     --step--1: clamp(0.7502rem, 0.1875rem + 2.5006vw, 0.9377rem);
     --step-0: clamp(1rem, 0.25rem + 3.3333vw, 1.25rem);
@@ -50,7 +49,6 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
    * - Max: 1920px at 20px base + 1.5 type scale
    */
   :root {
-    --debug-color: blue;
     --step--2: clamp(0.5556rem, 0.7486rem + -0.1608vw, 0.64rem);
     --step--1: clamp(0.8rem, 0.7571rem + 0.0635vw, 0.8333rem);
     --step-0: clamp(1rem, 0.6786rem + 0.4762vw, 1.25rem);
@@ -72,8 +70,4 @@ body {
   /* Instead of doing this font-by-font we also had good results by just setting it to a uniform globally identical value */
   /* Never understood why all documentation tries to adjust one fallback font instead of just normalizing all fonts. */
   font-size-adjust: 0.5;
-}
-
-body {
-  border-top: 4px solid var(--debug-color);
 }
