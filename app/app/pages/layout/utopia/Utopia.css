@@ -10,23 +10,26 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
 */
 
 @media (orientation: portrait) and (max-width: 959px) {
-  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,520,22,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/type/calculator?c=360,16,1.2,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
   /**
    * Mobile:
-   * - Min: 320px at 16px base + 1.2 type scale
-   * - Max: 520px at 20px base + 1.333 type scale
+   * - Min: 360px at 16px base + 1.2 type scale (Samsung S21/S22)
+   * - iPhone SE (3rd generation): 375px
+   * - iPhone 12/13/14: 390px
+   * - iPhone 14 Pro Max: 430px
+   * - Max: 480px at 20px base + 1.333 type scale (Samsung S24 Ultra)
    */
   :root {
     --debug-color: red;
-    --step--2: clamp(0.6944rem, 0.5674rem + 0.635vw, 0.7738rem);
-    --step--1: clamp(0.8333rem, 0.5163rem + 1.5854vw, 1.0315rem);
-    --step-0: clamp(1rem, 0.4rem + 3vw, 1.375rem);
-    --step-1: clamp(1.2rem, 0.1874rem + 5.063vw, 1.8329rem);
-    --step-2: clamp(1.44rem, -0.1652rem + 8.0258vw, 2.4432rem);
-    --step-3: clamp(1.728rem, -0.7181rem + 12.2305vw, 3.2568rem);
-    --step-4: clamp(2.0736rem, -1.5548rem + 18.1419vw, 4.3413rem);
-    --step-5: clamp(2.4883rem, -2.7896rem + 26.3894vw, 5.787rem);
+    --step--2: clamp(0.6944rem, 0.6673rem + 0.1204vw, 0.7035rem);
+    --step--1: clamp(0.8333rem, 0.5201rem + 1.392vw, 0.9377rem);
+    --step-0: clamp(1rem, 0.25rem + 3.3333vw, 1.25rem);
+    --step-1: clamp(1.2rem, -0.1987rem + 6.2167vw, 1.6663rem);
+    --step-2: clamp(1.44rem, -0.9033rem + 10.4148vw, 2.2211rem);
+    --step-3: clamp(1.728rem, -1.9702rem + 16.4366vw, 2.9607rem);
+    --step-4: clamp(2.0736rem, -3.5456rem + 24.9742vw, 3.9467rem);
+    --step-5: clamp(2.4883rem, -5.8294rem + 36.9678vw, 5.2609rem);
   }
 }
 
