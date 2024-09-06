@@ -17,9 +17,9 @@ import { lazy, Suspense } from "react"
 import { getAppLanguage, getMessages, languageCookie } from "./language.server"
 import { Body, Favicon, Footer, Header, Main } from "./pages/layout"
 
-const LiveVisualEditing = lazy(
-  async () => import("~/components/LiveVisualEditing")
-)
+// const LiveVisualEditing = lazy(
+//   async () => import("~/components/LiveVisualEditing")
+// )
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const appLanguage = await getAppLanguage(request)
@@ -104,11 +104,11 @@ export default function App() {
               __html: `window.ENV = ${JSON.stringify(ENV)}`
             }}
           />
-          {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
+          {/* {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
             <Suspense>
               <LiveVisualEditing />
             </Suspense>
-          ) : null}
+          ) : null} */}
           <Scripts />
         </Body>
       </html>
