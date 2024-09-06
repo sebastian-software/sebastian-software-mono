@@ -25,7 +25,7 @@ function generateVerticalLine(column: string, color: string): GlobalStyleRule {
 
 export const root = style({
   fontSize: "var(--step-0)",
-  padding: "var(--space-m-l)",
+  paddingInline: "var(--space-m-l)",
 
   // Auto hyphens which are a good compromise for longer German words.
   // "The CSS Text Module Level 4 suggests that browsers use "5 2 2" as their starting point (which I think results in too much hyphenation), but browsers are free to vary that as they see fit."

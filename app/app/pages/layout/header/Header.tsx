@@ -1,14 +1,18 @@
-import { rootClass } from "./Header.css"
+import { listClass, logoClass, rootClass } from "./Header.css"
 import logoDark from "./logo-dark.svg"
 
 export function Header() {
   return (
     <header className={rootClass}>
       <a href="/">
-        <img src={logoDark} alt="Sebastian Software GmbH" />
+        <img
+          className={logoClass}
+          src={logoDark}
+          alt="Sebastian Software GmbH"
+        />
       </a>
       <nav>
-        <ul>
+        <ul className={listClass}>
           <li>
             <a href="/mission">Mission</a>
           </li>
