@@ -10,7 +10,7 @@ import { elenaWebfont } from "../fonts"
 // mobile:
 // - main body text: 30-50 (https://blog.designary.com/p/the-optimal-text-line-length-for-readability)
 
-function generateVerticalLine(column: "40ch", color: string): GlobalStyleRule {
+function generateVerticalLine(column: string, color: string): GlobalStyleRule {
   return {
     content: "",
     position: "absolute",
