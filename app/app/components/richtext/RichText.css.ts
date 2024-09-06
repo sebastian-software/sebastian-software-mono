@@ -15,7 +15,7 @@ function generateVerticalLine(column: "40ch", color: string): GlobalStyleRule {
     left: column /* Position the line at the 40 character width */,
     top: 0,
     bottom: 0,
-    width: "1px" /* Line width */,
+    width: "2px" /* Line width */,
     backgroundColor: color,
     zIndex: 1 /* Ensure the line appears above the text */
   }
@@ -26,28 +26,24 @@ export const root = style({
   padding: "1.5rem"
 })
 
-globalStyle(`${root} :where(p, ul, ol)`, {
+globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
   position: "relative",
   overflowX: "hidden"
 })
 
 globalStyle(
+  `${root} :where(h1, h2)::before`,
+  generateVerticalLine("22ch", "red")
+)
+globalStyle(
   `${root} :where(p, ul, ol)::before`,
   generateVerticalLine("30ch", "red")
 )
-globalStyle(
-  `${root} :where(p, ul, ol)::after`,
-  generateVerticalLine("50ch", "green")
-)
 
 globalStyle(`${root} h1`, {
-  fontSize: "var(--step-3)"
-})
-
-globalStyle(`${root} h2`, {
   fontSize: "var(--step-2)"
 })
 
-globalStyle(`${root} h3`, {
+globalStyle(`${root} h2`, {
   fontSize: "var(--step-1)"
 })

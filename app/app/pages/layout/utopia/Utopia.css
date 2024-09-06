@@ -10,26 +10,33 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
 */
 
 @media (orientation: portrait) and (max-width: 959px) {
-  /* @link https://utopia.fyi/type/calculator?c=360,16,1.2,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/type/calculator?c=360,16,1.333,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
   /**
    * Mobile:
-   * - Min: 360px at 16px base + 1.2 type scale (Samsung S21/S22)
-   * - iPhone SE (3rd generation): 375px
-   * - iPhone 12/13/14: 390px
-   * - iPhone 14 Pro Max: 430px
-   * - Max: 480px at 20px base + 1.333 type scale (Samsung S24 Ultra)
+   * - Min: 360px at 16px base (Samsung S21/S22) (font-size: 16px)
+   * - iPhone SE (3rd generation): 375px (font-size: 16.5px)
+   * - iPhone 12/13/14: 390px (font-size: 17px)
+   * - iPhone 14 Pro Max: 430px (font-size: 18.5px)
+   * - Max: 480px at 20px base (Samsung S24 Ultra) (font-size: 20px)
    */
+
+  /**
+    * Notes:
+    * - Type Scales below 1.333 are too small for legibility to differentiate between text styles intuitively.
+    * - Increasing type scales on mobile while also letting the base font size increase dramatically would badly influence the legibility of head lines as the number of characters is getting smaller than on smaller devices.
+    * - Our solution: Keep the type scale at 1.333 and let the base font size increase.
+    */
   :root {
     --debug-color: red;
-    --step--2: clamp(0.6944rem, 0.6673rem + 0.1204vw, 0.7035rem);
-    --step--1: clamp(0.8333rem, 0.5201rem + 1.392vw, 0.9377rem);
+    --step--2: clamp(0.5628rem, 0.1407rem + 1.8759vw, 0.7035rem);
+    --step--1: clamp(0.7502rem, 0.1875rem + 2.5006vw, 0.9377rem);
     --step-0: clamp(1rem, 0.25rem + 3.3333vw, 1.25rem);
-    --step-1: clamp(1.2rem, -0.1987rem + 6.2167vw, 1.6663rem);
-    --step-2: clamp(1.44rem, -0.9033rem + 10.4148vw, 2.2211rem);
-    --step-3: clamp(1.728rem, -1.9702rem + 16.4366vw, 2.9607rem);
-    --step-4: clamp(2.0736rem, -3.5456rem + 24.9742vw, 3.9467rem);
-    --step-5: clamp(2.4883rem, -5.8294rem + 36.9678vw, 5.2609rem);
+    --step-1: clamp(1.333rem, 0.3333rem + 4.4433vw, 1.6663rem);
+    --step-2: clamp(1.7769rem, 0.4442rem + 5.923vw, 2.2211rem);
+    --step-3: clamp(2.3686rem, 0.5921rem + 7.8953vw, 2.9607rem);
+    --step-4: clamp(3.1573rem, 0.7893rem + 10.5244vw, 3.9467rem);
+    --step-5: clamp(4.2087rem, 1.0522rem + 14.0291vw, 5.2609rem);
   }
 }
 
@@ -54,7 +61,10 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
   }
 }
 
+html {
+  font-size: var(--step-0);
+}
+
 body {
   border-top: 4px solid var(--debug-color);
-  font-size: var(--step-0);
 }
