@@ -1,8 +1,9 @@
+import { rootClass } from "./Header.css"
 import logoDark from "./logo-dark.svg"
 
 export function Header() {
   return (
-    <header>
+    <header className={rootClass}>
       <a href="/">
         <img src={logoDark} alt="Sebastian Software GmbH" />
       </a>

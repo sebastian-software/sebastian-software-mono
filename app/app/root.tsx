@@ -14,8 +14,8 @@ import {
 } from "@remix-run/react"
 import { lazy, Suspense } from "react"
 
-import { Body, Favicon, Footer, Header, Main } from "./pages/layout"
 import { getAppLanguage, getMessages, languageCookie } from "./language.server"
+import { Body, Favicon, Footer, Header, Main } from "./pages/layout"
 
 const LiveVisualEditing = lazy(
   async () => import("~/components/LiveVisualEditing")
