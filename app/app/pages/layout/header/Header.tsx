@@ -1,3 +1,5 @@
+import { Spacer } from "~/components"
+
 import { listClass, logoClass, rootClass } from "./Header.css"
 import logoDark from "./logo-dark.svg"
 
@@ -11,6 +13,7 @@ export function Header() {
           alt="Sebastian Software GmbH"
         />
       </a>
+      <Spacer />
       <nav>
         <ul className={listClass}>
           <li>
