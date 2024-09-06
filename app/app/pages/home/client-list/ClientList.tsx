@@ -1,8 +1,8 @@
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types"
 
+import { ColorFilter } from "~/components"
 import { urlFor } from "~/sanity/image"
 
-import { ColorFilter } from "../../color-filter"
 import {
   itemClass,
   listClass,

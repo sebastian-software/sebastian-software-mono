@@ -7,10 +7,10 @@ import type {
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { CountryName, IndustryName } from "~/components/i18n"
+import { Neutral } from "~/components/neutral"
+import { RichText } from "~/components/richtext/RichText"
 import { urlFor } from "~/sanity/image"
 
-import { Neutral } from "../../neutral"
-import { RichText } from "../../richtext/RichText"
 import { TestimonialBlock } from "../testimonial"
 import {
   agentClass,
