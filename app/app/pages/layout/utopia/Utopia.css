@@ -17,14 +17,15 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
    * - Min: 360px at 16px base (Samsung S21/S22) (font-size: 16px)
    * - iPhone SE (3rd generation): 375px (font-size: 16.5px)
    * - iPhone 12/13/14: 390px (font-size: 17px)
-   * - iPhone 14 Pro Max: 430px (font-size: 18.5px)
+   * - iPhone 14 Pro Max: 430px (font-size: 18.3px)
    * - Max: 480px at 20px base (Samsung S24 Ultra) (font-size: 20px)
    */
 
   /**
     * Notes:
     * - Type Scales below 1.333 are too small for legibility to differentiate between text styles intuitively.
-    * - Increasing type scales on mobile while also letting the base font size increase dramatically would badly influence the legibility of head lines as the number of characters is getting smaller than on smaller devices.
+    * - Increasing type scales on mobile while also letting the base font size increase dramatically would badly
+    *   influence the legibility of head lines as the number of characters is getting smaller than on smaller devices.
     * - Our solution: Keep the type scale at 1.333 and let the base font size increase.
     */
   :root {
