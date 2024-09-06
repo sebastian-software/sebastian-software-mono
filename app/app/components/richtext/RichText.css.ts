@@ -39,14 +39,15 @@ globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
   overflowX: "hidden"
 })
 
-globalStyle(
-  `${root} :where(h1, h2)::before`,
-  generateVerticalLine("22ch", "red")
-)
-globalStyle(
-  `${root} :where(p, ul, ol)::before`,
-  generateVerticalLine("30ch", "red")
-)
+// globalStyle(
+//   `${root} :where(h1, h2)::before`,
+//   generateVerticalLine("22ch", "red")
+// )
+
+// globalStyle(
+//   `${root} :where(p, ul, ol)::before`,
+//   generateVerticalLine("30ch", "red")
+// )
 
 globalStyle(`${root} h1`, {
   fontSize: "var(--step-2)",
