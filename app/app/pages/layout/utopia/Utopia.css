@@ -62,8 +62,16 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
   }
 }
 
-html {
+body {
+  /**
+   * Never apply to the html (:root) element as this would re-adjust all the calculated values.
+   * Utopia is using rem already which is based on the html font size.
+   */
   font-size: var(--step-0);
+
+  /* Instead of doing this font-by-font we also had good results by just setting it to a uniform globally identical value */
+  /* Never understood why all documentation tries to adjust one fallback font instead of just normalizing all fonts. */
+  font-size-adjust: 0.5;
 }
 
 body {
