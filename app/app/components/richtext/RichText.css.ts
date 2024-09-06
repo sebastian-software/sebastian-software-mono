@@ -1,4 +1,3 @@
-import type { GlobalStyleRule } from "@vanilla-extract/css"
 import { globalStyle, style } from "@vanilla-extract/css"
 
 import { elenaWebfont } from "../fonts"
@@ -10,18 +9,18 @@ import { elenaWebfont } from "../fonts"
 // mobile:
 // - main body text: 30-50 (https://blog.designary.com/p/the-optimal-text-line-length-for-readability)
 
-function generateVerticalLine(column: string, color: string): GlobalStyleRule {
-  return {
-    content: "",
-    position: "absolute",
-    left: column /* Position the line at the 40 character width */,
-    top: 0,
-    bottom: 0,
-    width: "2px" /* Line width */,
-    backgroundColor: color,
-    zIndex: 1 /* Ensure the line appears above the text */
-  }
-}
+// function generateVerticalLine(column: string, color: string): GlobalStyleRule {
+//   return {
+//     content: "",
+//     position: "absolute",
+//     left: column /* Position the line at the 40 character width */,
+//     top: 0,
+//     bottom: 0,
+//     width: "2px" /* Line width */,
+//     backgroundColor: color,
+//     zIndex: 1 /* Ensure the line appears above the text */
+//   }
+// }
 
 export const root = style({
   fontSize: "var(--step-0)",
@@ -36,7 +35,10 @@ export const root = style({
 
 globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
   position: "relative",
-  overflowX: "hidden",
+  overflowX: "hidden"
+})
+
+globalStyle(`${root} :where(p, ul, ol)`, {
   marginBottom: "var(--space-s)"
 })
 
