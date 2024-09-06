@@ -1,6 +1,8 @@
 import type { GlobalStyleRule } from "@vanilla-extract/css"
 import { globalStyle, style } from "@vanilla-extract/css"
 
+import { elenaWebfont } from "../fonts"
+
 // desktop:
 // - main body text: 50-75 (https://baymard.com/blog/line-length-readability)
 // - column text: 40-50
@@ -47,7 +49,8 @@ globalStyle(
 )
 
 globalStyle(`${root} h1`, {
-  fontSize: "var(--step-2)"
+  fontSize: "var(--step-2)",
+  fontFamily: elenaWebfont
 })
 
 globalStyle(`${root} h2`, {
