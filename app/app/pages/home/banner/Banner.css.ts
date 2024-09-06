@@ -14,16 +14,26 @@ export const rootClass = style({
 
 export const imageClass = style({})
 
+const media = {
+  portrait: "(orientation: portrait) and (max-width: 959px)",
+  landscape: "(orientation: landscape) or (min-width: 960px)"
+}
+
 export const contentClass = style({
   position: "absolute",
   bottom: 0,
-  paddingBlock: "4vw",
-  paddingInline: "4vw",
   color: "white",
   fontFamily: elenaWebfont,
-  fontSize: "max(3vw, 1.25rem)",
+  fontSize: "var(--step-3)",
+  padding: "var(--space-m-l)",
   fontWeight: 200,
   lineHeight: "1.2",
   textWrap: "balance",
-  backgroundImage: `linear-gradient(to bottom, transparent, ${variables.color.darkViolet} 95%)`
+  backgroundImage: `linear-gradient(to bottom, transparent, ${variables.color.darkViolet} 95%)`,
+
+  "@media": {
+    [media.portrait]: {
+      fontSize: "var(--step-1)"
+    }
+  }
 })
