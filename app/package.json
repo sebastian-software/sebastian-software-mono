@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run lingui:extract && remix vite:build",
     "build-storybook": "STORYBOOK=1 storybook build",
-    "dev": "remix vite:dev",
+    "dev": "remix vite:dev --host",
     "gen:sanity": "../studio/node_modules/.bin/sanity typegen generate",
     "lingui:extract": "lingui extract --clean",
     "lint": "eslint .",
