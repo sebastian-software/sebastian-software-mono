@@ -5,8 +5,8 @@ import { variables } from "~/theme.css"
 
 export const rootClass = style({
   background: variables.color.darkViolet,
-  paddingBlock: "6rem",
-  paddingInline: "4vw",
+  paddingBlock: "var(--space-xl)",
+  paddingInline: "var(--space-m-l)",
 
   "@media": {
     "(max-width: 800px)": {
@@ -17,32 +17,17 @@ export const rootClass = style({
 
 export const titleClass = style({
   fontFamily: elenaWebfont,
-  fontSize: "3rem",
-  textDecoration: "underline",
-  textUnderlineOffset: "0.2em",
+  fontSize: "var(--step-2)",
   textDecorationThickness: "from-font",
   color: "white",
-  marginBottom: "2rem",
-
-  "@media": {
-    "(max-width: 800px)": {
-      fontSize: "2rem"
-    }
-  }
+  marginBottom: "var(--space-m)"
 })
 
 export const listClass = style({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(10rem, 1fr))",
-  gap: "4rem 6rem",
-  alignItems: "center",
-
-  "@media": {
-    "(max-width: 800px)": {
-      gridTemplateColumns: "repeat(auto-fit, minmax(7rem, 1fr))",
-      gap: "3rem 4rem"
-    }
-  }
+  gridTemplateColumns: "repeat(auto-fit, minmax(var(--space-3xl), 1fr))",
+  gap: "var(--space-m) var(--space-l)",
+  alignItems: "center"
 })
 
 export const itemClass = style({
@@ -54,7 +39,7 @@ export const itemClass = style({
 })
 
 export const logoClass = style({
-  maxHeight: "5rem",
+  maxHeight: "var(--space-xl)",
   width: "100%",
   objectFit: "contain",
   objectPosition: "center"
