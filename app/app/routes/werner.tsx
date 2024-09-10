@@ -5,7 +5,7 @@ import { useQuery } from "@sanity/react-loader"
 import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { getAppLanguage } from "~/language.server"
-import { ProfileHead, ProjectList } from "~/pages/profile"
+import { ProjectList } from "~/pages/profile"
 import { PROJECTS_QUERY } from "~/queries/projects"
 import { loadQuery } from "~/sanity/loader.server"
 
@@ -41,7 +41,6 @@ export default function ProfileWerner() {
 
   return (
     <section>
-      <ProfileHead name="Sebastian Werner" />
       <ProjectList data={data} encodeDataAttribute={encodeDataAttribute} />
     </section>
   )

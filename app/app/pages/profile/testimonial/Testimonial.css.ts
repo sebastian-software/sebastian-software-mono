@@ -12,7 +12,6 @@ export const quoteClass = style({
       marginTop: "-0.5rem",
       marginLeft: "-1.5rem",
       fontSize: "2rem",
-      lineHeight: 1,
       content: "open-quote"
     }
   }

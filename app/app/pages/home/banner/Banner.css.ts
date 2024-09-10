@@ -27,7 +27,6 @@ export const contentClass = style({
   fontSize: "var(--step-3)",
   padding: "var(--space-m-l)",
   fontWeight: 200,
-  lineHeight: "1.2",
   textWrap: "balance",
   backgroundImage: `linear-gradient(to bottom, transparent, ${variables.color.darkViolet} 95%)`,
 

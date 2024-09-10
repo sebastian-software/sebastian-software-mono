@@ -49,8 +49,6 @@ export const titleClass = style({
   gridArea: "title",
   fontSize: "2.5rem",
   fontWeight: "bold",
-  lineHeight: "1.2",
-  letterSpacing: "-0.05em",
   textWrap: "balance",
   color: "#222"
 })
@@ -64,7 +62,6 @@ export const roleClass = style({
   width: "fit-content",
   letterSpacing: "0.05em",
   paddingInline: "0.5rem",
-  lineHeight: "2",
   marginBottom: "0.5rem"
 })
 
