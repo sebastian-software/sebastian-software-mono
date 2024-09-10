@@ -14,6 +14,7 @@ import { urlFor } from "~/sanity/image"
 import { TestimonialBlock } from "../testimonial"
 import {
   agentClass,
+  agentImageClass,
   customerClass,
   descriptionClass,
   industryClass,
@@ -74,8 +75,9 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
 
   return (
     <div className={projectClass}>
+      <div className={roleClass}>{data.role}</div>
+
       <Neutral as="h2" className={titleClass}>
-        <span className={roleClass}>{data.role}</span>
         {data.title}
       </Neutral>
 
@@ -110,9 +112,8 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
             <img
               src={agentLogoUrl}
               alt={data.agent.name}
-              className={logoClass}
+              className={agentImageClass}
             />
-            <br /> {data.agent.name}
           </p>
         )}
         {/* {data.technologies && (
