@@ -20,11 +20,11 @@ export const consultantHeaderClass = style({
   color: variables.color.lightViolet,
 
   // Partially compensating for the parent's gap
-  marginBottom: "calc(var(--space-3xl) * -1)"
+  marginBottom: "calc(var(--space-1xl) * -1)"
 })
 
 export const consultantHeaderStrongClass = style({
-  color: variables.color.darkViolet,
+  color: variables.color.violet,
   fontWeight: "600"
 })
 
@@ -135,7 +135,7 @@ export const gridMetaClass = style({
   background: variables.color.lightGold,
   filter: dropShadow[1],
 
-  width: "30ch",
+  width: "25ch",
   height: "max-content",
   lineHeight: "1.35",
   fontSize: "var(--step--1)",
@@ -159,8 +159,7 @@ export const gridTestimonialsClass = style({
   gridArea: "testimonials",
   display: "flex",
   flexDirection: "column",
-  minWidth: "35ch",
-  maxWidth: "45ch",
+  width: "40ch",
   lineHeight: "1.35",
   gap: "var(--space-xl)",
   borderLeft: "4px dotted",
