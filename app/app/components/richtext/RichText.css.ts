@@ -31,8 +31,8 @@ export const root = style({
   // Auto hyphens which are a good compromise for longer German words.
   // "The CSS Text Module Level 4 suggests that browsers use "5 2 2" as their starting point (which I think results in too much hyphenation), but browsers are free to vary that as they see fit."
   // Via: https://medium.com/clear-left-thinking/all-you-need-to-know-about-hyphenation-in-css-2baee2d89179
-  hyphens: "auto",
-  hyphenateLimitChars: "8 4 4",
+  // hyphens: "auto",
+  // hyphenateLimitChars: "8 4 4",
 
   paddingBottom: "var(--space-m)"
 })

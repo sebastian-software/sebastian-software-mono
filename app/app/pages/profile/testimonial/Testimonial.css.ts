@@ -5,16 +5,17 @@ export const rootClass = style({})
 export const quoteClass = style({
   quotes: '"»" "«"',
   whiteSpace: "pre-line",
+  maxWidth: "40ch"
 
-  selectors: {
-    "&::before": {
-      position: "absolute",
-      marginTop: "-0.5rem",
-      marginLeft: "-1.5rem",
-      fontSize: "2rem",
-      content: "open-quote"
-    }
-  }
+  // selectors: {
+  //   "&::before": {
+  //     position: "absolute",
+  //     marginTop: "-0.5rem",
+  //     marginLeft: "-1.5rem",
+  //     fontSize: "2rem",
+  //     content: "open-quote"
+  //   }
+  // }
 })
 
 export const captionClass = style({

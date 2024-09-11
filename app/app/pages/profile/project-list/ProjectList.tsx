@@ -15,17 +15,19 @@ import { TestimonialBlock } from "../testimonial"
 import {
   agentClass,
   agentImageClass,
+  consultantHeaderClass,
+  consultantHeaderStrongClass,
   customerClass,
-  descriptionClass,
+  gridDescriptionClass,
+  gridLogoClass,
+  gridMetaClass,
+  gridRoleClass,
+  gridTestimonialsClass,
+  gridTitleClass,
   industryClass,
-  logoClass,
-  metaClass,
   periodClass,
   projectClass,
-  roleClass,
-  rootClass,
-  testimonialsClass,
-  titleClass
+  rootClass
 } from "./ProjectList.css"
 
 export interface ProjectListProps {
@@ -36,6 +38,10 @@ export interface ProjectListProps {
 export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
   return (
     <div className={rootClass}>
+      <h1 className={consultantHeaderClass}>
+        Sebastian{" "}
+        <strong className={consultantHeaderStrongClass}>Werner</strong>
+      </h1>
       {data.map((project, i) => (
         <Project
           key={project._id}
@@ -74,47 +80,62 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
   const language = i18n.locale
 
   return (
-    <div className={projectClass}>
-      <div className={roleClass}>{data.role}</div>
+    <article className={projectClass}>
+      <img
+        className={gridLogoClass}
+        src={clientLogoUrl}
+        alt={data.client.name}
+      />
 
-      <Neutral as="h2" className={titleClass}>
+      <Neutral as="h2" className={gridTitleClass}>
         {data.title}
       </Neutral>
 
-      <img src={clientLogoUrl} alt={data.client.name} className={logoClass} />
+      <div className={gridRoleClass}>{data.role}</div>
 
-      <div className={metaClass}>
-        <p className={customerClass}>
+      <aside className={gridMetaClass}>
+        <h3>
           <Trans context="label">Customer:</Trans>
-          <br />
+        </h3>
+        <p className={customerClass}>
           {data.client.name}
           <br />
           {data.client.city}, <CountryName code={data.client.country} />
         </p>
+
+        <h3>
+          <Trans context="label">Industry:</Trans>
+        </h3>
         <p
           className={industryClass}
           data-sanity={encodeDataAttribute("client.industry")}
         >
-          <Trans context="label">Industry:</Trans>
-          <br />
           <IndustryName code={data.client.industry} />
         </p>
+
+        <h3>
+          <Trans context="label">Period:</Trans>
+        </h3>
         <p
           className={periodClass}
           data-sanity={encodeDataAttribute("contractStart")}
         >
-          <Trans context="label">Period:</Trans>
-          <br /> {formatPeriod(data.contractStart, data.contractEnd, language)}
+          {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
+
         {data.agent && (
-          <p className={agentClass}>
-            <Trans>Agent:</Trans>
-            <img
-              src={agentLogoUrl}
-              alt={data.agent.name}
-              className={agentImageClass}
-            />
-          </p>
+          <>
+            <h3>
+              <Trans>Agent:</Trans>
+            </h3>
+            <p className={agentClass}>
+              <img
+                src={agentLogoUrl}
+                alt={data.agent.name}
+                className={agentImageClass}
+              />
+            </p>
+          </>
         )}
         {/* {data.technologies && (
           <Neutral>
@@ -125,11 +146,11 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
             </TagList>
           </Neutral>
         )} */}
-      </div>
+      </aside>
 
-      <RichText className={descriptionClass}>{data.description}</RichText>
+      <RichText className={gridDescriptionClass}>{data.description}</RichText>
 
-      <ul className={testimonialsClass}>
+      <ul className={gridTestimonialsClass}>
         {data.testimonials?.map((entry) => (
           <TestimonialBlock
             key={entry._id}
@@ -141,6 +162,6 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
           />
         ))}
       </ul>
-    </div>
+    </article>
   )
 }

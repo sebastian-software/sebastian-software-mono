@@ -29,18 +29,16 @@ export function TestimonialBlock({
 }: TestimonialBlockProps) {
   const headShotImage = urlFor(headshot)?.url()
   return (
-    <article className={rootClass}>
+    <li className={rootClass}>
       {headShotImage && (
         <Image
           src={headShotImage}
-          width={80}
-          height={80}
+          width={150}
+          aspectRatio={1}
           className={imageClass}
         />
       )}
-      <blockquote className={quoteClass}>
-        <p>{text}</p>
-      </blockquote>
+      <blockquote className={quoteClass}>{text}</blockquote>
       <figcaption className={captionClass}>
         <cite>{author}</cite>
         {position && (
@@ -56,6 +54,6 @@ export function TestimonialBlock({
           </>
         )}
       </figcaption>
-    </article>
+    </li>
   )
 }
