@@ -16,16 +16,13 @@ import {
   agentImageClass,
   consultantHeaderClass,
   consultantHeaderStrongClass,
-  customerClass,
   gridDescriptionClass,
   gridLogoClass,
   gridMetaClass,
-  gridRoleClass,
   gridTestimonialsClass,
   gridTitleClass,
-  industryClass,
+  gridVerticalInfoClass,
   metaHeaderClass,
-  periodClass,
   projectClass,
   rootClass
 } from "./ProjectList.css"
@@ -66,6 +63,15 @@ export function formatPeriod(start: string, end: string, language: string) {
   return `${startDate} - ${endDate}`
 }
 
+export function formatProjectTime(moment: string, language: string) {
+  const formatted = new Date(moment).toLocaleDateString(language, {
+    year: "numeric",
+    month: "long"
+  })
+
+  return formatted
+}
+
 export interface ProjectProps {
   readonly data: PROJECTS_QUERYResult[number]
   readonly encodeDataAttribute: EncodeDataAttributeCallback
@@ -91,38 +97,36 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
         {data.title}
       </Neutral>
 
-      <div className={gridRoleClass}>{data.role}</div>
+      <div className={gridVerticalInfoClass}>
+        {formatProjectTime(data.contractStart, language)}
+      </div>
 
       <aside className={gridMetaClass}>
         <h3 className={metaHeaderClass}>
+          <Trans context="label">Role:</Trans>
+        </h3>
+        <p>{data.role}</p>
+
+        <h3 className={metaHeaderClass}>
           <Trans context="label">Customer:</Trans>
         </h3>
-        <p className={customerClass}>
+        <p>
           {data.client.name}
           <br />
           {data.client.city}, <CountryName code={data.client.country} />
         </p>
-
         <h3 className={metaHeaderClass}>
           <Trans context="label">Industry:</Trans>
         </h3>
-        <p
-          className={industryClass}
-          data-sanity={encodeDataAttribute("client.industry")}
-        >
+        <p data-sanity={encodeDataAttribute("client.industry")}>
           <IndustryName code={data.client.industry} />
         </p>
-
         <h3 className={metaHeaderClass}>
           <Trans context="label">Period:</Trans>
         </h3>
-        <p
-          className={periodClass}
-          data-sanity={encodeDataAttribute("contractStart")}
-        >
+        <p data-sanity={encodeDataAttribute("contractStart")}>
           {formatPeriod(data.contractStart, data.contractEnd, language)}
         </p>
-
         {data.agent && (
           <>
             <h3 className={metaHeaderClass}>

@@ -32,8 +32,9 @@ export const projectClass = style({
   display: "grid",
   filter: dropShadow[3],
   borderTopLeftRadius: "var(--space-s)",
+  borderBottomRightRadius: "var(--space-s)",
 
-  gap: "var(--space-m) var(--space-s)",
+  gap: "var(--space-l) var(--space-l)",
   width: "max-content",
   maxWidth: "100%",
   background: `linear-gradient(to bottom right, ${variables.color.veryLightGold}, #fff)`,
@@ -112,7 +113,7 @@ export const gridTitleClass = style({
   maxWidth: "40ch"
 })
 
-export const gridRoleClass = style({
+export const gridVerticalInfoClass = style({
   border: dbgBorder,
   background: variables.color.violet,
   color: variables.color.lightGold,
@@ -124,6 +125,7 @@ export const gridRoleClass = style({
   paddingInline: "var(--space-m)",
   paddingBlock: "var(--space-xs)",
   textTransform: "uppercase",
+  letterSpacing: "0.2em",
   borderTopLeftRadius: "var(--space-s)"
 })
 
@@ -149,8 +151,7 @@ export const gridDescriptionClass = style({
   fontSize: "var(--step-1)",
   whiteSpace: "pre-line",
   minWidth: "45ch",
-  maxWidth: "65ch",
-  paddingInline: "var(--space-m)"
+  maxWidth: "65ch"
 })
 
 export const gridTestimonialsClass = style({
@@ -188,13 +189,9 @@ export const metaHeaderClass = style({
   }
 })
 
-export const periodClass = style({})
 export const agentImageClass = style({
   maxHeight: "var(--space-xl)"
 })
-export const customerClass = style({})
-export const industryClass = style({})
-export const technologiesClass = style({})
 
 // =====================================================
 // META END
