@@ -6,25 +6,25 @@ export const rootClass = style({
   background: variables.color.darkViolet,
   color: variables.color.white,
 
-  paddingInline: "var(--space-m-l)",
-  paddingTop: "var(--space-s)",
+  paddingInline: "var(--space-s-xl)",
+  paddingTop: "var(--space-m)",
 
   "@media": {
     "(min-width: 960px)": {
       display: "flex",
       gap: "var(--space-m)",
-      paddingBottom: "var(--space-s)",
+      paddingBottom: "var(--space-m)",
       alignItems: "center"
     }
   }
 })
 
 export const logoClass = style({
-  width: "10rem"
+  width: "var(--space-5xl)"
 })
 
 export const listClass = style({
-  paddingBlock: "var(--space-s)",
+  paddingBlock: "var(--space-m)",
   listStyle: "none",
   display: "flex",
   gap: "var(--space-xs)",

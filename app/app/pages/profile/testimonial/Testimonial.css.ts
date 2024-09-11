@@ -1,5 +1,7 @@
 import { style } from "@vanilla-extract/css"
 
+import { variables } from "~/theme.css"
+
 export const rootClass = style({
   listStyle: "none"
 })
@@ -8,19 +10,20 @@ export const figureClass = style({
   display: "flex",
   alignItems: "center",
   gap: "var(--space-s)",
-  maxWidth: "40ch"
+
+  marginBottom: "var(--space-xs)"
 })
 
 export const imageClass = style({
-  backgroundColor: "#ddd",
-  border: "1px solid #aaa",
+  backgroundColor: variables.color.lightGold,
   borderRadius: "50%",
-  filter: "grayscale(1)",
+  filter: "grayscale(0.5)",
+
   maxWidth: "max-content"
 })
 
 export const captionClass = style({
-  fontSize: "var(--step-0)",
+  fontSize: "var(--step--1)",
   lineHeight: "1.2",
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",
@@ -28,15 +31,15 @@ export const captionClass = style({
 
   selectors: {
     "&::first-line": {
-      fontWeight: "bold"
+      fontWeight: "600",
+      fontSize: "var(--step-0)"
     }
   }
 })
 
 export const quoteClass = style({
   quotes: '"»" "«"',
-  whiteSpace: "pre-line",
-  maxWidth: "40ch"
+  whiteSpace: "pre-line"
 
   // selectors: {
   //   "&::before": {

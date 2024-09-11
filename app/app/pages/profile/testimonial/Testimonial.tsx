@@ -34,7 +34,7 @@ export function TestimonialBlock({
       <figure className={figureClass}>
         <Image
           src={headShotImage}
-          width={150}
+          width={120}
           aspectRatio={1}
           className={imageClass}
         />

@@ -13,7 +13,6 @@ import { urlFor } from "~/sanity/image"
 
 import { TestimonialBlock } from "../testimonial"
 import {
-  agentClass,
   agentImageClass,
   consultantHeaderClass,
   consultantHeaderStrongClass,
@@ -25,6 +24,7 @@ import {
   gridTestimonialsClass,
   gridTitleClass,
   industryClass,
+  metaHeaderClass,
   periodClass,
   projectClass,
   rootClass
@@ -94,7 +94,7 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
       <div className={gridRoleClass}>{data.role}</div>
 
       <aside className={gridMetaClass}>
-        <h3>
+        <h3 className={metaHeaderClass}>
           <Trans context="label">Customer:</Trans>
         </h3>
         <p className={customerClass}>
@@ -103,7 +103,7 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
           {data.client.city}, <CountryName code={data.client.country} />
         </p>
 
-        <h3>
+        <h3 className={metaHeaderClass}>
           <Trans context="label">Industry:</Trans>
         </h3>
         <p
@@ -113,7 +113,7 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
           <IndustryName code={data.client.industry} />
         </p>
 
-        <h3>
+        <h3 className={metaHeaderClass}>
           <Trans context="label">Period:</Trans>
         </h3>
         <p
@@ -125,16 +125,14 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
 
         {data.agent && (
           <>
-            <h3>
+            <h3 className={metaHeaderClass}>
               <Trans>Agent:</Trans>
             </h3>
-            <p className={agentClass}>
-              <img
-                src={agentLogoUrl}
-                alt={data.agent.name}
-                className={agentImageClass}
-              />
-            </p>
+            <img
+              src={agentLogoUrl}
+              alt={data.agent.name}
+              className={agentImageClass}
+            />
           </>
         )}
         {/* {data.technologies && (
