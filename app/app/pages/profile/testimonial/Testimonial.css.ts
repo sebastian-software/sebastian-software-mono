@@ -15,19 +15,19 @@ export const figureClass = style({
 })
 
 export const imageClass = style({
+  maxWidth: "max-content",
   backgroundColor: variables.color.lightGold,
   borderRadius: "50%",
-  filter: "grayscale(0.5)",
-
-  maxWidth: "max-content"
+  filter: "grayscale(0.5)"
 })
 
 export const captionClass = style({
   fontSize: "var(--step--1)",
   lineHeight: "1.2",
+
   whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
   overflow: "hidden",
+  textOverflow: "ellipsis",
 
   selectors: {
     "&::first-line": {

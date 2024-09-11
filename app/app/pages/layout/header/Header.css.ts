@@ -6,7 +6,7 @@ export const rootClass = style({
   background: variables.color.darkViolet,
   color: variables.color.white,
 
-  paddingInline: "var(--space-s-xl)",
+  paddingInline: "var(--space-m-2xl)",
   paddingTop: "var(--space-m)",
 
   "@media": {

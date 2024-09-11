@@ -5,9 +5,10 @@ import { variables } from "~/theme.css"
 
 export const rootClass = style({
   display: "flex",
-  padding: "var(--space-s-xl)",
+  padding: "var(--space-m-2xl)",
   flexDirection: "column",
-  gap: "var(--space-2xl-3xl)"
+  gap: "var(--space-3xl-4xl)",
+  color: variables.color.violet
 })
 
 export const consultantHeaderClass = style({
@@ -18,7 +19,7 @@ export const consultantHeaderClass = style({
   color: variables.color.lightViolet,
 
   // Partially compensating for the parent's gap
-  marginBottom: "calc(var(--space-2xl-3xl) * -0.5)"
+  marginBottom: "calc(var(--space-3xl) * -1)"
 })
 
 export const consultantHeaderStrongClass = style({
@@ -105,7 +106,7 @@ export const gridTitleClass = style({
 export const gridRoleClass = style({
   border: dbgBorder,
   background: variables.color.violet,
-  color: "white",
+  color: variables.color.lightGold,
   gridArea: "role",
   writingMode: "vertical-lr",
   boxSizing: "content-box",
