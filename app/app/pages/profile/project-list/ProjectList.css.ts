@@ -14,7 +14,10 @@ export const consultantHeaderClass = style({
   textTransform: "uppercase",
   fontWeight: "200",
   lineHeight: "1",
-  color: "#444"
+  color: "#444",
+
+  // Partially compensating for the parent's gap
+  marginBottom: "calc(var(--space-2xl-3xl) * -0.5)"
 })
 
 export const consultantHeaderStrongClass = style({
@@ -23,9 +26,20 @@ export const consultantHeaderStrongClass = style({
 })
 
 export const projectClass = style({
-  // display: "grid",
+  display: "grid",
 
-  gap: "1rem 5rem"
+  gap: "1rem 1rem",
+  width: "max-content",
+
+  // gridTemplateColumns: "",
+  // gridTemplateRows: "",
+
+  gridTemplateAreas: `
+    "role logo . ."
+    "role title title title"
+    "role meta description testimonials"
+
+  `
 
   // gridTemplateColumns: "15rem auto auto",
   // gridTemplateRows: "auto auto auto 1fr",
@@ -67,15 +81,17 @@ export const projectClass = style({
 // GRID START
 // =====================================================
 
+const dbgBorder = "0px solid red"
+
 export const gridLogoClass = style({
-  border: "1px solid red",
+  border: dbgBorder,
   gridArea: "logo",
   maxWidth: "calc(var(--space-3xl) * 3)",
   maxHeight: "calc(var(--space-2xl))"
 })
 
 export const gridTitleClass = style({
-  border: "1px solid red",
+  border: dbgBorder,
   gridArea: "title",
   fontFamily: elenaWebfont,
   letterSpacing: "-0.04em",
@@ -86,31 +102,42 @@ export const gridTitleClass = style({
 })
 
 export const gridRoleClass = style({
-  border: "1px solid red",
+  border: dbgBorder,
+  background: "red",
   gridArea: "role",
-  writingMode: "vertical-lr"
+  writingMode: "vertical-lr",
+  boxSizing: "content-box",
+  maxWidth: "1lh",
+  lineHeight: "1",
+  paddingInline: "var(--space-xs)",
+  paddingBlock: "var(--space-3xs)",
+  textTransform: "uppercase"
 })
 
 export const gridMetaClass = style({
-  border: "1px solid red",
+  border: dbgBorder,
   gridArea: "meta",
-  width: "20ch"
+  width: "20ch",
+  background: "red"
 })
 
 export const gridDescriptionClass = style({
-  border: "1px solid red",
+  border: dbgBorder,
   gridArea: "description",
   fontSize: "var(--step-1)",
   whiteSpace: "pre-line",
+  minWidth: "50ch",
   maxWidth: "60ch"
 })
 
 export const gridTestimonialsClass = style({
-  border: "1px solid red",
+  border: dbgBorder,
   gridArea: "testimonials",
-
-  listStyle: "none",
-  maxWidth: "40ch"
+  display: "flex",
+  flexDirection: "column",
+  width: "40ch",
+  gap: "var(--space-l)",
+  borderLeft: "4px dotted #ccc"
 })
 
 // =====================================================

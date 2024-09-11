@@ -1,6 +1,37 @@
 import { style } from "@vanilla-extract/css"
 
-export const rootClass = style({})
+export const rootClass = style({
+  listStyle: "none"
+})
+
+export const figureClass = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "var(--space-s)",
+  maxWidth: "40ch"
+})
+
+export const imageClass = style({
+  backgroundColor: "#ddd",
+  border: "1px solid #aaa",
+  borderRadius: "50%",
+  filter: "grayscale(1)",
+  maxWidth: "max-content"
+})
+
+export const captionClass = style({
+  fontSize: "var(--step-0)",
+  lineHeight: "1.2",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+
+  selectors: {
+    "&::first-line": {
+      fontWeight: "bold"
+    }
+  }
+})
 
 export const quoteClass = style({
   quotes: '"»" "«"',
@@ -16,22 +47,4 @@ export const quoteClass = style({
   //     content: "open-quote"
   //   }
   // }
-})
-
-export const captionClass = style({
-  fontWeight: "bold"
-})
-
-export const imageClass = style({
-  backgroundColor: "#ddd",
-  border: "1px solid #aaa",
-  borderRadius: "50%",
-  filter: "grayscale(1)",
-  marginBottom: "0.5rem",
-
-  selectors: {
-    "&:hover": {
-      filter: "none"
-    }
-  }
 })

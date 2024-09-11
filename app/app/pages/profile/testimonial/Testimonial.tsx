@@ -5,6 +5,7 @@ import { urlFor } from "~/sanity/image"
 
 import {
   captionClass,
+  figureClass,
   imageClass,
   quoteClass,
   rootClass
@@ -30,30 +31,31 @@ export function TestimonialBlock({
   const headShotImage = urlFor(headshot)?.url()
   return (
     <li className={rootClass}>
-      {headShotImage && (
+      <figure className={figureClass}>
         <Image
           src={headShotImage}
           width={150}
           aspectRatio={1}
           className={imageClass}
         />
-      )}
+
+        <figcaption className={captionClass}>
+          <cite>{author}</cite>
+          {position && (
+            <>
+              <br />
+              {position}
+            </>
+          )}
+          {company && (
+            <>
+              <br />
+              {company}
+            </>
+          )}
+        </figcaption>
+      </figure>
       <blockquote className={quoteClass}>{text}</blockquote>
-      <figcaption className={captionClass}>
-        <cite>{author}</cite>
-        {position && (
-          <>
-            <br />
-            {position}
-          </>
-        )}
-        {company && (
-          <>
-            <br />
-            {company}
-          </>
-        )}
-      </figcaption>
     </li>
   )
 }
