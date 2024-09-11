@@ -1,3 +1,4 @@
+import { dropShadow } from "@effective/shadow"
 import { style } from "@vanilla-extract/css"
 
 import { elenaWebfont } from "~/components"
@@ -7,7 +8,7 @@ export const rootClass = style({
   display: "flex",
   padding: "var(--space-m-2xl)",
   flexDirection: "column",
-  gap: "var(--space-3xl-4xl)",
+  gap: "var(--space-2xl)",
   color: variables.color.violet
 })
 
@@ -29,9 +30,13 @@ export const consultantHeaderStrongClass = style({
 
 export const projectClass = style({
   display: "grid",
+  filter: dropShadow[3],
+  borderTopLeftRadius: "var(--space-s)",
 
   gap: "var(--space-m) var(--space-s)",
   width: "max-content",
+  maxWidth: "100%",
+  background: `linear-gradient(to bottom right, ${variables.color.veryLightGold}, #fff)`,
 
   // gridTemplateColumns: "",
   // gridTemplateRows: "",
@@ -40,8 +45,11 @@ export const projectClass = style({
     "role logo logo ."
     "role title title title"
     "role meta description testimonials"
+    "role . . ."
+  `,
 
-  `
+  gridTemplateColumns: "auto auto auto auto",
+  gridTemplateRows: "auto auto auto var(--space-s)"
 
   // gridTemplateColumns: "15rem auto auto",
   // gridTemplateRows: "auto auto auto 1fr",
@@ -89,7 +97,8 @@ export const gridLogoClass = style({
   border: dbgBorder,
   gridArea: "logo",
   maxWidth: "calc(var(--space-4xl) * 2)",
-  maxHeight: "calc(var(--space-2xl))"
+  maxHeight: "calc(var(--space-2xl))",
+  marginTop: "var(--space-m)"
 })
 
 export const gridTitleClass = style({
@@ -122,10 +131,15 @@ export const gridMetaClass = style({
   border: dbgBorder,
   gridArea: "meta",
   background: variables.color.lightGold,
+  filter: dropShadow[1],
+
   width: "30ch",
+  height: "max-content",
+  lineHeight: "1.35",
   fontSize: "var(--step--1)",
   paddingInline: "var(--space-s)",
   paddingBlock: "var(--space-s)",
+  paddingInlineEnd: "var(--space-m)",
   borderTopRightRadius: "var(--space-s)"
 })
 
@@ -134,8 +148,8 @@ export const gridDescriptionClass = style({
   gridArea: "description",
   fontSize: "var(--step-1)",
   whiteSpace: "pre-line",
-  minWidth: "50ch",
-  maxWidth: "70ch",
+  minWidth: "45ch",
+  maxWidth: "65ch",
   paddingInline: "var(--space-m)"
 })
 
@@ -144,7 +158,9 @@ export const gridTestimonialsClass = style({
   gridArea: "testimonials",
   display: "flex",
   flexDirection: "column",
-  width: "50ch",
+  minWidth: "35ch",
+  maxWidth: "45ch",
+  lineHeight: "1.35",
   gap: "var(--space-xl)",
   borderLeft: "4px dotted",
   borderLeftColor: variables.color.gold,
@@ -163,6 +179,7 @@ export const metaHeaderClass = style({
   fontSize: "var(--step-0)",
   fontWeight: "600",
   marginTop: "var(--space-s)",
+  marginBottom: "var(--space-3xs)",
 
   selectors: {
     "&:first-child": {
@@ -173,9 +190,7 @@ export const metaHeaderClass = style({
 
 export const periodClass = style({})
 export const agentImageClass = style({
-  maxHeight: "var(--space-l)",
-  maxWidth: "var(--space-3xl)",
-  filter: "grayscale(1)"
+  maxHeight: "var(--space-xl)"
 })
 export const customerClass = style({})
 export const industryClass = style({})
