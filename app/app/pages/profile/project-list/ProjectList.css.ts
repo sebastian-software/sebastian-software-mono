@@ -92,10 +92,7 @@ export const projectClass = style({
 // GRID START
 // =====================================================
 
-const dbgBorder = "0px solid red"
-
 export const gridLogoClass = style({
-  border: dbgBorder,
   gridArea: "logo",
   maxWidth: "calc(var(--space-4xl) * 2)",
   maxHeight: "calc(var(--space-2xl))",
@@ -103,7 +100,6 @@ export const gridLogoClass = style({
 })
 
 export const gridTitleClass = style({
-  border: dbgBorder,
   gridArea: "title",
   fontFamily: elenaWebfont,
   letterSpacing: "-0.04em",
@@ -114,7 +110,6 @@ export const gridTitleClass = style({
 })
 
 export const gridVerticalInfoClass = style({
-  border: dbgBorder,
   background: variables.color.violet,
   color: variables.color.lightGold,
   gridArea: "role",
@@ -130,7 +125,6 @@ export const gridVerticalInfoClass = style({
 })
 
 export const gridMetaClass = style({
-  border: dbgBorder,
   gridArea: "meta",
   background: variables.color.lightGold,
   filter: dropShadow[1],
@@ -146,7 +140,6 @@ export const gridMetaClass = style({
 })
 
 export const gridDescriptionClass = style({
-  border: dbgBorder,
   gridArea: "description",
   fontSize: "var(--step-1)",
   whiteSpace: "pre-line",
@@ -155,7 +148,6 @@ export const gridDescriptionClass = style({
 })
 
 export const gridTestimonialsClass = style({
-  border: dbgBorder,
   gridArea: "testimonials",
   display: "flex",
   flexDirection: "column",
