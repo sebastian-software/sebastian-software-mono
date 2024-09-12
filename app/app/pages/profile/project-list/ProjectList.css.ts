@@ -1,4 +1,4 @@
-import { dropShadow } from "@effective/shadow"
+import { boxShadow, dropShadow } from "@effective/shadow"
 import { style } from "@vanilla-extract/css"
 
 import { elenaWebfont } from "~/components"
@@ -39,21 +39,17 @@ export const projectClass = style({
   maxWidth: "100%",
   background: `linear-gradient(to bottom right, ${variables.color.veryLightGold}, #fff)`,
 
-  // gridTemplateColumns: "",
-  // gridTemplateRows: "",
-
   gridTemplateAreas: `
-    "role logo logo ."
-    "role title title title"
-    "role meta description testimonials"
-    "role . . ."
+    "vertical logo logo ."
+    "vertical title title title"
+    "vertical meta description testimonials"
+    "vertical . . ."
   `,
 
   gridTemplateColumns: "auto auto auto auto",
-  gridTemplateRows: "auto auto auto var(--space-s)"
 
-  // gridTemplateColumns: "15rem auto auto",
-  // gridTemplateRows: "auto auto auto 1fr",
+  // The 0px row is necessary for adding padding identical to the gap (harmonious spacing)
+  gridTemplateRows: "auto auto auto 0px"
 
   // gridTemplateAreas: `
   //   ". role role"
@@ -110,18 +106,23 @@ export const gridTitleClass = style({
 })
 
 export const gridVerticalInfoClass = style({
+  gridArea: "vertical",
   background: variables.color.violet,
   color: variables.color.lightGold,
-  gridArea: "role",
+  borderTopLeftRadius: "var(--space-s)"
+})
+
+export const gridVerticalInfoTextClass = style({
   writingMode: "vertical-lr",
+
+  lineHeight: 1,
   boxSizing: "content-box",
-  maxWidth: "1lh",
-  lineHeight: "1",
+  width: "1lh",
   paddingInline: "var(--space-m)",
   paddingBlock: "var(--space-xs)",
+
   textTransform: "uppercase",
-  letterSpacing: "0.2em",
-  borderTopLeftRadius: "var(--space-s)"
+  letterSpacing: "0.2em"
 })
 
 export const gridMetaClass = style({
@@ -129,7 +130,7 @@ export const gridMetaClass = style({
   background: variables.color.lightGold,
   filter: dropShadow[1],
 
-  width: "25ch",
+  width: "30ch",
   height: "max-content",
   lineHeight: "1.35",
   fontSize: "var(--step--1)",

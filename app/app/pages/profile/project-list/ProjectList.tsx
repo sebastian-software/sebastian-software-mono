@@ -22,6 +22,7 @@ import {
   gridTestimonialsClass,
   gridTitleClass,
   gridVerticalInfoClass,
+  gridVerticalInfoTextClass,
   metaHeaderClass,
   projectClass,
   rootClass
@@ -98,7 +99,9 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
       </Neutral>
 
       <div className={gridVerticalInfoClass}>
-        {formatProjectTime(data.contractStart, language)}
+        <div className={gridVerticalInfoTextClass}>
+          {formatProjectTime(data.contractStart, language)}
+        </div>
       </div>
 
       <aside className={gridMetaClass}>
