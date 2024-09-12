@@ -30,7 +30,7 @@ export const consultantHeaderStrongClass = style({
 
 export const projectClass = style({
   display: "grid",
-  filter: dropShadow[3],
+  boxShadow: boxShadow[3],
   borderTopLeftRadius: "var(--space-s)",
   borderBottomRightRadius: "var(--space-s)",
 
