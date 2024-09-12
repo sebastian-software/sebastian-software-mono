@@ -92,7 +92,7 @@ export const gridLogoClass = style({
   gridArea: "logo",
   maxWidth: "calc(var(--space-4xl) * 2)",
   maxHeight: "calc(var(--space-2xl))",
-  marginTop: "var(--space-m)"
+  marginTop: "var(--space-s-m)"
 })
 
 export const gridTitleClass = style({
@@ -118,8 +118,8 @@ export const gridVerticalInfoTextClass = style({
   lineHeight: 1,
   boxSizing: "content-box",
   width: "1lh",
-  paddingInline: "var(--space-m)",
-  paddingBlock: "var(--space-xs)",
+  paddingInline: "var(--space-s-m)",
+  paddingBlock: "var(--space-s)",
 
   textTransform: "uppercase",
   letterSpacing: "0.2em"
@@ -157,7 +157,10 @@ export const gridTestimonialsClass = style({
   gap: "var(--space-xl)",
   borderLeft: "4px dotted",
   borderLeftColor: variables.color.gold,
-  paddingInline: "var(--space-m)"
+  paddingInline: "var(--space-m)",
+
+  hyphens: "auto",
+  hyphenateLimitChars: "8 4 4"
 })
 
 // =====================================================
