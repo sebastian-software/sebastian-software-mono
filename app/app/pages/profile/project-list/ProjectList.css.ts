@@ -46,7 +46,7 @@ export const projectClass = style({
     "vertical . . ."
   `,
 
-  gridTemplateColumns: "auto auto auto auto",
+  gridTemplateColumns: "auto auto 1fr auto",
 
   // The 0px row is necessary for adding padding identical to the gap (harmonious spacing)
   gridTemplateRows: "auto auto auto 0px"
@@ -144,7 +144,7 @@ export const gridDescriptionClass = style({
   gridArea: "description",
   fontSize: "var(--step-1)",
   whiteSpace: "pre-line",
-  minWidth: "45ch",
+  minWidth: "40ch",
   maxWidth: "65ch"
 })
 
@@ -152,7 +152,8 @@ export const gridTestimonialsClass = style({
   gridArea: "testimonials",
   display: "flex",
   flexDirection: "column",
-  width: "40ch",
+  minWidth: "30ch",
+  maxWidth: "40ch",
   lineHeight: "1.35",
   gap: "var(--space-xl)",
   borderLeft: "4px dotted",
