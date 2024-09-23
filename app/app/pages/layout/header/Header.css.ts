@@ -6,7 +6,7 @@ export const rootClass = style({
   background: variables.color.darkViolet,
   color: variables.color.white,
 
-  paddingInline: "var(--space-m-2xl)",
+  paddingInline: "var(--space-m)",
   paddingTop: "var(--space-m)",
 
   "@media": {
@@ -20,7 +20,7 @@ export const rootClass = style({
 })
 
 export const logoClass = style({
-  width: "var(--space-5xl)"
+  width: "var(--space-3xl)"
 })
 
 export const listClass = style({

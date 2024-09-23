@@ -97,8 +97,6 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --space-xl: clamp(3rem, 1.5536rem + 2.1429vw, 4.125rem);
     --space-2xl: clamp(4rem, 2.0714rem + 2.8571vw, 5.5rem);
     --space-3xl: clamp(6rem, 3.1071rem + 4.2857vw, 8.25rem);
-    --space-4xl: clamp(8rem, 4.1429rem + 5.7143vw, 11rem);
-    --space-5xl: clamp(10rem, 5.1786rem + 7.1429vw, 13.75rem);
 
     /* One-up pairs */
     --space-3xs-2xs: clamp(0.25rem, -0.3125rem + 0.8333vw, 0.6875rem);
@@ -109,13 +107,6 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --space-l-xl: clamp(2rem, -0.7321rem + 4.0476vw, 4.125rem);
     --space-xl-2xl: clamp(3rem, -0.2143rem + 4.7619vw, 5.5rem);
     --space-2xl-3xl: clamp(4rem, -1.4643rem + 8.0952vw, 8.25rem);
-    --space-3xl-4xl: clamp(6rem, -0.4286rem + 9.5238vw, 11rem);
-    --space-4xl-5xl: clamp(8rem, 0.6071rem + 10.9524vw, 13.75rem);
-
-    /* Custom pairs */
-    --space-s-xl: clamp(1rem, -3.0179rem + 5.9524vw, 4.125rem);
-    --space-m-2xl: clamp(1.5rem, -3.6429rem + 7.619vw, 5.5rem);
-    --space-l-3xl: clamp(2rem, -6.0357rem + 11.9048vw, 8.25rem);
   }
 }
 

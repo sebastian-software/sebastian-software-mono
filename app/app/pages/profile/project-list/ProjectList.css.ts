@@ -6,7 +6,7 @@ import { variables } from "~/theme.css"
 
 export const rootClass = style({
   display: "flex",
-  padding: "var(--space-m-2xl)",
+  padding: "var(--space-m)",
   flexDirection: "column",
   gap: "var(--space-2xl)",
   color: variables.color.violet
@@ -90,7 +90,7 @@ export const projectClass = style({
 
 export const gridLogoClass = style({
   gridArea: "logo",
-  maxWidth: "calc(var(--space-4xl) * 2)",
+  maxWidth: "calc(var(--space-3xl) * 2)",
   maxHeight: "calc(var(--space-2xl))",
   marginTop: "var(--space-s-m)"
 })

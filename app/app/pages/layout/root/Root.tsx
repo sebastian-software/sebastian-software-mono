@@ -6,12 +6,12 @@ import { Main } from "../main"
 
 export function Root() {
   return (
-    <div>
+    <>
       <Header />
       <Main>
         <Outlet />
       </Main>
       <Footer />
-    </div>
+    </>
   )
 }
