@@ -6,13 +6,15 @@ export const rootClass = style({
   background: variables.color.darkViolet,
   color: variables.color.white,
 
-  paddingInline: "var(--space-m)",
-  paddingTop: "var(--space-m)",
+  display: "flex",
+  gap: "var(--space-2xs)",
+  flexDirection: "column",
+  paddingInline: "var(--space-s-m)",
+  paddingBlock: "var(--space-s-m)",
 
   "@media": {
     "(min-width: 960px)": {
-      display: "flex",
-      gap: "var(--space-m)",
+      flexDirection: "row",
       paddingBottom: "var(--space-m)",
       alignItems: "center"
     }
@@ -20,11 +22,10 @@ export const rootClass = style({
 })
 
 export const logoClass = style({
-  width: "var(--space-3xl)"
+  width: "calc(var(--space-3xl) * 2)"
 })
 
 export const listClass = style({
-  paddingBlock: "var(--space-m)",
   listStyle: "none",
   display: "flex",
   gap: "var(--space-xs)",
