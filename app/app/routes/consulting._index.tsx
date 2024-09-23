@@ -3,7 +3,7 @@ import { RichText } from "~/components/richtext/RichText"
 export default function Index() {
   return (
     <RichText>
-      <h1>Consulting</h1>
+      <h1>Consulting-Angebote</h1>
 
       <h2>Unsere Dienstleistungen</h2>
       <p>

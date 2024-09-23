@@ -5,7 +5,7 @@ import { RichText } from "~/components/richtext/RichText"
 export default function Index() {
   return (
     <RichText>
-      <h1>Team</h1>
+      <h1>Das Team</h1>
 
       <h2>Sebastian Fastner</h2>
       <p>
