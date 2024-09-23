@@ -9,7 +9,7 @@ The Portrait design will only be activated for viewports up to 960px in width.
 The Desktop design will be applied from 960px onwards, regardless of the CSS orientation.
 */
 
-@media (orientation: portrait) and (max-width: 959px) {
+@media (max-width: 959px) {
   /**
    * =======================================================================
    *   MOBILE:
@@ -32,7 +32,7 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --step-4: clamp(2.4414rem, 1.2207rem + 6.1035vw, 3.0518rem);
   }
 
-  /* @link https://utopia.fyi/space/calculator?c=320,16,1.25,480,20,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6|8|10,s-l|m-xl&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/space/calculator?c=320,16,1.25,480,20,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6|8|10,s-l|m-xl|s-2xl&g=s,l,xl,12 */
 
   :root {
     --space-3xs: clamp(0.25rem, 0.125rem + 0.625vw, 0.3125rem);
@@ -62,10 +62,11 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     /* Custom pairs */
     --space-s-l: clamp(1rem, -2rem + 15vw, 2.5rem);
     --space-m-xl: clamp(1.5rem, -3rem + 22.5vw, 3.75rem);
+    --space-s-2xl: clamp(1rem, -7rem + 40vw, 5rem);
   }
 }
 
-@media (orientation: landscape) or (min-width: 960px) {
+@media (min-width: 960px) {
   /**
    * =======================================================================
    *   DESKTOP:
