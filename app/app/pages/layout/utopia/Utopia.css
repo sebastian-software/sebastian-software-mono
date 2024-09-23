@@ -11,12 +11,14 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
 
 @media (orientation: portrait) and (max-width: 959px) {
   /**
-   * Mobile:
+   * =======================================================================
+   *   MOBILE:
+   * =======================================================================
    * - iPhone 5:             320px (font-size: 16.00px)
    * - Samsung S21/S22:      360px (font-size: 17.00px)
    * - iPhone 12/13/14:      390px (font-size: 17.75px)
    * - iPhone 14/15 Pro Max: 430px (font-size: 18.75px)
-   * - Samsung S24 Ultra:    480px (font-size: 20.00px) = 1.5 of base size
+   * - Samsung S24 Ultra:    480px (font-size: 20.00px) = 1.5 of base resolution
    */
 
   /* @link https://utopia.fyi/type/calculator?c=320,16,1.25,480,20,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
@@ -61,22 +63,24 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
 
 @media (orientation: landscape) or (min-width: 960px) {
   /**
-   * Desktop:
-   * - Min: 1080px at 16px base + 1.33 type scale
-   * - Max: 1920px at 22px base + 1.5 type scale
+   * =======================================================================
+   *   DESKTOP:
+   * =======================================================================
+   * - iPad:       960px (font-size: 16.00px)
+   * - Laptop:    1280px (font-size: 18.00px)
+   * - Desktop:   1440px (font-size: 19.00px)
+   * - Large/UHD: 1920px (font-size: 20.00px) = 2x of base resolution
    */
 
-  /* @link https://utopia.fyi/type/calculator?c=1080,16,1.333,1920,22,1.5,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/type/calculator?c=960,16,1.25,1920,22,1.414,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
   :root {
-    --step--2: clamp(0.5628rem, 0.5006rem + 0.0921vw, 0.6111rem);
-    --step--1: clamp(0.7502rem, 0.5361rem + 0.3171vw, 0.9167rem);
-    --step-0: clamp(1rem, 0.5179rem + 0.7143vw, 1.375rem);
-    --step-1: clamp(1.333rem, 0.3951rem + 1.3895vw, 2.0625rem);
-    --step-2: clamp(1.7769rem, 0.0838rem + 2.5083vw, 3.0938rem);
-    --step-3: clamp(2.3686rem, -0.5526rem + 4.3277vw, 4.6406rem);
-    --step-4: clamp(3.1573rem, -1.733rem + 7.245vw, 6.9609rem);
-    --step-5: clamp(4.2087rem, -3.8047rem + 11.8718vw, 10.4414rem);
+    --step--1: clamp(0.8rem, 0.6276rem + 0.2874vw, 0.9724rem);
+    --step-0: clamp(1rem, 0.625rem + 0.625vw, 1.375rem);
+    --step-1: clamp(1.25rem, 0.5558rem + 1.1571vw, 1.9443rem);
+    --step-2: clamp(1.5625rem, 0.3758rem + 1.9778vw, 2.7492rem);
+    --step-3: clamp(1.9531rem, 0.0189rem + 3.2237vw, 3.8873rem);
+    --step-4: clamp(2.4414rem, -0.6139rem + 5.0921vw, 5.4967rem);
   }
 
   /* @link https://utopia.fyi/space/calculator?c=1080,16,1.333,1920,22,1.5,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12 */
