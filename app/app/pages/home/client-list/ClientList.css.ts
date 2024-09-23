@@ -1,13 +1,6 @@
 import { style } from "@vanilla-extract/css"
 
-import { elenaWebfont } from "~/components"
-import { variables } from "~/theme.css"
-
 export const rootClass = style({
-  background: variables.color.darkViolet,
-  paddingBlock: "var(--space-xl)",
-  paddingInline: "var(--space-m-l)",
-
   "@media": {
     "(max-width: 800px)": {
       paddingInline: "8vw"
@@ -16,11 +9,10 @@ export const rootClass = style({
 })
 
 export const titleClass = style({
-  fontFamily: elenaWebfont,
-  fontSize: "var(--step-2)",
-  textDecorationThickness: "from-font",
-  color: "white",
-  marginBottom: "var(--space-m)"
+  fontSize: "var(--step-3)",
+  textTransform: "uppercase",
+  marginBlockStart: "var(--space-xl)",
+  marginBlockEnd: "var(--space-m)"
 })
 
 export const listClass = style({

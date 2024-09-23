@@ -28,8 +28,8 @@ export function ClientList({ data }: ClientListProps) {
         invert
         boost
         name="company-logo-mono"
-        end="#ded9dd"
-        start="#3F2B3D"
+        end="#333333"
+        start="#FFFFFF"
       />
 
       <ul className={listClass} style={{ filter: "url(#company-logo-mono)" }}>
