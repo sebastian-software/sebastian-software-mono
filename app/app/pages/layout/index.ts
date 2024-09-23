@@ -1,4 +1,5 @@
 export * from "./body"
+export * from "./container"
 export * from "./favicon"
 export * from "./footer"
 export * from "./header"

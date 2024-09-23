@@ -4,18 +4,17 @@ import { variables } from "~/theme.css"
 
 export const rootClass = style({
   background: variables.color.darkViolet,
-  color: variables.color.white,
+  color: variables.color.white
+})
 
+export const containerClass = style({
   display: "flex",
   gap: "var(--space-2xs)",
   flexDirection: "column",
-  paddingInline: "var(--space-s-m)",
-  paddingBlock: "var(--space-s-m)",
 
   "@media": {
     "(min-width: 960px)": {
       flexDirection: "row",
-      paddingBottom: "var(--space-m)",
       alignItems: "center"
     }
   }
