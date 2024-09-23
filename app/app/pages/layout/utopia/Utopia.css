@@ -30,7 +30,7 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --step-4: clamp(2.4414rem, 1.2207rem + 6.1035vw, 3.0518rem);
   }
 
-  /* @link https://utopia.fyi/space/calculator?c=320,16,1.25,480,20,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/space/calculator?c=320,16,1.25,480,20,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6|8|10,&g=s,l,xl,12 */
 
   :root {
     --space-3xs: clamp(0.25rem, 0.125rem + 0.625vw, 0.3125rem);
@@ -42,6 +42,8 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --space-xl: clamp(3rem, 1.5rem + 7.5vw, 3.75rem);
     --space-2xl: clamp(4rem, 2rem + 10vw, 5rem);
     --space-3xl: clamp(6rem, 3rem + 15vw, 7.5rem);
+    --space-4xl: clamp(8rem, 4rem + 20vw, 10rem);
+    --space-5xl: clamp(10rem, 5rem + 25vw, 12.5rem);
 
     /* One-up pairs */
     --space-3xs-2xs: clamp(0.25rem, -0.5rem + 3.75vw, 0.625rem);
@@ -52,6 +54,8 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
     --space-l-xl: clamp(2rem, -1.5rem + 17.5vw, 3.75rem);
     --space-xl-2xl: clamp(3rem, -1rem + 20vw, 5rem);
     --space-2xl-3xl: clamp(4rem, -3rem + 35vw, 7.5rem);
+    --space-3xl-4xl: clamp(6rem, -2rem + 40vw, 10rem);
+    --space-4xl-5xl: clamp(8rem, -1rem + 45vw, 12.5rem);
   }
 }
 

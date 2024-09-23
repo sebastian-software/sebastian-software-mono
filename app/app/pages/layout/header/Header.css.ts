@@ -22,7 +22,7 @@ export const rootClass = style({
 })
 
 export const logoClass = style({
-  width: "calc(var(--space-3xl) * 2)"
+  width: "var(--space-5xl)"
 })
 
 export const listClass = style({
