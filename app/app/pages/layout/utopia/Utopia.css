@@ -12,31 +12,22 @@ The Desktop design will be applied from 960px onwards, regardless of the CSS ori
 @media (orientation: portrait) and (max-width: 959px) {
   /**
    * Mobile:
-   * - Min: 360px at 16px base (Samsung S21/S22) (font-size: 16px)
-   * - iPhone SE (3rd generation): 375px (font-size: 16.5px)
-   * - iPhone 12/13/14: 390px (font-size: 17px)
-   * - iPhone 14 Pro Max: 430px (font-size: 18.3px)
-   * - Max: 480px at 20px base (Samsung S24 Ultra) (font-size: 20px)
+   * - iPhone 5:             320px (font-size: 16.00px)
+   * - Samsung S21/S22:      360px (font-size: 17.00px)
+   * - iPhone 12/13/14:      390px (font-size: 17.75px)
+   * - iPhone 14/15 Pro Max: 430px (font-size: 18.75px)
+   * - Samsung S24 Ultra:    480px (font-size: 20.00px) = 1.5 of base size
    */
 
-  /**
-    * Notes:
-    * - Type Scales below 1.333 are too small for legibility to differentiate between text styles intuitively.
-    * - Increasing type scales on mobile while also letting the base font size increase dramatically would badly
-    *   influence the legibility of head lines as the number of characters is getting smaller than on smaller devices.
-    * - Our solution: Keep the type scale at 1.333 and let the base font size increase.
-    */
-  /* @link https://utopia.fyi/type/calculator?c=320,16,1.25,480,21,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/type/calculator?c=320,16,1.25,480,20,1.25,4,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
   :root {
-    --step--2: clamp(0.64rem, 0.24rem + 2vw, 0.84rem);
-    --step--1: clamp(0.8rem, 0.3rem + 2.5vw, 1.05rem);
-    --step-0: clamp(1rem, 0.375rem + 3.125vw, 1.3125rem);
-    --step-1: clamp(1.25rem, 0.4688rem + 3.9063vw, 1.6406rem);
-    --step-2: clamp(1.5625rem, 0.5859rem + 4.8828vw, 2.0508rem);
-    --step-3: clamp(1.9531rem, 0.7324rem + 6.1035vw, 2.5635rem);
-    --step-4: clamp(2.4414rem, 0.9155rem + 7.6294vw, 3.2043rem);
-    --step-5: clamp(3.0518rem, 1.1444rem + 9.5367vw, 4.0054rem);
+    --step--1: clamp(0.8rem, 0.4rem + 2vw, 1rem);
+    --step-0: clamp(1rem, 0.5rem + 2.5vw, 1.25rem);
+    --step-1: clamp(1.25rem, 0.625rem + 3.125vw, 1.5625rem);
+    --step-2: clamp(1.5625rem, 0.7813rem + 3.9063vw, 1.9531rem);
+    --step-3: clamp(1.9531rem, 0.9766rem + 4.8828vw, 2.4414rem);
+    --step-4: clamp(2.4414rem, 1.2207rem + 6.1035vw, 3.0518rem);
   }
 
   /* @link https://utopia.fyi/space/calculator?c=360,16,1.333,480,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12 */
