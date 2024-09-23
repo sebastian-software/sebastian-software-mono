@@ -35,3 +35,7 @@ export const listClass = style({
     }
   }
 })
+
+export const linkClass = style({
+  textUnderlineOffset: ".3em"
+})

@@ -1,6 +1,6 @@
 import { Spacer } from "~/components"
 
-import { listClass, logoClass, rootClass } from "./Header.css"
+import { linkClass, listClass, logoClass, rootClass } from "./Header.css"
 import logoDark from "./logo-dark.svg"
 
 export function Header() {
@@ -17,16 +17,24 @@ export function Header() {
       <nav>
         <ul className={listClass}>
           <li>
-            <a href="/mission">Mission</a>
+            <a href="/mission" className={linkClass}>
+              Mission
+            </a>
           </li>
           <li>
-            <a href="/team">Team</a>
+            <a href="/team" className={linkClass}>
+              Team
+            </a>
           </li>
           <li>
-            <a href="/consulting">Consulting</a>
+            <a href="/consulting" className={linkClass}>
+              Consulting
+            </a>
           </li>
           <li>
-            <a href="/testimonials">Testimonials</a>
+            <a href="/testimonials" className={linkClass}>
+              Testimonials
+            </a>
           </li>
         </ul>
       </nav>
