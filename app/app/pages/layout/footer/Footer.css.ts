@@ -7,7 +7,7 @@ export const rootClass = style({
   color: variables.color.white,
   fontSize: "var(--step--1)",
 
-  paddingInline: "var(--space-m-l)",
+  paddingInline: "var(--space-s)",
   paddingBlock: "var(--space-s)",
 
   display: "flex",

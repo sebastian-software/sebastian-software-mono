@@ -1,6 +1,8 @@
 import type { GlobalStyleRule } from "@vanilla-extract/css"
 import { globalStyle, style } from "@vanilla-extract/css"
 
+import { variables } from "~/theme.css"
+
 import { elenaWebfont } from "../fonts"
 
 // desktop:
@@ -25,7 +27,7 @@ function generateVerticalLine(column: string, color: string): GlobalStyleRule {
 }
 
 export const root = style({
-  fontSize: "var(--step-0)",
+  fontSize: "var(--step-0)"
   // paddingInline: "var(--space-m-l)",
 
   // Auto hyphens which are a good compromise for longer German words.
@@ -33,8 +35,6 @@ export const root = style({
   // Via: https://medium.com/clear-left-thinking/all-you-need-to-know-about-hyphenation-in-css-2baee2d89179
   // hyphens: "auto",
   // hyphenateLimitChars: "8 4 4",
-
-  paddingBottom: "var(--space-m)"
 })
 
 globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
@@ -79,33 +79,28 @@ globalStyle(`${root} :where(p, ul, ol)`, {
 // )
 
 globalStyle(`${root} h1`, {
-  fontSize: "var(--step-2)",
-  fontFamily: elenaWebfont,
-  marginTop: "var(--space-m)",
-  marginBottom: "var(--space-s)"
+  fontSize: "var(--step-3)",
+  textTransform: "uppercase",
+  lineHeight: "1.2",
+  color: variables.color.violet,
+  marginBottom: "var(--space-m)"
 })
 
 globalStyle(`${root} h2`, {
+  fontFamily: elenaWebfont,
+  lineHeight: "1.35",
   fontSize: "var(--step-1)",
-  marginTop: "var(--space-m)"
+  marginTop: "var(--space-m)",
+  marginBottom: "var(--space-2xs)",
+  textWrap: "balance"
 })
 
 globalStyle(`${root} ul`, {
-  listStyle: "disc",
   paddingLeft: "var(--space-m)"
 })
 
 globalStyle(`${root} ol`, {
-  listStyle: "decimal",
   paddingLeft: "var(--space-m)"
 })
 
-globalStyle(`${root} li`, {
-  listStyle: "decimal",
-  marginBottom: "var(--space-s)"
-})
-
-// Compensate margin of h1 for context-specific follow up elements
-globalStyle(`${root} h1+:where(h2, p, ol, ul)`, {
-  marginTop: "calc(var(--space-s) * -1)"
-})
+globalStyle(`${root} li`, {})
