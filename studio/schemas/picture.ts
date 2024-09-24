@@ -11,6 +11,9 @@ export const pictureType = defineType({
     defineField({
       name: "image",
       type: "image",
+      options: {
+        hotspot: true
+      },
       validation: (Rule) => Rule.required()
     }),
 
