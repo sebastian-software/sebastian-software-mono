@@ -15,7 +15,7 @@ const bounce = keyframes({
 })
 
 // Container that holds the image track
-export const imageContainerClass = style({
+export const containerClass = style({
   marginBlock: "var(--space-xl)",
   width: "100%",
   overflow: "hidden",
@@ -33,20 +33,10 @@ export const imageContainerClass = style({
 })
 
 // Track containing the images
-export const imageTrackClass = style({
+export const trackClass = style({
   display: "flex",
-  animation: `var(--duration) linear 500ms infinite ${bounce}`,
-  transform: "translateX(var(--over-scroll))",
-
   width: "max-content",
-  gap: "var(--space-2xl)"
-})
 
-// Individual image styles
-export const imageClass = style({
-  height: "4rem",
-  maxWidth: "12rem",
-
-  objectFit: "contain",
-  objectPosition: "center"
+  animation: `var(--duration) linear 500ms infinite ${bounce}`,
+  transform: "translateX(var(--over-scroll))"
 })

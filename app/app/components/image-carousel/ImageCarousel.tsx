@@ -1,25 +1,23 @@
-import type { CSSProperties } from "react"
+import { clsx } from "clsx"
+import type { CSSProperties, PropsWithChildren } from "react"
 
 import useSize from "~/hooks/size"
 
-import {
-  imageClass,
-  imageContainerClass,
-  imageTrackClass
-} from "./ImageCarousel.css"
+import { containerClass, trackClass } from "./ImageCarousel.css"
 
-export interface ImageCarouselProps {
-  readonly images: string[] // Array of image URLs
+export interface ImageCarouselProps extends PropsWithChildren {
   readonly speed?: number
   readonly overscroll?: string
   readonly filter?: string
+  readonly className?: string
 }
 
 export function ImageCarousel({
-  images,
   speed = 50,
   overscroll = "10cqw",
-  filter = ""
+  filter = "",
+  className,
+  children
 }: ImageCarouselProps) {
   const outer = useSize()
   const inner = useSize()
@@ -29,27 +27,20 @@ export function ImageCarousel({
   )
 
   return (
-    <div ref={outer.ref} className={imageContainerClass}>
-      <div
+    <div ref={outer.ref} className={containerClass}>
+      <ul
         ref={inner.ref}
-        className={imageTrackClass}
+        className={clsx(trackClass, className)}
         style={
           {
+            filter,
             "--duration": `${duration}s`,
             "--over-scroll": overscroll
           } as CSSProperties
         }
       >
-        {images.map((src, index) => (
-          <img
-            key={src}
-            src={src}
-            alt={`Image ${index + 1}`}
-            className={imageClass}
-            style={{ filter }}
-          />
-        ))}
-      </div>
+        {children}
+      </ul>
     </div>
   )
 }
