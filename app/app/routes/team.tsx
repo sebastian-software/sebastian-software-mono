@@ -1,38 +1,57 @@
-import { Link } from "@remix-run/react"
+import { PortableText } from "@portabletext/react"
+import type { LoaderFunctionArgs } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
+import { loadQuery, useQuery } from "@sanity/react-loader"
+import { Image } from "@unpic/react"
 
 import { RichText } from "~/components/richtext/RichText"
+import { getAppLanguage } from "~/language.server"
+import { PAGES_QUERY } from "~/queries/pages"
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const params = {
+    language: await getAppLanguage(request),
+    id: "team"
+  }
+
+  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+  return { initial, query: PAGES_QUERY, params }
+}
 
 export default function Index() {
+  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { data } = useQuery<PAGES_QUERYResult>(
+    query,
+    params,
+    // Note: There is a typing issue in Sanity with sourcemap content types
+    // This Required<> cast is a workaround until the issue is fixed.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    { initial: initial as Required<typeof initial> }
+  )
+
+  console.log("DATA:", data)
+
   return (
     <RichText>
-      <h1>Das Team</h1>
+      <h1>{data[0].title}</h1>
 
-      <h2>Sebastian Fastner</h2>
-      <p>
-        Ausgezeichnetes Informatik-Studium als Basis. Klassische und moderne
-        Web-Technologie fest im Griff. Kommandozeilen-Fan mit Fokus auf
-        Sicherheit und Cloud-Lösungen. Vereint Moderne und Stabilität.
-      </p>
-      <ul>
-        <li>
-          <Link to="/fastner">Profil</Link>
-        </li>
-        <li>Standort: Mainz</li>
-      </ul>
-
-      <h2>Sebastian Werner</h2>
-      <p>
-        20 Jahre Webtechnologie-Erfahrung. Klares Design und clevere Interfaces
-        im Blut. Visionär, Erfinder und Weltverbesserer. Autodidakt, Kritiker
-        und Mentor. Experte für UI-Frameworks. Leidenschaft für Automation,
-        Typografie und UX. Qualität und Fokus sind meine Maximen.
-      </p>
-      <ul>
-        <li>
-          <Link to="/werner">Profil</Link>
-        </li>
-        <li>Standort: Heidelberg</li>
-      </ul>
+      <PortableText
+        value={data[0].content}
+        components={{
+          types: {
+            picture({ value }) {
+              return (
+                <Image
+                  src={value.imageUrl}
+                  alt={value.alt}
+                  width={200}
+                  aspectRatio={4 / 5}
+                />
+              )
+            }
+          }
+        }}
+      />
     </RichText>
   )
 }
