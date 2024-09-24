@@ -25,6 +25,7 @@ export default [
   {
     files: ["**/*.css.ts"],
     rules: {
+      "@typescript-eslint/no-magic-numbers": "off",
       "@typescript-eslint/naming-convention": [
         "error",
         {
