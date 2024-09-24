@@ -32,12 +32,14 @@ export function TestimonialBlock({
   return (
     <li className={rootClass}>
       <figure className={figureClass}>
-        <Image
-          src={headShotImage}
-          width={120}
-          aspectRatio={1}
-          className={imageClass}
-        />
+        {headShotImage && (
+          <Image
+            src={headShotImage}
+            width={120}
+            aspectRatio={1}
+            className={imageClass}
+          />
+        )}
 
         <figcaption className={captionClass}>
           <cite>{author}</cite>
