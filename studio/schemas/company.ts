@@ -20,6 +20,15 @@ export const companyType = defineType({
     }),
 
     defineField({
+      name: "closed",
+      description:
+        "Enable this flag to mark companies which are not active anymore",
+
+      type: "boolean",
+      initialValue: true
+    }),
+
+    defineField({
       name: "city",
       type: "string",
       validation: (Rule) => Rule.required()
