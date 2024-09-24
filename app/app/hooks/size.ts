@@ -1,12 +1,14 @@
 import type { RefObject } from "react"
 import { useEffect, useRef, useState } from "react"
 
-interface UseSizeResult {
-  ref: RefObject<HTMLDivElement>
+interface UseSizeResult<SizeElementType> {
+  ref: RefObject<SizeElementType>
   rect: DOMRectReadOnly
 }
 
-function useSize(): UseSizeResult {
+function useSize<
+  SizeElementType extends HTMLElement
+>(): UseSizeResult<SizeElementType> {
   const [rect, setRect] = useState<DOMRectReadOnly>({
     width: 0,
     height: 0,
@@ -20,7 +22,7 @@ function useSize(): UseSizeResult {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     toJSON: () => ({})
   })
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<SizeElementType>(null)
 
   useEffect(() => {
     const element = ref.current

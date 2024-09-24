@@ -19,8 +19,8 @@ export function ImageCarousel({
   className,
   children
 }: ImageCarouselProps) {
-  const outer = useSize()
-  const inner = useSize()
+  const outer = useSize<HTMLDivElement>()
+  const inner = useSize<HTMLUListElement>()
 
   const duration = Math.round(
     Math.max(inner.rect.width - outer.rect.width, 0) / speed
