@@ -139,6 +139,47 @@ export type Human = {
   }
 }
 
+export type Page = {
+  _id: string
+  _type: "page"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  id: string
+  title: Array<
+    {
+      _key: string
+    } & InternationalizedArrayStringValue
+  >
+  content: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: "span"
+          _key: string
+        }>
+        style?: "normal" | "h2" | "blockquote"
+        listItem?: "bullet" | "number"
+        markDefs?: Array<{
+          href?: string
+          _type: "link"
+          _key: string
+        }>
+        level?: number
+        _type: "block"
+        _key: string
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: "picture"
+      }
+  >
+}
+
 export type Project = {
   _id: string
   _type: "project"
@@ -207,6 +248,7 @@ export type Company = {
     _type: "image"
   }
   name: string
+  closed?: boolean
   city: string
   country:
     | "de"
@@ -555,6 +597,7 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Testimonial
   | Human
+  | Page
   | Project
   | Company
   | Slug
@@ -585,71 +628,21 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./app/queries/clients.ts
 // Variable: CLIENTS_QUERY
-// Query: *[_id in array::unique(*[_type == "project"].client->_id)]{    _id,    name,    city,    country,    industry,    logo  } | order(name asc)
+// Query: *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{    _id,    name,    logo  } | order(name asc)
 export type CLIENTS_QUERYResult = Array<
   | {
       _id: string
       name: null
-      city: null
-      country: null
-      industry: null
       logo: null
     }
   | {
       _id: string
       name: string
-      city: null
-      country: null
-      industry: null
       logo: null
     }
   | {
       _id: string
       name: string
-      city: string
-      country:
-        | "at"
-        | "be"
-        | "ca"
-        | "ch"
-        | "cn"
-        | "de"
-        | "fr"
-        | "gb"
-        | "lu"
-        | "nl"
-        | "us"
-      industry:
-        | "Aerospace"
-        | "Automobiles"
-        | "CapitalGoods"
-        | "Chemicals"
-        | "Construction"
-        | "Consumer"
-        | "Education"
-        | "Energy"
-        | "Financials"
-        | "Food"
-        | "Hardware"
-        | "Healthcare"
-        | "Hotels"
-        | "Household"
-        | "Industrials"
-        | "Insurance"
-        | "IT"
-        | "Materials"
-        | "Media"
-        | "Metals"
-        | "Pharma"
-        | "RealEstate"
-        | "Recruitement"
-        | "Retail"
-        | "Software"
-        | "Staples"
-        | "Telecom"
-        | "Textiles"
-        | "Transportation"
-        | "Utilities"
       logo: {
         asset?: {
           _ref: string
@@ -662,22 +655,51 @@ export type CLIENTS_QUERYResult = Array<
         _type: "image"
       } | null
     }
-  | {
-      _id: string
-      name: string
-      city: string
-      country:
-        | "Austria"
-        | "Belgium"
-        | "France"
-        | "Germany"
-        | "Luxembourg"
-        | "Netherlands"
-        | "Switzerland"
-      industry: null
-      logo: null
-    }
 >
+
+// Source: ./app/queries/pages.ts
+// Variable: PAGES_QUERY
+// Query: *[_type == "page" && id == $id]  {    _id,    "title": title[_key == $language][0].value,    content[] {      _type == "block" => {        _key,        _type,        children,        style,        level,        listItem,        markDefs      },      _type == "reference" => @->{        _id,        _type,        image,        "alt": alt[_key == $language][0].value      }    }  }
+export type PAGES_QUERYResult = Array<{
+  _id: string
+  title: string | null
+  content: Array<
+    | {
+        _id: string
+        _type: "picture"
+        image: {
+          asset?: {
+            _ref: string
+            _type: "reference"
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+          }
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: "image"
+        }
+        alt: string | null
+      }
+    | {
+        _key: string
+        _type: "block"
+        children: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: "span"
+          _key: string
+        }> | null
+        style: "blockquote" | "h2" | "normal" | null
+        level: number | null
+        listItem: "bullet" | "number" | null
+        markDefs: Array<{
+          href?: string
+          _type: "link"
+          _key: string
+        }> | null
+      }
+  >
+}>
 
 // Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
@@ -862,7 +884,8 @@ export type TESTIMONIAL_QUERYResult = {
 import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_id in array::unique(*[_type == "project"].client->_id)]{\n    _id,\n    name,\n    city,\n    country,\n    industry,\n    logo\n  } | order(name asc)\n': CLIENTS_QUERYResult
+    '\n  *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n    _id,\n    name,\n    logo\n  } | order(name asc)\n': CLIENTS_QUERYResult
+    '\n  *[_type == "page" && id == $id]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    content[] {\n      _type == "block" => {\n        _key,\n        _type,\n        children,\n        style,\n        level,\n        listItem,\n        markDefs\n      },\n      _type == "reference" => @->{\n        _id,\n        _type,\n        image,\n        "alt": alt[_key == $language][0].value\n      }\n    }\n  }\n': PAGES_QUERYResult
     '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    client->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    agent->\n    {\n      name,\n      city,\n      country,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult

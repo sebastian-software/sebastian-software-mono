@@ -139,6 +139,47 @@ export type Human = {
   }
 }
 
+export type Page = {
+  _id: string
+  _type: "page"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  id: string
+  title: Array<
+    {
+      _key: string
+    } & InternationalizedArrayStringValue
+  >
+  content: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: "span"
+          _key: string
+        }>
+        style?: "normal" | "h2" | "blockquote"
+        listItem?: "bullet" | "number"
+        markDefs?: Array<{
+          href?: string
+          _type: "link"
+          _key: string
+        }>
+        level?: number
+        _type: "block"
+        _key: string
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: "picture"
+      }
+  >
+}
+
 export type Project = {
   _id: string
   _type: "project"
@@ -207,6 +248,7 @@ export type Company = {
     _type: "image"
   }
   name: string
+  closed?: boolean
   city: string
   country:
     | "de"
@@ -555,6 +597,7 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Testimonial
   | Human
+  | Page
   | Project
   | Company
   | Slug
