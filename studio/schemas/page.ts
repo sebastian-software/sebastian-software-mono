@@ -1,8 +1,5 @@
 import { defineField, defineType } from "sanity"
 
-import type { Project } from "../sanity.types"
-import { PREVIEW_LANGUAGE } from "./utils"
-
 export const pageType = defineType({
   name: "page",
   title: "Page",
