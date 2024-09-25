@@ -19,8 +19,8 @@ export const PAGES_QUERY = defineQuery(`
         _type,
         "crop": image.crop,
         "hotspot": image.hotspot,
-        "size": image.asset->metadata.dimensions,
-        "preview": image.asset->metadata.blurHash,
+        "width": image.asset->metadata.dimensions.width,
+        "height": image.asset->metadata.dimensions.height,
         "url": image.asset->url,
         "alt": alt[_key == $language][0].value
       }
