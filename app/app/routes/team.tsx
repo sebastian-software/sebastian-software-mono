@@ -19,6 +19,36 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { initial, query: PAGES_QUERY, params }
 }
 
+type PictureContent = Extract<
+  PAGES_QUERYResult[number]["content"][number],
+  { _type: "picture" }
+>
+
+export interface PortableTextPictureRendererProps {
+  readonly value: PictureContent
+}
+
+export function PortableTextPictureRenderer({
+  value
+}: PortableTextPictureRendererProps) {
+  if (value.url && value.width && value.height) {
+    return (
+      <SanityImage
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        aspect={4 / 5}
+        url={value.url}
+        alt={value.alt}
+        width={value.width}
+        height={value.height}
+        crop={value.crop}
+        hotspot={value.hotspot}
+      />
+    )
+  }
+
+  return null
+}
+
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
   const { data } = useQuery<PAGES_QUERYResult>(
@@ -38,17 +68,7 @@ export default function Index() {
         value={data[0].content}
         components={{
           types: {
-            picture: ({ value }) => (
-              <SanityImage
-                aspect={4 / 5}
-                url={value.url}
-                alt={value.alt}
-                width={value.width}
-                height={value.height}
-                crop={value.crop}
-                hotspot={value.hotspot}
-              />
-            )
+            picture: PortableTextPictureRenderer
           }
         }}
       />

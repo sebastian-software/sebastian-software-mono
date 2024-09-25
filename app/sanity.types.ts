@@ -659,7 +659,7 @@ export type CLIENTS_QUERYResult = Array<
 
 // Source: ./app/queries/pages.ts
 // Variable: PAGES_QUERY
-// Query: *[_type == "page" && id == $id]  {    _id,    "title": title[_key == $language][0].value,    content[] {      _type == "block" => {        _key,        _type,        children,        style,        level,        listItem,        markDefs      },      _type == "reference" => @->{        _id,        _type,        image,        "alt": alt[_key == $language][0].value      }    }  }
+// Query: *[_type == "page" && id == $id]  {    _id,    "title": title[_key == $language][0].value,    content[] {      _type == "block" => {        _key,        _type,        children,        style,        level,        listItem,        markDefs      },      _type == "reference" => @->{        _id,        _type,        "crop": image.crop,        "hotspot": image.hotspot,        "width": image.asset->metadata.dimensions.width,        "height": image.asset->metadata.dimensions.height,        "url": image.asset->url,        "alt": alt[_key == $language][0].value      }    }  }
 export type PAGES_QUERYResult = Array<{
   _id: string
   title: string | null
@@ -667,17 +667,11 @@ export type PAGES_QUERYResult = Array<{
     | {
         _id: string
         _type: "picture"
-        image: {
-          asset?: {
-            _ref: string
-            _type: "reference"
-            _weak?: boolean
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-          }
-          hotspot?: SanityImageHotspot
-          crop?: SanityImageCrop
-          _type: "image"
-        }
+        crop: SanityImageCrop | null
+        hotspot: SanityImageHotspot | null
+        width: number | null
+        height: number | null
+        url: string | null
         alt: string | null
       }
     | {
@@ -885,7 +879,7 @@ import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n    _id,\n    name,\n    logo\n  } | order(name asc)\n': CLIENTS_QUERYResult
-    '\n  *[_type == "page" && id == $id]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    content[] {\n      _type == "block" => {\n        _key,\n        _type,\n        children,\n        style,\n        level,\n        listItem,\n        markDefs\n      },\n      _type == "reference" => @->{\n        _id,\n        _type,\n        image,\n        "alt": alt[_key == $language][0].value\n      }\n    }\n  }\n': PAGES_QUERYResult
+    '\n  *[_type == "page" && id == $id]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    content[] {\n      _type == "block" => {\n        _key,\n        _type,\n        children,\n        style,\n        level,\n        listItem,\n        markDefs\n      },\n      _type == "reference" => @->{\n        _id,\n        _type,\n        "crop": image.crop,\n        "hotspot": image.hotspot,\n        "width": image.asset->metadata.dimensions.width,\n        "height": image.asset->metadata.dimensions.height,\n        "url": image.asset->url,\n        "alt": alt[_key == $language][0].value\n      }\n    }\n  }\n': PAGES_QUERYResult
     '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    client->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    agent->\n    {\n      name,\n      city,\n      country,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult

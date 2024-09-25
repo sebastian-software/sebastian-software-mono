@@ -5,16 +5,16 @@ import { computeRect } from "~/utils/imageBuilder"
 export interface SanityImageProps {
   // input config
   readonly url: string
-  readonly alt: string
-
   readonly width: number
   readonly height: number
-  readonly crop?: SanityImageCrop
-  readonly hotspot?: SanityImageHotspot
+
+  readonly alt?: string | null
+  readonly crop?: SanityImageCrop | null
+  readonly hotspot?: SanityImageHotspot | null
 
   // output config
-  readonly aspect: number
-  readonly zoom: number
+  readonly aspect?: number | null
+  readonly zoom?: number | null
 }
 
 export function SanityImage(props: SanityImageProps) {
