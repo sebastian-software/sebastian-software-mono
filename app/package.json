@@ -12,6 +12,7 @@
     "lint:fix": "eslint --fix .",
     "start": "remix-serve build",
     "storybook": "STORYBOOK=1 storybook dev -p 6006",
+    "test": "vitest",
     "typecheck": "tsc",
     "typecheck:watch": "tsc --watch"
   },
@@ -68,7 +69,8 @@
     "typescript": "^5.6.2",
     "vite": "^5.4.7",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vite-tsconfig-paths": "^5.0.1"
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^2.1.1"
   },
   "engines": {
     "node": ">=20.0.0"
