@@ -1,27 +1,15 @@
-export interface Crop {
-  left?: number
-  top?: number
-  right?: number
-  bottom?: number
-}
-
-export interface Hotspot {
-  x?: number // Normalized (0-1), center-based
-  y?: number // Normalized (0-1), center-based
-  width?: number // Normalized (0-1), relative to source image width
-  height?: number // Normalized (0-1), relative to source image height
-}
+import type { SanityImageCrop, SanityImageHotspot } from "sanity.types"
 
 export interface InputParameters {
   width: number
   height: number
-  crop?: Crop // Optional crop
-  hotspot?: Hotspot // Optional hotspot
+  crop?: SanityImageCrop | null // Optional crop
+  hotspot?: SanityImageHotspot | null // Optional hotspot
 }
 
 export interface Options {
-  aspectRatio?: number // Optional target aspect ratio
-  zoom?: number // Optional zoom factor
+  aspectRatio?: number | null // Optional target aspect ratio
+  zoom?: number | null // Optional zoom factor
   debug?: boolean // Optional debug flag to enable/disable console messages
 }
 
@@ -46,6 +34,7 @@ export function computeRect(
   const aspectRatio = options.aspectRatio ?? sourceWidth / sourceHeight
 
   // Create a logger function based on the debug flag
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const log = debug ? console.log.bind(console) : () => {}
 
   // Create a context object to pass the logger function to helper functions
