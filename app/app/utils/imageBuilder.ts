@@ -28,7 +28,7 @@ export interface Options {
 }
 
 interface Context {
-  log: (...args: any[]) => void
+  log: (...args: unknown[]) => void
 }
 
 /**
@@ -188,10 +188,12 @@ export function computeHotspotPixels(
   const { width: sourceWidth, height: sourceHeight } = source
 
   // If hotspot is undefined or missing properties, default to center and reasonable size
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const centerX = (hotspot?.x ?? 0.5) * sourceWidth
   const centerY = (hotspot?.y ?? 0.5) * sourceHeight
   const width = (hotspot?.width ?? 0.1) * sourceWidth // Default width: 10% of source width
   const height = (hotspot?.height ?? 0.1) * sourceHeight // Default height: 10% of source height
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 
   context.log("Hotspot in pixels (center-based):", {
     centerX,
@@ -279,10 +281,12 @@ export function computeMaximumZoom(
     return 1
   }
 
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const maxZoomLeft = (hotspotCenterX - croppedLeft) / (width / 2)
   const maxZoomRight = (croppedRight - hotspotCenterX) / (width / 2)
   const maxZoomTop = (hotspotCenterY - croppedTop) / (height / 2)
   const maxZoomBottom = (croppedBottom - hotspotCenterY) / (height / 2)
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 
   context.log("Maximum zoom factors:", {
     maxZoomLeft,
@@ -353,8 +357,10 @@ export function centerRectOnHotspot(
   const { centerX: hotspotCenterX, centerY: hotspotCenterY } = hotspotPixels
   const { width, height } = rectDimensions
 
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const rectLeft = hotspotCenterX - width / 2
   const rectTop = hotspotCenterY - height / 2
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 
   context.log("Rect centered on hotspot:", { rectLeft, rectTop, width, height })
 

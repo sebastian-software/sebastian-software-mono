@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // imageUtils.test.ts
 
 import { describe, expect, it } from "vitest"
