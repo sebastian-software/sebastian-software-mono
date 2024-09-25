@@ -16,7 +16,7 @@ import {
 
 describe("computeRect", () => {
   it("should compute rect with all parameters provided", () => {
-    const source: SourceImage = {
+    const input: InputParameters = {
       width: 5000,
       height: 3000,
       crop: {
@@ -24,23 +24,21 @@ describe("computeRect", () => {
         top: 100,
         right: 100,
         bottom: 100
+      },
+      hotspot: {
+        x: 0.5,
+        y: 0.5,
+        width: 0.2,
+        height: 0.2
       }
     }
 
-    const hotspot: Hotspot = {
-      x: 0.5,
-      y: 0.5,
-      width: 0.2,
-      height: 0.2
-    }
-
     const options: Options = {
-      hotspot,
       zoom: 1.2,
-      targetAspectRatio: 16 / 9
+      aspectRatio: 16 / 9
     }
 
-    const rect = computeRect(source, options)
+    const rect = computeRect(input, options)
 
     expect(rect).toEqual({
       left: expect.any(Number),
@@ -50,7 +48,90 @@ describe("computeRect", () => {
     })
   })
 
-  // Additional tests for computeRect as before...
+  // Adjust other tests accordingly, moving hotspot from options to input.
+
+  it("should compute rect with no crop provided", () => {
+    const input: InputParameters = {
+      width: 5000,
+      height: 3000
+      // No crop
+    }
+
+    const options: Options = {
+      aspectRatio: 16 / 9
+    }
+
+    const rect = computeRect(input, options)
+
+    expect(rect).toEqual({
+      left: expect.any(Number),
+      top: expect.any(Number),
+      width: expect.any(Number),
+      height: expect.any(Number)
+    })
+  })
+
+  it("should compute rect with no hotspot provided", () => {
+    const input: InputParameters = {
+      width: 5000,
+      height: 3000
+      // No hotspot
+    }
+
+    const options: Options = {
+      aspectRatio: 4 / 3
+    }
+
+    const rect = computeRect(input, options)
+
+    expect(rect).toEqual({
+      left: expect.any(Number),
+      top: expect.any(Number),
+      width: expect.any(Number),
+      height: expect.any(Number)
+    })
+  })
+
+  it("should compute rect with partial hotspot provided", () => {
+    const input: InputParameters = {
+      width: 4000,
+      height: 3000,
+      hotspot: {
+        x: 0.25,
+        y: 0.75
+        // No width or height
+      }
+    }
+
+    const options: Options = {
+      aspectRatio: 1
+    }
+
+    const rect = computeRect(input, options)
+
+    expect(rect).toEqual({
+      left: expect.any(Number),
+      top: expect.any(Number),
+      width: expect.any(Number),
+      height: expect.any(Number)
+    })
+  })
+
+  it("should compute rect with no options provided", () => {
+    const input: InputParameters = {
+      width: 5000,
+      height: 3000
+    }
+
+    const rect = computeRect(input)
+
+    expect(rect).toEqual({
+      left: expect.any(Number),
+      top: expect.any(Number),
+      width: expect.any(Number),
+      height: expect.any(Number)
+    })
+  })
 })
 
 describe("computeCroppedBoundaries", () => {

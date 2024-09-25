@@ -1,5 +1,3 @@
-// imageUtils.ts
-
 export interface Crop {
   left?: number
   top?: number
@@ -14,16 +12,16 @@ export interface Hotspot {
   height?: number // Normalized (0-1), relative to source image height
 }
 
-export interface SourceImage {
+export interface InputParameters {
   width: number
   height: number
-  crop?: Crop // Crop is now optional
+  crop?: Crop // Optional crop
+  hotspot?: Hotspot // Optional hotspot
 }
 
 export interface Options {
-  hotspot?: Hotspot // Optional hotspot
+  aspectRatio?: number // Optional target aspect ratio
   zoom?: number // Optional zoom factor
-  targetAspectRatio?: number // Now optional
   debug?: boolean // Optional debug flag to enable/disable console messages
 }
 
@@ -34,19 +32,18 @@ interface Context {
 /**
  * Computes the rectangle that contains the hotspot, matches the target aspect ratio,
  * and fits within the cropped image boundaries, optionally maximizing the zoom.
- * @param source - The source image dimensions and optional crop information.
- * @param options - Additional options including hotspot, zoom, target aspect ratio, and debug flag.
+ * @param input - The input parameters including source dimensions, crop, and hotspot.
+ * @param options - Additional options including aspect ratio, zoom, and debug flag.
  * @returns The computed rectangle with properties: left, top, width, and height.
  */
 export function computeRect(
-  source: SourceImage,
+  input: InputParameters,
   options: Options = {}
 ): { left: number; top: number; width: number; height: number } {
-  const { width: sourceWidth, height: sourceHeight, crop } = source
-  const { hotspot, zoom, debug } = options
-  // If targetAspectRatio is not provided, default to source image's aspect ratio
-  const targetAspectRatio =
-    options.targetAspectRatio ?? sourceWidth / sourceHeight
+  const { width: sourceWidth, height: sourceHeight, crop, hotspot } = input
+  const { zoom, debug } = options
+  // If aspectRatio is not provided, default to source image's aspect ratio
+  const aspectRatio = options.aspectRatio ?? sourceWidth / sourceHeight
 
   // Create a logger function based on the debug flag
   const log = debug ? console.log.bind(console) : () => {}
@@ -55,17 +52,20 @@ export function computeRect(
   const context: Context = { log }
 
   // Step 1: Compute cropped image boundaries
-  const croppedBoundaries = computeCroppedBoundaries(source, context)
-
-  // Step 2: Compute hotspot in pixels (center-based)
-  const hotspotPixels = computeHotspotPixels(source, hotspot, context)
-
-  // Step 3: Compute the minimal rect that contains the hotspot and matches the target aspect ratio
-  let rectDimensions = computeMinimalRect(
-    hotspotPixels,
-    targetAspectRatio,
+  const croppedBoundaries = computeCroppedBoundaries(
+    { width: sourceWidth, height: sourceHeight, crop },
     context
   )
+
+  // Step 2: Compute hotspot in pixels (center-based)
+  const hotspotPixels = computeHotspotPixels(
+    { width: sourceWidth, height: sourceHeight },
+    hotspot,
+    context
+  )
+
+  // Step 3: Compute the minimal rect that contains the hotspot and matches the aspect ratio
+  let rectDimensions = computeMinimalRect(hotspotPixels, aspectRatio, context)
 
   let effectiveZoom = zoom
 
@@ -84,7 +84,7 @@ export function computeRect(
   // Step 6: Ensure the rect does not exceed the cropped area dimensions
   rectDimensions = adjustRectSizeToFit(
     rectDimensions,
-    targetAspectRatio,
+    aspectRatio,
     croppedBoundaries,
     context
   )
@@ -129,7 +129,7 @@ export function computeRect(
  * @returns The cropped boundaries and dimensions.
  */
 export function computeCroppedBoundaries(
-  source: SourceImage,
+  source: { width: number; height: number; crop?: Crop },
   context: Context
 ): {
   left: number
@@ -173,7 +173,7 @@ export function computeCroppedBoundaries(
  * @returns The hotspot's center coordinates and dimensions in pixels.
  */
 export function computeHotspotPixels(
-  source: SourceImage,
+  source: { width: number; height: number },
   hotspot: Hotspot | undefined,
   context: Context
 ): {
@@ -201,9 +201,9 @@ export function computeHotspotPixels(
 }
 
 /**
- * Computes the minimal rectangle that contains the hotspot and matches the target aspect ratio.
+ * Computes the minimal rectangle that contains the hotspot and matches the aspect ratio.
  * @param hotspotPixels - The hotspot dimensions in pixels.
- * @param targetAspectRatio - The desired aspect ratio (width / height).
+ * @param aspectRatio - The desired aspect ratio (width / height).
  * @param context - The context containing the logger function.
  * @returns The width and height of the minimal rectangle.
  */
@@ -212,7 +212,7 @@ export function computeMinimalRect(
     width: number
     height: number
   },
-  targetAspectRatio: number,
+  aspectRatio: number,
   context: Context
 ): { width: number; height: number } {
   const { width: hotspotWidth, height: hotspotHeight } = hotspotPixels
@@ -220,16 +220,16 @@ export function computeMinimalRect(
   let width: number
   let height: number
 
-  // Determine whether to expand width or height to match the target aspect ratio
-  if (hotspotWidth / targetAspectRatio >= hotspotHeight) {
+  // Determine whether to expand width or height to match the aspect ratio
+  if (hotspotWidth / aspectRatio >= hotspotHeight) {
     // Expand height to match aspect ratio
     width = hotspotWidth
-    height = width / targetAspectRatio
+    height = width / aspectRatio
     context.log("Expanded height to match aspect ratio:", { width, height })
   } else {
     // Expand width to match aspect ratio
     height = hotspotHeight
-    width = height * targetAspectRatio
+    width = height * aspectRatio
     context.log("Expanded width to match aspect ratio:", { width, height })
   }
 
