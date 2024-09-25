@@ -425,3 +425,26 @@ export function adjustRectPositionToFit(
 
   return { rectLeft, rectTop }
 }
+
+export function getSrcSetSteps(
+  baseUrl: string,
+  initialWidth: number,
+  minWidth: number,
+  reduction: number
+): string {
+  const srcsetItems: string[] = []
+  let currentWidth = initialWidth
+
+  while (currentWidth >= minWidth) {
+    const urlWithWidth = appendWidthToUrl(baseUrl, currentWidth)
+    srcsetItems.push(`${urlWithWidth} ${currentWidth}w`)
+    currentWidth = Math.floor(currentWidth * reduction)
+  }
+
+  return srcsetItems.join(", ")
+}
+
+function appendWidthToUrl(url: string, width: number): string {
+  const separator = url.includes("?") ? "&" : "?"
+  return `${url}${separator}w=${width}`
+}

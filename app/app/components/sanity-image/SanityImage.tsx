@@ -2,7 +2,7 @@ import type {
   SanityBaseImageCrop,
   SanityBaseImageHotspot
 } from "~/utils/imageBuilder"
-import { computeRect } from "~/utils/imageBuilder"
+import { computeRect, getSrcSetSteps } from "~/utils/imageBuilder"
 
 export interface SanityImageProps {
   // input config
@@ -17,6 +17,8 @@ export interface SanityImageProps {
   // output config
   readonly aspect?: number | null
   readonly zoom?: number | null
+
+  readonly width?: number | null
 }
 
 export function SanityImage(props: SanityImageProps) {
@@ -34,7 +36,7 @@ export function SanityImage(props: SanityImageProps) {
     rect: `${rect.left},${rect.top},${rect.width},${rect.height}`
   })
   const baseUrl = props.url + "?" + baseParams.toString()
-  console.log("URL:", baseUrl)
+  const srcSet = getSrcSetSteps(baseUrl, rect.width, 100, 0.8)
 
-  return <img alt={props.alt ?? ""} src={baseUrl} />
+  return <img alt={props.alt ?? ""} src={baseUrl} srcSet={srcSet} />
 }
