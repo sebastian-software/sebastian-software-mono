@@ -1,5 +1,7 @@
-import type { SanityImageCrop, SanityImageHotspot } from "sanity.types"
-
+import type {
+  SanityBaseImageCrop,
+  SanityBaseImageHotspot
+} from "~/utils/imageBuilder"
 import { computeRect } from "~/utils/imageBuilder"
 
 export interface SanityImageProps {
@@ -9,8 +11,8 @@ export interface SanityImageProps {
   readonly height: number
 
   readonly alt?: string | null
-  readonly crop?: SanityImageCrop | null
-  readonly hotspot?: SanityImageHotspot | null
+  readonly crop?: SanityBaseImageCrop
+  readonly hotspot?: SanityBaseImageHotspot
 
   // output config
   readonly aspect?: number | null
@@ -34,5 +36,5 @@ export function SanityImage(props: SanityImageProps) {
   const baseUrl = props.url + "?" + baseParams.toString()
   console.log("URL:", baseUrl)
 
-  return <img alt={props.alt} src={baseUrl} />
+  return <img alt={props.alt ?? ""} src={baseUrl} />
 }

@@ -2,7 +2,7 @@
 
 import { describe, expect, it } from "vitest"
 
-import type { Hotspot, Options, SourceImage } from "./imageBuilder"
+import type { InputParameters, Options } from "./imageBuilder"
 import {
   adjustRectPositionToFit,
   adjustRectSizeToFit,
@@ -136,7 +136,7 @@ describe("computeRect", () => {
 
 describe("computeCroppedBoundaries", () => {
   it("should compute cropped boundaries when crop is provided", () => {
-    const source: SourceImage = {
+    const source = {
       width: 5000,
       height: 3000,
       crop: {
@@ -159,7 +159,7 @@ describe("computeCroppedBoundaries", () => {
   })
 
   it("should compute full boundaries when crop is undefined", () => {
-    const source: SourceImage = {
+    const source = {
       width: 5000,
       height: 3000
     }
@@ -178,11 +178,11 @@ describe("computeCroppedBoundaries", () => {
 
 describe("computeHotspotPixels", () => {
   it("should compute hotspot pixels when hotspot is provided", () => {
-    const source: SourceImage = {
+    const source = {
       width: 4000,
       height: 3000
     }
-    const hotspot: Hotspot = {
+    const hotspot = {
       x: 0.25,
       y: 0.75,
       width: 0.1,
@@ -199,7 +199,7 @@ describe("computeHotspotPixels", () => {
   })
 
   it("should use default hotspot values when hotspot is undefined", () => {
-    const source: SourceImage = {
+    const source = {
       width: 4000,
       height: 3000
     }

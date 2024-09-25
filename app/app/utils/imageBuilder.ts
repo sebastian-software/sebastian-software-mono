@@ -1,10 +1,24 @@
 import type { SanityImageCrop, SanityImageHotspot } from "sanity.types"
 
+// Utility type to make specific properties optional
+type MakePropertyOptional<T, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>
+
+export type SanityBaseImageCrop = MakePropertyOptional<
+  SanityImageCrop,
+  "_type"
+> | null
+
+export type SanityBaseImageHotspot = MakePropertyOptional<
+  SanityImageHotspot,
+  "_type"
+> | null
+
 export interface InputParameters {
   width: number
   height: number
-  crop?: SanityImageCrop | null // Optional crop
-  hotspot?: SanityImageHotspot | null // Optional hotspot
+  crop?: SanityBaseImageCrop
+  hotspot?: SanityBaseImageHotspot
 }
 
 export interface Options {
@@ -118,7 +132,7 @@ export function computeRect(
  * @returns The cropped boundaries and dimensions.
  */
 export function computeCroppedBoundaries(
-  source: { width: number; height: number; crop?: Crop },
+  source: { width: number; height: number; crop?: SanityBaseImageCrop | null },
   context: Context
 ): {
   left: number
@@ -163,7 +177,7 @@ export function computeCroppedBoundaries(
  */
 export function computeHotspotPixels(
   source: { width: number; height: number },
-  hotspot: Hotspot | undefined,
+  hotspot: SanityBaseImageHotspot | undefined,
   context: Context
 ): {
   centerX: number
