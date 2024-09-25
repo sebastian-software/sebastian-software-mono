@@ -17,8 +17,6 @@ export interface SanityImageProps {
   // output config
   readonly aspect?: number | null
   readonly zoom?: number | null
-
-  readonly width?: number | null
 }
 
 export function SanityImage(props: SanityImageProps) {
