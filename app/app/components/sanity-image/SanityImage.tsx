@@ -34,6 +34,7 @@ export function SanityImage(props: SanityImageProps) {
     rect: `${rect.left},${rect.top},${rect.width},${rect.height}`
   })
   const baseUrl = props.url + "?" + baseParams.toString()
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const srcSet = getSrcSetSteps(baseUrl, rect.width, 100, 0.8)
 
   return <img alt={props.alt ?? ""} src={baseUrl} srcSet={srcSet} />
