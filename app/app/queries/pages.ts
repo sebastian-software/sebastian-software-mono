@@ -17,7 +17,8 @@ export const PAGES_QUERY = defineQuery(`
       _type == "reference" => @->{
         _id,
         _type,
-        "imageUrl": image.asset->url,
+        image,
+        "url": image.asset->url,
         "alt": alt[_key == $language][0].value
       }
     }
