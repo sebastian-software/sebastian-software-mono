@@ -9,7 +9,7 @@ import { SanityImage } from "~/components/sanity-image"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
 import { computeRect } from "~/utils/imageBuilder"
-import { fetchAsBlurHash } from "~/utils/imagePreview"
+import { fetchToDataUrl } from "~/utils/imagePreview"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
@@ -41,20 +41,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const urls = pictures.map((image, index) => {
     const rect = rects[index]
-    return `${image.url}?rect=${rect.left},${rect.top},${rect.width},${rect.height}&w=100`
+    return `${image.url}?rect=${rect.left},${rect.top},${rect.width},${rect.height}&q=80&w=10&fm=webp&blur=10`
   })
 
-  const hashes = await Promise.all(
-    urls.map(async (url) => fetchAsBlurHash(url))
-  )
+  const hashes = await Promise.all(urls.map(async (url) => fetchToDataUrl(url)))
 
   // Attach dynamically generated data to loaded data stream... not very clean
   for (const [index, picture] of pictures.entries()) {
     picture.preview = hashes[index]
   }
-
-  // console.log("Initial data:", JSON.stringify(pictures, null, 2))
-  // console.log("RECTS:", rects, urls, hashes)
 
   return { initial, query: PAGES_QUERY, params }
 }

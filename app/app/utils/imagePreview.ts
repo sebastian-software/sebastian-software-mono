@@ -1,38 +1,28 @@
-import { encode } from "blurhash"
-import sharp from "sharp"
-
 /**
- * Fetches an image from the given URL and encodes it into a BlurHash string.
- * Assumes the image is in RGB format.
- * @param url - The URL of the image to fetch and encode.
- * @returns A promise that resolves to the BlurHash string of the image.
+ * Fetches an image from the given URL and returns it as a data URL string.
+ * @param url - The URL of the image to fetch.
+ * @returns A promise that resolves to a data URL string of the image.
  */
-export async function fetchAsBlurHash(url: string): Promise<string> {
+export async function fetchToDataUrl(url: string): Promise<string> {
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Failed to fetch image: ${response.statusText}`)
   }
 
+  // Get the Content-Type header to determine the MIME type
+  const contentType = response.headers.get("Content-Type")
+  if (!contentType) {
+    throw new Error("Could not determine the content type of the image")
+  }
+
   const arrayBuffer = await response.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
 
-  // Use sharp to read the image and ensure it has an alpha channel
-  const { data, info } = await sharp(buffer)
-    .ensureAlpha() // Adds an alpha channel if the image doesn't have one
-    .raw()
-    .toBuffer({ resolveWithObject: true })
+  // Convert the buffer to a base64-encoded string
+  const base64 = buffer.toString("base64")
 
-  const { width, height, channels } = info
+  // Construct the data URL
+  const dataUrl = `data:${contentType};base64,${base64}`
 
-  // Ensure we have 4 channels (RGBA)
-  if (channels !== 4) {
-    throw new Error(`Expected 4 channels (RGBA), but got ${channels}`)
-  }
-
-  const pixels = new Uint8ClampedArray(data)
-
-  // Encode the image data into a BlurHash string
-  const blurHash = encode(pixels, width, height, 4, 3)
-
-  return blurHash
+  return dataUrl
 }
