@@ -17,15 +17,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     id: "team"
   }
 
-  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
-
-  const content = initial.data[0].content
-  const pictures = content.filter((block) => block._type === "picture")
-
   const output = {
     aspect: 4 / 5,
     zoom: undefined
   }
+
+  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+
+  const content = initial.data[0].content
+  const pictures = content.filter((block) => block._type === "picture")
 
   const rects = pictures.map((image) =>
     computeRect(
@@ -48,8 +48,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     urls.map(async (url) => fetchAsBlurHash(url))
   )
 
-  console.log("Initial data:", JSON.stringify(pictures, null, 2))
-  console.log("RECTS:", rects, urls, hashes)
+  // Attach dynamically generated data to loaded data stream... not very clean
+  for (const [index, picture] of pictures.entries()) {
+    picture.preview = hashes[index]
+  }
+
+  // console.log("Initial data:", JSON.stringify(pictures, null, 2))
+  // console.log("RECTS:", rects, urls, hashes)
 
   return { initial, query: PAGES_QUERY, params }
 }
@@ -77,6 +82,7 @@ export function PortableTextPictureRenderer({
         height={value.height}
         crop={value.crop}
         hotspot={value.hotspot}
+        preview={value.preview}
       />
     )
   }

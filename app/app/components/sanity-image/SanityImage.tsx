@@ -13,6 +13,7 @@ export interface SanityImageProps {
   readonly alt?: string | null
   readonly crop?: SanityBaseImageCrop
   readonly hotspot?: SanityBaseImageHotspot
+  readonly preview?: string
 
   // output config
   readonly aspect?: number | null
@@ -29,6 +30,8 @@ export function SanityImage(props: SanityImageProps) {
     },
     { aspectRatio: props.aspect, zoom: props.zoom }
   )
+
+  console.log("GOT PREVIEW:", props.preview)
 
   const baseParams = new URLSearchParams({
     auto: "format",
