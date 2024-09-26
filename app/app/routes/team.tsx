@@ -8,6 +8,8 @@ import { RichText } from "~/components/richtext/RichText"
 import { SanityImage } from "~/components/sanity-image"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
+import { computeRect } from "~/utils/imageBuilder"
+import { fetchAsBlurHash } from "~/utils/imagePreview"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
@@ -16,6 +18,39 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+
+  const content = initial.data[0].content
+  const pictures = content.filter((block) => block._type === "picture")
+
+  const output = {
+    aspect: 4 / 5,
+    zoom: undefined
+  }
+
+  const rects = pictures.map((image) =>
+    computeRect(
+      {
+        width: image.width,
+        height: image.height,
+        crop: image.crop,
+        hotspot: image.hotspot
+      },
+      { aspectRatio: output.aspect, zoom: output.zoom }
+    )
+  )
+
+  const urls = pictures.map((image, index) => {
+    const rect = rects[index]
+    return `${image.url}?rect=${rect.left},${rect.top},${rect.width},${rect.height}&w=100`
+  })
+
+  const hashes = await Promise.all(
+    urls.map(async (url) => fetchAsBlurHash(url))
+  )
+
+  console.log("Initial data:", JSON.stringify(pictures, null, 2))
+  console.log("RECTS:", rects, urls, hashes)
+
   return { initial, query: PAGES_QUERY, params }
 }
 
