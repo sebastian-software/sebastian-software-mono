@@ -31,8 +31,11 @@ export function SanityImage(props: SanityImageProps) {
   )
 
   const baseParams = new URLSearchParams({
+    auto: "format",
+    q: "80",
     rect: `${rect.left},${rect.top},${rect.width},${rect.height}`
   })
+
   const baseUrl = props.url + "?" + baseParams.toString()
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const srcSet = getSrcSetSteps(baseUrl, rect.width, 100, 0.8)
