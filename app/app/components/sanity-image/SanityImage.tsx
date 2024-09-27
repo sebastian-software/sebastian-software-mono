@@ -41,16 +41,18 @@ export function SanityImage(props: SanityImageProps) {
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const srcSet = getSrcSetSteps(baseUrl, rect.width, 100, 0.8)
 
-  console.log("PreviewSize:", props.preview.length)
-
   return (
-    <>
-      <img
-        alt={props.alt ?? ""}
-        src={props.preview}
-        style={{ width: "100%" }}
-      />
-      <img alt={props.alt ?? ""} src={baseUrl} srcSet={srcSet} />
-    </>
+    <img
+      style={{
+        width: rect.width,
+        aspectRatio: props.aspect ?? "",
+        backgroundImage: `url(${props.preview})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat"
+      }}
+      alt={props.alt ?? ""}
+      src={baseUrl}
+      srcSet={srcSet}
+    />
   )
 }
