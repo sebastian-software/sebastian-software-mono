@@ -8,63 +8,19 @@ import { RichText } from "~/components/richtext/RichText"
 import { SanityImage } from "~/components/sanity-image"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
-import { computeRect, resizeToArea } from "~/utils/imageBuilder"
-import { fetchToDataUrl } from "~/utils/imagePreview"
+import { postProcessContent } from "~/utils/blockHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const language = await getAppLanguage(request)
   const params = { language, id: "team" }
 
-  const output = { aspect: 4 / 5, zoom: undefined }
-
   const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
 
-  // Ensure that initial data exists
-  const content = initial.data?.[0]?.content || []
-
-  // Process each content block using modular functions
-  await Promise.all(
-    content.map(async (block) => {
-      switch (block._type) {
-        case "picture":
-          await processPictureBlock(block, output)
-          break
-
-        // Optionally handle unknown block types or do nothing
-        default:
-          break
-      }
-    })
-  )
+  // Post-process loaded content
+  const document = initial.data?.[0]
+  document.content = await postProcessContent(document.content)
 
   return { initial, query: PAGES_QUERY, params }
-}
-
-// Modular function to process picture blocks
-const processPictureBlock = async (
-  block: EnrichedPictureBlock,
-  output: { aspect: number; zoom: number | undefined }
-) => {
-  const { width, height, crop, hotspot, url } = block
-
-  if (width && height) {
-    const rectValues = computeRect(
-      { width, height, crop, hotspot },
-      { aspectRatio: output.aspect, zoom: output.zoom }
-    )
-
-    const { targetWidth } = resizeToArea(
-      rectValues.width,
-      rectValues.height,
-      100
-    )
-    const rect = `${rectValues.left},${rectValues.top},${rectValues.width},${rectValues.height}`
-    const previewUrl = `${url}?rect=${rect}&q=80&w=${targetWidth}&fm=webp&blur=10`
-
-    // Enhance block data with pre-computed values
-    block.rect = rect
-    block.preview = await fetchToDataUrl(previewUrl)
-  }
 }
 
 type PictureBlock = Extract<
@@ -74,7 +30,7 @@ type PictureBlock = Extract<
 
 type EnrichedPictureBlock = PictureBlock & {
   preview?: string
-  rect?: string
+  rect?: number[]
 }
 
 export interface PortableTextPictureRendererProps {
@@ -84,25 +40,16 @@ export interface PortableTextPictureRendererProps {
 export function PortableTextPictureRenderer({
   value
 }: PortableTextPictureRendererProps) {
-  if (value.url && value.width && value.height) {
-    console.log("PortableImageProps:", value)
-    return (
+  return (
+    value.url && (
       <SanityImage
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        aspect={4 / 5}
         url={value.url}
         alt={value.alt}
-        width={value.width}
-        height={value.height}
-        crop={value.crop}
-        hotspot={value.hotspot}
         preview={value.preview}
         rect={value.rect}
       />
     )
-  }
-
-  return null
+  )
 }
 
 export default function Index() {
