@@ -448,3 +448,21 @@ function appendWidthToUrl(url: string, width: number): string {
   const separator = url.includes("?") ? "&" : "?"
   return `${url}${separator}w=${width}`
 }
+
+export function resizeToArea(
+  originalWidth: number,
+  originalHeight: number,
+  targetArea: number
+): { targetWidth: number; targetHeight: number } {
+  // Calculate the aspect ratio (width divided by height)
+  const aspectRatio = originalWidth / originalHeight
+
+  const newHeight = Math.sqrt((targetArea * originalHeight) / originalWidth)
+  const newWidth = aspectRatio * newHeight
+
+  // Round the dimensions to the nearest whole number (pixels must be integers)
+  return {
+    targetWidth: Math.round(newWidth),
+    targetHeight: Math.round(newHeight)
+  }
+}

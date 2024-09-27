@@ -14,6 +14,7 @@ export interface SanityImageProps {
   readonly crop?: SanityBaseImageCrop
   readonly hotspot?: SanityBaseImageHotspot
   readonly preview?: string
+  readonly rect?: string
 
   // output config
   readonly aspect?: number | null

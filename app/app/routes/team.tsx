@@ -8,65 +8,84 @@ import { RichText } from "~/components/richtext/RichText"
 import { SanityImage } from "~/components/sanity-image"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
-import { computeRect } from "~/utils/imageBuilder"
+import { computeRect, resizeToArea } from "~/utils/imageBuilder"
 import { fetchToDataUrl } from "~/utils/imagePreview"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const params = {
-    language: await getAppLanguage(request),
-    id: "team"
-  }
+  const language = await getAppLanguage(request)
+  const params = { language, id: "team" }
 
-  const output = {
-    aspect: 4 / 5,
-    zoom: undefined
-  }
+  const output = { aspect: 4 / 5, zoom: undefined }
 
   const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
 
-  const content = initial.data[0].content
-  const pictures = content.filter((block) => block._type === "picture")
+  // Ensure that initial data exists
+  const content = initial.data?.[0]?.content || []
 
-  const rects = pictures.map((image) =>
-    computeRect(
-      {
-        width: image.width,
-        height: image.height,
-        crop: image.crop,
-        hotspot: image.hotspot
-      },
-      { aspectRatio: output.aspect, zoom: output.zoom }
-    )
+  // Process each content block using modular functions
+  await Promise.all(
+    content.map(async (block) => {
+      switch (block._type) {
+        case "picture":
+          await processPictureBlock(block, output)
+          break
+
+        // Optionally handle unknown block types or do nothing
+        default:
+          break
+      }
+    })
   )
-
-  const urls = pictures.map((image, index) => {
-    const rect = rects[index]
-    return `${image.url}?rect=${rect.left},${rect.top},${rect.width},${rect.height}&q=80&w=10&fm=webp&blur=10`
-  })
-
-  const hashes = await Promise.all(urls.map(async (url) => fetchToDataUrl(url)))
-
-  // Attach dynamically generated data to loaded data stream... not very clean
-  for (const [index, picture] of pictures.entries()) {
-    picture.preview = hashes[index]
-  }
 
   return { initial, query: PAGES_QUERY, params }
 }
 
-type PictureContent = Extract<
+// Modular function to process picture blocks
+const processPictureBlock = async (
+  block: EnrichedPictureBlock,
+  output: { aspect: number; zoom: number | undefined }
+) => {
+  const { width, height, crop, hotspot, url } = block
+
+  if (width && height) {
+    const rectValues = computeRect(
+      { width, height, crop, hotspot },
+      { aspectRatio: output.aspect, zoom: output.zoom }
+    )
+
+    const { targetWidth } = resizeToArea(
+      rectValues.width,
+      rectValues.height,
+      100
+    )
+    const rect = `${rectValues.left},${rectValues.top},${rectValues.width},${rectValues.height}`
+    const previewUrl = `${url}?rect=${rect}&q=80&w=${targetWidth}&fm=webp&blur=10`
+
+    // Enhance block data with pre-computed values
+    block.rect = rect
+    block.preview = await fetchToDataUrl(previewUrl)
+  }
+}
+
+type PictureBlock = Extract<
   PAGES_QUERYResult[number]["content"][number],
   { _type: "picture" }
 >
 
+type EnrichedPictureBlock = PictureBlock & {
+  preview?: string
+  rect?: string
+}
+
 export interface PortableTextPictureRendererProps {
-  readonly value: PictureContent
+  readonly value: EnrichedPictureBlock
 }
 
 export function PortableTextPictureRenderer({
   value
 }: PortableTextPictureRendererProps) {
   if (value.url && value.width && value.height) {
+    console.log("PortableImageProps:", value)
     return (
       <SanityImage
         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -78,6 +97,7 @@ export function PortableTextPictureRenderer({
         crop={value.crop}
         hotspot={value.hotspot}
         preview={value.preview}
+        rect={value.rect}
       />
     )
   }
