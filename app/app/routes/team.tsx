@@ -1,4 +1,4 @@
-import { PortableText } from "@portabletext/react"
+import { PortableText, PortableTextTypeComponent } from "@portabletext/react"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { loadQuery, useQuery } from "@sanity/react-loader"
@@ -23,35 +23,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { initial, query: PAGES_QUERY, params }
 }
 
-type PictureBlock = Extract<
-  PAGES_QUERYResult[number]["content"][number],
-  { _type: "picture" }
->
-
-type EnrichedPictureBlock = PictureBlock & {
-  preview?: string
-  rect?: number[]
-}
-
-export interface PortableTextPictureRendererProps {
-  readonly value: EnrichedPictureBlock
-}
-
-export function PortableTextPictureRenderer({
-  value
-}: PortableTextPictureRendererProps) {
-  return (
-    value.url && (
-      <SanityImage
-        url={value.url}
-        alt={value.alt}
-        preview={value.preview}
-        rect={value.rect}
-      />
-    )
-  )
-}
-
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
   const { data } = useQuery<PAGES_QUERYResult>(
@@ -71,7 +42,14 @@ export default function Index() {
         value={data[0].content}
         components={{
           types: {
-            picture: PortableTextPictureRenderer
+            picture: ({ value }) => (
+              <SanityImage
+                url={value.url}
+                alt={value.alt}
+                rect={value.rect}
+                preview={value.preview}
+              />
+            )
           }
         }}
       />
