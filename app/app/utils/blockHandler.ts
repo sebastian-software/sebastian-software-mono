@@ -47,7 +47,8 @@ function isPictureBlock(
   )
 }
 
-export const DEFAULT_ASPECT_RATIO = 4 / 5
+// Default values for picture processing is portrait 4:5
+export const DEFAULT_ASPECT_RATIO = 0.8
 export const DEFAULT_PREVIEW_SIZE = 100
 
 /**
