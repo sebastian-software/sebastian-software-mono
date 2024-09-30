@@ -1,47 +1,48 @@
+import { PortableText } from "@portabletext/react"
+import type { LoaderFunctionArgs } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
+import { loadQuery, useQuery } from "@sanity/react-loader"
+import type { PAGES_QUERYResult } from "sanity.types"
+
 import { RichText } from "~/components/richtext/RichText"
+import { SanityPortableImage } from "~/components/sanity-image"
+import { getAppLanguage } from "~/language.server"
+import { PAGES_QUERY } from "~/queries/pages"
+import { postProcessData } from "~/utils/blockHandler"
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const language = await getAppLanguage(request)
+  const params = { language, id: "mission" }
+
+  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+  const modified = await postProcessData(initial)
+
+  return { initial: modified, query: PAGES_QUERY, params }
+}
 
 export default function Index() {
+  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { data } = useQuery(
+    query,
+    params,
+    // Note: There is a typing issue in Sanity with sourcemap content types
+    // This Required<> cast is a workaround until the issue is fixed.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    { initial: initial as Required<typeof initial> }
+  )
+
   return (
     <RichText>
-      <h1>Unsere Mission</h1>
+      <h1>{data[0].title}</h1>
 
-      <h2>Software, die Bestand hat und begeistert</h2>
-      <p>
-        Wir entwickeln Software, die nicht nur heute, sondern auch morgen
-        relevant bleibt. Qualität und Langlebigkeit stehen bei uns an erster
-        Stelle. Wir nutzen modernste Technologien, um Lösungen zu schaffen, die
-        wirklich einen Unterschied machen. Mit unserem tiefen Fachwissen
-        verbinden wir Ideen und schaffen nachhaltige Erfolge. Unsere Neugier und
-        Leidenschaft treiben uns an, immer besser zu werden.
-      </p>
-
-      <h2>Technologie, die Herzen und Köpfe gewinnt</h2>
-      <p>
-        Wir bringen Experten aus Produktmanagement, Design und Entwicklung
-        zusammen. Das Ergebnis? Produkte, die nicht nur funktionieren, sondern
-        auch begeistern. Unsere klare Architektur sorgt für nachhaltige
-        Erlebnisse, die Vertrauen schaffen. Unsere Arbeit ist nicht nur
-        zuverlässig – sie hinterlässt einen bleibenden Eindruck. Das spüren
-        unsere Kunden, und das macht uns stolz.
-      </p>
-
-      <h2>Wissen ist der Schlüssel zu echtem Fortschritt</h2>
-      <p>
-        Weiterbildung ist unsere Grundlage. Wir investieren in uns, um immer am
-        Puls der Zeit zu sein. Auf Fachkonferenzen und Entwicklertreffen
-        tauschen wir uns aktiv aus. So können wir Trends erkennen und fundierte
-        Entscheidungen treffen. Nicht jede Neuerung passt zu uns – wir wählen
-        bewusst aus, was wirklich Mehrwert bietet.
-      </p>
-
-      <h2>Kollaboration für herausragende Ergebnisse</h2>
-      <p>
-        Zusammenarbeit ist unser Herzstück. Wir teilen unser Wissen und
-        befähigen die Teams unserer Partner, gemeinsam Großes zu erreichen.
-        Unsere Lösungen sind mehr als nur Technik – sie verbessern die
-        Produktqualität und steigern die Zufriedenheit der Nutzer. So entsteht
-        eine Win-Win-Situation für alle.
-      </p>
+      <PortableText
+        value={data[0].content}
+        components={{
+          types: {
+            picture: SanityPortableImage
+          }
+        }}
+      />
     </RichText>
   )
 }

@@ -41,5 +41,11 @@ export const pageType = defineType({
 
       validation: (Rule) => Rule.required()
     })
-  ]
+  ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "language"
+    }
+  }
 })
