@@ -5,6 +5,7 @@ import { defineConfig } from "sanity"
 import { presentationTool } from "sanity/presentation"
 import { structureTool } from "sanity/structure"
 import { internationalizedArray } from "sanity-plugin-internationalized-array"
+import { documentInternationalization } from "@sanity/document-internationalization"
 
 import { schemaTypes } from "./schemas"
 
@@ -25,6 +26,11 @@ if (!dataset) {
   )
 }
 
+const languages = [
+  { id: "de", title: "Deutsch" },
+  { id: "en", title: "English" }
+]
+
 export default defineConfig({
   name: "default",
   title: "Sebastian Software Homepage",
@@ -38,20 +44,14 @@ export default defineConfig({
     }),
     visionTool(),
     internationalizedArray({
-      languages: [
-        { id: "de", title: "Deutsch" },
-        { id: "en", title: "English" }
-      ],
+      languages,
       defaultLanguages: ["de"],
       fieldTypes: ["string", "text"]
+    }),
+    documentInternationalization({
+      supportedLanguages: languages,
+      schemaTypes: ["page"]
     })
-    // documentInternationalization({
-    //   supportedLanguages: [
-    //     { id: "en", title: "English" },
-    //     { id: "de", title: "Deutsch" }
-    //   ],
-    //   schemaTypes: []
-    // })
   ],
   schema: {
     types: schemaTypes

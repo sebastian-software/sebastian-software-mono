@@ -6,6 +6,13 @@ export const pageType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true
+    }),
+
+    defineField({
       name: "id",
       type: "string",
       validation: (Rule) => Rule.required()
@@ -13,7 +20,7 @@ export const pageType = defineType({
 
     defineField({
       name: "title",
-      type: "internationalizedArrayString",
+      type: "string",
       validation: (Rule) => Rule.required()
     }),
 

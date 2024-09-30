@@ -1,9 +1,9 @@
 import { defineQuery } from "groq"
 export const PAGES_QUERY = defineQuery(`
-  *[_type == "page" && id == $id]
+  *[_type == "page" && id == $id && language == $language]
   {
     _id,
-    "title": title[_key == $language][0].value,
+    title,
     content[] {
       _type == "block" => {
         _key,
