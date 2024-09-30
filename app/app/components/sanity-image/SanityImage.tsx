@@ -1,8 +1,9 @@
+import type { OutputPictureBlock } from "~/utils/blockHandler"
 import { getSrcSetSteps } from "~/utils/imageBuilder"
 
 export interface SanityImageProps {
   readonly url: string
-  readonly alt: string
+  readonly alt?: string | null
   readonly rect: number[]
 
   readonly preview?: string
@@ -17,7 +18,7 @@ export function SanityImage(props: SanityImageProps) {
   const baseParams = new URLSearchParams({
     auto: "format",
     q: `${props.quality ?? DEFAULT_QUALITY}`,
-    rect: props.rect?.join(",")
+    rect: props.rect.join(",")
   })
 
   const [, , width, height] = props.rect
@@ -32,7 +33,7 @@ export function SanityImage(props: SanityImageProps) {
   return (
     <img
       style={{
-        width: width,
+        width,
         aspectRatio: `${width} / ${height}`,
         backgroundImage: `url(${props.preview})`,
         backgroundSize: "cover",
@@ -41,6 +42,24 @@ export function SanityImage(props: SanityImageProps) {
       alt={props.alt ?? ""}
       src={baseUrl}
       srcSet={srcSet}
+    />
+  )
+}
+
+export interface SanityPortableImageProps {
+  readonly value: OutputPictureBlock
+}
+
+/**
+ * Wrapper for SanityImage to use in PortableText
+ */
+export function SanityPortableImage({ value }: SanityPortableImageProps) {
+  return (
+    <SanityImage
+      url={value.url}
+      alt={value.alt}
+      rect={value.rect}
+      preview={value.preview}
     />
   )
 }
