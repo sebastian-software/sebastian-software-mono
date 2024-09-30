@@ -21,6 +21,7 @@ export function SanityImage(props: SanityImageProps) {
     rect: props.rect.join(",")
   })
 
+  // eslint-disable-next-line unicorn/no-unreadable-array-destructuring
   const [, , width, height] = props.rect
   const baseUrl = props.url + "?" + baseParams.toString()
   const srcSet = getSrcSetSteps(

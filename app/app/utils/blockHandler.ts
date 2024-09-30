@@ -47,6 +47,9 @@ function isPictureBlock(
   )
 }
 
+export const DEFAULT_ASPECT_RATIO = 4 / 5
+export const DEFAULT_PREVIEW_SIZE = 100
+
 /**
  * Modular function to process picture blocks
  */
@@ -59,7 +62,11 @@ async function processPictureBlock(
   }
 
   const { _id, _type, width, height, crop, hotspot, url, alt } = block
-  const output = { aspect: 4 / 5, zoom: undefined, previewSize: 100 }
+  const output = {
+    aspect: DEFAULT_ASPECT_RATIO,
+    zoom: undefined,
+    previewSize: DEFAULT_PREVIEW_SIZE
+  }
 
   const rectValues = computeRect(
     { width, height, crop, hotspot },
