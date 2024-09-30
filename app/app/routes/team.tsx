@@ -8,24 +8,21 @@ import { RichText } from "~/components/richtext/RichText"
 import { SanityPortableImage } from "~/components/sanity-image"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
-import { postProcessContent } from "~/utils/blockHandler"
+import { postProcessData } from "~/utils/blockHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const language = await getAppLanguage(request)
   const params = { language, id: "team" }
 
   const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
-  const document = initial.data[0]
+  const modified = await postProcessData(initial)
 
-  // Post-process loaded content
-  document.content = await postProcessContent(document.content)
-
-  return { initial, query: PAGES_QUERY, params }
+  return { initial: modified, query: PAGES_QUERY, params }
 }
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data } = useQuery<PAGES_QUERYResult>(
+  const { data } = useQuery(
     query,
     params,
     // Note: There is a typing issue in Sanity with sourcemap content types

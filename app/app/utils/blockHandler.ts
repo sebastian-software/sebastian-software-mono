@@ -1,4 +1,9 @@
-import type { SanityImageCrop, SanityImageHotspot } from "sanity.types"
+import type { QueryResponseInitial } from "@sanity/react-loader"
+import type {
+  PAGES_QUERYResult,
+  SanityImageCrop,
+  SanityImageHotspot
+} from "sanity.types"
 
 import { computeRect, resizeToArea } from "./imageBuilder"
 import { fetchToDataUrl } from "./imagePreview"
@@ -101,7 +106,7 @@ export type SanityBlockProcessHelper = (
 ) => Promise<SanityPortableBlock>
 
 // Define handler functions for each block type
-const blockHandlers: Record<string, SanityBlockProcessHelper> = {
+const blockHandlers: Record<string, SanityBlockProcessHelper | undefined> = {
   picture: processPictureBlock
   // Add more handlers as needed
 }
@@ -116,4 +121,23 @@ export async function postProcessContent(
       return handler ? handler(block) : block
     })
   )
+}
+
+export async function postProcessData(
+  initial: QueryResponseInitial<PAGES_QUERYResult>
+) {
+  const document = initial.data[0]
+  const modifiedContent = await postProcessContent(document.content)
+
+  const result = {
+    ...initial,
+    data: [
+      {
+        ...document,
+        content: modifiedContent
+      }
+    ]
+  }
+
+  return result
 }
