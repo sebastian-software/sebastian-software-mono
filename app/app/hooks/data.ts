@@ -32,9 +32,13 @@ export function useSanityData<RemixLoader extends AbstractRemixLoader>() {
   type LoadQueryInitial = Awaited<ReturnType<typeof loadQuery>>
 
   // Use the initial data with useQuery and handle the typing
-  const { data } = useQuery<InferredDataType>(query, params, {
-    initial: initial as LoadQueryInitial
-  })
+  const { data, encodeDataAttribute } = useQuery<InferredDataType>(
+    query,
+    params,
+    {
+      initial: initial as LoadQueryInitial
+    }
+  )
 
-  return { data, query, params }
+  return { data, query, params, encodeDataAttribute }
 }
