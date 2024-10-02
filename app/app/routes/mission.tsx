@@ -1,7 +1,9 @@
 import { PortableText } from "@portabletext/react"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import { loadQuery, useQuery } from "@sanity/react-loader"
+import type { ContentSourceMap } from "@sanity/react-loader"
+import { loadQuery } from "@sanity/react-loader"
+import { useQuery } from "@sanity/react-loader"
 import type { PAGES_QUERYResult } from "sanity.types"
 
 import { RichText } from "~/components/richtext/RichText"
@@ -20,16 +22,27 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { initial: modified, query: PAGES_QUERY, params }
 }
 
-export default function Index() {
+// Define a generic type T to represent the data returned by the loader
+export function useSanityData() {
+  // Call useLoaderData to get the loader data and use generic T to infer its type
   const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data } = useQuery(
-    query,
-    params,
-    // Note: There is a typing issue in Sanity with sourcemap content types
-    // This Required<> cast is a workaround until the issue is fixed.
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    { initial: initial as Required<typeof initial> }
-  )
+
+  const sourceMap: ContentSourceMap = { mappings: {}, documents: [], paths: [] }
+
+  // Use the initial data with useQuery and handle the typing
+  const { data } = useQuery(query, params, {
+    initial: { sourceMap, ...initial }
+  })
+
+  return { data, initial }
+}
+
+export default function Index() {
+  const { data } = useSanityData()
+  const orig = useLoaderData<typeof loader>()
+
+  console.log("NEW:", data)
+  console.log("ORIG:", orig.initial.data)
 
   return (
     <RichText>
