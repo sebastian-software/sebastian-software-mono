@@ -27,6 +27,8 @@ export function useSanityData() {
   // Call useLoaderData to get the loader data and use generic T to infer its type
   const { initial, query, params } = useLoaderData<typeof loader>()
 
+  // This is a fallback sourcemap to be used with useQuery which requires it, but
+  // laodQuery only has it optionally.
   const sourceMap: ContentSourceMap = { mappings: {}, documents: [], paths: [] }
 
   // Use the initial data with useQuery and handle the typing
