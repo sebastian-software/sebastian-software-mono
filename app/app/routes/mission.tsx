@@ -1,10 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { PortableText } from "@portabletext/react"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import type { ClientPerspective } from "@sanity/client"
-import type { ContentSourceMap } from "@sanity/react-loader"
-import { loadQuery } from "@sanity/react-loader"
-import { useQuery } from "@sanity/react-loader"
+import { loadQuery, useQuery } from "@sanity/react-loader"
 import type { PAGES_QUERYResult } from "sanity.types"
 
 import { RichText } from "~/components/richtext/RichText"
@@ -23,43 +21,45 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { initial: modified, query: PAGES_QUERY, params }
 }
 
-interface LoaderInitial {
-  data: Awaited<ReturnType<typeof loader>>["initial"]["data"]
-  sourceMap?: ContentSourceMap
-  perspective?: ClientPerspective
-}
-
 interface LoaderReturn {
-  initial: LoaderInitial
+  initial: {
+    data: unknown
+  }
   query: string
   params: Record<string, string>
 }
 
-type AbstractLoader = (args: LoaderFunctionArgs) => Promise<LoaderReturn>
+export type AbstractLoader = ({
+  request
+}: LoaderFunctionArgs) => Promise<LoaderReturn>
 
 // Define a generic type T to represent the data returned by the loader
-export function useSanityData<T extends AbstractLoader>() {
+export function useSanityData<TLoader extends AbstractLoader>() {
   // Call useLoaderData to get the loader data and use generic T to infer its type
-  const { initial, query, params } = useLoaderData<T>()
+  const result = useLoaderData<TLoader>()
 
-  // This is a fallback sourcemap to be used with useQuery which requires it, but
-  // laodQuery only has it optionally.
-  const sourceMap: ContentSourceMap = { mappings: {}, documents: [], paths: [] }
+  // Note: TypeScript is unable to corrcetly infer the type of the initial data when using destructuring
+  type InitialType = (typeof result)["initial"]
+  type DataType = InitialType["data"]
+
+  const initial: InitialType = result.initial
+  const query = result.query
+  const params = result.params
+
+  type InitialQuery = Awaited<ReturnType<typeof loadQuery>>
+  const initialCast = initial as InitialQuery
 
   // Use the initial data with useQuery and handle the typing
   const { data } = useQuery(query, params, {
-    initial: { sourceMap, ...initial }
+    initial: initialCast
   })
 
-  return { data, initial }
+  const dataCast = data as DataType
+  return { data: dataCast, query, params }
 }
 
 export default function Index() {
   const { data } = useSanityData<typeof loader>()
-  const orig = useLoaderData<typeof loader>()
-
-  console.log("NEW:", data)
-  console.log("ORIG:", orig.initial.data)
 
   return (
     <RichText>
