@@ -1,6 +1,7 @@
 import { PortableText } from "@portabletext/react"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
+import type { ClientPerspective } from "@sanity/client"
 import type { ContentSourceMap } from "@sanity/react-loader"
 import { loadQuery } from "@sanity/react-loader"
 import { useQuery } from "@sanity/react-loader"
@@ -22,10 +23,24 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { initial: modified, query: PAGES_QUERY, params }
 }
 
+interface LoaderInitial {
+  data: Awaited<ReturnType<typeof loader>>["initial"]["data"]
+  sourceMap?: ContentSourceMap
+  perspective?: ClientPerspective
+}
+
+interface LoaderReturn {
+  initial: LoaderInitial
+  query: string
+  params: Record<string, string>
+}
+
 // Define a generic type T to represent the data returned by the loader
-export function useSanityData() {
+export function useSanityData<
+  T extends (args: LoaderFunctionArgs) => Promise<LoaderReturn>
+>() {
   // Call useLoaderData to get the loader data and use generic T to infer its type
-  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { initial, query, params } = useLoaderData<T>()
 
   // This is a fallback sourcemap to be used with useQuery which requires it, but
   // laodQuery only has it optionally.
@@ -40,7 +55,7 @@ export function useSanityData() {
 }
 
 export default function Index() {
-  const { data } = useSanityData()
+  const { data } = useSanityData<typeof loader>()
   const orig = useLoaderData<typeof loader>()
 
   console.log("NEW:", data)
