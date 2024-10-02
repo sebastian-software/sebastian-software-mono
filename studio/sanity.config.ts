@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { assist } from "@sanity/assist"
+import { documentInternationalization } from "@sanity/document-internationalization"
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
 import { presentationTool } from "sanity/presentation"
 import { structureTool } from "sanity/structure"
 import { internationalizedArray } from "sanity-plugin-internationalized-array"
-import { documentInternationalization } from "@sanity/document-internationalization"
 
 import { schemaTypes } from "./schemas"
 
