@@ -35,10 +35,10 @@ interface LoaderReturn {
   params: Record<string, string>
 }
 
+type AbstractLoader = (args: LoaderFunctionArgs) => Promise<LoaderReturn>
+
 // Define a generic type T to represent the data returned by the loader
-export function useSanityData<
-  T extends (args: LoaderFunctionArgs) => Promise<LoaderReturn>
->() {
+export function useSanityData<T extends AbstractLoader>() {
   // Call useLoaderData to get the loader data and use generic T to infer its type
   const { initial, query, params } = useLoaderData<T>()
 
