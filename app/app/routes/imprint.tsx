@@ -1,46 +1,40 @@
+import { PortableText } from "@portabletext/react"
+import type { LoaderFunctionArgs } from "@remix-run/node"
+import { loadQuery } from "@sanity/react-loader"
+import type { PAGES_QUERYResult } from "sanity.types"
+
 import { RichText } from "~/components/richtext/RichText"
+import { SanityPortableImage } from "~/components/sanity-image"
+import { useSanityData } from "~/hooks/data"
+import { getAppLanguage } from "~/language.server"
+import { PAGES_QUERY } from "~/queries/pages"
+import { postProcessData } from "~/utils/blockHandler"
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const language = await getAppLanguage(request)
+  const params = { language, id: "imprint" }
+
+  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+  const modified = await postProcessData(initial)
+
+  return { initial: modified, query: PAGES_QUERY, params }
+}
 
 export default function Index() {
+  const { data } = useSanityData<typeof loader>()
+
   return (
     <RichText>
-      <h1>Impressum</h1>
-      <p>Angaben gemäß § 5 TMG</p>
-      <h2>Anschrift</h2>
-      <p>
-        Sebastian Software GmbH
-        <br />
-        Dalheimer Straße 12
-        <br />
-        55128 Mainz <br />
-        Deutschland
-      </p>
-      <h2>Vertreten durch</h2>
-      <p>
-        Sebastian Fastner
-        <br /> Sebastian Werner
-      </p>
-      <h2>Kontakt</h2>
-      <p>
-        Telefon: +49-6131-9729-830 <br />
-        Telefax: +49-6131-9729-831 <br />
-        E-Mail: info@sebastian-software.de
-      </p>
-      <h2>Registereintrag</h2>
-      <p>
-        Eintragung im Handelsregister
-        <br />
-        Registergericht: Amtsgericht Mainz
-        <br />
-        Registernummer: HRB 45232
-      </p>
-      <h2>Umsatzsteuer-ID</h2>
-      <p>
-        Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz:
-        <br />
-        DE295226721
-      </p>
-      <h2>Aufsichtsbehörde</h2>
-      <p>Landgericht Mainz</p>
+      <h1>{data[0].title}</h1>
+
+      <PortableText
+        value={data[0].content}
+        components={{
+          types: {
+            picture: SanityPortableImage
+          }
+        }}
+      />
     </RichText>
   )
 }
