@@ -8,27 +8,37 @@ import { SanityPortableImage } from "~/components/sanity-image"
 import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
-import { postProcessData } from "~/utils/blockHandler"
+import { postProcessPage } from "~/utils/blockHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const language = await getAppLanguage(request)
-  const params = { language, id: "consulting" }
+  const params = {
+    language: await getAppLanguage(request),
+    id: "consulting"
+  }
 
-  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
-  const modified = await postProcessData(initial)
+  const initial = await postProcessPage(
+    await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+  )
 
-  return { initial: modified, query: PAGES_QUERY, params }
+  return {
+    initial,
+    query: PAGES_QUERY,
+    params
+  }
 }
 
 export default function Index() {
   const { data } = useSanityData<typeof loader>()
+  if (!data.page) {
+    return null
+  }
 
   return (
     <RichText>
-      <h1>{data[0].title}</h1>
+      <h1>{data.page.title}</h1>
 
       <PortableText
-        value={data[0].content}
+        value={data.page.content}
         components={{
           types: {
             picture: SanityPortableImage

@@ -139,47 +139,6 @@ export type Human = {
   }
 }
 
-export type Page = {
-  _id: string
-  _type: "page"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  id: string
-  title: Array<
-    {
-      _key: string
-    } & InternationalizedArrayStringValue
-  >
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: "span"
-          _key: string
-        }>
-        style?: "normal" | "h2" | "blockquote"
-        listItem?: "bullet" | "number"
-        markDefs?: Array<{
-          href?: string
-          _type: "link"
-          _key: string
-        }>
-        level?: number
-        _type: "block"
-        _key: string
-      }
-    | {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        _key: string
-        [internalGroqTypeReferenceTo]?: "picture"
-      }
-  >
-}
-
 export type Project = {
   _id: string
   _type: "project"
@@ -432,6 +391,74 @@ export type Address = {
     | "Belgium"
 }
 
+export type TranslationMetadata = {
+  _id: string
+  _type: "translation.metadata"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  translations?: Array<
+    {
+      _key: string
+    } & InternationalizedArrayReferenceValue
+  >
+  schemaTypes?: Array<string>
+}
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue"
+  value?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "page"
+  }
+}
+
+export type Page = {
+  _id: string
+  _type: "page"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  language?: string
+  id: string
+  title: string
+  content: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: "span"
+          _key: string
+        }>
+        style?: "normal" | "h2" | "blockquote"
+        listItem?: "bullet" | "number"
+        markDefs?: Array<{
+          href?: string
+          _type: "link"
+          _key: string
+        }>
+        level?: number
+        _type: "block"
+        _key: string
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: "picture"
+      }
+  >
+}
+
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string
+  } & InternationalizedArrayReferenceValue
+>
+
 export type InternationalizedArrayTextValue = {
   _type: "internationalizedArrayTextValue"
   value?: string
@@ -597,7 +624,6 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Testimonial
   | Human
-  | Page
   | Project
   | Company
   | Slug
@@ -609,6 +635,10 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | Address
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Page
+  | InternationalizedArrayReference
   | InternationalizedArrayTextValue
   | InternationalizedArrayStringValue
   | InternationalizedArrayText
@@ -628,72 +658,143 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./app/queries/clients.ts
 // Variable: CLIENTS_QUERY
-// Query: *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{    _id,    name,    logo  } | order(name asc)
-export type CLIENTS_QUERYResult = Array<
-  | {
-      _id: string
-      name: null
-      logo: null
-    }
-  | {
-      _id: string
-      name: string
-      logo: null
-    }
-  | {
-      _id: string
-      name: string
-      logo: {
-        asset?: {
-          _ref: string
-          _type: "reference"
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+// Query: {    "clients": *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{      _id,      name,      logo    } | order(name asc)  }
+export type CLIENTS_QUERYResult = {
+  clients: Array<
+    | {
+        _id: string
+        name: null
+        logo: null
+      }
+    | {
+        _id: string
+        name: string
+        logo: null
+      }
+    | {
+        _id: string
+        name: string
+        logo: {
+          asset?: {
+            _ref: string
+            _type: "reference"
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+          }
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: "image"
+        } | null
+      }
+  >
+}
+
+// Source: ./app/queries/home.ts
+// Variable: HOME_QUERY
+// Query: {    ...  {    "clients": *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{      _id,      name,      logo    } | order(name asc)  },    ...  {    "page": *[_type == "page" && id == $id && language == $language][0] {      _id,      title,      content[] {        _type == "block" => {          _key,          _type,          children,          style,          level,          listItem,          markDefs        },        _type == "reference" => @->{          _id,          _type,          "crop": image.crop,          "hotspot": image.hotspot,          "width": image.asset->metadata.dimensions.width,          "height": image.asset->metadata.dimensions.height,          "url": image.asset->url,          "alt": alt[_key == $language][0].value        }      }    }  }  }
+export type HOME_QUERYResult = {
+  clients: Array<
+    | {
+        _id: string
+        name: null
+        logo: null
+      }
+    | {
+        _id: string
+        name: string
+        logo: null
+      }
+    | {
+        _id: string
+        name: string
+        logo: {
+          asset?: {
+            _ref: string
+            _type: "reference"
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+          }
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: "image"
+        } | null
+      }
+  >
+  page: {
+    _id: string
+    title: string
+    content: Array<
+      | {
+          _id: string
+          _type: "picture"
+          crop: SanityImageCrop | null
+          hotspot: SanityImageHotspot | null
+          width: number | null
+          height: number | null
+          url: string | null
+          alt: string | null
         }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: "image"
-      } | null
-    }
->
+      | {
+          _key: string
+          _type: "block"
+          children: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: "span"
+            _key: string
+          }> | null
+          style: "blockquote" | "h2" | "normal" | null
+          level: number | null
+          listItem: "bullet" | "number" | null
+          markDefs: Array<{
+            href?: string
+            _type: "link"
+            _key: string
+          }> | null
+        }
+    >
+  } | null
+}
 
 // Source: ./app/queries/pages.ts
 // Variable: PAGES_QUERY
-// Query: *[_type == "page" && id == $id]  {    _id,    "title": title[_key == $language][0].value,    content[] {      _type == "block" => {        _key,        _type,        children,        style,        level,        listItem,        markDefs      },      _type == "reference" => @->{        _id,        _type,        "crop": image.crop,        "hotspot": image.hotspot,        "width": image.asset->metadata.dimensions.width,        "height": image.asset->metadata.dimensions.height,        "url": image.asset->url,        "alt": alt[_key == $language][0].value      }    }  }
-export type PAGES_QUERYResult = Array<{
-  _id: string
-  title: string | null
-  content: Array<
-    | {
-        _id: string
-        _type: "picture"
-        crop: SanityImageCrop | null
-        hotspot: SanityImageHotspot | null
-        width: number | null
-        height: number | null
-        url: string | null
-        alt: string | null
-      }
-    | {
-        _key: string
-        _type: "block"
-        children: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: "span"
+// Query: {    "page": *[_type == "page" && id == $id && language == $language][0] {      _id,      title,      content[] {        _type == "block" => {          _key,          _type,          children,          style,          level,          listItem,          markDefs        },        _type == "reference" => @->{          _id,          _type,          "crop": image.crop,          "hotspot": image.hotspot,          "width": image.asset->metadata.dimensions.width,          "height": image.asset->metadata.dimensions.height,          "url": image.asset->url,          "alt": alt[_key == $language][0].value        }      }    }  }
+export type PAGES_QUERYResult = {
+  page: {
+    _id: string
+    title: string
+    content: Array<
+      | {
+          _id: string
+          _type: "picture"
+          crop: SanityImageCrop | null
+          hotspot: SanityImageHotspot | null
+          width: number | null
+          height: number | null
+          url: string | null
+          alt: string | null
+        }
+      | {
           _key: string
-        }> | null
-        style: "blockquote" | "h2" | "normal" | null
-        level: number | null
-        listItem: "bullet" | "number" | null
-        markDefs: Array<{
-          href?: string
-          _type: "link"
-          _key: string
-        }> | null
-      }
-  >
-}>
+          _type: "block"
+          children: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: "span"
+            _key: string
+          }> | null
+          style: "blockquote" | "h2" | "normal" | null
+          level: number | null
+          listItem: "bullet" | "number" | null
+          markDefs: Array<{
+            href?: string
+            _type: "link"
+            _key: string
+          }> | null
+        }
+    >
+  } | null
+}
 
 // Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
@@ -878,8 +979,9 @@ export type TESTIMONIAL_QUERYResult = {
 import "@sanity/client"
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n    _id,\n    name,\n    logo\n  } | order(name asc)\n': CLIENTS_QUERYResult
-    '\n  *[_type == "page" && id == $id]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    content[] {\n      _type == "block" => {\n        _key,\n        _type,\n        children,\n        style,\n        level,\n        listItem,\n        markDefs\n      },\n      _type == "reference" => @->{\n        _id,\n        _type,\n        "crop": image.crop,\n        "hotspot": image.hotspot,\n        "width": image.asset->metadata.dimensions.width,\n        "height": image.asset->metadata.dimensions.height,\n        "url": image.asset->url,\n        "alt": alt[_key == $language][0].value\n      }\n    }\n  }\n': PAGES_QUERYResult
+    '\n  {\n    "clients": *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n      _id,\n      name,\n      logo\n    } | order(name asc)\n  }\n': CLIENTS_QUERYResult
+    '\n  {\n    ...\n  {\n    "clients": *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n      _id,\n      name,\n      logo\n    } | order(name asc)\n  }\n,\n    ...\n  {\n    "page": *[_type == "page" && id == $id && language == $language][0] {\n      _id,\n      title,\n      content[] {\n        _type == "block" => {\n          _key,\n          _type,\n          children,\n          style,\n          level,\n          listItem,\n          markDefs\n        },\n        _type == "reference" => @->{\n          _id,\n          _type,\n          "crop": image.crop,\n          "hotspot": image.hotspot,\n          "width": image.asset->metadata.dimensions.width,\n          "height": image.asset->metadata.dimensions.height,\n          "url": image.asset->url,\n          "alt": alt[_key == $language][0].value\n        }\n      }\n    }\n  }\n\n  }\n': HOME_QUERYResult
+    '\n  {\n    "page": *[_type == "page" && id == $id && language == $language][0] {\n      _id,\n      title,\n      content[] {\n        _type == "block" => {\n          _key,\n          _type,\n          children,\n          style,\n          level,\n          listItem,\n          markDefs\n        },\n        _type == "reference" => @->{\n          _id,\n          _type,\n          "crop": image.crop,\n          "hotspot": image.hotspot,\n          "width": image.asset->metadata.dimensions.width,\n          "height": image.asset->metadata.dimensions.height,\n          "url": image.asset->url,\n          "alt": alt[_key == $language][0].value\n        }\n      }\n    }\n  }\n': PAGES_QUERYResult
     '\n  *[_type == "project" && consultant->name == $name]\n  {\n    _id,\n    "title": title[_key == $language][0].value,\n    "description": description[_key == $language][0].value,\n    "role": role[_key == $language][0].value,\n    contractStart,\n    contractEnd,\n    consultant->{\n      name,\n    },\n    client->\n    {\n      name,\n      city,\n      country,\n      industry,\n      logo\n    },\n    agent->\n    {\n      name,\n      city,\n      country,\n      logo\n    },\n    testimonials[]->\n    {\n      _id,\n      "quote": quote[_key == $language][0].value,\n      "position": position[_key == $language][0].value,\n      author->{\n        name,\n        headshot\n      },\n      company->{\n        name\n      }\n    }\n  } | order(contractStart desc)\n': PROJECTS_QUERYResult
     '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult

@@ -139,47 +139,6 @@ export type Human = {
   }
 }
 
-export type Page = {
-  _id: string
-  _type: "page"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  id: string
-  title: Array<
-    {
-      _key: string
-    } & InternationalizedArrayStringValue
-  >
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: "span"
-          _key: string
-        }>
-        style?: "normal" | "h2" | "blockquote"
-        listItem?: "bullet" | "number"
-        markDefs?: Array<{
-          href?: string
-          _type: "link"
-          _key: string
-        }>
-        level?: number
-        _type: "block"
-        _key: string
-      }
-    | {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        _key: string
-        [internalGroqTypeReferenceTo]?: "picture"
-      }
-  >
-}
-
 export type Project = {
   _id: string
   _type: "project"
@@ -432,6 +391,74 @@ export type Address = {
     | "Belgium"
 }
 
+export type TranslationMetadata = {
+  _id: string
+  _type: "translation.metadata"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  translations?: Array<
+    {
+      _key: string
+    } & InternationalizedArrayReferenceValue
+  >
+  schemaTypes?: Array<string>
+}
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue"
+  value?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "page"
+  }
+}
+
+export type Page = {
+  _id: string
+  _type: "page"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  language?: string
+  id: string
+  title: string
+  content: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: "span"
+          _key: string
+        }>
+        style?: "normal" | "h2" | "blockquote"
+        listItem?: "bullet" | "number"
+        markDefs?: Array<{
+          href?: string
+          _type: "link"
+          _key: string
+        }>
+        level?: number
+        _type: "block"
+        _key: string
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: "picture"
+      }
+  >
+}
+
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string
+  } & InternationalizedArrayReferenceValue
+>
+
 export type InternationalizedArrayTextValue = {
   _type: "internationalizedArrayTextValue"
   value?: string
@@ -597,7 +624,6 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Testimonial
   | Human
-  | Page
   | Project
   | Company
   | Slug
@@ -609,6 +635,10 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | Address
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Page
+  | InternationalizedArrayReference
   | InternationalizedArrayTextValue
   | InternationalizedArrayStringValue
   | InternationalizedArrayText

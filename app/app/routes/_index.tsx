@@ -1,43 +1,58 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
+import { PortableText } from "@portabletext/react"
+import type { LoaderFunctionArgs } from "@remix-run/node"
 import { loadQuery } from "@sanity/react-loader"
-import type { CLIENTS_QUERYResult } from "sanity.types"
+import type { HOME_QUERYResult } from "sanity.types"
 
+import { RichText } from "~/components/richtext/RichText"
+import { SanityPortableImage } from "~/components/sanity-image"
 import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
-import { Banner, ClientList, Introduction } from "~/pages/home"
-import { CLIENTS_QUERY } from "~/queries/clients"
-
-export const meta: MetaFunction = () => [
-  { title: "Sebastian Software" },
-  {
-    name: "description",
-    content:
-      "Ein Team von Spezialisten für React-Entwicklung mit Fokus auf nachhaltige, innovative Lösungen mit über 20 Jahre Erfahrung."
-  }
-]
+import { ClientList } from "~/pages/home"
+import { HOME_QUERY } from "~/queries/home"
+import { postProcessPage } from "~/utils/blockHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
-    language: await getAppLanguage(request)
+    language: await getAppLanguage(request),
+    id: "home"
   }
 
-  const initial = await loadQuery<CLIENTS_QUERYResult>(CLIENTS_QUERY, params)
-  return { initial, query: CLIENTS_QUERY, params }
+  const initial = await postProcessPage(
+    await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
+  )
+
+  console.log("INITIAL:", JSON.stringify(initial.data, null, 2))
+
+  return {
+    initial,
+    query: HOME_QUERY,
+    params
+  }
 }
 
 export default function Index() {
   const { data } = useSanityData<typeof loader>()
 
-  const clients = data
+  console.log("PAGE:", JSON.stringify(data, null, 2))
+  if (!data.page) {
+    return null
+  }
 
   return (
     <>
-      <Banner alt="Gründer der Sebastian Software GmbH">
-        Fundiertes technisches Know-How trifft auf Leidenschaft für Innovation
-        und herausragende User-Experience.
-      </Banner>
-      <Introduction />
-      <ClientList data={clients} />
+      <RichText>
+        <h1>{data.page.title}</h1>
+
+        <PortableText
+          value={data.page.content}
+          components={{
+            types: {
+              picture: SanityPortableImage
+            }
+          }}
+        />
+      </RichText>
+      <ClientList data={data.clients} />
     </>
   )
 }

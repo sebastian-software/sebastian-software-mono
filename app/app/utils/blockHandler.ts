@@ -119,10 +119,9 @@ const blockHandlers: Record<string, SanityBlockProcessHelper | undefined> = {
   // Add more handlers as needed
 }
 
-export async function postProcessContent(
-  content: SanityPortableBlock[]
-): Promise<SanityPortableBlock[]> {
-  // Update document.content with processed blocks
+export type QueryDefinedPage = NonNullable<PAGES_QUERYResult["page"]>
+
+export async function postProcessContent(content: QueryDefinedPage["content"]) {
   return Promise.all(
     content.map(async (block) => {
       const handler = blockHandlers[block._type]
@@ -131,21 +130,41 @@ export async function postProcessContent(
   )
 }
 
-export async function postProcessData(
+export type QueryDefinedContent = QueryDefinedPage["content"]
+export type QueryDefinedPicture = Extract<
+  QueryDefinedContent,
+  { _type: "picture" }
+>
+
+export interface ProcessedPicture
+  extends Pick<QueryDefinedPicture, "_id" | "_type" | "alt" | "url"> {
+  rect: [number, number, number, number]
+  preview: string
+}
+
+export type ProcessedContent = Array<QueryDefinedContent | ProcessedPicture>
+
+export type ProcessedPage = QueryDefinedPage & {
+  content: Array<QueryDefinedContent | ProcessedPicture>
+}
+
+export async function postProcessPage(
   initial: QueryResponseInitial<PAGES_QUERYResult>
 ) {
-  const document = initial.data[0]
-  const modifiedContent = await postProcessContent(document.content)
-
-  const result = {
-    ...initial,
-    data: [
-      {
-        ...document,
-        content: modifiedContent
+  const page = initial.data.page
+  if (page) {
+    const modifiedContent = await postProcessContent(page.content)
+    return {
+      ...initial,
+      data: {
+        ...initial.data,
+        page: {
+          ...page,
+          content: modifiedContent
+        }
       }
-    ]
+    }
   }
 
-  return result
+  return initial
 }
