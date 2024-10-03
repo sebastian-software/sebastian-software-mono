@@ -33,7 +33,7 @@ export default function ProfileWerner() {
 
   return (
     <section>
-      <ProjectList data={data} encodeDataAttribute={encodeDataAttribute} />
+      <ProjectList name={params.name} data={data} encodeDataAttribute={encodeDataAttribute} />
     </section>
   )
 }

@@ -29,16 +29,22 @@ import {
 } from "./ProjectList.css"
 
 export interface ProjectListProps {
+  readonly name: string
   readonly data: PROJECTS_QUERYResult
   readonly encodeDataAttribute: ReturnType<typeof useEncodeDataAttribute>
 }
 
-export function ProjectList({ data, encodeDataAttribute }: ProjectListProps) {
+export function ProjectList({
+  name,
+  data,
+  encodeDataAttribute
+}: ProjectListProps) {
+  const [firstName, lastName] = name.split(" ")
   return (
     <div className={rootClass}>
       <h1 className={consultantHeaderClass}>
-        Sebastian{" "}
-        <strong className={consultantHeaderStrongClass}>Werner</strong>
+        {firstName}{" "}
+        <strong className={consultantHeaderStrongClass}>{lastName}</strong>
       </h1>
       {data.map((project, i) => (
         <Project
@@ -155,18 +161,20 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
 
       <RichText className={gridDescriptionClass}>{data.description}</RichText>
 
-      <ul className={gridTestimonialsClass}>
-        {data.testimonials?.map((entry) => (
-          <TestimonialBlock
-            key={entry._id}
-            headshot={entry.author.headshot}
-            author={entry.author.name}
-            position={entry.position}
-            company={entry.company?.name}
-            text={entry.quote}
-          />
-        ))}
-      </ul>
+      {data.testimonials?.length && (
+        <ul className={gridTestimonialsClass}>
+          {data.testimonials.map((entry) => (
+            <TestimonialBlock
+              key={entry._id}
+              headshot={entry.author.headshot}
+              author={entry.author.name}
+              position={entry.position}
+              company={entry.company?.name}
+              text={entry.quote}
+            />
+          ))}
+        </ul>
+      )}
     </article>
   )
 }
