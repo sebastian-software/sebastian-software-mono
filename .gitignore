@@ -11,3 +11,8 @@ build/
 *.tsbuildinfo
 
 *storybook.log
+
+.sst
+.vercel
+
+studio/dist

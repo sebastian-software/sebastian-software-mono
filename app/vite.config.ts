@@ -29,7 +29,9 @@ export default defineConfig({
   plugins: [
     !IS_STORYBOOK && remix({ presets: remixPresets }),
     macrosPlugin(),
-    lingui(),
+    lingui({
+      cwd: "app"
+    }),
     tsconfigPaths(),
     vanillaExtractPlugin()
   ].filter(Boolean)
