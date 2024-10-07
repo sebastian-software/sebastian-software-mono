@@ -148,9 +148,9 @@ export type ProcessedPage = QueryDefinedPage & {
   content: Array<QueryDefinedContent | ProcessedPicture>
 }
 
-export async function postProcessPage(
-  initial: QueryResponseInitial<PAGES_QUERYResult>
-) {
+export async function postProcessPage<
+  T extends QueryResponseInitial<PAGES_QUERYResult>
+>(initial: T) {
   const page = initial.data.page
   if (page) {
     const modifiedContent = await postProcessContent(page.content)
