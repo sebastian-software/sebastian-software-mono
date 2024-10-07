@@ -23,10 +23,11 @@ export function useSanityData<RemixLoader extends AbstractRemixLoader>() {
   // Note: TypeScript is unable to corrcetly infer the type of the initial data when using destructuring
   type InferredInitialType = (typeof result)["initial"]
   type InferredDataType = InferredInitialType["data"]
+  type InferredParamsType = Awaited<ReturnType<RemixLoader>>["params"]
 
   const initial: InferredInitialType = result.initial
   const query = result.query
-  const params = result.params
+  const params: InferredParamsType = result.params
 
   // Retrieve the initial data type from original loadQuery
   type LoadQueryInitial = Awaited<ReturnType<typeof loadQuery>>
