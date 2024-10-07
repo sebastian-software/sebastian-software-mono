@@ -29,11 +29,15 @@ export interface ProjectDetailsProps {
 }
 
 export default function ProfileWerner() {
-  const { data, encodeDataAttribute } = useSanityData<typeof loader>()
+  const { data, params, encodeDataAttribute } = useSanityData<typeof loader>()
 
   return (
     <section>
-      <ProjectList name={params.name} data={data} encodeDataAttribute={encodeDataAttribute} />
+      <ProjectList
+        name={params.name}
+        data={data}
+        encodeDataAttribute={encodeDataAttribute}
+      />
     </section>
   )
 }
