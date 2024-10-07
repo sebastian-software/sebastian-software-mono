@@ -21,8 +21,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
   )
 
-  console.log("INITIAL:", JSON.stringify(initial.data, null, 2))
-
   return {
     initial,
     query: HOME_QUERY,
@@ -32,8 +30,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { data } = useSanityData<typeof loader>()
-
-  console.log("PAGE:", JSON.stringify(data, null, 2))
   if (!data.page) {
     return null
   }
