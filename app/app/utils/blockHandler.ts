@@ -120,8 +120,9 @@ const blockHandlers: Record<string, SanityBlockProcessHelper | undefined> = {
 }
 
 export type QueryDefinedPage = NonNullable<PAGES_QUERYResult["page"]>
+export type QueryDefinedContent = QueryDefinedPage["content"]
 
-export async function postProcessContent(content: QueryDefinedPage["content"]) {
+export async function postProcessContent(content: QueryDefinedContent) {
   return Promise.all(
     content.map(async (block) => {
       const handler = blockHandlers[block._type]
@@ -130,7 +131,6 @@ export async function postProcessContent(content: QueryDefinedPage["content"]) {
   )
 }
 
-export type QueryDefinedContent = QueryDefinedPage["content"]
 export type QueryDefinedPicture = Extract<
   QueryDefinedContent,
   { _type: "picture" }
