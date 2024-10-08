@@ -1,5 +1,5 @@
-import type { ProcessedPictureBlock } from "~/utils/blockHandler"
 import { getSrcSetSteps } from "~/utils/imageBuilder"
+import type { ProcessedPictureBlock } from "~/utils/pictureHandler"
 
 export interface SanityImageProps {
   readonly url: string
