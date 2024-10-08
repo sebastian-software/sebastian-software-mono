@@ -121,6 +121,7 @@ const blockHandlers: Record<string, SanityBlockProcessHelper | undefined> = {
 
 export type QueryDefinedPage = NonNullable<PAGES_QUERYResult["page"]>
 export type QueryDefinedContent = QueryDefinedPage["content"]
+export type QueryDefinedContentTypes = QueryDefinedContent[number]
 
 export async function postProcessContent(content: QueryDefinedContent) {
   return Promise.all(
@@ -132,38 +133,63 @@ export async function postProcessContent(content: QueryDefinedContent) {
 }
 
 export type QueryDefinedPicture = Extract<
-  QueryDefinedContent,
+  QueryDefinedContentTypes,
   { _type: "picture" }
 >
 
-export interface ProcessedPicture
-  extends Pick<QueryDefinedPicture, "_id" | "_type" | "alt" | "url"> {
+export type QueryDefinedNonPicture = Exclude<
+  QueryDefinedContentTypes,
+  { _type: "picture" }
+>
+
+export interface ProcessedPicture extends QueryDefinedPicture {
+  // Remove these properties
+  width: never
+  height: never
+  hotspot: never
+  crop: never
+
+  // Add these properties
   rect: [number, number, number, number]
   preview: string
 }
 
-export type ProcessedContent = Array<QueryDefinedContent | ProcessedPicture>
+export type ProcessedContent = Array<QueryDefinedNonPicture | ProcessedPicture>
 
-export type ProcessedPage = QueryDefinedPage & {
+export type ProcessedPage = Omit<QueryDefinedPage, "content"> & {
   content: Array<QueryDefinedContent | ProcessedPicture>
+}
+
+export interface ProcessedData {
+  data: {
+    page: {
+      content: ProcessedContent
+      _id: string
+      title: string
+    }
+  }
 }
 
 export async function postProcessPage<
   T extends QueryResponseInitial<PAGES_QUERYResult>
->(initial: T) {
+>(initial: T): Promise<T | (T & ProcessedData)> {
   const page = initial.data.page
   if (page) {
     const modifiedContent = await postProcessContent(page.content)
-    return {
+    const modifiedPage = {
+      ...page,
+      content: modifiedContent as ProcessedContent
+    }
+
+    const modifiedInitial = {
       ...initial,
       data: {
         ...initial.data,
-        page: {
-          ...page,
-          content: modifiedContent
-        }
+        page: modifiedPage
       }
     }
+
+    return modifiedInitial
   }
 
   return initial
