@@ -1,4 +1,4 @@
-import type { OutputPictureBlock } from "~/utils/blockHandler"
+import type { ProcessedPictureBlock } from "~/utils/blockHandler"
 import { getSrcSetSteps } from "~/utils/imageBuilder"
 
 export interface SanityImageProps {
@@ -48,7 +48,7 @@ export function SanityImage(props: SanityImageProps) {
 }
 
 export interface SanityPortableImageProps {
-  readonly value: OutputPictureBlock
+  readonly value: ProcessedPictureBlock
 }
 
 /**
