@@ -20,6 +20,7 @@ export default [
 
       // Sanity uses "null" for empty values
       "@typescript-eslint/ban-types": "off",
+      "@typescript-eslint/naming-convention": "off",
 
       "jsdoc/check-param-names": ["warn", { checkDestructured: false }]
     }
