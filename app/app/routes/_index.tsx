@@ -20,9 +20,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const initial = await postProcessPage(
     await loadQuery<HOME_QUERYResult>(HOME_QUERY, params),
-    {
-      picture: processPictureBlock
-    }
+    [processPictureBlock]
   )
 
   return {
