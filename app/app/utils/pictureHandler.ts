@@ -2,7 +2,7 @@
 
 import type { SanityImageCrop, SanityImageHotspot } from "sanity.types"
 
-import type { BlockHandler, SanityPortableBlock } from "./blockProcessor"
+import type { SanityPortableBlock } from "./blockProcessor"
 import { computeRect, resizeToArea } from "./imageBuilder"
 import { fetchToDataUrl } from "./imagePreview"
 
@@ -24,7 +24,7 @@ export interface PictureBlock extends SanityPortableBlock {
  * Interface representing a processed picture block with computed properties.
  */
 export interface ProcessedPictureBlock extends SanityPortableBlock {
-  _type: "picture"
+  _type: "sliced-picture"
   _id: string
   url: string
   alt?: string | null
@@ -94,7 +94,7 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   // Construct the processed picture block
   const processedPicture: ProcessedPictureBlock = {
     _id,
-    _type,
+    _type: "sliced-picture",
     url,
     alt,
     rect,
