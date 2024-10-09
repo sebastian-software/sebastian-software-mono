@@ -11,26 +11,6 @@ export interface SanityPortableBlock {
   _type: string
 }
 
-// export async function processContent<T extends SanityPortableBlock>(
-//   content: T[]
-// ): Promise<T[]> {
-//   const plugins = [processPictureBlock]
-
-//   const processedContent = await Promise.all(
-//     content.map(async (block) => {
-//       let processedBlock = block
-//       for (const plugin of plugins) {
-//         // eslint-disable-next-line no-await-in-loop
-//         processedBlock = await plugin(processedBlock)
-//       }
-
-//       return processedBlock
-//     })
-//   )
-
-//   return processedContent
-// }
-
 // Define the plugins outside the function, but keep them internal to your codebase
 const plugins = [
   processPictureBlock
