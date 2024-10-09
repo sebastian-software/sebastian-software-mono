@@ -9,7 +9,8 @@ import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
 import { ClientList } from "~/pages/home"
 import { HOME_QUERY } from "~/queries/home"
-import { postProcessPage } from "~/utils/blockProcessor"
+import { postProcessData } from "~/utils/blockProcessor"
+import { isSlicedPictureBlock } from "~/utils/pictureHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
@@ -17,9 +18,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     id: "home"
   }
 
-  const initial = await postProcessPage(
-    await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
-  )
+  const initial = await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
+  const data = await postProcessData(initial.data)
+
+  const page = data.page
+  if (page.content) {
+    for (const block of page.content) {
+      if (isSlicedPictureBlock(block)) {
+        console.log("SERVER RECT:", block.rect)
+      }
+    }
+  }
 
   return {
     initial,
@@ -34,9 +43,18 @@ export default function Index() {
     return null
   }
 
+  // console.log("CLIENT DATA:", JSON.stringify(data, null, 2))
+
+  // for (const block of data.page.content) {
+  //   if (isSlicedPictureBlock(block)) {
+  //     console.log("CLIENT RECT ORIG:", block.rect)
+  //   }
+  // }
+
   return (
     <>
       <RichText>
+        <h1>{data.page.title}</h1>
         <h1>{data.page.title}</h1>
 
         <PortableText

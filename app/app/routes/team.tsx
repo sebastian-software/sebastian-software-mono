@@ -8,7 +8,7 @@ import { SanityPortableImage } from "~/components/sanity-image"
 import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
-import { postProcessPage } from "~/utils/blockProcessor"
+import { postProcessData } from "~/utils/blockProcessor"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
@@ -16,9 +16,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     id: "team"
   }
 
-  const initial = await postProcessPage(
-    await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
-  )
+  const initial = await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
+  const data = await postProcessData(initial.data)
 
   return {
     initial,
