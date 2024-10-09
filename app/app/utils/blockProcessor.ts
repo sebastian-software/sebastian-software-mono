@@ -67,12 +67,10 @@ export async function postProcessPage<
     console.log("New Content", newContent[0])
   }
 
-  type SourcePage = Omit<T["data"]["page"], "content">
-
   // Return the original object with updated content using Omit to ensure typing consistency
   return initial as Omit<T, "data"> & {
     data: Omit<T["data"], "page"> & {
-      page: SourcePage & {
+      page: Omit<T["data"]["page"], "content"> & {
         content: Array<TBlock | ProcessedBlock>
       }
     }
