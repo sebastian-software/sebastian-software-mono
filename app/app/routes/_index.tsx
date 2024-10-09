@@ -43,7 +43,7 @@ export default function Index() {
           value={data.page.content}
           components={{
             types: {
-              picture: SanityPortableImage
+              "sliced-picture": SanityPortableImage
             }
           }}
         />

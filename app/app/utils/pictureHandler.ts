@@ -23,7 +23,7 @@ export interface PictureBlock extends SanityPortableBlock {
 /**
  * Interface representing a processed picture block with computed properties.
  */
-export interface ProcessedPictureBlock extends SanityPortableBlock {
+export interface SlicedPictureBlock extends SanityPortableBlock {
   _type: "sliced-picture"
   _id: string
   url: string
@@ -40,13 +40,16 @@ export const DEFAULT_PREVIEW_SIZE = 100
  * Type guard to determine if a block is a PictureBlock.
  */
 function isPictureBlock(block: SanityPortableBlock): block is PictureBlock {
-  return (
-    block._type === "picture" &&
-    typeof block._id === "string" &&
-    typeof block.url === "string" &&
-    typeof block.width === "number" &&
-    typeof block.height === "number"
-  )
+  return block._type === "picture"
+}
+
+/**
+ * Type guard to determine if a block is a ProcessedPictureBlock.
+ */
+export function isSlicedPictureBlock(
+  block: SanityPortableBlock
+): block is SlicedPictureBlock {
+  return block._type === "sliced-picture"
 }
 
 /**
@@ -54,12 +57,12 @@ function isPictureBlock(block: SanityPortableBlock): block is PictureBlock {
  */
 export async function processPictureBlock<T extends SanityPortableBlock>(
   block: T
-) {
+): Promise<T | SlicedPictureBlock> {
   if (!isPictureBlock(block)) {
     return block
   }
 
-  const { _id, _type, width, height, crop, hotspot, url, alt } = block
+  const { _id, width, height, crop, hotspot, url, alt } = block
 
   const aspectRatio = DEFAULT_ASPECT_RATIO
   const previewSize = DEFAULT_PREVIEW_SIZE
@@ -78,7 +81,7 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   )
 
   // Format the rectangle as an array
-  const rect: ProcessedPictureBlock["rect"] = [
+  const rect: SlicedPictureBlock["rect"] = [
     rectValues.left,
     rectValues.top,
     rectValues.width,
@@ -92,7 +95,7 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   const preview = await fetchToDataUrl(previewUrl)
 
   // Construct the processed picture block
-  const processedPicture: ProcessedPictureBlock = {
+  const processedPicture: SlicedPictureBlock = {
     _id,
     _type: "sliced-picture",
     url,

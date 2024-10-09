@@ -1,79 +1,87 @@
-// blockProcessor.ts
+/* eslint-disable @typescript-eslint/require-await */
 
-import type { QueryResponseInitial } from "@sanity/react-loader"
-import type { PAGES_QUERYResult } from "sanity.types"
+import type { ContentSourceMap } from "@sanity/client"
+
+import { processPictureBlock } from "./pictureHandler"
 
 /**
  * Base interface for all portable blocks.
  */
 export interface SanityPortableBlock {
-  [key: string]: unknown
   _type: string
 }
 
-/**
- * Block handler type that processes a block and returns a processed block.
- */
-export type BlockHandler = (
-  block: SanityPortableBlock
-) => Promise<SanityPortableBlock>
+// export async function processContent<T extends SanityPortableBlock>(
+//   content: T[]
+// ): Promise<T[]> {
+//   const plugins = [processPictureBlock]
 
-/**
- * Map of block handlers keyed by block `_type`.
- * Each handler may or may not be present, so the value can be `BlockHandler` or `undefined`.
- */
-export type BlockHandlersMap = Record<string, BlockHandler | undefined>
+//   const processedContent = await Promise.all(
+//     content.map(async (block) => {
+//       let processedBlock = block
+//       for (const plugin of plugins) {
+//         // eslint-disable-next-line no-await-in-loop
+//         processedBlock = await plugin(processedBlock)
+//       }
 
-/**
- * Processes a single block using the appropriate handler if available.
- */
-export async function processBlock(
-  block: SanityPortableBlock,
-  handlers: BlockHandlersMap
-): Promise<SanityPortableBlock> {
-  const handler = handlers[block._type]
-  if (handler) {
-    return handler(block)
-  }
+//       return processedBlock
+//     })
+//   )
 
-  return block
-}
+//   return processedContent
+// }
 
-/**
- * Processes an array of content blocks, applying the appropriate handler to each block based on its `_type`.
- */
-export async function postProcessContent(
-  content: SanityPortableBlock[],
-  handlers: BlockHandlersMap
-): Promise<SanityPortableBlock[]> {
-  return Promise.all(
-    content.map(async (block) => processBlock(block, handlers))
-  )
-}
+// Define the plugins outside the function, but keep them internal to your codebase
+const plugins = [
+  processPictureBlock
+  // Add more plugins here
+] as const
 
-/**
- * Processes the page content by applying the appropriate handlers to each block.
- */
-export async function postProcessPage<
-  T extends QueryResponseInitial<PAGES_QUERYResult>
->(initial: T, handlers: BlockHandlersMap): Promise<T> {
-  const page = initial.data.page
-  if (page) {
-    const modifiedContent = await postProcessContent(page.content, handlers)
-    const modifiedPage = {
-      ...page,
-      content: modifiedContent
-    }
+type ProcessedBlock = Awaited<ReturnType<(typeof plugins)[number]>>
 
-    const modifiedInitial = {
-      ...initial,
-      data: {
-        ...initial.data,
-        page: modifiedPage
+export async function processContent<T extends SanityPortableBlock>(
+  content: T[]
+): Promise<Array<T | ProcessedBlock>> {
+  const processedContent = await Promise.all(
+    content.map(async (block) => {
+      let processedBlock: T | ProcessedBlock = block
+
+      for (const plugin of plugins) {
+        // eslint-disable-next-line no-await-in-loop
+        processedBlock = await plugin(processedBlock)
       }
-    }
 
-    return modifiedInitial
+      return processedBlock
+    })
+  )
+
+  return processedContent
+}
+
+interface AbstractSanityLoaderResult<TBlock extends SanityPortableBlock> {
+  sourceMap: ContentSourceMap | undefined
+  data: {
+    page:
+      | {
+          content: TBlock[] | undefined
+        }
+      | undefined
+      | null
+  }
+}
+
+export async function postProcessPage<TBlock extends SanityPortableBlock>(
+  initial: AbstractSanityLoaderResult<TBlock | ProcessedBlock>
+) {
+  const page = initial.data.page
+  const content = page?.content
+
+  if (content) {
+    const newContent = await processContent(content)
+    page.content = newContent
+
+    console.log("Old Content", content[0])
+    console.log("New Content", newContent[0])
   }
 
   return initial

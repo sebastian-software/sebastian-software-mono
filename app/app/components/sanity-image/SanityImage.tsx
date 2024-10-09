@@ -1,5 +1,5 @@
 import { getSrcSetSteps } from "~/utils/imageBuilder"
-import type { ProcessedPictureBlock } from "~/utils/pictureHandler"
+import type { SlicedPictureBlock } from "~/utils/pictureHandler"
 
 export interface SanityImageProps {
   readonly url: string
@@ -48,7 +48,7 @@ export function SanityImage(props: SanityImageProps) {
 }
 
 export interface SanityPortableImageProps {
-  readonly value: ProcessedPictureBlock
+  readonly value: SlicedPictureBlock
 }
 
 /**
