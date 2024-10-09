@@ -52,7 +52,9 @@ function isPictureBlock(block: SanityPortableBlock): block is PictureBlock {
 /**
  * Processes a picture block by computing the required cropping rectangle and generating a preview image.
  */
-export const processPictureBlock: BlockHandler = async (block) => {
+export async function processPictureBlock<T extends SanityPortableBlock>(
+  block: T
+) {
   if (!isPictureBlock(block)) {
     return block
   }
