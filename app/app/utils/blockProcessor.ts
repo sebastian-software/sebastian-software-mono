@@ -41,12 +41,9 @@ export async function processContent<T extends SanityPortableBlock>(
 interface AbstractSanityLoaderResult<TBlock extends SanityPortableBlock> {
   sourceMap: ContentSourceMap | undefined
   data: {
-    page:
-      | {
-          content: TBlock[] | undefined
-        }
-      | undefined
-      | null
+    page: {
+      content: TBlock[] | undefined
+    } | null
   }
 }
 
