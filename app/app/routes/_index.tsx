@@ -10,7 +10,6 @@ import { getAppLanguage } from "~/language.server"
 import { ClientList } from "~/pages/home"
 import { HOME_QUERY } from "~/queries/home"
 import { postProcessPage } from "~/utils/blockProcessor"
-import { processPictureBlock } from "~/utils/pictureHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
@@ -19,8 +18,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const initial = await postProcessPage(
-    await loadQuery<HOME_QUERYResult>(HOME_QUERY, params),
-    [processPictureBlock]
+    await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
   )
 
   return {

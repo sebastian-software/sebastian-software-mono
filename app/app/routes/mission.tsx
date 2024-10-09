@@ -9,7 +9,6 @@ import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
 import { postProcessPage } from "~/utils/blockProcessor"
-import { processPictureBlock } from "~/utils/pictureHandler"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
@@ -18,8 +17,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const initial = await postProcessPage(
-    await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params),
-    [processPictureBlock]
+    await loadQuery<PAGES_QUERYResult>(PAGES_QUERY, params)
   )
 
   return {
