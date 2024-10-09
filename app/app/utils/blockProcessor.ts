@@ -50,19 +50,31 @@ interface AbstractSanityLoaderResult<TBlock extends SanityPortableBlock> {
   }
 }
 
-export async function postProcessPage<TBlock extends SanityPortableBlock>(
-  initial: AbstractSanityLoaderResult<TBlock | ProcessedBlock>
-) {
+export async function postProcessPage<
+  T extends AbstractSanityLoaderResult<TBlock>,
+  TBlock extends SanityPortableBlock
+>(initial: T) {
   const page = initial.data.page
   const content = page?.content
 
   if (content) {
     const newContent = await processContent(content)
-    page.content = newContent
+
+    // Assign the new content with Omit in place to properly manage the type
+    ;(page as any).content = newContent
 
     console.log("Old Content", content[0])
     console.log("New Content", newContent[0])
   }
 
-  return initial
+  type SourcePage = Omit<T["data"]["page"], "content">
+
+  // Return the original object with updated content using Omit to ensure typing consistency
+  return initial as Omit<T, "data"> & {
+    data: Omit<T["data"], "page"> & {
+      page: SourcePage & {
+        content: Array<TBlock | ProcessedBlock>
+      }
+    }
+  }
 }
