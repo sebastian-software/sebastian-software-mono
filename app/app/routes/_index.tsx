@@ -19,13 +19,41 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const initial = await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
-  const data = await postProcessData(initial.data)
+  const { data, content, page } = await postProcessData(initial.data)
 
-  const page = data.page
-  if (page.content) {
-    for (const block of page.content) {
+  if (content) {
+    console.log("HAS CONTENT")
+    for (const block of content) {
       if (isSlicedPictureBlock(block)) {
-        console.log("SERVER RECT:", block.rect)
+        console.log("- SERVER RECT:", block.rect)
+      }
+    }
+
+    // TODO: data.page.title
+    // TODO: data.clients
+  }
+
+  if (page) {
+    console.log("HAS PAGE")
+    console.log("- SERVER TITLE:", page.title)
+    const pageContent = page.content
+    for (const block of pageContent) {
+      if (isSlicedPictureBlock(block)) {
+        console.log("- SERVER RECT:", block.rect)
+      }
+    }
+  }
+
+  if (data) {
+    console.log("HAS DATA")
+    if (data.page) {
+      console.log("- SERVER TITLE:", data.page.title)
+      console.log("- SERVER CLIENTS:", data.clients[0].name)
+      const pageContent = data.page.content
+      for (const block of pageContent) {
+        if (isSlicedPictureBlock(block)) {
+          console.log("- SERVER RECT:", block.rect)
+        }
       }
     }
   }
