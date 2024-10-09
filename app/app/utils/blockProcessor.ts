@@ -50,12 +50,7 @@ export async function postProcessData<TData extends Record<string, unknown>>(
       { content: typeof modifiedContent }
     > = { ...page, content: modifiedContent }
 
-    const modifiedData: Merge<typeof data, { page: typeof modifiedPage }> = {
-      ...data,
-      page: modifiedPage
-    }
-
-    return { content: modifiedContent, page: modifiedPage, data: modifiedData }
+    return { content: modifiedContent, page: modifiedPage }
   }
 
   return { data }

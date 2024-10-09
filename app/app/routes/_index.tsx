@@ -12,6 +12,10 @@ import { HOME_QUERY } from "~/queries/home"
 import { postProcessData } from "~/utils/blockProcessor"
 import { isSlicedPictureBlock } from "~/utils/pictureHandler"
 
+function trimEndInvisible(str: string): string {
+  return str.replace(/[\s\u200B-\u200D]+$/, "")
+}
+
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {
     language: await getAppLanguage(request),
@@ -19,7 +23,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const initial = await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
-  const { data, content, page } = await postProcessData(initial.data)
+  const { content, page } = await postProcessData(initial.data)
 
   if (content) {
     console.log("HAS CONTENT")
@@ -28,32 +32,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         console.log("- SERVER RECT:", block.rect)
       }
     }
-
-    // TODO: data.page.title
-    // TODO: data.clients
   }
 
   if (page) {
     console.log("HAS PAGE")
-    console.log("- SERVER TITLE:", page.title)
+    console.log("- SERVER TITLE:", trimEndInvisible(page.title))
     const pageContent = page.content
     for (const block of pageContent) {
       if (isSlicedPictureBlock(block)) {
         console.log("- SERVER RECT:", block.rect)
-      }
-    }
-  }
-
-  if (data) {
-    console.log("HAS DATA")
-    if (data.page) {
-      console.log("- SERVER TITLE:", data.page.title)
-      console.log("- SERVER CLIENTS:", data.clients[0].name)
-      const pageContent = data.page.content
-      for (const block of pageContent) {
-        if (isSlicedPictureBlock(block)) {
-          console.log("- SERVER RECT:", block.rect)
-        }
       }
     }
   }
