@@ -57,13 +57,9 @@ export async function postProcessData<TData extends Record<string, unknown>>(
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const modifiedData = { ...data, page: modifiedPage } as ModifiedData
 
-      return {
-        content: modifiedContent,
-        page: modifiedPage,
-        data: modifiedData
-      }
+      return modifiedData
     }
   }
 
-  return { data }
+  return data
 }
