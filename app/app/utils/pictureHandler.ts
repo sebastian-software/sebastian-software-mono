@@ -18,20 +18,28 @@ export type PictureBlock = Extract<
   { _type: "picture" }
 >
 
-export type SlidePictureRect = [number, number, number, number]
+export type SlicePictureRect = [number, number, number, number]
+
+export interface SinglePictureSlice {
+  rect: SlicePictureRect
+  preview: string
+  aspectRatio: number
+}
 
 /**
  * Interface representing a processed picture block with computed properties.
  */
 export interface SlicedPictureBlock
-  extends Pick<PictureBlock, "_id" | "url" | "alt"> {
+  extends Omit<
+    PictureBlock,
+    "width" | "height" | "crop" | "hotspot" | "_type"
+  > {
   _type: "sliced-picture"
-  rect: SlidePictureRect
-  preview: string
-  // 'width', 'height', 'crop', and 'hotspot' are intentionally omitted
+  slices: SinglePictureSlice[]
 }
 
-export const DEFAULT_ASPECT_RATIO = 0.8
+// eslint-disable-next-line @typescript-eslint/no-magic-numbers
+export const DEFAULT_ASPECT_RATIOS = [4 / 5, 16 / 10]
 export const DEFAULT_PREVIEW_SIZE = 100
 
 /**
@@ -66,34 +74,33 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
     throw new Error("Missing width, height or url for picture block!")
   }
 
-  const aspectRatio = DEFAULT_ASPECT_RATIO
-  const previewSize = DEFAULT_PREVIEW_SIZE
-
-  // Compute the cropping rectangle based on the aspect ratio
-  const { rect, preview } = await slicePicture({
-    width,
-    height,
-    crop,
-    hotspot,
-    aspectRatio,
-    previewSize,
-    url
-  })
+  const slices: SinglePictureSlice[] = await Promise.all(
+    DEFAULT_ASPECT_RATIOS.map(async (aspectRatio) =>
+      slicePicture({
+        width,
+        height,
+        crop,
+        hotspot,
+        aspectRatio,
+        previewSize: DEFAULT_PREVIEW_SIZE,
+        url
+      })
+    )
+  )
 
   // Construct the processed picture block
-  const processedPicture: SlicedPictureBlock = {
+  const slicedPicture: SlicedPictureBlock = {
     _id,
     _type: "sliced-picture",
     url,
     alt,
-    rect,
-    preview
+    slices
   }
 
-  return processedPicture
+  return slicedPicture
 }
 
-export interface SlidePictureArgs {
+export interface SlicePictureArgs {
   width: number
   height: number
   crop: SanityImageCrop | null
@@ -111,7 +118,7 @@ async function slicePicture({
   aspectRatio,
   previewSize,
   url
-}: SlidePictureArgs) {
+}: SlicePictureArgs): Promise<SinglePictureSlice> {
   const rectValues = computeRect(
     { width, height, crop, hotspot },
     { aspectRatio }
@@ -125,7 +132,7 @@ async function slicePicture({
   )
 
   // Format the rectangle as an array
-  const rect: SlidePictureRect = [
+  const rect: SlicePictureRect = [
     rectValues.left,
     rectValues.top,
     rectValues.width,
@@ -137,5 +144,5 @@ async function slicePicture({
 
   // Fetch the preview image and convert it to a data URL
   const preview = await fetchToDataUrl(previewUrl)
-  return { rect, preview }
+  return { rect, preview, aspectRatio }
 }

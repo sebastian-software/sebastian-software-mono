@@ -59,12 +59,14 @@ export function SanityPortableImage({ value }: SanityPortableImageProps) {
     return null
   }
 
+  const relevantSlice = value.slices[0]
+
   return (
     <SanityImage
       url={value.url}
       alt={value.alt}
-      rect={value.rect}
-      preview={value.preview}
+      rect={relevantSlice.rect}
+      preview={relevantSlice.preview}
     />
   )
 }
