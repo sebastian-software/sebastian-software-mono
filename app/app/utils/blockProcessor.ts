@@ -49,9 +49,12 @@ export async function postProcessData<TData extends Record<string, unknown>>(
       type ModifiedPage = Omit<NonNullable<TData["page"]>, "content"> & {
         content: ProcessedBlock[]
       }
+      type ModifiedData = Omit<TData, "page"> & { page: typeof modifiedPage }
+
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const modifiedPage = { ...page, content: modifiedContent } as ModifiedPage
 
-      type ModifiedData = Omit<TData, "page"> & { page: typeof modifiedPage }
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const modifiedData = { ...data, page: modifiedPage } as ModifiedData
 
       return {

@@ -59,7 +59,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   return {
-    initial,
+    initial: {
+      ...initial,
+      data
+    },
     query: HOME_QUERY,
     params
   }
