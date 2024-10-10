@@ -1,10 +1,8 @@
-import { PortableText } from "@portabletext/react"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { loadQuery } from "@sanity/react-loader"
 import type { PAGES_QUERYResult } from "sanity.types"
 
-import { RichText } from "~/components/richtext/RichText"
-import { SanityPortableImage } from "~/components/sanity-image"
+import { SanityPage } from "~/components/sanity-page"
 import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
 import { PAGES_QUERY } from "~/queries/pages"
@@ -20,7 +18,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const data = await postProcessData(initial.data)
 
   return {
-    initial,
+    initial: {
+      ...initial,
+      data
+    },
     query: PAGES_QUERY,
     params
   }
@@ -28,22 +29,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { data } = useSanityData<typeof loader>()
-  if (!data.page) {
-    return null
-  }
 
-  return (
-    <RichText>
-      <h1>{data.page.title}</h1>
-
-      <PortableText
-        value={data.page.content}
-        components={{
-          types: {
-            picture: SanityPortableImage
-          }
-        }}
-      />
-    </RichText>
-  )
+  return <SanityPage page={data.page} />
 }
