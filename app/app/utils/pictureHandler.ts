@@ -1,6 +1,10 @@
 // pictureHandler.ts
 
-import type { PAGES_QUERYResult } from "sanity.types"
+import type {
+  PAGES_QUERYResult,
+  SanityImageCrop,
+  SanityImageHotspot
+} from "sanity.types"
 
 import type { SanityPortableBlock } from "./blockProcessor"
 import { computeRect, resizeToArea } from "./imageBuilder"
@@ -66,6 +70,48 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   const previewSize = DEFAULT_PREVIEW_SIZE
 
   // Compute the cropping rectangle based on the aspect ratio
+  const { rect, preview } = await slicePicture({
+    width,
+    height,
+    crop,
+    hotspot,
+    aspectRatio,
+    previewSize,
+    url
+  })
+
+  // Construct the processed picture block
+  const processedPicture: SlicedPictureBlock = {
+    _id,
+    _type: "sliced-picture",
+    url,
+    alt,
+    rect,
+    preview
+  }
+
+  return processedPicture
+}
+
+export interface SlidePictureArgs {
+  width: number
+  height: number
+  crop: SanityImageCrop | null
+  hotspot: SanityImageHotspot | null
+  aspectRatio: number
+  previewSize: number
+  url: string
+}
+
+async function slicePicture({
+  width,
+  height,
+  crop,
+  hotspot,
+  aspectRatio,
+  previewSize,
+  url
+}: SlidePictureArgs) {
   const rectValues = computeRect(
     { width, height, crop, hotspot },
     { aspectRatio }
@@ -91,16 +137,5 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
 
   // Fetch the preview image and convert it to a data URL
   const preview = await fetchToDataUrl(previewUrl)
-
-  // Construct the processed picture block
-  const processedPicture: SlicedPictureBlock = {
-    _id,
-    _type: "sliced-picture",
-    url,
-    alt,
-    rect,
-    preview
-  }
-
-  return processedPicture
+  return { rect, preview }
 }
