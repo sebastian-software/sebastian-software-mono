@@ -55,6 +55,10 @@ export interface SanityPortableImageProps {
  * Wrapper for SanityImage to use in PortableText
  */
 export function SanityPortableImage({ value }: SanityPortableImageProps) {
+  if (!value.url) {
+    return null
+  }
+
   return (
     <SanityImage
       url={value.url}

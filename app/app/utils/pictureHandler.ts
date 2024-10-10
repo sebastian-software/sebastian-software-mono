@@ -1,6 +1,6 @@
 // pictureHandler.ts
 
-import type { SanityImageCrop, SanityImageHotspot } from "sanity.types"
+import type { PAGES_QUERYResult } from "sanity.types"
 
 import type { SanityPortableBlock } from "./blockProcessor"
 import { computeRect, resizeToArea } from "./imageBuilder"
@@ -9,25 +9,17 @@ import { fetchToDataUrl } from "./imagePreview"
 /**
  * Interface representing an unprocessed picture block from Sanity.
  */
-export interface PictureBlock extends SanityPortableBlock {
-  _type: "picture"
-  _id: string
-  url: string
-  width: number
-  height: number
-  crop?: SanityImageCrop | null
-  hotspot?: SanityImageHotspot | null
-  alt?: string | null
-}
+export type PictureBlock = Extract<
+  NonNullable<PAGES_QUERYResult["page"]>["content"][number],
+  { _type: "picture" }
+>
 
 /**
  * Interface representing a processed picture block with computed properties.
  */
-export interface SlicedPictureBlock extends SanityPortableBlock {
+export interface SlicedPictureBlock
+  extends Pick<PictureBlock, "_id" | "url" | "alt"> {
   _type: "sliced-picture"
-  _id: string
-  url: string
-  alt?: string | null
   rect: [number, number, number, number]
   preview: string
   // 'width', 'height', 'crop', and 'hotspot' are intentionally omitted
@@ -63,6 +55,10 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   }
 
   const { _id, width, height, crop, hotspot, url, alt } = block
+
+  if (width == null || height == null || url == null) {
+    throw new Error("Missing width, height or url for picture block!")
+  }
 
   const aspectRatio = DEFAULT_ASPECT_RATIO
   const previewSize = DEFAULT_PREVIEW_SIZE
