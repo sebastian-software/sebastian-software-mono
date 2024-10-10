@@ -20,9 +20,10 @@ type ProcessedBlock = Awaited<ReturnType<(typeof plugins)[number]>>
 
 //
 
-export async function postProcessData<TData extends Record<string, unknown>>(
-  data: TData
-) {
+export async function postProcessData<
+  TData extends Record<string, unknown>,
+  TBlock extends SanityPortableBlock = SanityPortableBlock
+>(data: TData) {
   // Note: It's important to not use type narrowing here otherwise
   // the produced return type will be incorrect.
   if (
@@ -33,12 +34,12 @@ export async function postProcessData<TData extends Record<string, unknown>>(
     Array.isArray(data.page.content)
   ) {
     const page = data.page
-    const content = page.content
+    const content = page.content as TBlock[]
 
     if (Array.isArray(content)) {
       const modifiedContent: ProcessedBlock[] = []
       for (const block of content) {
-        let modifiedBlock = block
+        let modifiedBlock = block as ProcessedBlock
         for (const plugin of plugins) {
           modifiedBlock = await plugin(modifiedBlock)
         }
