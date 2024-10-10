@@ -47,7 +47,16 @@ export async function postProcessData<TData extends object>(data: TData) {
         "content"
       > & { content: ProcessedBlock[] }
 
-      return { content: modifiedContent, page: modifiedPage }
+      const modifiedData = { ...data, page: modifiedPage } as Omit<
+        TData,
+        "page"
+      > & { page: typeof modifiedPage }
+
+      return {
+        content: modifiedContent,
+        page: modifiedPage,
+        data: modifiedData
+      }
     }
   }
 

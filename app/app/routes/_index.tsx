@@ -22,8 +22,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     id: "home"
   }
 
+  console.log("\n\n\n\n")
+
   const initial = await loadQuery<HOME_QUERYResult>(HOME_QUERY, params)
-  const { content, page } = await postProcessData(initial.data)
+  const { content, page, data } = await postProcessData(initial.data)
 
   if (content) {
     console.log("HAS CONTENT")
@@ -38,6 +40,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     console.log("HAS PAGE")
     console.log("- SERVER TITLE:", trimEndInvisible(page.title))
     const pageContent = page.content
+    for (const block of pageContent) {
+      if (isSlicedPictureBlock(block)) {
+        console.log("- SERVER RECT:", block.rect)
+      }
+    }
+  }
+
+  if (data) {
+    console.log("HAS DATA")
+    console.log("- SERVER TITLE:", trimEndInvisible(data.page.title))
+    const pageContent = data.page.content
     for (const block of pageContent) {
       if (isSlicedPictureBlock(block)) {
         console.log("- SERVER RECT:", block.rect)
