@@ -1,3 +1,4 @@
+import type { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import type { ContentSourceMap } from "@sanity/react-loader"
 import { useQuery } from "@sanity/react-loader"
@@ -13,7 +14,9 @@ export interface SanityLoaderResult {
 
 // Define a generic type T to represent the data returned by the loader
 export function useSanityData<
-  RouteLoader extends (...args: any) => Promise<SanityLoaderResult>
+  RouteLoader extends ({
+    request
+  }: LoaderFunctionArgs) => Promise<SanityLoaderResult>
 >() {
   type InferredResultType = Awaited<ReturnType<RouteLoader>>
 
