@@ -20,7 +20,11 @@ type ProcessedBlock = Awaited<ReturnType<(typeof plugins)[number]>>
 
 //
 
-export async function postProcessData<TData extends object>(data: TData) {
+export async function postProcessData<TData extends Record<string, unknown>>(
+  data: TData
+) {
+  // Note: It's important to not use type narrowing here otherwise
+  // the produced return type will be incorrect.
   if (
     "page" in data &&
     typeof data.page === "object" &&
@@ -43,7 +47,7 @@ export async function postProcessData<TData extends object>(data: TData) {
       }
 
       const modifiedPage = { ...page, content: modifiedContent } as Omit<
-        NonNullable<(typeof data)["page"]>,
+        NonNullable<TData["page"]>,
         "content"
       > & { content: ProcessedBlock[] }
 

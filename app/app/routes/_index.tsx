@@ -47,7 +47,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }
   }
 
-  if (data) {
+  if (data.page) {
     console.log("HAS DATA")
     console.log("- SERVER TITLE:", trimEndInvisible(data.page.title))
     const pageContent = data.page.content
