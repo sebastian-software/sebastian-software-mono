@@ -46,15 +46,13 @@ export async function postProcessData<TData extends Record<string, unknown>>(
         modifiedContent.push(modifiedBlock)
       }
 
-      const modifiedPage = { ...page, content: modifiedContent } as Omit<
-        NonNullable<TData["page"]>,
-        "content"
-      > & { content: ProcessedBlock[] }
+      type ModifiedPage = Omit<NonNullable<TData["page"]>, "content"> & {
+        content: ProcessedBlock[]
+      }
+      const modifiedPage = { ...page, content: modifiedContent } as ModifiedPage
 
-      const modifiedData = { ...data, page: modifiedPage } as Omit<
-        TData,
-        "page"
-      > & { page: typeof modifiedPage }
+      type ModifiedData = Omit<TData, "page"> & { page: typeof modifiedPage }
+      const modifiedData = { ...data, page: modifiedPage } as ModifiedData
 
       return {
         content: modifiedContent,
