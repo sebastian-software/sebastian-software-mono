@@ -14,13 +14,15 @@ export type PictureBlock = Extract<
   { _type: "picture" }
 >
 
+export type SlidePictureRect = [number, number, number, number]
+
 /**
  * Interface representing a processed picture block with computed properties.
  */
 export interface SlicedPictureBlock
   extends Pick<PictureBlock, "_id" | "url" | "alt"> {
   _type: "sliced-picture"
-  rect: [number, number, number, number]
+  rect: SlidePictureRect
   preview: string
   // 'width', 'height', 'crop', and 'hotspot' are intentionally omitted
 }
@@ -77,7 +79,7 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   )
 
   // Format the rectangle as an array
-  const rect: SlicedPictureBlock["rect"] = [
+  const rect: SlidePictureRect = [
     rectValues.left,
     rectValues.top,
     rectValues.width,
