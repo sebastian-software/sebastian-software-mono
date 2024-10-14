@@ -19,8 +19,7 @@ export const rootClass = style({
 
     [breakpoints.portrait]: {
       maxWidth: "calc(100% + 2 * var(--space-s-m))",
-      marginLeft: "calc(var(--space-s-m) * -1)",
-      marginRight: "calc(var(--space-s-m) * -1)"
+      marginLeft: "calc(var(--space-s-m) * -1)"
     }
   }
 })
@@ -89,18 +88,36 @@ export const projectClass = style({
 
 export const gridLogoClass = style({
   gridArea: "logo",
-  maxWidth: "calc(var(--space-3xl) * 2)",
-  maxHeight: "calc(var(--space-2xl))"
+  maxWidth: "calc(var(--space-5xl))",
+
+  "@media": {
+    [breakpoints.landscape]: {
+      maxHeight: "calc(var(--space-2xl))"
+    },
+
+    [breakpoints.portrait]: {
+      maxHeight: "calc(var(--space-xl))"
+    }
+  }
 })
 
 export const gridTitleClass = style({
   gridArea: "title",
   fontFamily: elenaWebfont,
-  letterSpacing: "-0.04em",
-  fontSize: "var(--step-3)",
   textWrap: "balance",
-  lineHeight: "1.1",
-  maxWidth: "40ch"
+
+  "@media": {
+    [breakpoints.landscape]: {
+      maxWidth: "40ch",
+      fontSize: "var(--step-3)",
+      lineHeight: "1.1"
+    },
+
+    [breakpoints.portrait]: {
+      fontSize: "var(--step-2)",
+      lineHeight: "1.25"
+    }
+  }
 })
 
 export const gridVerticalInfoClass = style({
@@ -146,7 +163,6 @@ export const gridMetaClass = style({
 export const gridDescriptionClass = style({
   gridArea: "description",
   whiteSpace: "pre-line",
-  minWidth: "40ch",
   maxWidth: "65ch"
 })
 
