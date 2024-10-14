@@ -11,7 +11,6 @@ import { Neutral } from "~/components/neutral"
 import { RichText } from "~/components/richtext/RichText"
 import { urlFor } from "~/sanity/image"
 
-import { TestimonialBlock } from "../testimonial"
 import {
   agentImageClass,
   consultantHeaderClass,
@@ -19,7 +18,6 @@ import {
   gridDescriptionClass,
   gridLogoClass,
   gridMetaClass,
-  gridTestimonialsClass,
   gridTitleClass,
   gridVerticalInfoClass,
   gridVerticalInfoTextClass,
@@ -161,7 +159,7 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
 
       <RichText className={gridDescriptionClass}>{data.description}</RichText>
 
-      {data.testimonials?.length && (
+      {/* {data.testimonials?.length && (
         <ul className={gridTestimonialsClass}>
           {data.testimonials.map((entry) => (
             <TestimonialBlock
@@ -174,7 +172,7 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
             />
           ))}
         </ul>
-      )}
+      )} */}
     </article>
   )
 }

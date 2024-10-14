@@ -1,15 +1,28 @@
-import { boxShadow, dropShadow } from "@effective/shadow"
 import { style } from "@vanilla-extract/css"
 
 import { elenaWebfont } from "~/components"
+import { breakpoints } from "~/pages/layout/config"
 import { variables } from "~/theme.css"
 
 export const rootClass = style({
   display: "flex",
-  padding: "var(--space-m)",
   flexDirection: "column",
   gap: "var(--space-2xl)",
-  color: variables.color.violet
+  color: variables.color.violet,
+
+  "@media": {
+    [breakpoints.landscape]: {
+      maxWidth: "calc(100% + 2 * var(--space-s-2xl))",
+      marginLeft: "calc(var(--space-s-2xl) * -1)",
+      marginRight: "calc(var(--space-s-2xl) * -1)"
+    },
+
+    [breakpoints.portrait]: {
+      maxWidth: "calc(100% + 2 * var(--space-s-m))",
+      marginLeft: "calc(var(--space-s-m) * -1)",
+      marginRight: "calc(var(--space-s-m) * -1)"
+    }
+  }
 })
 
 export const consultantHeaderClass = style({
@@ -20,7 +33,17 @@ export const consultantHeaderClass = style({
   color: variables.color.lightViolet,
 
   // Partially compensating for the parent's gap
-  marginBottom: "calc(var(--space-1xl) * -1)"
+  marginBottom: "calc(var(--space-1xl) * -1)",
+
+  "@media": {
+    [breakpoints.landscape]: {
+      paddingInline: "var(--space-s-2xl)"
+    },
+
+    [breakpoints.portrait]: {
+      paddingInline: "var(--space-s-m)"
+    }
+  }
 })
 
 export const consultantHeaderStrongClass = style({
@@ -30,58 +53,19 @@ export const consultantHeaderStrongClass = style({
 
 export const projectClass = style({
   display: "grid",
-  boxShadow: boxShadow[3],
-  borderTopLeftRadius: "var(--space-s)",
-  borderBottomRightRadius: "var(--space-s)",
 
   gap: "var(--space-l) var(--space-l)",
-  width: "max-content",
-  maxWidth: "100%",
-  background: `linear-gradient(to bottom right, ${variables.color.veryLightGold}, #fff)`,
 
   gridTemplateAreas: `
-    "vertical logo logo ."
-    "vertical title title title"
-    "vertical meta description testimonials"
-    "vertical . . ."
+    "vertical logo meta"
+    "vertical title meta"
+    "vertical description meta"
   `,
 
-  gridTemplateColumns: "auto auto 1fr auto",
+  gridTemplateColumns: "auto 1fr auto ",
 
   // The 0px row is necessary for adding padding identical to the gap (harmonious spacing)
-  gridTemplateRows: "auto auto auto 0px"
-
-  // gridTemplateAreas: `
-  //   ". role role"
-  //   "logo title title"
-  //   ". description testimonials"
-  //   "meta description testimonials"
-  // `,
-
-  // "@media": {
-  //   "(width <= 1280px)": {
-  //     gridTemplateColumns: "10rem auto auto",
-  //     gridTemplateAreas: `
-  //       "logo . ."
-  //       "role role role"
-  //       "title title title"
-  //       "meta meta meta"
-  //       "description description testimonials"
-  //     `
-  //   },
-
-  //   "(width <= 1024px)": {
-  //     gridTemplateColumns: "auto",
-  //     gridTemplateAreas: `
-  //       "logo"
-  //       "role"
-  //       "title"
-  //       "meta"
-  //       "description"
-  //       "testimonials"
-  //     `
-  //   }
-  // }
+  gridTemplateRows: "auto auto 1fr"
 })
 
 // =====================================================
@@ -91,8 +75,7 @@ export const projectClass = style({
 export const gridLogoClass = style({
   gridArea: "logo",
   maxWidth: "calc(var(--space-3xl) * 2)",
-  maxHeight: "calc(var(--space-2xl))",
-  marginTop: "var(--space-s-m)"
+  maxHeight: "calc(var(--space-2xl))"
 })
 
 export const gridTitleClass = style({
@@ -108,18 +91,26 @@ export const gridTitleClass = style({
 export const gridVerticalInfoClass = style({
   gridArea: "vertical",
   background: variables.color.violet,
-  color: variables.color.lightGold,
-  borderTopLeftRadius: "var(--space-s)"
+  color: variables.color.lightGold
 })
 
 export const gridVerticalInfoTextClass = style({
   writingMode: "vertical-lr",
-
-  lineHeight: 1,
   boxSizing: "content-box",
   width: "1lh",
-  paddingInline: "var(--space-s-m)",
-  paddingBlock: "var(--space-s)",
+
+  "@media": {
+    [breakpoints.landscape]: {
+      lineHeight: "var(--space-s-2xl)",
+      paddingInline: "var(--space-s-l)"
+    },
+
+    [breakpoints.portrait]: {
+      fontSize: "var(--step--1)",
+      lineHeight: "var(--space-s-m)",
+      paddingInline: "var(--space-xs)"
+    }
+  },
 
   textTransform: "uppercase",
   letterSpacing: "0.2em"
@@ -128,21 +119,17 @@ export const gridVerticalInfoTextClass = style({
 export const gridMetaClass = style({
   gridArea: "meta",
   background: variables.color.lightGold,
-  filter: dropShadow[1],
 
-  width: "30ch",
-  height: "max-content",
+  width: "35ch",
   lineHeight: "1.35",
   fontSize: "var(--step--1)",
-  paddingInline: "var(--space-s)",
-  paddingBlock: "var(--space-s)",
-  paddingInlineEnd: "var(--space-m)",
-  borderTopRightRadius: "var(--space-s)"
+  paddingInline: "var(--space-m)",
+  paddingBlock: "var(--space-m)",
+  paddingInlineEnd: "var(--space-m)"
 })
 
 export const gridDescriptionClass = style({
   gridArea: "description",
-  fontSize: "var(--step-1)",
   whiteSpace: "pre-line",
   minWidth: "40ch",
   maxWidth: "65ch"
@@ -186,7 +173,8 @@ export const metaHeaderClass = style({
 })
 
 export const agentImageClass = style({
-  maxHeight: "var(--space-xl)"
+  maxHeight: "var(--space-xl)",
+  maxWidth: "var(--space-5xl)"
 })
 
 // =====================================================
