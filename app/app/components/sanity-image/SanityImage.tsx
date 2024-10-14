@@ -6,6 +6,7 @@ export interface SanityImageProps {
   readonly alt?: string | null
   readonly rect: number[]
 
+  readonly media?: string
   readonly preview?: string
   readonly quality?: number
 }
@@ -31,11 +32,21 @@ export function SanityImage(props: SanityImageProps) {
     DEFAULT_STEP_REDUCER
   )
 
+  if (props.media) {
+    return (
+      <source
+        media={props.media}
+        srcSet={srcSet}
+        width={width}
+        height={height}
+      />
+    )
+  }
+
   return (
     <img
       style={{
-        width,
-        aspectRatio: `${width} / ${height}`,
+        height: "auto",
         backgroundImage: `url(${props.preview})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat"
@@ -43,6 +54,8 @@ export function SanityImage(props: SanityImageProps) {
       alt={props.alt ?? ""}
       src={baseUrl}
       srcSet={srcSet}
+      width={width}
+      height={height}
     />
   )
 }
@@ -59,14 +72,31 @@ export function SanityPortableImage({ value }: SanityPortableImageProps) {
     return null
   }
 
-  const relevantSlice = value.slices[0]
+  // We assume that the first image is the one that is shown by default
+  // and the further sources are being used.. for desktop
+  // TODO: Needs fine tuning especially regarding the hard-baked mediaquery.
+  const [img, ...sources] = value.slices
 
   return (
-    <SanityImage
-      url={value.url}
-      alt={value.alt}
-      rect={relevantSlice.rect}
-      preview={relevantSlice.preview}
-    />
+    <picture>
+      {sources.map((slice) => (
+        <SanityImage
+          key={slice.aspectRatio}
+          media="(min-width: 768px)"
+          aspectRatio={slice.aspectRatio}
+          url={value.url}
+          alt={value.alt}
+          rect={slice.rect}
+          preview={slice.preview}
+        />
+      ))}
+      <SanityImage
+        key={img.aspectRatio}
+        url={value.url}
+        alt={value.alt}
+        rect={img.rect}
+        preview={img.preview}
+      />
+    </picture>
   )
 }
