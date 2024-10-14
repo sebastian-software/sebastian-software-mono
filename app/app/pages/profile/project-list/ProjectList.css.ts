@@ -54,18 +54,33 @@ export const consultantHeaderStrongClass = style({
 export const projectClass = style({
   display: "grid",
 
-  gap: "var(--space-l) var(--space-l)",
+  "@media": {
+    [breakpoints.landscape]: {
+      gap: "var(--space-l) var(--space-l)",
 
-  gridTemplateAreas: `
-    "vertical logo meta"
-    "vertical title meta"
-    "vertical description meta"
-  `,
+      gridTemplateAreas: `
+        "vertical logo meta"
+        "vertical title meta"
+        "vertical description meta"
+      `,
 
-  gridTemplateColumns: "auto 1fr auto ",
+      gridTemplateColumns: "auto 1fr auto",
+      gridTemplateRows: "auto auto 1fr"
+    },
 
-  // The 0px row is necessary for adding padding identical to the gap (harmonious spacing)
-  gridTemplateRows: "auto auto 1fr"
+    [breakpoints.portrait]: {
+      gap: "var(--space-s-m) var(--space-xs-s)",
+
+      gridTemplateAreas: `
+        "vertical logo"
+        "vertical title"
+        "vertical description"
+        "vertical meta"
+      `,
+
+      gridTemplateColumns: "auto 1fr"
+    }
+  }
 })
 
 // =====================================================
