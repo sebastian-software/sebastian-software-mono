@@ -68,7 +68,8 @@ export interface SanityPortableImageProps {
  * Wrapper for SanityImage to use in PortableText
  */
 export function SanityPortableImage({ value }: SanityPortableImageProps) {
-  if (!value.url) {
+  const url = value.url
+  if (!url) {
     return null
   }
 
@@ -83,8 +84,7 @@ export function SanityPortableImage({ value }: SanityPortableImageProps) {
         <SanityImage
           key={slice.aspectRatio}
           media="(min-width: 768px)"
-          aspectRatio={slice.aspectRatio}
-          url={value.url}
+          url={url}
           alt={value.alt}
           rect={slice.rect}
           preview={slice.preview}
@@ -92,7 +92,7 @@ export function SanityPortableImage({ value }: SanityPortableImageProps) {
       ))}
       <SanityImage
         key={img.aspectRatio}
-        url={value.url}
+        url={url}
         alt={value.alt}
         rect={img.rect}
         preview={img.preview}
