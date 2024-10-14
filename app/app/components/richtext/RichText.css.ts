@@ -1,6 +1,7 @@
 import type { GlobalStyleRule } from "@vanilla-extract/css"
 import { globalStyle, style } from "@vanilla-extract/css"
 
+import { breakpoints } from "~/pages/layout/config"
 import { variables } from "~/theme.css"
 
 import { elenaWebfont } from "../fonts"
@@ -104,3 +105,23 @@ globalStyle(`${root} ol`, {
 })
 
 globalStyle(`${root} li`, {})
+
+globalStyle(`${root} picture`, {
+  "@media": {
+    [breakpoints.landscape]: {
+      // Don't use outdent and limit the image width otherwise the full screen
+      // might be quickly filled with just one image.
+      maxWidth: "70ch"
+
+      // maxWidth: "min(calc(100% + 2 * var(--space-s-2xl)), 20vw)",
+      // marginLeft: "calc(var(--space-s-2xl) * -1)",
+      // marginRight: "calc(var(--space-s-2xl) * -1)"
+    },
+
+    [breakpoints.portrait]: {
+      maxWidth: "calc(100% + 2 * var(--space-s-m))",
+      marginLeft: "calc(var(--space-s-m) * -1)",
+      marginRight: "calc(var(--space-s-m) * -1)"
+    }
+  }
+})
