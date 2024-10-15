@@ -1,10 +1,15 @@
+import { clsx } from "clsx"
+
 import { getSrcSetSteps } from "~/utils/imageBuilder"
 import type { SlicedPictureBlock } from "~/utils/pictureHandler"
+
+import { rootClass } from "./SanityImage.css"
 
 export interface SanityImageProps {
   readonly url: string
   readonly alt?: string | null
   readonly rect: number[]
+  readonly className?: string
 
   readonly media?: string
   readonly preview?: string
@@ -48,28 +53,30 @@ export function SanityImage(props: SanityImageProps) {
   return (
     <img
       style={{
-        height: "auto",
-        backgroundImage: `url(${props.preview})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat"
+        backgroundImage: `url(${props.preview})`
       }}
       alt={props.alt ?? ""}
       src={baseUrl}
       srcSet={srcSet}
       width={width}
       height={height}
+      className={clsx(rootClass, props.className)}
     />
   )
 }
 
 export interface SanityPortableImageProps {
   readonly value: SlicedPictureBlock
+  readonly className?: string
 }
 
 /**
  * Wrapper for SanityImage to use in PortableText
  */
-export function SanityPortableImage({ value }: SanityPortableImageProps) {
+export function SanityPortableImage({
+  value,
+  className
+}: SanityPortableImageProps) {
   const url = value.url
   if (!url) {
     return null
@@ -98,6 +105,7 @@ export function SanityPortableImage({ value }: SanityPortableImageProps) {
         alt={value.alt}
         rect={img.rect}
         preview={img.preview}
+        className={className}
       />
     </picture>
   )
