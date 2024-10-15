@@ -83,7 +83,6 @@ export function ProjectList({
   const [firstName, lastName] = name.split(" ")
   return (
     <div className={rootClass}>
-      {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
       <SanityPortableImage value={consultant.headshot} />
       <h1 className={consultantHeaderClass}>
         {firstName}{" "}
