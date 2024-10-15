@@ -32,32 +32,39 @@ export interface ProjectConsultant {
   headshot: SlicedPictureBlock
 }
 
+export type PartialNullable<T> = {
+  [P in keyof T]?: T[P] | null
+}
+
 export interface ProjectData {
   _id: string
-  title: string
-  role: string
+
+  // Translated fields (might null because of filtering query)
+  title: string | null
+  description: string | null
+  role: string | null
+
   client: {
     name: string
     city: string
     country: SupportedCountry
     industry: SupportedIndustry
-    logo: {
+    logo: PartialNullable<{
       url: string
       width: number
       height: number
-    }
+    }>
   }
   agent?: {
     name: string
-    logo: {
+    logo: PartialNullable<{
       url: string
       width: number
       height: number
-    }
-  }
+    }>
+  } | null
   contractStart: string
   contractEnd: string
-  description: string
 }
 
 export interface ProjectListProps {
@@ -134,8 +141,8 @@ export function Project({ project, encodeDataAttribute }: ProjectProps) {
           className={gridLogoClass}
           src={clientLogo.url}
           alt={project.client.name}
-          width={clientLogo.width}
-          height={clientLogo.height}
+          width={clientLogo.width ?? ""}
+          height={clientLogo.height ?? ""}
         />
       )}
 
@@ -187,8 +194,8 @@ export function Project({ project, encodeDataAttribute }: ProjectProps) {
                 src={agentLogo.url}
                 alt={project.agent.name}
                 className={agentImageClass}
-                width={agentLogo.width}
-                height={agentLogo.height}
+                width={agentLogo.width ?? ""}
+                height={agentLogo.height ?? ""}
               />
             )}
           </>

@@ -1,8 +1,7 @@
-// Utility Types
-type PathToTuple<P extends string> = P extends `${infer Head}.${infer Rest}`
-  ? [Head, ...PathToTuple<Rest>]
-  : [P]
+export type PathToTuple<P extends string> =
+  P extends `${infer Head}.${infer Rest}` ? [Head, ...PathToTuple<Rest>] : [P]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ReplaceTypeAtPath<T, Path extends unknown[], V> = T extends any
   ? T extends object
     ? Path extends [infer Head, ...infer Rest]
@@ -47,13 +46,12 @@ export function replaceFieldAtPath<T, Path extends unknown[], V>(
   }
 
   const key = head as keyof T
-
   const rest = path.slice(1) as Tail<Path>
 
   const currentValue = obj[key]
-
   const updatedValue = replaceFieldAtPath(currentValue, rest, value)
 
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return {
     ...obj,
     [key]: updatedValue
