@@ -1,5 +1,3 @@
-/* eslint-disable jsdoc/tag-lines */
-
 /**
  * Utilities for replacing a field in an object at a specified path, with proper TypeScript type inference.
  *

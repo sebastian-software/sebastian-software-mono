@@ -22,7 +22,8 @@ export default [
       "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/naming-convention": "off",
 
-      "jsdoc/check-param-names": ["warn", { checkDestructured: false }]
+      "jsdoc/check-param-names": ["warn", { checkDestructured: false }],
+      "jsdoc/tag-lines": "off"
     }
   },
   {
