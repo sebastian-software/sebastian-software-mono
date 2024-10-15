@@ -146,6 +146,8 @@ export function Project({ project, encodeDataAttribute }: ProjectProps) {
       <div className={gridVerticalInfoClass}>
         <div className={gridVerticalInfoTextClass}>
           {formatProjectTime(project.contractStart, language)}
+          &#160;&#160;|&#160;&#160;
+          <IndustryName code={project.client.industry} />
         </div>
       </div>
 
