@@ -7,7 +7,8 @@ export const consultantType = defineType({
   fields: [
     defineField({
       name: "headshot",
-      type: "image",
+      type: "reference",
+      to: [{ type: "picture" }],
       validation: (Rule) => Rule.required()
     }),
 

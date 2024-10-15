@@ -261,6 +261,28 @@ export type Slug = {
   source?: string
 }
 
+export type Consultant = {
+  _id: string
+  _type: "consultant"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  headshot: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "picture"
+  }
+  name: string
+  birthday: string
+  address?: {
+    _ref: string
+    _type: "reference"
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: "address"
+  }
+}
+
 export type Picture = {
   _id: string
   _type: "picture"
@@ -284,33 +306,6 @@ export type Picture = {
     } & InternationalizedArrayStringValue
   >
   date: string
-}
-
-export type Consultant = {
-  _id: string
-  _type: "consultant"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  headshot: {
-    asset?: {
-      _ref: string
-      _type: "reference"
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: "image"
-  }
-  name: string
-  birthday: string
-  address?: {
-    _ref: string
-    _type: "reference"
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: "address"
-  }
 }
 
 export type SanityImageCrop = {
@@ -627,8 +622,8 @@ export type AllSanitySchemaTypes =
   | Project
   | Company
   | Slug
-  | Picture
   | Consultant
+  | Picture
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
