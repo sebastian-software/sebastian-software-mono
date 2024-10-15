@@ -44,7 +44,7 @@ export function ProjectList({
         {firstName}{" "}
         <strong className={consultantHeaderStrongClass}>{lastName}</strong>
       </h1>
-      {data.map((project, i) => (
+      {data.projects.map((project, i) => (
         <Project
           key={project._id}
           data={project}
