@@ -39,7 +39,7 @@ export interface SlicedPictureBlock
 }
 
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-export const DEFAULT_ASPECT_RATIOS = [4 / 5, 16 / 10]
+export const DEFAULT_ASPECT_RATIOS = [4 / 5, 2 / 1]
 export const DEFAULT_PREVIEW_SIZE = 100
 
 /**
