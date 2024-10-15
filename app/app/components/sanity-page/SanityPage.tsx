@@ -10,7 +10,7 @@ import { rootClass, titleClass, visualHideClass } from "./SanityPage.css"
 export interface SanityPageProps {
   readonly page?: {
     title: string
-    hideTitle: boolean
+    hideTitle: boolean | null
     content: SanityPortableBlock[]
   } | null
 }

@@ -419,6 +419,7 @@ export type Page = {
   language?: string
   id: string
   title: string
+  hideTitle?: boolean
   content: Array<
     | {
         children?: Array<{

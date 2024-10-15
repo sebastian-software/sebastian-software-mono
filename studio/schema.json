@@ -2171,6 +2171,13 @@
         },
         "optional": false
       },
+      "hideTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
       "content": {
         "type": "objectAttribute",
         "value": {
