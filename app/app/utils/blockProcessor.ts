@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable @typescript-eslint/require-await */
 
-import { processPictureBlock } from "./pictureHandler"
+import { pictureMiddleware } from "./pictureHandler"
 
 /**
  * Base interface for all portable blocks.
@@ -10,7 +10,7 @@ export interface SanityPortableBlock {
   _type: string
 }
 
-const plugins = [processPictureBlock]
+const plugins = [pictureMiddleware]
 
 export interface SanityBasePage extends Record<string, unknown> {
   content: SanityPortableBlock[] | ProcessedBlock[]

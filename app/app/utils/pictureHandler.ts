@@ -58,16 +58,9 @@ export function isSlicedPictureBlock(
   return block._type === "sliced-picture"
 }
 
-/**
- * Processes a picture block by computing the required cropping rectangle and generating a preview image.
- */
-export async function processPictureBlock<T extends SanityPortableBlock>(
-  block: T
-): Promise<T | SlicedPictureBlock> {
-  if (!isPictureBlock(block)) {
-    return block
-  }
-
+export async function processPicture(
+  block: PictureBlock
+): Promise<SlicedPictureBlock> {
   const { _id, width, height, crop, hotspot, url, alt } = block
 
   if (width == null || height == null || url == null) {
@@ -98,6 +91,19 @@ export async function processPictureBlock<T extends SanityPortableBlock>(
   }
 
   return slicedPicture
+}
+
+/**
+ * Processes a picture block by computing the required cropping rectangle and generating a preview image.
+ */
+export async function pictureMiddleware<T extends SanityPortableBlock>(
+  block: T
+): Promise<T | SlicedPictureBlock> {
+  if (!isPictureBlock(block)) {
+    return block
+  }
+
+  return processPicture(block)
 }
 
 export interface SlicePictureArgs {
