@@ -37,6 +37,8 @@ const industries = {
   Recruitement: msg`Recruitment`
 }
 
+export type SupportedIndustry = keyof typeof industries
+
 export function IndustryName({
   code
 }: {

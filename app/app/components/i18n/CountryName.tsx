@@ -16,6 +16,8 @@ const countries = {
   gb: msg`United Kingdom`
 }
 
+export type SupportedCountry = keyof typeof countries
+
 export function CountryName({
   code
 }: {
