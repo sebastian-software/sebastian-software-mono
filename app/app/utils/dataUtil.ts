@@ -17,8 +17,6 @@
 export type PathToTuple<P extends string> =
   P extends `${infer Head}.${infer Rest}` ? [Head, ...PathToTuple<Rest>] : [P]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-
 /**
  * Recursively replaces the type at a specified path in an object type with a new type.
  *
@@ -33,19 +31,21 @@ export type PathToTuple<P extends string> =
  * // Updated is { a: { b: { c: string } } }
  * ```
  */
-export type ReplaceTypeAtPath<T, Path extends unknown[], V> = T extends any
-  ? T extends object
-    ? Path extends [infer Head, ...infer Rest]
-      ? Head extends keyof T
-        ? {
-            [K in keyof T]: K extends Head
-              ? ReplaceTypeAtPath<T[K], Rest, V>
-              : T[K]
-          }
-        : T
-      : V
-    : T
-  : never
+export type ReplaceTypeAtPath<T, Path extends unknown[], V> =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T extends any
+    ? T extends object
+      ? Path extends [infer Head, ...infer Rest]
+        ? Head extends keyof T
+          ? {
+              [K in keyof T]: K extends Head
+                ? ReplaceTypeAtPath<T[K], Rest, V>
+                : T[K]
+            }
+          : T
+        : V
+      : T
+    : never
 
 /**
  * Gets the tail of a tuple type, i.e., all elements except the first.
