@@ -37,6 +37,8 @@ export function SanityImage(props: SanityImageProps) {
       <source
         media={props.media}
         srcSet={srcSet}
+        // This makes use of conditional aspect ratio as support in modern browsers
+        // https://github.com/whatwg/html/issues/4968
         width={width}
         height={height}
       />
