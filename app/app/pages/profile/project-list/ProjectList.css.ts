@@ -26,21 +26,27 @@ export const rootClass = style({
 })
 
 export const consultantHeaderClass = style({
+  position: "relative",
+
   fontSize: "var(--step-4)",
   textTransform: "uppercase",
   fontWeight: "200",
-  lineHeight: "1",
   color: "white",
+
+  lineHeight: "1",
+  paddingBlock: "var(--space-m)",
+  background: `linear-gradient(to bottom left , transparent, ${variables.color.darkViolet})`,
+  backdropFilter: "blur(0.5rem)",
 
   "@media": {
     [breakpoints.landscape]: {
-      marginTop: "calc((var(--space-2xl)* -1) - 1lh * 1.5)",
+      marginTop: "calc((var(--space-2xl)* -1) - 1lh - var(--space-m) * 2)",
       paddingInline: "var(--space-s-2xl)"
     },
 
     [breakpoints.portrait]: {
-      // in this layout the name is typically spread to two lines
-      marginTop: "calc((var(--space-2xl)* -1) - 2lh * 1.5)",
+      // in this layout the name is typically spread to two lines (=> 2lh)
+      marginTop: "calc((var(--space-2xl)* -1) - 2lh - var(--space-m) * 2)",
       paddingInline: "var(--space-s-m)"
     }
   }
