@@ -4,6 +4,7 @@ export const PAGES_QUERY = defineQuery(`
     "page": *[_type == "page" && id == $id && language == $language][0] {
       _id,
       title,
+      hideTitle,
       content[] {
         _type == "block" => {
           _key,

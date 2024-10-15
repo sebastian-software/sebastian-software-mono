@@ -25,6 +25,15 @@ export const pageType = defineType({
     }),
 
     defineField({
+      name: "hideTitle",
+      description:
+        "Enable this flag to mark pages which should not show the title.",
+
+      type: "boolean",
+      initialValue: false
+    }),
+
+    defineField({
       name: "content",
       type: "array",
       of: [
