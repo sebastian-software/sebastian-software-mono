@@ -16,7 +16,7 @@ export interface SanityBasePage extends Record<string, unknown> {
   content: SanityPortableBlock[] | ProcessedBlock[]
 }
 
-type ProcessedBlock = Awaited<ReturnType<(typeof plugins)[number]>>
+export type ProcessedBlock = Awaited<ReturnType<(typeof plugins)[number]>>
 
 //
 
