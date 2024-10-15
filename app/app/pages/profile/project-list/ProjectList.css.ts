@@ -19,7 +19,8 @@ export const rootClass = style({
 
     [breakpoints.portrait]: {
       maxWidth: "calc(100% + 2 * var(--space-s-m))",
-      marginLeft: "calc(var(--space-s-m) * -1)"
+      marginLeft: "calc(var(--space-s-m) * -1)",
+      marginRight: "calc(var(--space-s-m) * -1)"
     }
   }
 })
@@ -29,24 +30,23 @@ export const consultantHeaderClass = style({
   textTransform: "uppercase",
   fontWeight: "200",
   lineHeight: "1",
-  color: variables.color.lightViolet,
-
-  // Partially compensating for the parent's gap
-  marginBottom: "calc(var(--space-1xl) * -1)",
+  color: "white",
 
   "@media": {
     [breakpoints.landscape]: {
+      marginTop: "calc((var(--space-2xl)* -1) - 1lh * 1.5)",
       paddingInline: "var(--space-s-2xl)"
     },
 
     [breakpoints.portrait]: {
+      // in this layout the name is typically spread to two lines
+      marginTop: "calc((var(--space-2xl)* -1) - 2lh * 1.5)",
       paddingInline: "var(--space-s-m)"
     }
   }
 })
 
 export const consultantHeaderStrongClass = style({
-  color: variables.color.violet,
   fontWeight: "600"
 })
 
