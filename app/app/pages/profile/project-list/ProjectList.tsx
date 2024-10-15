@@ -78,7 +78,7 @@ export function formatProjectTime(moment: string, language: string) {
 }
 
 export interface ProjectProps {
-  readonly data: PROJECTS_QUERYResult[number]
+  readonly data: PROJECTS_QUERYResult["projects"][number]
   readonly encodeDataAttribute: EncodeDataAttributeCallback
 }
 
