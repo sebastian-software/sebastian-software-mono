@@ -2,6 +2,8 @@ import { style } from "@vanilla-extract/css"
 
 import { variables } from "~/theme.css"
 
+import { breakpoints } from "../config"
+
 export const rootClass = style({
   background: variables.color.darkViolet,
   color: variables.color.white
@@ -10,10 +12,14 @@ export const rootClass = style({
 export const containerClass = style({
   display: "flex",
   gap: "var(--space-2xs)",
-  flexDirection: "column",
+  paddingBlock: "var(--space-m)",
 
   "@media": {
-    "(min-width: 960px)": {
+    [breakpoints.portrait]: {
+      flexDirection: "column"
+    },
+
+    [breakpoints.landscape]: {
       flexDirection: "row",
       alignItems: "center"
     }
@@ -30,7 +36,7 @@ export const listClass = style({
   gap: "var(--space-xs)",
 
   "@media": {
-    "(min-width: 960px)": {
+    [breakpoints.landscape]: {
       paddingBlock: 0
     }
   }
