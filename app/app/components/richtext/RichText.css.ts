@@ -43,11 +43,15 @@ globalStyle(`${root} :where(p, ul, ol, h1, h2)`, {
   overflowX: "hidden"
 })
 
+globalStyle(`${root} :where(h1, h2):first-child`, {
+  marginTop: "var(--space-xl)"
+})
+
 globalStyle(`${root} :where(p, ul, ol)`, {
   marginBottom: "var(--space-s)",
 
   // Limit max width on landscape to keep legibility
-  maxWidth: "65ch"
+  maxWidth: "70ch"
 })
 
 // // Mobile
