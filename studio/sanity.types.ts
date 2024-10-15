@@ -195,7 +195,7 @@ export type Company = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  logo?: {
+  logo: {
     asset?: {
       _ref: string
       _type: "reference"

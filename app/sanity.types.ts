@@ -195,7 +195,7 @@ export type Company = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  logo?: {
+  logo: {
     asset?: {
       _ref: string
       _type: "reference"
@@ -679,7 +679,7 @@ export type CLIENTS_QUERYResult = {
           hotspot?: SanityImageHotspot
           crop?: SanityImageCrop
           _type: "image"
-        } | null
+        }
       }
   >
 }
@@ -712,7 +712,7 @@ export type HOME_QUERYResult = {
           hotspot?: SanityImageHotspot
           crop?: SanityImageCrop
           _type: "image"
-        } | null
+        }
       }
   >
   page: {
@@ -865,7 +865,7 @@ export type PROJECTS_QUERYResult = {
         url: string | null
         width: number | null
         height: number | null
-      } | null
+      }
     }
     agent: {
       name: string
@@ -886,7 +886,7 @@ export type PROJECTS_QUERYResult = {
         url: string | null
         width: number | null
         height: number | null
-      } | null
+      }
     } | null
     testimonials: Array<{
       _id: string

@@ -10,7 +10,8 @@ export const companyType = defineType({
   fields: [
     defineField({
       name: "logo",
-      type: "image"
+      type: "image",
+      validation: (Rule) => Rule.required()
     }),
 
     defineField({

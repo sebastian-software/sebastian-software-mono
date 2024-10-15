@@ -1070,7 +1070,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "name": {
         "type": "objectAttribute",
