@@ -9,6 +9,7 @@ export const rootClass = style({
 
 export const containerClass = style({
   display: "flex",
+  paddingBlock: "var(--space-m)",
   flexDirection: "column",
   gap: "var(--space-xs)"
 })
