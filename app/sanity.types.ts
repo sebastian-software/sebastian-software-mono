@@ -793,7 +793,7 @@ export type PAGES_QUERYResult = {
 
 // Source: ./app/queries/projects.ts
 // Variable: PROJECTS_QUERY
-// Query: {    "consultant": *[_type == "consultant" && name == $name][0]    {      name,      headshot->      {        _id,        _type,        "crop": image.crop,        "hotspot": image.hotspot,        "width": image.asset->metadata.dimensions.width,        "height": image.asset->metadata.dimensions.height,        "url": image.asset->url,        "alt": alt[_key == $language][0].value      }    },    "projects": *[_type == "project" && consultant->name == $name]    {      _id,      "title": title[_key == $language][0].value,      "description": description[_key == $language][0].value,      "role": role[_key == $language][0].value,      contractStart,      contractEnd,      client->      {        name,        city,        country,        industry,        logo      },      agent->      {        name,        city,        country,        logo      },      testimonials[]->      {        _id,        "quote": quote[_key == $language][0].value,        "position": position[_key == $language][0].value,        author->{          name,          headshot->          {            _id,            _type,            "crop": image.crop,            "hotspot": image.hotspot,            "width": image.asset->metadata.dimensions.width,            "height": image.asset->metadata.dimensions.height,            "url": image.asset->url,            "alt": alt[_key == $language][0].value          }        },        company->{          name        }      }    } | order(contractStart desc)  }
+// Query: {    "consultant": *[_type == "consultant" && name == $name][0]    {      name,      headshot->      {        _id,        _type,        "crop": image.crop,        "hotspot": image.hotspot,        "width": image.asset->metadata.dimensions.width,        "height": image.asset->metadata.dimensions.height,        "url": image.asset->url,        "alt": alt[_key == $language][0].value      }    },    "projects": *[_type == "project" && consultant->name == $name]    {      _id,      "title": title[_key == $language][0].value,      "description": description[_key == $language][0].value,      "role": role[_key == $language][0].value,      contractStart,      contractEnd,      client->      {        name,        city,        country,        industry,        logo        {          "url":asset->url,          "width": asset->metadata.dimensions.width,          "height": asset->metadata.dimensions.height        }      },      agent->      {        name,        city,        country,        logo        {          "url":asset->url,          "width": asset->metadata.dimensions.width,          "height": asset->metadata.dimensions.height        }      },      testimonials[]->      {        _id,        "quote": quote[_key == $language][0].value,        "position": position[_key == $language][0].value,        author->{          name,          headshot->          {            _id,            _type,            "crop": image.crop,            "hotspot": image.hotspot,            "width": image.asset->metadata.dimensions.width,            "height": image.asset->metadata.dimensions.height,            "url": image.asset->url,            "alt": alt[_key == $language][0].value          }        },        company->{          name        }      }    } | order(contractStart desc)  }
 export type PROJECTS_QUERYResult = {
   consultant: {
     name: string
@@ -862,15 +862,9 @@ export type PROJECTS_QUERYResult = {
         | "Transportation"
         | "Utilities"
       logo: {
-        asset?: {
-          _ref: string
-          _type: "reference"
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: "image"
+        url: string | null
+        width: number | null
+        height: number | null
       } | null
     }
     agent: {
@@ -889,15 +883,9 @@ export type PROJECTS_QUERYResult = {
         | "nl"
         | "us"
       logo: {
-        asset?: {
-          _ref: string
-          _type: "reference"
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: "image"
+        url: string | null
+        width: number | null
+        height: number | null
       } | null
     } | null
     testimonials: Array<{
@@ -979,7 +967,7 @@ declare module "@sanity/client" {
     '\n  {\n    "clients": *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n      _id,\n      name,\n      logo\n    } | order(name asc)\n  }\n': CLIENTS_QUERYResult
     '\n  {\n    ...\n  {\n    "clients": *[_id in array::unique(*[_type == "project" && client->closed != true].client->_id)]{\n      _id,\n      name,\n      logo\n    } | order(name asc)\n  }\n,\n    ...\n  {\n    "page": *[_type == "page" && id == $id && language == $language][0] {\n      _id,\n      title,\n      content[] {\n        _type == "block" => {\n          _key,\n          _type,\n          children,\n          style,\n          level,\n          listItem,\n          markDefs\n        },\n        _type == "reference" => @->{\n          _id,\n          _type,\n          "crop": image.crop,\n          "hotspot": image.hotspot,\n          "width": image.asset->metadata.dimensions.width,\n          "height": image.asset->metadata.dimensions.height,\n          "url": image.asset->url,\n          "alt": alt[_key == $language][0].value\n        }\n      }\n    }\n  }\n\n  }\n': HOME_QUERYResult
     '\n  {\n    "page": *[_type == "page" && id == $id && language == $language][0] {\n      _id,\n      title,\n      content[] {\n        _type == "block" => {\n          _key,\n          _type,\n          children,\n          style,\n          level,\n          listItem,\n          markDefs\n        },\n        _type == "reference" => @->{\n          _id,\n          _type,\n          "crop": image.crop,\n          "hotspot": image.hotspot,\n          "width": image.asset->metadata.dimensions.width,\n          "height": image.asset->metadata.dimensions.height,\n          "url": image.asset->url,\n          "alt": alt[_key == $language][0].value\n        }\n      }\n    }\n  }\n': PAGES_QUERYResult
-    '\n  {\n    "consultant": *[_type == "consultant" && name == $name][0]\n    {\n      name,\n      headshot->\n      {\n        _id,\n        _type,\n        "crop": image.crop,\n        "hotspot": image.hotspot,\n        "width": image.asset->metadata.dimensions.width,\n        "height": image.asset->metadata.dimensions.height,\n        "url": image.asset->url,\n        "alt": alt[_key == $language][0].value\n      }\n    },\n    "projects": *[_type == "project" && consultant->name == $name]\n    {\n      _id,\n      "title": title[_key == $language][0].value,\n      "description": description[_key == $language][0].value,\n      "role": role[_key == $language][0].value,\n      contractStart,\n      contractEnd,\n      client->\n      {\n        name,\n        city,\n        country,\n        industry,\n        logo\n      },\n      agent->\n      {\n        name,\n        city,\n        country,\n        logo\n      },\n      testimonials[]->\n      {\n        _id,\n        "quote": quote[_key == $language][0].value,\n        "position": position[_key == $language][0].value,\n        author->{\n          name,\n          headshot->\n          {\n            _id,\n            _type,\n            "crop": image.crop,\n            "hotspot": image.hotspot,\n            "width": image.asset->metadata.dimensions.width,\n            "height": image.asset->metadata.dimensions.height,\n            "url": image.asset->url,\n            "alt": alt[_key == $language][0].value\n          }\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  }\n': PROJECTS_QUERYResult
+    '\n  {\n    "consultant": *[_type == "consultant" && name == $name][0]\n    {\n      name,\n      headshot->\n      {\n        _id,\n        _type,\n        "crop": image.crop,\n        "hotspot": image.hotspot,\n        "width": image.asset->metadata.dimensions.width,\n        "height": image.asset->metadata.dimensions.height,\n        "url": image.asset->url,\n        "alt": alt[_key == $language][0].value\n      }\n    },\n    "projects": *[_type == "project" && consultant->name == $name]\n    {\n      _id,\n      "title": title[_key == $language][0].value,\n      "description": description[_key == $language][0].value,\n      "role": role[_key == $language][0].value,\n      contractStart,\n      contractEnd,\n      client->\n      {\n        name,\n        city,\n        country,\n        industry,\n        logo\n        {\n          "url":asset->url,\n          "width": asset->metadata.dimensions.width,\n          "height": asset->metadata.dimensions.height\n        }\n      },\n      agent->\n      {\n        name,\n        city,\n        country,\n        logo\n        {\n          "url":asset->url,\n          "width": asset->metadata.dimensions.width,\n          "height": asset->metadata.dimensions.height\n        }\n      },\n      testimonials[]->\n      {\n        _id,\n        "quote": quote[_key == $language][0].value,\n        "position": position[_key == $language][0].value,\n        author->{\n          name,\n          headshot->\n          {\n            _id,\n            _type,\n            "crop": image.crop,\n            "hotspot": image.hotspot,\n            "width": image.asset->metadata.dimensions.width,\n            "height": image.asset->metadata.dimensions.height,\n            "url": image.asset->url,\n            "alt": alt[_key == $language][0].value\n          }\n        },\n        company->{\n          name\n        }\n      }\n    } | order(contractStart desc)\n  }\n': PROJECTS_QUERYResult
     '*[_type == "testimonial"] | order(date desc){\n    _id,\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot\n    },\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIALS_QUERYResult
     '*[_type == "testimonial" && string::startsWith(_id, $shortId)][0] {\n    date,\n    consultant->{\n      name\n    },\n    author->{\n      name,\n      headshot,\n    },\n    language,\n    "quote": quote[_key == $language][0].value,\n    "position": position[_key == $language][0].value,\n    company->{\n      name\n    }\n  }\n': TESTIMONIAL_QUERYResult
   }

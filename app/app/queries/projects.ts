@@ -31,6 +31,11 @@ export const PROJECTS_QUERY = defineQuery(`
         country,
         industry,
         logo
+        {
+          "url":asset->url,
+          "width": asset->metadata.dimensions.width,
+          "height": asset->metadata.dimensions.height
+        }
       },
       agent->
       {
@@ -38,6 +43,11 @@ export const PROJECTS_QUERY = defineQuery(`
         city,
         country,
         logo
+        {
+          "url":asset->url,
+          "width": asset->metadata.dimensions.width,
+          "height": asset->metadata.dimensions.height
+        }
       },
       testimonials[]->
       {
