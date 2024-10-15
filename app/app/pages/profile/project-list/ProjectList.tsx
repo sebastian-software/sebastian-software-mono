@@ -4,12 +4,13 @@ import type {
   EncodeDataAttributeCallback,
   useEncodeDataAttribute
 } from "@sanity/react-loader"
-import type { PROJECTS_QUERYResult } from "sanity.types"
 
+import type { SupportedCountry, SupportedIndustry } from "~/components/i18n"
 import { CountryName, IndustryName } from "~/components/i18n"
 import { Neutral } from "~/components/neutral"
 import { RichText } from "~/components/richtext/RichText"
-import { urlFor } from "~/sanity/image"
+import { SanityPortableImage } from "~/components/sanity-image"
+import type { SlicedPictureBlock } from "~/utils/pictureHandler"
 
 import {
   agentImageClass,
@@ -26,28 +27,65 @@ import {
   rootClass
 } from "./ProjectList.css"
 
+export interface ProjectConsultant {
+  name: string
+  headshot: SlicedPictureBlock
+}
+
+export interface ProjectData {
+  _id: string
+  title: string
+  role: string
+  client: {
+    name: string
+    city: string
+    country: SupportedCountry
+    industry: SupportedIndustry
+    logo: {
+      url: string
+      width: number
+      height: number
+    }
+  }
+  agent?: {
+    name: string
+    logo: {
+      url: string
+      width: number
+      height: number
+    }
+  }
+  contractStart: string
+  contractEnd: string
+  description: string
+}
+
 export interface ProjectListProps {
   readonly name: string
-  readonly data: PROJECTS_QUERYResult
+  readonly consultant: ProjectConsultant
+  readonly projects: ProjectData[]
   readonly encodeDataAttribute: ReturnType<typeof useEncodeDataAttribute>
 }
 
 export function ProjectList({
   name,
-  data,
+  consultant,
+  projects,
   encodeDataAttribute
 }: ProjectListProps) {
   const [firstName, lastName] = name.split(" ")
   return (
     <div className={rootClass}>
+      {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+      <SanityPortableImage value={consultant.headshot} />
       <h1 className={consultantHeaderClass}>
         {firstName}{" "}
         <strong className={consultantHeaderStrongClass}>{lastName}</strong>
       </h1>
-      {data.projects.map((project, i) => (
+      {projects.map((project, i) => (
         <Project
           key={project._id}
-          data={project}
+          project={project}
           encodeDataAttribute={encodeDataAttribute.scope([i])}
         />
       ))}
@@ -78,33 +116,36 @@ export function formatProjectTime(moment: string, language: string) {
 }
 
 export interface ProjectProps {
-  readonly data: PROJECTS_QUERYResult["projects"][number]
+  readonly project: ProjectData
   readonly encodeDataAttribute: EncodeDataAttributeCallback
 }
 
-export function Project({ data, encodeDataAttribute }: ProjectProps) {
+export function Project({ project, encodeDataAttribute }: ProjectProps) {
   const { i18n } = useLingui()
-  const clientLogoUrl = urlFor(data.client.logo)?.url()
-  const agentLogoUrl = data.agent?.logo
-    ? urlFor(data.agent.logo)?.url()
-    : undefined
   const language = i18n.locale
+
+  const clientLogo = project.client.logo
+  const agentLogo = project.agent?.logo
 
   return (
     <article className={projectClass}>
-      <img
-        className={gridLogoClass}
-        src={clientLogoUrl}
-        alt={data.client.name}
-      />
+      {clientLogo.url && (
+        <img
+          className={gridLogoClass}
+          src={clientLogo.url}
+          alt={project.client.name}
+          width={clientLogo.width}
+          height={clientLogo.height}
+        />
+      )}
 
       <Neutral as="h2" className={gridTitleClass}>
-        {data.title}
+        {project.title}
       </Neutral>
 
       <div className={gridVerticalInfoClass}>
         <div className={gridVerticalInfoTextClass}>
-          {formatProjectTime(data.contractStart, language)}
+          {formatProjectTime(project.contractStart, language)}
         </div>
       </div>
 
@@ -112,38 +153,42 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
         <h3 className={metaHeaderClass}>
           <Trans context="label">Role:</Trans>
         </h3>
-        <p>{data.role}</p>
+        <p>{project.role}</p>
 
         <h3 className={metaHeaderClass}>
           <Trans context="label">Customer:</Trans>
         </h3>
         <p>
-          {data.client.name}
+          {project.client.name}
           <br />
-          {data.client.city}, <CountryName code={data.client.country} />
+          {project.client.city}, <CountryName code={project.client.country} />
         </p>
         <h3 className={metaHeaderClass}>
           <Trans context="label">Industry:</Trans>
         </h3>
         <p data-sanity={encodeDataAttribute("client.industry")}>
-          <IndustryName code={data.client.industry} />
+          <IndustryName code={project.client.industry} />
         </p>
         <h3 className={metaHeaderClass}>
           <Trans context="label">Period:</Trans>
         </h3>
         <p data-sanity={encodeDataAttribute("contractStart")}>
-          {formatPeriod(data.contractStart, data.contractEnd, language)}
+          {formatPeriod(project.contractStart, project.contractEnd, language)}
         </p>
-        {data.agent && (
+        {project.agent && (
           <>
             <h3 className={metaHeaderClass}>
               <Trans>Agent:</Trans>
             </h3>
-            <img
-              src={agentLogoUrl}
-              alt={data.agent.name}
-              className={agentImageClass}
-            />
+            {agentLogo?.url && (
+              <img
+                src={agentLogo.url}
+                alt={project.agent.name}
+                className={agentImageClass}
+                width={agentLogo.width}
+                height={agentLogo.height}
+              />
+            )}
           </>
         )}
         {/* {data.technologies && (
@@ -157,7 +202,9 @@ export function Project({ data, encodeDataAttribute }: ProjectProps) {
         )} */}
       </aside>
 
-      <RichText className={gridDescriptionClass}>{data.description}</RichText>
+      <RichText className={gridDescriptionClass}>
+        {project.description}
+      </RichText>
 
       {/* {data.testimonials?.length && (
         <ul className={gridTestimonialsClass}>
