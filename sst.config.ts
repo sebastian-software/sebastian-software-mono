@@ -4,11 +4,13 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="./.sst/platform/config.d.ts" />
 
+import type { CdnArgs } from ".sst/platform/src/components/aws";
+
 export default $config({
   app(input) {
     return {
       name: "app",
-      removal: input?.stage === "production" ? "retain" : "remove",
+      removal: input.stage === "production" ? "retain" : "remove",
       home: "aws",
       providers: {
         aws: {
@@ -35,18 +37,17 @@ export default $config({
       primaryIndex: { hashKey: "id" }
     })
 
-    let domain
-    let studioDomain
+    let domain: CdnArgs["domain"]
+    let studioDomain: CdnArgs["domain"]
 
     if ($app.stage === "production") {
       domain = {
         name: "sebastian-software.de",
-        redirects: ["www.sebastian-software.de"],
+        aliases: ["sebastian-software.com"],
         dns: sst.cloudflare.dns({
-          zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST";
+              record.comment = "SST " + $app.stage;
             }
           }
         })
@@ -58,7 +59,7 @@ export default $config({
           zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST";
+              record.comment = "SST " + $app.stage;
             }
           }
         })
@@ -71,7 +72,7 @@ export default $config({
           zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST";
+              record.comment = "SST " + $app.stage;
             }
           }
         })
@@ -83,12 +84,34 @@ export default $config({
           zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST";
+              record.comment = "SST " + $app.stage;
             }
           }
         })
       }
     }
+
+    const redirectFunction = new sst.aws.Function("RedirectFunction", {
+      handler: "infra/redirect.handler",
+      url: true,
+    });
+
+    new sst.aws.Router("RedirectRouter", {
+      domain: {
+        name: "www.sebastian-software.com",
+        aliases: ["www.sebastian-software.de"],
+        dns: sst.cloudflare.dns({
+          transform: {
+            record(record) {
+              record.comment = "SST " + $app.stage;
+            }
+          }
+        }),
+      },
+      routes: {
+        "/*": redirectFunction.url
+      }
+    });
 
     const studioSite: sst.aws.StaticSite = new sst.aws.StaticSite("Studio", {
       path: "./studio",
@@ -101,11 +124,11 @@ export default $config({
 
     new sst.aws.Remix("Website", {
       environment: {
-        SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN || "",
-        SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID || "",
-        SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET || "",
+        SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN ?? "",
+        SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID ?? "",
+        SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET ?? "",
         SANITY_STUDIO_URL: studioSite.url,
-        SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED || ""
+        SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED ?? ""
       },
       domain,
       server: {

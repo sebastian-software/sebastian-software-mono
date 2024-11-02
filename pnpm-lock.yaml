@@ -14,6 +14,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.5.0
         version: 19.5.0
+      '@types/aws-lambda':
+        specifier: ^8.10.145
+        version: 8.10.145
       commitlint:
         specifier: ^19.5.0
         version: 19.5.0(@types/node@22.5.5)(typescript@5.6.3)
@@ -30,8 +33,8 @@ importers:
         specifier: ^2.5.3
         version: 2.5.3(prettier@3.3.3)
       sst:
-        specifier: ^3.2.11
-        version: 3.2.11
+        specifier: ^3.2.73
+        version: 3.2.73
       svgo:
         specifier: ^3.3.2
         version: 3.3.2
@@ -2697,6 +2700,9 @@ packages:
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
 
+  '@types/aws-lambda@8.10.145':
+    resolution: {integrity: sha512-dtByW6WiFk5W5Jfgz1VM+YPA21xMXTuSFoLYIDY0L44jDLLflVPtZkYuu3/YxpGcvjzKFBZLU+GyKjR0HOYtyw==}
+
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
 
@@ -3364,7 +3370,7 @@ packages:
     engines: {node: '>=8.0.0'}
 
   buffer-fill@1.0.0:
-    resolution: {integrity: sha512-T7zexNBwiiaCOGDg9xNX9PBmjrubblRkENuptryuI64URkXDFum9il/JGL8Lm8wYfAXpredVXXZz7eMHilimiQ==}
+    resolution: {integrity: sha1-+PeLdniYiO858gXNY39o5wISKyw=}
 
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
@@ -3576,7 +3582,7 @@ packages:
     resolution: {integrity: sha512-zW190nQTIoXcGCaU08DvVNFTmQhUpnJfVuAKfWqUQkflXKpaDdpaYoM0iluLS9lgJNHyBF58KKA2FBEwkD7wog==}
 
   colors@1.0.3:
-    resolution: {integrity: sha512-pFGrxThWcWQ2MsAz6RtgeWe4NK2kUE1WfsrvvlctdII745EW9I0yflqhe7++M5LEc7bV2c/9/5zc8sFcpL0Drw==}
+    resolution: {integrity: sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=}
     engines: {node: '>=0.1.90'}
 
   combined-stream@1.0.8:
@@ -3631,7 +3637,7 @@ packages:
     resolution: {integrity: sha512-rj8l8pD4bJ1nx+dAkMhV1xB5RuZEyVysfxJqB1pRchh1KVvwOv9b7CGB8ZfjTImVv2oF+sYMUkMZq6Na5Ftmbg==}
 
   concat-map@0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
 
   concat-stream@2.0.0:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
@@ -4273,6 +4279,7 @@ packages:
   eslint@8.57.1:
     resolution: {integrity: sha512-ypowyDxpVSYpkXr9WPv2PAZCtNip1Mv5KTW0SCurXv/9iOpcrH9PaqUElksqEB6pChqHGDRCFTyrZlGhnLNGiA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@10.1.0:
@@ -4415,7 +4422,7 @@ packages:
     resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
 
   fd-slicer@1.1.0:
-    resolution: {integrity: sha512-cE1qsB/VwyQozZ+q1dGxR8LBYNZeofhEdUNGSMbQD3Gw2lAzX9Zb3uIU6Ebc/Fmyjo9AWWfnn0AUCHqtevs/8g==}
+    resolution: {integrity: sha1-JcfInLH5B3+IkbvmHY85Dq4lbx4=}
 
   feed@4.2.2:
     resolution: {integrity: sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==}
@@ -6112,7 +6119,7 @@ packages:
     resolution: {integrity: sha512-FhJ+YbOSBb9/rIl2ZeE/QHEsWn7PqNYt8ARAY3kIgNGOk13g9FGyIY6JIl/xB/3TFRVoTv5as0l11weORrTekA==}
 
   pend@1.2.0:
-    resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
+    resolution: {integrity: sha1-elfrVQpng/kRUzH89GY9XI4AelA=}
 
   performance-now@2.1.0:
     resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
@@ -6969,33 +6976,33 @@ packages:
     resolution: {integrity: sha512-MGrFH9Z4NP9Iyhqn16sDtBpRRNJ0Y2hNa6D65h736fVSaPCHr4DM4sWUNvVaSuC+0OBGhwsrydQwmgfg5LncqQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  sst-darwin-arm64@3.2.11:
-    resolution: {integrity: sha512-Je5rDfDbfU0xc2g+Wt9ausBZdx0NAodfrgga+mJKvW8WEYRWU1YKHwTzECjTi2k+gSJdge6q8CWrWqOqQGaSwA==}
+  sst-darwin-arm64@3.2.73:
+    resolution: {integrity: sha512-UKGIjQH/RDHzhnTfqTOfTQgJ+fkw4e4ZhOMkGeZjkYrSj6H//rDcEgS0KCqT/Da+A9WGQ5783PlPq5x6dcsjiQ==}
     cpu: [arm64]
     os: [darwin]
 
-  sst-darwin-x64@3.2.11:
-    resolution: {integrity: sha512-80T/OwxmM7bXmYS3ibYKhRCwCgjarAeDnl0dYi/Wlt2ofuYbCCS+9JLIXf/ZzKmRP/5YlmnptECTBwzrFnNYdw==}
+  sst-darwin-x64@3.2.73:
+    resolution: {integrity: sha512-9KHuOGY5QsG+ZR4vcp1on/E6pHbZhUtu0HCgswMOv3MqUflJCtUQzD6/MVAPj8WKjVrrpeDsuxF7IX6UE65/Vw==}
     cpu: [x64]
     os: [darwin]
 
-  sst-linux-arm64@3.2.11:
-    resolution: {integrity: sha512-7gVWDZXtCKKynq9rw1UiYEOQDVyy7qfnQYCGowxfDwL60pi2SNMb8KE1aOd+jHYRJNpZjAjC8inSoL46gdfrhg==}
+  sst-linux-arm64@3.2.73:
+    resolution: {integrity: sha512-xDTnk2KqZnnLxrz+DEIjJhx0V/Sru3H6WToe+hVynWM8v9ni3zHWbHef+IqXa7/Woc9QAqgGEiccl92HuDxC7Q==}
     cpu: [arm64]
     os: [linux]
 
-  sst-linux-x64@3.2.11:
-    resolution: {integrity: sha512-W62WiTmKnvGIS3709oQvHaRvq8pUC7Ta2Uf04Rr67idN0+Edyw8X96Yb7jnjnBt7Rt6i5+sqjjoKj1bkvAEVwA==}
+  sst-linux-x64@3.2.73:
+    resolution: {integrity: sha512-h9lUS4UpJAfnR/+NkLOgfoHnvqYUR3/keitR0tiJITskjT9J6fTdqzYE9hdZVSUZj6S9zj9Zd3JnKYXOR579qQ==}
     cpu: [x64]
     os: [linux]
 
-  sst-linux-x86@3.2.11:
-    resolution: {integrity: sha512-iDnvWBoWbj+NxY0TW95T1/szKC5kFN7mSZ/OsVrhlkgCyhl4RwO3FaK5r1OXbC/qpvSMhV9Hm0+Xi+yu8jtoBA==}
+  sst-linux-x86@3.2.73:
+    resolution: {integrity: sha512-wloNzmSHZiiWIhowKFqtzv41Gk6LtvCtWxhl+hl8D1pT3+wTRp9FqD/zkPGDlw5gYUgajowhrRAYnqXoM3JzNA==}
     cpu: [x86]
     os: [linux]
 
-  sst@3.2.11:
-    resolution: {integrity: sha512-nG4Vu5JmOjZg0je6ek76TBmJ02oAlMM2lHEm8qdBYd7+ccvuvKadWtxWQz2/gTtqE40SpSmaH/fqEQRPUH+ELg==}
+  sst@3.2.73:
+    resolution: {integrity: sha512-PfC1kxCeLujG4iPRtzmbD+b5qkgZ34KQkbIzp/91jzx7YHH4Tmp0HEw2b6XmINb0VhaN1oxjOa0fSX+XMv5KYA==}
     hasBin: true
     peerDependencies:
       hono: 4.x
@@ -7910,7 +7917,7 @@ packages:
     engines: {node: '>=12'}
 
   yauzl@2.10.0:
-    resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
+    resolution: {integrity: sha1-x+sXyT4RLLEIb6bY5R+wZnt5pfk=}
 
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
@@ -10830,6 +10837,8 @@ snapshots:
       '@types/estree': 1.0.5
 
   '@types/aria-query@5.0.4': {}
+
+  '@types/aws-lambda@8.10.145': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -16029,32 +16038,32 @@ snapshots:
     dependencies:
       minipass: 7.1.2
 
-  sst-darwin-arm64@3.2.11:
+  sst-darwin-arm64@3.2.73:
     optional: true
 
-  sst-darwin-x64@3.2.11:
+  sst-darwin-x64@3.2.73:
     optional: true
 
-  sst-linux-arm64@3.2.11:
+  sst-linux-arm64@3.2.73:
     optional: true
 
-  sst-linux-x64@3.2.11:
+  sst-linux-x64@3.2.73:
     optional: true
 
-  sst-linux-x86@3.2.11:
+  sst-linux-x86@3.2.73:
     optional: true
 
-  sst@3.2.11:
+  sst@3.2.73:
     dependencies:
       aws4fetch: 1.0.20
       jose: 5.2.3
       openid-client: 5.6.4
     optionalDependencies:
-      sst-darwin-arm64: 3.2.11
-      sst-darwin-x64: 3.2.11
-      sst-linux-arm64: 3.2.11
-      sst-linux-x64: 3.2.11
-      sst-linux-x86: 3.2.11
+      sst-darwin-arm64: 3.2.73
+      sst-darwin-x64: 3.2.73
+      sst-linux-arm64: 3.2.73
+      sst-linux-x64: 3.2.73
+      sst-linux-x86: 3.2.73
 
   stackback@0.0.2: {}
 
