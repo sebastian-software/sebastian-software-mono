@@ -6,6 +6,8 @@
 
 import type { CdnArgs } from ".sst/platform/src/components/aws";
 
+const buildDate = new Date().toISOString();
+
 export default $config({
   app(input) {
     return {
@@ -47,7 +49,7 @@ export default $config({
         dns: sst.cloudflare.dns({
           transform: {
             record(record) {
-              record.comment = "SST " + $app.stage;
+              record.comment = `SST ${$app.stage} (${buildDate})`;
             }
           }
         })
@@ -59,7 +61,7 @@ export default $config({
           zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST " + $app.stage;
+              record.comment = `SST ${$app.stage} (${buildDate})`;
             }
           }
         })
@@ -72,7 +74,7 @@ export default $config({
           zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST " + $app.stage;
+              record.comment = `SST ${$app.stage} (${buildDate})`;
             }
           }
         })
@@ -84,7 +86,7 @@ export default $config({
           zone: "1849459b28dd975658208ee4ffdb2257",
           transform: {
             record(record) {
-              record.comment = "SST " + $app.stage;
+              record.comment = `SST ${$app.stage} (${buildDate})`;
             }
           }
         })
@@ -94,16 +96,25 @@ export default $config({
     const redirectFunction = new sst.aws.Function("RedirectFunction", {
       handler: "infra/redirect.handler",
       url: true,
+      architecture: "arm64",
+      description: "Redirects www and personal domains to the correct URL",
+      memory: "128 MB"
     });
 
     new sst.aws.Router("RedirectRouter", {
       domain: {
         name: "www.sebastian-software.com",
-        aliases: ["www.sebastian-software.de"],
+        aliases: [
+          "www.sebastian-software.de",
+          "sebastianfastner.de",
+          "www.sebastianfastner.de",
+          "sebastianwerner.de",
+          "www.sebastianwerner.de"
+        ],
         dns: sst.cloudflare.dns({
           transform: {
             record(record) {
-              record.comment = "SST " + $app.stage;
+              record.comment = `SST ${$app.stage} (${buildDate})`;
             }
           }
         }),
