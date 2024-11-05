@@ -75,6 +75,7 @@ export const projectClass = style({
 
     [breakpoints.portrait]: {
       gap: "var(--space-s-m) var(--space-xs-s)",
+      paddingRight: "var(--space-xs-s)",
 
       gridTemplateAreas: `
         "vertical logo"

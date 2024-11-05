@@ -13,7 +13,6 @@ import { SanityPortableImage } from "~/components/sanity-image"
 import type { SlicedPictureBlock } from "~/utils/pictureHandler"
 
 import {
-  agentImageClass,
   consultantHeaderClass,
   consultantHeaderStrongClass,
   gridDescriptionClass,
@@ -57,11 +56,6 @@ export interface ProjectData {
   }
   agent?: {
     name: string
-    logo: PartialNullable<{
-      url: string
-      width: number
-      height: number
-    }>
   } | null
   contractStart: string
   contractEnd: string
@@ -131,7 +125,6 @@ export function Project({ project, encodeDataAttribute }: ProjectProps) {
   const language = i18n.locale
 
   const clientLogo = project.client.logo
-  const agentLogo = project.agent?.logo
 
   return (
     <article className={projectClass}>
@@ -188,15 +181,7 @@ export function Project({ project, encodeDataAttribute }: ProjectProps) {
             <h3 className={metaHeaderClass}>
               <Trans>Agent:</Trans>
             </h3>
-            {agentLogo?.url && (
-              <img
-                src={agentLogo.url}
-                alt={project.agent.name}
-                className={agentImageClass}
-                width={agentLogo.width ?? ""}
-                height={agentLogo.height ?? ""}
-              />
-            )}
+            <p>{project.agent.name}</p>
           </>
         )}
         {/* {data.technologies && (
