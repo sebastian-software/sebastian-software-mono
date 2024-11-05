@@ -94,8 +94,10 @@ export const projectClass = style({
 
 export const gridLogoClass = style({
   gridArea: "logo",
-  maxWidth: "calc(var(--space-5xl))",
+
+  width: "auto",
   height: "auto",
+  maxWidth: "calc(var(--space-5xl))",
 
   "@media": {
     [breakpoints.landscape]: {
