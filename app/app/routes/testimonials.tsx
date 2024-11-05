@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { type MetaFunction, useLoaderData } from "@remix-run/react"
 import { Link } from "@remix-run/react"
@@ -14,7 +15,11 @@ import { formatDate } from "~/utils/formatDate"
 import { buildReadableUrl, encodeFirstUuidSegment } from "~/utils/urlHelper"
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Sebastian Software GmbH" }]
+  return [
+    {
+      title: t`Testimonials - Sebastian Software GmbH`
+    }
+  ]
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

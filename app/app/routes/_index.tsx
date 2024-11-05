@@ -1,4 +1,5 @@
-import type { LoaderFunctionArgs } from "@remix-run/node"
+import { t } from "@lingui/macro"
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { loadQuery } from "@sanity/react-loader"
 import type { HOME_QUERYResult } from "sanity.types"
 
@@ -8,6 +9,14 @@ import { getAppLanguage } from "~/language.server"
 import { ClientList } from "~/pages/home"
 import { HOME_QUERY } from "~/queries/home"
 import { postProcessData } from "~/utils/blockProcessor"
+
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: t`Sebastian Software GmbH`
+    }
+  ]
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {

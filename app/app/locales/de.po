@@ -17,7 +17,7 @@ msgstr ""
 msgid "Aerospace & Defense"
 msgstr "Luft- und Raumfahrt & Verteidigung"
 
-#: app/components/profile/project-list/ProjectList.tsx:99
+#: app/pages/profile/project-list/ProjectList.tsx:182
 msgid "Agent:"
 msgstr "Vermittler:"
 
@@ -53,15 +53,19 @@ msgstr "China"
 msgid "Construction & Engineering"
 msgstr "Bau & Ingenieurwesen"
 
+#: app/routes/consulting.tsx:16
+msgid "Consulting - Sebastian Software GmbH"
+msgstr "Consulting - Sebastian Software GmbH"
+
 #: app/components/i18n/IndustryName.tsx:10
 msgid "Consumer Discretionary"
 msgstr "Nicht-Basiskonsumgüter"
 
-#: app/components/i18n/IndustryName.tsx:31
+#: app/components/i18n/IndustryName.tsx:32
 msgid "Consumer Staples"
 msgstr "Basiskonsumgüter"
 
-#: app/components/profile/project-list/ProjectList.tsx:82
+#: app/pages/profile/project-list/ProjectList.tsx:160
 msgctxt "label"
 msgid "Customer:"
 msgstr "Kunde:"
@@ -106,16 +110,20 @@ msgstr "Hotels, Restaurants & Freizeit"
 msgid "Household & Personal Products"
 msgstr "Haushalts- & Körperpflegeprodukte"
 
+#: app/routes/imprint.tsx:15
+msgid "Imprint - Sebastian Software GmbH"
+msgstr "Impressum - Sebastian Software GmbH"
+
 #: app/components/i18n/IndustryName.tsx:20
 msgid "Industrials"
 msgstr "Industrie"
 
-#: app/components/profile/project-list/ProjectList.tsx:89
+#: app/pages/profile/project-list/ProjectList.tsx:168
 msgctxt "label"
 msgid "Industry:"
 msgstr "Branche:"
 
-#: app/components/i18n/IndustryName.tsx:22
+#: app/components/i18n/IndustryName.tsx:23
 msgid "Information Technology"
 msgstr "Informationstechnologie"
 
@@ -127,48 +135,69 @@ msgstr "Versicherungen"
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: app/components/i18n/IndustryName.tsx:23
+#: app/components/i18n/IndustryName.tsx:24
 msgid "Materials"
 msgstr "Materialien"
 
-#: app/components/i18n/IndustryName.tsx:24
+#: app/components/i18n/IndustryName.tsx:25
 msgid "Media and Entertainment"
 msgstr "Medien und Unterhaltung"
 
-#: app/components/i18n/IndustryName.tsx:25
+#: app/components/i18n/IndustryName.tsx:26
 msgid "Metals & Mining"
 msgstr "Metalle & Bergbau"
+
+#: app/routes/mission.tsx:15
+msgid "Mission - Sebastian Software GmbH"
+msgstr "Unsere Mission - Sebastian Software GmbH"
 
 #: app/components/i18n/CountryName.tsx:11
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: app/components/profile/project-list/ProjectList.tsx:94
+#: app/pages/profile/project-list/ProjectList.tsx:174
 msgctxt "label"
 msgid "Period:"
 msgstr "Zeitraum:"
 
-#: app/components/i18n/IndustryName.tsx:26
+#: app/components/i18n/IndustryName.tsx:27
 msgid "Pharmaceuticals and Biotechnology"
 msgstr "Pharmazeutika und Biotechnologie"
 
-#: app/components/i18n/IndustryName.tsx:27
+#: app/routes/fastner.tsx:17
+msgid "Profile of Sebastian Fastner - Sebastian Software GmbH"
+msgstr "Profile von Sebastian Fastner - Sebastian Software GmbH"
+
+#: app/routes/werner.tsx:17
+msgid "Profile of Sebastian Werner - Sebastian Software GmbH"
+msgstr "Profile von Sebastian Werner - Sebastian Software GmbH"
+
+#: app/components/i18n/IndustryName.tsx:28
 msgid "Real Estate"
 msgstr "Immobilien"
 
-#: app/components/i18n/IndustryName.tsx:36
+#: app/components/i18n/IndustryName.tsx:37
 msgid "Recruitment"
 msgstr "Personalvermittlung"
 
-#: app/components/i18n/IndustryName.tsx:28
+#: app/components/i18n/IndustryName.tsx:29
 msgid "Retail"
 msgstr "Einzelhandel"
 
-#: app/components/i18n/IndustryName.tsx:29
+#: app/pages/profile/project-list/ProjectList.tsx:155
+msgctxt "label"
+msgid "Role:"
+msgstr "Rolle:"
+
+#: app/routes/_index.tsx:16
+msgid "Sebastian Software GmbH"
+msgstr "Sebastian Software GmbH"
+
+#: app/components/i18n/IndustryName.tsx:30
 msgid "Semiconductors"
 msgstr "Halbleiter"
 
-#: app/components/i18n/IndustryName.tsx:30
+#: app/components/i18n/IndustryName.tsx:31
 msgid "Software & Services"
 msgstr "Software & Dienstleistungen"
 
@@ -176,15 +205,27 @@ msgstr "Software & Dienstleistungen"
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: app/components/i18n/IndustryName.tsx:32
+#: app/routes/team.tsx:15
+msgid "Team - Sebastian Software GmbH"
+msgstr "Das Team - Sebastian Software GmbH"
+
+#: app/components/i18n/IndustryName.tsx:33
 msgid "Telecommunication Services"
 msgstr "Telekommunikation"
 
-#: app/components/i18n/IndustryName.tsx:33
+#: app/routes/testimonials.tsx:20
+msgid "Testimonials - Sebastian Software GmbH"
+msgstr "Referenzen - Sebastian Software GmbH"
+
+#: app/routes/testimonial.$slug.tsx:34
+msgid "Testmonial of {author} - Sebastian Software GmbH"
+msgstr "Referenz von {author} - Sebastian Software GmbH"
+
+#: app/components/i18n/IndustryName.tsx:34
 msgid "Textiles, Apparel & Luxury Goods"
 msgstr "Textilien, Bekleidung & Luxusgüter"
 
-#: app/components/i18n/IndustryName.tsx:34
+#: app/components/i18n/IndustryName.tsx:35
 msgid "Transportation"
 msgstr "Transport"
 
@@ -196,6 +237,6 @@ msgstr "Großbritannien"
 msgid "United States"
 msgstr "Vereinigte Staaten"
 
-#: app/components/i18n/IndustryName.tsx:35
+#: app/components/i18n/IndustryName.tsx:36
 msgid "Utilities"
 msgstr "Versorgungsunternehmen"

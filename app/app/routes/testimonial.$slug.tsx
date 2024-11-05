@@ -1,3 +1,5 @@
+import { t } from "@lingui/macro"
+import type { MetaFunction } from "@remix-run/node"
 import { type LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useQuery } from "@sanity/react-loader"
@@ -23,6 +25,15 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     queryParams
   )
   return { initial, query: TESTIMONIAL_QUERY, params: queryParams }
+}
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const author = data?.initial.data?.author.name
+  return [
+    {
+      title: t`Testmonial of ${author} - Sebastian Software GmbH`
+    }
+  ]
 }
 
 export default function TestimonialRoute() {

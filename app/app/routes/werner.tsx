@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro"
 import type { LoaderFunctionArgs } from "@remix-run/node"
 import { type MetaFunction } from "@remix-run/react"
 import type { PROJECTS_QUERYResult } from "sanity.types"
@@ -11,7 +12,11 @@ import { replaceFieldAtPathString } from "~/utils/dataUtil"
 import { processPicture } from "~/utils/pictureHandler"
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Sebastian Software GmbH" }]
+  return [
+    {
+      title: t`Profile of Sebastian Werner - Sebastian Software GmbH`
+    }
+  ]
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
