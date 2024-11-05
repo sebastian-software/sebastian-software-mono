@@ -4,7 +4,6 @@
   "scripts": {
     "deploy:dev": "sst deploy --stage development",
     "deploy:prod": "sst deploy --stage production",
-    "sst:unlock": "sst unlock --stage development",
     "dev": "pnpm -r dev",
     "distclean": "git clean -xdf",
     "format": "prettier --write .",
@@ -13,6 +12,7 @@
     "opt:svg": "svgo --folder app --recursive --multipass && svgo --folder assets --recursive --multipass",
     "prepare": "husky",
     "prepare:env": "cp app/.env.example app/.env && cp studio/.env.example studio/.env",
+    "sst:unlock": "sst unlock --stage development",
     "test:format": "prettier --check .",
     "typecheck": "pnpm run --recursive --parallel typecheck",
     "update:latest": "ncu --deep  --upgrade --interactive",
@@ -33,6 +33,6 @@
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }
