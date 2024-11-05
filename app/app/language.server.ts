@@ -6,16 +6,27 @@ export const languageCookie = createCookie("language", {})
 export async function getAppLanguage(request: Request): Promise<string> {
   const headers = request.headers
   const acceptLangHeader = headers.get("Accept-Language")
+  const hostHeader = headers.get("Host")
+
   const languages = acceptLangHeader
     ? acceptLanguage.parse(acceptLangHeader)
     : []
+
+  const domain = hostHeader?.split(":")[0]
+  const domainLanguage =
+    domain === "sebastian-software.de"
+      ? "de"
+      : domain === "sebastian-software.com"
+        ? "en"
+        : ""
 
   const browserLanguage = languages[0]?.code
   const cookieLanguage = (await languageCookie.parse(
     headers.get("Cookie")
   )) as string
 
-  const appLanguage = cookieLanguage || browserLanguage || "en"
+  const appLanguage =
+    cookieLanguage || domainLanguage || browserLanguage || "en"
   return appLanguage
 }
 
