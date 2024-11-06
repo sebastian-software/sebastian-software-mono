@@ -54,8 +54,20 @@ export default function TestimonialRoute() {
   const headshotImage = urlFor(data.author.headshot)?.url()
 
   return (
-    <section data-sanity={encodeDataAttribute("slug")}>
-      <div style={{ background: "grey" }}>
+    <section
+      data-sanity={encodeDataAttribute("slug")}
+      style={{ paddingBlock: "2rem" }}
+    >
+      <div
+        style={{
+          display: "inline-block",
+          width: "120px",
+          borderRadius: "1rem",
+          background: "white",
+          overflow: "hidden",
+          border: "1px solid #333"
+        }}
+      >
         {headshotImage && (
           <Image
             data-sanity={encodeDataAttribute("author.headshot")}
@@ -65,13 +77,13 @@ export default function TestimonialRoute() {
           />
         )}
       </div>
-      <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>
-      <p style={{ whiteSpace: "pre-line" }}>{data.quote}</p>
       <p>
-        {data.position}
+        {data.author.name}, {data.position}
         <br />
         {data.company?.name}
       </p>
+      <p data-sanity={encodeDataAttribute("date")}>{formatDate(data.date)}</p>
+      <p style={{ whiteSpace: "pre-line" }}>{data.quote}</p>
     </section>
   )
 }
