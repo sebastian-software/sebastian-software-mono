@@ -27,4 +27,5 @@ async function main() {
   })
 }
 
-await main()
+// eslint-disable-next-line unicorn/prefer-top-level-await
+void main()
