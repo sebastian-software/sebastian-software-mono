@@ -1,3 +1,4 @@
+import { i18n } from "@lingui/core"
 import { createCookie } from "@remix-run/node"
 import acceptLanguage from "accept-language-parser"
 
@@ -30,14 +31,16 @@ export async function getAppLanguage(request: Request): Promise<string> {
   return appLanguage
 }
 
-interface Messages {
+export interface MessagesModule {
   messages: Record<string, string>
 }
 
 // Using glob to import all the .po files in the locales directory
 // which is way easier to maintain than manually importing each locale
 // specific file.
-const messages = import.meta.glob<Messages>("./locales/*.po", { eager: true })
+const messages = import.meta.glob<MessagesModule>("./locales/*.po", {
+  eager: true
+})
 
 export function getMessages(locale: string) {
   // Glob imports use the path name as the key to the module
@@ -50,3 +53,14 @@ export function getSupportedLanguages() {
     key.replace("./locales/", "").replace(".po", "")
   )
 }
+
+export function loadAllMessages() {
+  for (const key of Object.keys(messages)) {
+    const clean = key.replace("./locales/", "").replace(".po", "")
+    i18n.load(clean, messages[key].messages)
+  }
+}
+
+// Note: Side-Effect!
+// Pass all messages of all locales to i18n - server side this might be okay.
+loadAllMessages()

@@ -1,10 +1,14 @@
 import { PassThrough } from "node:stream"
 
+import { i18n } from "@lingui/core"
+import { I18nProvider } from "@lingui/react"
 import type { AppLoadContext, EntryContext } from "@remix-run/node"
 import { createReadableStreamFromReadable } from "@remix-run/node"
 import { RemixServer } from "@remix-run/react"
 import * as isbotModule from "isbot"
 import { renderToPipeableStream } from "react-dom/server"
+
+import { getAppLanguage } from "./language.server"
 
 const ABORT_DELAY = 5_000
 
@@ -60,14 +64,20 @@ async function handleBotRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
+  const locale = await getAppLanguage(request)
+  i18n.activate(locale)
+
   return new Promise((resolve, reject) => {
     let shellRendered = false
+
     const { pipe, abort } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <I18nProvider i18n={i18n}>
+        <RemixServer
+          context={remixContext}
+          url={request.url}
+          abortDelay={ABORT_DELAY}
+        />
+      </I18nProvider>,
       {
         onAllReady() {
           shellRendered = true
@@ -110,14 +120,19 @@ async function handleBrowserRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
+  const locale = await getAppLanguage(request)
+  i18n.activate(locale)
+
   return new Promise((resolve, reject) => {
     let shellRendered = false
     const { pipe, abort } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <I18nProvider i18n={i18n}>
+        <RemixServer
+          context={remixContext}
+          url={request.url}
+          abortDelay={ABORT_DELAY}
+        />
+      </I18nProvider>,
       {
         onShellReady() {
           shellRendered = true

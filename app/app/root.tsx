@@ -1,5 +1,3 @@
-import { setupI18n } from "@lingui/core"
-import { I18nProvider } from "@lingui/react"
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node"
 import { json, redirect } from "@remix-run/node"
 import {
@@ -10,7 +8,7 @@ import {
   useLoaderData
 } from "@remix-run/react"
 
-import { getAppLanguage, getMessages, languageCookie } from "./language.server"
+import { getAppLanguage, languageCookie } from "./language.server"
 import { Body, Root } from "./pages/layout"
 import { HeadContent } from "./pages/layout/head-content"
 
@@ -19,17 +17,14 @@ import { HeadContent } from "./pages/layout/head-content"
 // )
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const appLanguage = await getAppLanguage(request)
-  const appMessages = getMessages(appLanguage)
-
   // Note: This follows the recommendation of Remix to not inject
   // env at built time, but instead at runtime from the server.
   // https://remix.run/docs/en/main/guides/envvars#browser-environment-variables
   return json({
+    LOCALE: await getAppLanguage(request),
+
     /* eslint-disable @typescript-eslint/naming-convention */
     ENV: {
-      APP_MESSAGES: appMessages,
-      APP_LANGUAGE: appLanguage,
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
@@ -57,40 +52,32 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function App() {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { ENV } = useLoaderData<typeof loader>()
-  const locale = ENV.APP_LANGUAGE
-
-  // We do not support dynamic language switching in the client
-  // therefore it is safe to only initialize with the current locale and
-  // the SSR pre-loaded messages.
-  const i18n = setupI18n({ locale, messages: { [locale]: ENV.APP_MESSAGES } })
+  const { ENV, LOCALE } = useLoaderData<typeof loader>()
 
   return (
-    <I18nProvider i18n={i18n}>
-      <html lang={i18n.locale}>
-        <head>
-          <meta charSet="utf-8" />
-          <Meta />
-          <Links />
-          <HeadContent />
-        </head>
-        <Body>
-          <Root />
-          <ScrollRestoration />
-          <script
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: `window.ENV = ${JSON.stringify(ENV)}`
-            }}
-          />
-          {/* {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
+    <html lang={LOCALE}>
+      <head>
+        <meta charSet="utf-8" />
+        <Meta />
+        <Links />
+        <HeadContent />
+      </head>
+      <Body>
+        <Root />
+        <ScrollRestoration />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`
+          }}
+        />
+        {/* {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
             <Suspense>
               <LiveVisualEditing />
             </Suspense>
           ) : null} */}
-          <Scripts />
-        </Body>
-      </html>
-    </I18nProvider>
+        <Scripts />
+      </Body>
+    </html>
   )
 }
