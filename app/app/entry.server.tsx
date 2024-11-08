@@ -51,9 +51,10 @@ function isBotRequest(userAgent: string | null) {
   }
 
   // isbot < 3.8.0
-  if ("default" in isbotModule && typeof isbotModule.default === "function") {
-    return isbotModule.default(userAgent)
-  }
+  // (swerner): Is not accepted by TypeScript
+  // if ("default" in isbotModule && typeof isbotModule.default === "function") {
+  //   return isbotModule.default(userAgent)
+  // }
 
   return false
 }
