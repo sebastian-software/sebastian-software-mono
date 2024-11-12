@@ -49,7 +49,7 @@ export function LiveLanguageToggle() {
 
 export function Footer() {
   const hydrated = useHydrated()
-  const toggleDomain = hydrated && !hasDomainLanguage()
+  const toggleDomain = hydrated && hasDomainLanguage()
 
   return (
     <footer className={rootClass}>

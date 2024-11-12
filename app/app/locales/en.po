@@ -114,7 +114,7 @@ msgstr "Hotels, Restaurants & Leisure"
 msgid "Household & Personal Products"
 msgstr "Household & Personal Products"
 
-#: app/pages/layout/footer/Footer.tsx:14
+#: app/pages/layout/footer/Footer.tsx:60
 msgid "Imprint"
 msgstr "Imprint"
 
@@ -143,7 +143,7 @@ msgstr "Insurance"
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
-#: app/pages/layout/footer/Footer.tsx:39
+#: app/pages/layout/footer/Footer.tsx:70
 msgid "Made with ♥ in Mainz and Heidelberg"
 msgstr "Made with ♥ in Mainz and Heidelberg"
 
@@ -184,7 +184,7 @@ msgstr "Pharmaceuticals and Biotechnology"
 msgid "Privacy Policy - Sebastian Software GmbH"
 msgstr "Privacy Policy - Sebastian Software GmbH"
 
-#: app/pages/layout/footer/Footer.tsx:18
+#: app/pages/layout/footer/Footer.tsx:64
 msgid "Privacy Protection"
 msgstr "Privacy Protection"
 
