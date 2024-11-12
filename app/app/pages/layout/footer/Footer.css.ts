@@ -19,5 +19,8 @@ export const buttonClass = style({
   borderRadius: "4px",
   background: "none",
   color: variables.color.white,
-  marginRight: "var(--space-xs)"
+  marginRight: "var(--space-xs)",
+  paddingInline: "1rem",
+  textDecoration: "none",
+  display: "inline-block"
 })

@@ -16,20 +16,26 @@ function hasDomainLanguage() {
 export function DomainLanguageToggle() {
   const hydrated = useHydrated()
   const pathname = hydrated ? window.location.pathname : "/"
+  const isGerman = hydrated && window.location.host === "sebastian-software.de"
+
   return (
     <>
-      <a
-        href={`https://sebastian-software.de${pathname}`}
-        className={buttonClass}
-      >
-        Deutsch
-      </a>{" "}
-      <a
-        href={`https://sebastian-software.com${pathname}`}
-        className={buttonClass}
-      >
-        English
-      </a>
+      {!isGerman && (
+        <a
+          href={`https://sebastian-software.de${pathname}`}
+          className={buttonClass}
+        >
+          Deutsch
+        </a>
+      )}
+      {isGerman && (
+        <a
+          href={`https://sebastian-software.com${pathname}`}
+          className={buttonClass}
+        >
+          English
+        </a>
+      )}
     </>
   )
 }
