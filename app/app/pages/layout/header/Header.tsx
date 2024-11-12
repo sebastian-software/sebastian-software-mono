@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro"
+
 import { Spacer } from "~/components"
 
 import { Container } from "../container"
@@ -26,22 +28,22 @@ export function Header() {
           <ul className={listClass}>
             <li>
               <a href="/mission" className={linkClass}>
-                Mission
+                <Trans>Mission</Trans>
               </a>
             </li>
             <li>
               <a href="/team" className={linkClass}>
-                Team
+                <Trans>Team</Trans>
               </a>
             </li>
             <li>
               <a href="/consulting" className={linkClass}>
-                Consulting
+                <Trans>Consulting</Trans>
               </a>
             </li>
             <li>
               <a href="/testimonials" className={linkClass}>
-                Testimonials
+                <Trans>Testimonials</Trans>
               </a>
             </li>
           </ul>

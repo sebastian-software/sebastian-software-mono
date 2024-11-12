@@ -53,6 +53,10 @@ msgstr "China"
 msgid "Construction & Engineering"
 msgstr "Construction & Engineering"
 
+#: app/pages/layout/header/Header.tsx:41
+msgid "Consulting"
+msgstr "Consulting"
+
 #: app/routes/consulting.tsx:16
 msgid "Consulting - Sebastian Software GmbH"
 msgstr "Consulting - Sebastian Software GmbH"
@@ -110,6 +114,10 @@ msgstr "Hotels, Restaurants & Leisure"
 msgid "Household & Personal Products"
 msgstr "Household & Personal Products"
 
+#: app/pages/layout/footer/Footer.tsx:14
+msgid "Imprint"
+msgstr "Imprint"
+
 #: app/routes/imprint.tsx:15
 msgid "Imprint - Sebastian Software GmbH"
 msgstr ""
@@ -135,6 +143,10 @@ msgstr "Insurance"
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
+#: app/pages/layout/footer/Footer.tsx:39
+msgid "Made with ♥ in Mainz and Heidelberg"
+msgstr "Made with ♥ in Mainz and Heidelberg"
+
 #: app/components/i18n/IndustryName.tsx:24
 msgid "Materials"
 msgstr "Materials"
@@ -146,6 +158,10 @@ msgstr "Media and Entertainment"
 #: app/components/i18n/IndustryName.tsx:26
 msgid "Metals & Mining"
 msgstr "Metals & Mining"
+
+#: app/pages/layout/header/Header.tsx:31
+msgid "Mission"
+msgstr "Mission"
 
 #: app/routes/mission.tsx:15
 msgid "Mission - Sebastian Software GmbH"
@@ -163,6 +179,14 @@ msgstr "Period:"
 #: app/components/i18n/IndustryName.tsx:27
 msgid "Pharmaceuticals and Biotechnology"
 msgstr "Pharmaceuticals and Biotechnology"
+
+#: app/routes/privacy-policy.tsx:15
+msgid "Privacy Policy - Sebastian Software GmbH"
+msgstr "Privacy Policy - Sebastian Software GmbH"
+
+#: app/pages/layout/footer/Footer.tsx:18
+msgid "Privacy Protection"
+msgstr "Privacy Protection"
 
 #: app/routes/fastner.tsx:17
 msgid "Profile of Sebastian Fastner - Sebastian Software GmbH"
@@ -205,6 +229,10 @@ msgstr "Software & Services"
 msgid "Switzerland"
 msgstr "Switzerland"
 
+#: app/pages/layout/header/Header.tsx:36
+msgid "Team"
+msgstr "Team"
+
 #: app/routes/team.tsx:15
 msgid "Team - Sebastian Software GmbH"
 msgstr "Team - Sebastian Software GmbH"
@@ -212,6 +240,10 @@ msgstr "Team - Sebastian Software GmbH"
 #: app/components/i18n/IndustryName.tsx:33
 msgid "Telecommunication Services"
 msgstr "Telecommunication Services"
+
+#: app/pages/layout/header/Header.tsx:46
+msgid "Testimonials"
+msgstr "Testimonials"
 
 #: app/routes/testimonials.tsx:20
 msgid "Testimonials - Sebastian Software GmbH"

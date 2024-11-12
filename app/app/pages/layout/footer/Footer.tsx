@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro"
 import { Form, Link } from "@remix-run/react"
 
 import { Container } from "../container"
@@ -9,7 +10,13 @@ export function Footer() {
       <Container className={containerClass}>
         <div>
           &copy; 2024 Sebastian Software GmbH |{" "}
-          <Link to="/imprint">Impressum</Link>
+          <Link to="/imprint">
+            <Trans>Imprint</Trans>
+          </Link>{" "}
+          |{" "}
+          <Link to="/privacy-policy">
+            <Trans>Privacy Protection</Trans>
+          </Link>
         </div>
         <Form method="post">
           <button
@@ -29,7 +36,7 @@ export function Footer() {
             English
           </button>
         </Form>
-        <span>Gemacht mit ♥ in Mainz und Heidelberg</span>
+        <Trans>Made with ♥ in Mainz and Heidelberg</Trans>
       </Container>
     </footer>
   )
