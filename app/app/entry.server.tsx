@@ -12,11 +12,13 @@ import { getAppLanguage } from "./language.server"
 
 const ABORT_DELAY = 5_000
 
+// eslint-disable-next-line max-params
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext
 ) {
   const prohibitOutOfOrderStreaming =
@@ -97,9 +99,11 @@ async function handleBotRequest(
           pipe(body)
         },
         onShellError(error: unknown) {
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
           reject(error)
         },
         onError(error: unknown) {
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           responseStatusCode = 500
           // Log streaming rendering errors from inside the shell.  Don't log
           // errors encountered during initial shell rendering since they'll
@@ -152,9 +156,11 @@ async function handleBrowserRequest(
           pipe(body)
         },
         onShellError(error: unknown) {
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
           reject(error)
         },
         onError(error: unknown) {
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           responseStatusCode = 500
           // Log streaming rendering errors from inside the shell.  Don't log
           // errors encountered during initial shell rendering since they'll
