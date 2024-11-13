@@ -43,11 +43,24 @@ export function DomainLanguageToggle() {
 export function LiveLanguageToggle() {
   return (
     <>
-      <button type="submit" name="language" value="de" className={buttonClass}>
+      <button type="submit" name="lang" value="de" className={buttonClass}>
         Deutsch
       </button>{" "}
-      <button type="submit" name="language" value="en" className={buttonClass}>
+      <button type="submit" name="lang" value="en" className={buttonClass}>
         English
+      </button>
+    </>
+  )
+}
+
+export function LiveEditToggle() {
+  return (
+    <>
+      <button type="submit" name="edit" value="on" className={buttonClass}>
+        <Trans>Editmode</Trans>
+      </button>{" "}
+      <button type="submit" name="edit" value="off" className={buttonClass}>
+        <Trans>Disable Editmode</Trans>
       </button>
     </>
   )
@@ -72,6 +85,7 @@ export function Footer() {
         </div>
         <Form method="post">
           {toggleDomain ? <DomainLanguageToggle /> : <LiveLanguageToggle />}
+          <LiveEditToggle />
         </Form>
         <Trans>Made with ♥ in Mainz and Heidelberg</Trans>
       </Container>

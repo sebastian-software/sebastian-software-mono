@@ -7,14 +7,15 @@ import {
   ScrollRestoration,
   useLoaderData
 } from "@remix-run/react"
+import { lazy, Suspense } from "react"
 
-import { getAppLanguage, languageCookie } from "./language.server"
+import { editCookie, getAppLanguage, langCookie } from "./language.server"
 import { Body, Root } from "./pages/layout"
 import { HeadContent } from "./pages/layout/head-content"
 
-// const LiveVisualEditing = lazy(
-//   async () => import("~/components/LiveVisualEditing")
-// )
+const LiveVisualEditing = lazy(
+  async () => import("~/components/LiveVisualEditing")
+)
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // Note: This follows the recommendation of Remix to not inject
@@ -22,6 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // https://remix.run/docs/en/main/guides/envvars#browser-environment-variables
   return json({
     LOCALE: await getAppLanguage(request),
+    EDITMODE: (await editCookie.parse(request.headers.get("Cookie"))) === "on",
 
     /* eslint-disable @typescript-eslint/naming-convention */
     ENV: {
@@ -37,12 +39,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   const referer = request.headers.get("Referer") ?? "/"
   const bodyParams = await request.formData()
-  const paramLanguage = bodyParams.get("language")
 
-  if (paramLanguage) {
+  const paramLang = bodyParams.get("lang")
+  if (paramLang) {
     return redirect(referer, {
       headers: {
-        "Set-Cookie": await languageCookie.serialize(paramLanguage)
+        "Set-Cookie": await langCookie.serialize(paramLang)
+      }
+    })
+  }
+
+  const paramEdit = bodyParams.get("edit")
+  if (paramEdit) {
+    return redirect(referer, {
+      headers: {
+        "Set-Cookie": await editCookie.serialize(paramEdit)
       }
     })
   }
@@ -52,7 +63,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function App() {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { ENV, LOCALE } = useLoaderData<typeof loader>()
+  const { ENV, LOCALE, EDITMODE } = useLoaderData<typeof loader>()
 
   return (
     <html lang={LOCALE}>
@@ -71,11 +82,11 @@ export default function App() {
             __html: `window.ENV = ${JSON.stringify(ENV)}`
           }}
         />
-        {/* {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
-            <Suspense>
-              <LiveVisualEditing />
-            </Suspense>
-          ) : null} */}
+        {ENV.SANITY_STUDIO_STEGA_ENABLED && EDITMODE ? (
+          <Suspense>
+            <LiveVisualEditing />
+          </Suspense>
+        ) : null}
         <Scripts />
       </Body>
     </html>

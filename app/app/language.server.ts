@@ -2,7 +2,8 @@ import { i18n } from "@lingui/core"
 import { createCookie } from "@remix-run/node"
 import acceptLanguage from "accept-language-parser"
 
-export const languageCookie = createCookie("language", {})
+export const langCookie = createCookie("lang", {})
+export const editCookie = createCookie("edit", {})
 
 export async function getAppLanguage(request: Request): Promise<string> {
   const headers = request.headers
@@ -22,7 +23,7 @@ export async function getAppLanguage(request: Request): Promise<string> {
         : ""
 
   const browserLanguage = languages[0]?.code
-  const cookieLanguage = (await languageCookie.parse(
+  const cookieLanguage = (await langCookie.parse(
     headers.get("Cookie")
   )) as string
 
