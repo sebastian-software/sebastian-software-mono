@@ -74,6 +74,14 @@ msgctxt "label"
 msgid "Customer:"
 msgstr "Kunde:"
 
+#: app/pages/layout/footer/Footer.tsx:63
+msgid "Disable Editmode"
+msgstr ""
+
+#: app/pages/layout/footer/Footer.tsx:60
+msgid "Editmode"
+msgstr ""
+
 #: app/components/i18n/IndustryName.tsx:12
 msgid "Education"
 msgstr "Bildung"
@@ -114,7 +122,7 @@ msgstr "Hotels, Restaurants & Freizeit"
 msgid "Household & Personal Products"
 msgstr "Haushalts- & Körperpflegeprodukte"
 
-#: app/pages/layout/footer/Footer.tsx:66
+#: app/pages/layout/footer/Footer.tsx:79
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -143,7 +151,7 @@ msgstr "Versicherungen"
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: app/pages/layout/footer/Footer.tsx:76
+#: app/pages/layout/footer/Footer.tsx:90
 msgid "Made with ♥ in Mainz and Heidelberg"
 msgstr "Gemacht mit ♥ in Mainz und Heidelberg"
 
@@ -184,7 +192,7 @@ msgstr "Pharmazeutika und Biotechnologie"
 msgid "Privacy Policy - Sebastian Software GmbH"
 msgstr "Datenschutz-Erklärung - Sebastian Software GmbH"
 
-#: app/pages/layout/footer/Footer.tsx:70
+#: app/pages/layout/footer/Footer.tsx:83
 msgid "Privacy Protection"
 msgstr "Datenschutz-Erklärung"
 
