@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "RedirectStaticSite": {
+      "type": "sst.aws.StaticSite"
+      "url": string
+    }
     "Studio": {
       "type": "sst.aws.StaticSite"
       "url": string

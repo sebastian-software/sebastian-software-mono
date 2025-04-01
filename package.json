@@ -24,6 +24,7 @@
     "@commitlint/config-conventional": "^19.8.0",
     "@types/aws-lambda": "^8.10.148",
     "commitlint": "^19.8.0",
+    "esbuild": "^0.25.2",
     "husky": "^9.1.7",
     "npm-check-updates": "^17.1.16",
     "prettier": "^3.5.3",

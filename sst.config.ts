@@ -8,6 +8,56 @@ import type { CdnArgs } from ".sst/platform/src/components/aws";
 
 const buildDate = new Date().toISOString();
 
+async function canAccessDir(path: string): Promise<boolean> {
+  const fs = await import("fs/promises");
+
+  try {
+    await fs.access(path, fs.constants.R_OK | fs.constants.X_OK); // R_OK = readable, X_OK = executable (enterable)
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function setupInfra() {
+  const path = await import("path");
+
+  const SITE_DIR = "./dist/site";
+
+  const { redirectMap } = await import("./redirect.config");
+  const esbuild = await import("esbuild");
+  const fs = await import("fs/promises");
+
+  const redirectedDomains = Object.keys(redirectMap);
+
+  if (!await canAccessDir(SITE_DIR)) {
+    await fs.mkdir(SITE_DIR, { recursive: true });
+  }
+
+  await fs.writeFile(
+    path.join(SITE_DIR, "index.html"),
+    "Empty index html file"
+  )
+
+  await esbuild.build({
+    entryPoints: ["./infra/edge.ts"],
+    bundle: true,
+    platform: "node",
+    target: "node18",
+    format: "esm",
+    legalComments: "inline",
+    outfile: "./dist/edge.js",
+  })
+
+  const edgeFileContent = (await fs.readFile("./dist/edge.js", "utf-8")).split("/*!--STRIP-EXPORT--*/")[0];
+
+  return {
+    sitePath: "./dist/site",
+    edgeFileContent,
+    redirectedDomains
+  }
+}
+
 export default $config({
   app(input) {
     return {
@@ -28,6 +78,8 @@ export default $config({
     };
   },
   async run() {
+    const { sitePath, edgeFileContent, redirectedDomains } = await setupInfra();
+
     sst.Linkable.wrap(aws.dynamodb.Table, (table) => ({
       properties: { tableName: table.name }
     }))
@@ -92,38 +144,32 @@ export default $config({
         })
       }
     }
-    /*
-    const redirectFunction = new sst.aws.Function("RedirectFunction", {
-      handler: "infra/redirect.handler",
-      url: true,
-      architecture: "arm64",
-      description: "Redirects www and personal domains to the correct URL",
-      memory: "128 MB"
-    });
 
-    new sst.aws.Router("RedirectRouter", {
+    new sst.aws.StaticSite("RedirectStaticSite", {
+      path: sitePath,
+      edge: {
+        viewerRequest: {
+          injection: `${edgeFileContent}\nreturn sfhandler(event);`
+        }
+      },
       domain: {
-        name: "www.sebastian-software.com",
-        aliases: [
-          "www.sebastian-software.de",
-          "sebastianfastner.de",
-          "www.sebastianfastner.de",
-          "sebastianwerner.de",
-          "www.sebastianwerner.de"
-        ],
+        name: redirectedDomains[0],
+        aliases: redirectedDomains.slice(1),
         dns: sst.cloudflare.dns({
+          // override: true,
           transform: {
-            record(record) {
+            record: (record) => {
+              if (redirectedDomains.includes(`${record.name}`)) {
+                // record.proxied = true;
+                // record.ttl = 1;
+              }
               record.comment = `SST ${$app.stage} (${buildDate})`;
             }
           }
-        }),
-      },
-      routes: {
-        "/*": redirectFunction.url
+        })
       }
     });
-    */
+
     const studioSite: sst.aws.StaticSite = new sst.aws.StaticSite("Studio", {
       path: "./studio",
       build: {
@@ -149,5 +195,7 @@ export default $config({
       link: [table],
       path: "app"
     });
+
+    console.log("DELETE DIR")
   },
 });
