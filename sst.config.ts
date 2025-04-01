@@ -92,7 +92,7 @@ export default $config({
         })
       }
     }
-
+    /*
     const redirectFunction = new sst.aws.Function("RedirectFunction", {
       handler: "infra/redirect.handler",
       url: true,
@@ -123,7 +123,7 @@ export default $config({
         "/*": redirectFunction.url
       }
     });
-
+    */
     const studioSite: sst.aws.StaticSite = new sst.aws.StaticSite("Studio", {
       path: "./studio",
       build: {
@@ -138,7 +138,7 @@ export default $config({
         SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN ?? "",
         SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID ?? "",
         SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET ?? "",
-        SANITY_STUDIO_URL: studioSite.url,
+        SANITY_STUDIO_URL: studioSite.url as $util.Output<string>,
         SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED ?? ""
       },
       domain,

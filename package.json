@@ -20,18 +20,18 @@
     "update:pnpm": "corepack up"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.5.0",
-    "@types/aws-lambda": "^8.10.145",
-    "commitlint": "^19.5.0",
-    "husky": "^9.1.6",
-    "npm-check-updates": "^17.1.11",
-    "prettier": "^3.3.3",
-    "prettier-plugin-packagejson": "^2.5.3",
-    "sst": "^3.3.21",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@types/aws-lambda": "^8.10.148",
+    "commitlint": "^19.8.0",
+    "husky": "^9.1.7",
+    "npm-check-updates": "^17.1.16",
+    "prettier": "^3.5.3",
+    "prettier-plugin-packagejson": "^2.5.10",
+    "sst": "^3.11.21",
     "svgo": "^3.3.2"
   },
-  "packageManager": "pnpm@9.13.0",
+  "packageManager": "pnpm@10.7.1",
   "engines": {
     "node": ">=22.0.0"
   }

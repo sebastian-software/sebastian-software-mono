@@ -2,19 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 /* deno-fmt-ignore-file */
-import "sst"
-export {}
+
 declare module "sst" {
   export interface Resource {
-    "RedirectFunction": {
-      "name": string
-      "type": "sst.aws.Function"
-      "url": string
-    }
-    "RedirectRouter": {
-      "type": "sst.aws.Router"
-      "url": string
-    }
     "Studio": {
       "type": "sst.aws.StaticSite"
       "url": string
@@ -29,3 +19,7 @@ declare module "sst" {
     }
   }
 }
+/// <reference path="sst-env.d.ts" />
+
+import "sst"
+export {}
