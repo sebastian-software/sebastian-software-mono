@@ -8,6 +8,9 @@ export type DomainRedirect = {
 
 export type Redirect = PathRedirect | DomainRedirect;
 
+// This is a map of all redirects that are handled by the edge function.
+// If you add a new redirect here, make sure the DNS entry is handled
+// by Cloudflare and the API key is allowed to access the cloudflare zone.
 export const redirectMap: Record<string, Redirect> = {
   "sebastianfastner.de": {
     path: "https://sebastian-software.de/fastner"
