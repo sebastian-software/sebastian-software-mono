@@ -5,6 +5,7 @@ import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
+import type { ProjectConsultantMeta } from "~/pages/profile";
 import { ProjectList } from "~/pages/profile"
 import { PROJECTS_QUERY } from "~/queries/projects"
 import { loadQuery } from "~/sanity/loader.server"
@@ -45,12 +46,19 @@ export default function ProfileWerner() {
   const { data, params, encodeDataAttribute } = useSanityData<typeof loader>()
   const { consultant, projects } = data
 
+  const meta: ProjectConsultantMeta = {
+    location: "Hirschberg an der Bergstraße",
+    email: "s.werner@sebastian-software.de",
+    mobile: "+49 151 22631309"
+  }
+
   return (
     <section>
       {consultant && (
         <ProjectList
           name={params.name}
           consultant={consultant}
+          meta={meta}
           projects={projects}
           encodeDataAttribute={encodeDataAttribute}
         />

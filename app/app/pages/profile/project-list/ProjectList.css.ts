@@ -221,3 +221,31 @@ export const agentImageClass = style({
 // =====================================================
 // META END
 // =====================================================
+
+// =====================================================
+// META INFO START
+// =====================================================
+
+export const metaInformationLine = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "10px"
+})
+
+export const metaInformationContent = style({
+  gridArea: "title"
+})
+
+export const metaInformationLink = style({
+  color: variables.color.violet,
+  textDecoration: "none",
+
+  ":focus-visible": {
+    outline: `2px solid ${variables.color.violet}`,
+    outlineOffset: "2px"
+  }
+})
+
+// =====================================================
+// META INFORMATION END
+// =====================================================

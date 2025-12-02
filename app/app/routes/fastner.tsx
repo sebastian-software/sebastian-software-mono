@@ -5,7 +5,7 @@ import type { PROJECTS_QUERYResult } from "sanity.types"
 
 import { useSanityData } from "~/hooks/data"
 import { getAppLanguage } from "~/language.server"
-import { ProjectList } from "~/pages/profile"
+import { type ProjectConsultantMeta, ProjectList } from "~/pages/profile"
 import { PROJECTS_QUERY } from "~/queries/projects"
 import { loadQuery } from "~/sanity/loader.server"
 import { replaceFieldAtPathString } from "~/utils/dataUtil"
@@ -41,9 +41,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { initial: modifiedInitial, query: PROJECTS_QUERY, params }
 }
 
-export default function ProfileWerner() {
+export default function ProfileFastner() {
   const { data, params, encodeDataAttribute } = useSanityData<typeof loader>()
   const { consultant, projects } = data
+
+  const meta: ProjectConsultantMeta = {
+    location: "Mainz",
+    email: "s.fastner@sebastian-software.de",
+    mobile: "+49 176 32042696"
+  }
 
   return (
     <section>
@@ -51,6 +57,7 @@ export default function ProfileWerner() {
         <ProjectList
           name={params.name}
           consultant={consultant}
+          meta={meta}
           projects={projects}
           encodeDataAttribute={encodeDataAttribute}
         />

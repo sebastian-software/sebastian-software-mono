@@ -17,7 +17,7 @@ msgstr ""
 msgid "Aerospace & Defense"
 msgstr "Luft- und Raumfahrt & Verteidigung"
 
-#: app/pages/profile/project-list/ProjectList.tsx:182
+#: app/pages/profile/project-list/ProjectList.tsx:226
 msgid "Agent:"
 msgstr "Vermittler:"
 
@@ -69,7 +69,7 @@ msgstr "Nicht-Basiskonsumgüter"
 msgid "Consumer Staples"
 msgstr "Basiskonsumgüter"
 
-#: app/pages/profile/project-list/ProjectList.tsx:160
+#: app/pages/profile/project-list/ProjectList.tsx:204
 msgctxt "label"
 msgid "Customer:"
 msgstr "Kunde:"
@@ -90,6 +90,10 @@ msgstr "Bildung"
 msgid "Energy"
 msgstr "Energie"
 
+#: app/components/i18n/LanguageName.tsx:7
+msgid "English"
+msgstr "Englisch"
+
 #: app/components/i18n/IndustryName.tsx:14
 msgid "Financials"
 msgstr "Finanzdienstleistungen"
@@ -101,6 +105,10 @@ msgstr "Lebensmittel, Getränke & Tabak"
 #: app/components/i18n/CountryName.tsx:10
 msgid "France"
 msgstr "Frankreich"
+
+#: app/components/i18n/LanguageName.tsx:6
+msgid "German"
+msgstr "Deutsch"
 
 #: app/components/i18n/CountryName.tsx:6
 msgid "Germany"
@@ -134,7 +142,7 @@ msgstr "Impressum - Sebastian Software GmbH"
 msgid "Industrials"
 msgstr "Industrie"
 
-#: app/pages/profile/project-list/ProjectList.tsx:168
+#: app/pages/profile/project-list/ProjectList.tsx:212
 msgctxt "label"
 msgid "Industry:"
 msgstr "Branche:"
@@ -179,7 +187,7 @@ msgstr "Unsere Mission - Sebastian Software GmbH"
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: app/pages/profile/project-list/ProjectList.tsx:174
+#: app/pages/profile/project-list/ProjectList.tsx:218
 msgctxt "label"
 msgid "Period:"
 msgstr "Zeitraum:"
@@ -216,7 +224,7 @@ msgstr "Personalvermittlung"
 msgid "Retail"
 msgstr "Einzelhandel"
 
-#: app/pages/profile/project-list/ProjectList.tsx:155
+#: app/pages/profile/project-list/ProjectList.tsx:199
 msgctxt "label"
 msgid "Role:"
 msgstr "Rolle:"

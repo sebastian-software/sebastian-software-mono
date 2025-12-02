@@ -4,9 +4,12 @@ import type {
   EncodeDataAttributeCallback,
   useEncodeDataAttribute
 } from "@sanity/react-loader"
+import { Globe, Mail, MapPin } from 'lucide-react';
 
 import type { SupportedCountry, SupportedIndustry } from "~/components/i18n"
 import { CountryName, IndustryName } from "~/components/i18n"
+import { LanguageName } from "~/components/i18n/LanguageName";
+import { LocationName } from "~/components/i18n/LocationName";
 import { Neutral } from "~/components/neutral"
 import { RichText } from "~/components/richtext/RichText"
 import { SanityPortableImage } from "~/components/sanity-image"
@@ -22,6 +25,9 @@ import {
   gridVerticalInfoClass,
   gridVerticalInfoTextClass,
   metaHeaderClass,
+  metaInformationContent,
+  metaInformationLine,
+  metaInformationLink,
   projectClass,
   rootClass
 } from "./ProjectList.css"
@@ -29,6 +35,12 @@ import {
 export interface ProjectConsultant {
   name: string
   headshot: SlicedPictureBlock
+}
+
+export interface ProjectConsultantMeta {
+  location: string
+  email: string
+  mobile: string
 }
 
 export type PartialNullable<T> = {
@@ -64,6 +76,7 @@ export interface ProjectData {
 export interface ProjectListProps {
   readonly name: string
   readonly consultant: ProjectConsultant
+  readonly meta: ProjectConsultantMeta
   readonly projects: ProjectData[]
   readonly encodeDataAttribute: ReturnType<typeof useEncodeDataAttribute>
 }
@@ -71,6 +84,7 @@ export interface ProjectListProps {
 export function ProjectList({
   name,
   consultant,
+  meta,
   projects,
   encodeDataAttribute
 }: ProjectListProps) {
@@ -82,6 +96,7 @@ export function ProjectList({
         {firstName}{" "}
         <strong className={consultantHeaderStrongClass}>{lastName}</strong>
       </h1>
+      <MetaInformation meta={meta} />
       {projects.map((project, i) => (
         <Project
           key={project._id}
@@ -90,6 +105,37 @@ export function ProjectList({
         />
       ))}
     </div>
+  )
+}
+
+/*
+function trimPhoneNumber(phoneNumber: string) {
+  // eslint-disable-next-line unicorn/prefer-string-replace-all
+  return phoneNumber.replace(/\s/g, "")
+}
+*/
+
+export interface MetaInformationProps {
+  readonly meta: ProjectConsultantMeta
+}
+function MetaInformation({ meta }: MetaInformationProps) {
+  const iconSize = 24;
+
+  return (
+    <article className={projectClass}>
+      <div className={gridVerticalInfoClass}>
+        <div className={gridVerticalInfoTextClass}>
+          Kontakt
+        </div>
+      </div>
+
+      <div className={metaInformationContent}>
+        <div className={metaInformationLine}><MapPin size={iconSize} /> <LocationName city={meta.location} /></div>
+        <div className={metaInformationLine}><Mail size={iconSize} /> <a className={metaInformationLink} href={"mailto:" + meta.email}>{meta.email}</a></div>
+        { /* <div className={metaInformationLine}><Headset size={iconSize} /> <a className={metaInformationLink} href={"tel:" + trimPhoneNumber(meta.mobile)}>{meta.mobile}</a></div> */}
+        <div className={metaInformationLine}><Globe size={iconSize} /> <LanguageName code="de" />, <LanguageName code="en" /></div>
+      </div>
+    </article>
   )
 }
 
