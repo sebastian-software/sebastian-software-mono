@@ -1,2 +1,5 @@
 pnpm-lock.yaml
 sanity.types.ts
+
+# mdtheme checks the generated README byte for byte.
+/README.md
